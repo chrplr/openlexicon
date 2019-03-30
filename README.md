@@ -1,6 +1,6 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 21:11:20 christophe@pallier.org>
+% Time-stamp: <2019-03-30 22:01:56 christophe@pallier.org>
 
 This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see [scripts](scripts/README.md))
 
@@ -57,6 +57,11 @@ lexicaux, patrons phonologiques, fréquence moyenne des digrammes).
 ## Gougenheim100 ##
 
 _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition (nombre de textes dans lesquels ils apparaissent). Le corpus sur lequel, il est basé est un corpus de langue oral basé sur un ensembles d'entretiens avec 275 personnes. C'est donc non seulement un corpus de langue orale mais aussi de langue produite. Le corpus original comprend 163 textes, 312.135 mots et 7.995 lemmes différents ([README](databases/Gougenheim100/README-Gougenheim.md))
+
+## Chacqfam ##
+
+CHACQFAM est une base de données renseignant l’âge d’acquisition estimé et la fa
+miliarité pour 1225 mots monosyllabiques et bisyllabiques du Français ([README](databases/chacqfam/README-Chacqfam.md))
 
 
 ## SUBTLEXus ##

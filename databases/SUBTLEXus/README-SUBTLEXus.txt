@@ -17,7 +17,7 @@ significantly higher than the variance accounted for by Kucera &
 Francis, and Celex.
 
 Table:
-[SUBTLEXus74286wordstextversion.tsv](SUBTLEXus74286wordstextversion.tsv)
+[SUBTLEXus74286wordstextversion.tsv](http://www.lexique.org/databases/SUBTLEXus/SUBTLEXus74286wordstextversion.tsv)
 
 Website:
 <https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus>
@@ -25,5 +25,6 @@ Website:
 Publication:
 
 Brysbaert, Marc, Boris New, and Emmanuel Keuleers. 2012. "Adding
-Part-of-Speech Information to the SUBTLEX-US Word Frequencies." Behavior
-Research Methods 44 (4): 991--997.
+Part-of-Speech Information to the SUBTLEX-US Word Frequencies."
+*Behavior Research Methods* 44 (4): 991--997.
+([pdf](Ferrand%20-%202011%20-%20Comparing%20word%20processing%20times%20in%20naming,%20lexical.pdf))

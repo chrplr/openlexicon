@@ -44,6 +44,11 @@ lexicaux, patrons phonologiques, fréquence moyenne des digrammes).
 
 _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition (nombre de textes dans lesquels ils apparaissent). Le corpus sur lequel, il est basé est un corpus de langue oral basé sur un ensembles d'entretiens avec 275 personnes. C'est donc non seulement un corpus de langue orale mais aussi de langue produite. Le corpus original comprend 163 textes, 312.135 mots et 7.995 lemmes différents ([README](Gougenheim100/README-Gougenheim.md))
 
+## Chacqfam ##
+
+CHACQFAM est une base de données renseignant l’âge d’acquisition estimé et la fa
+miliarité pour 1225 mots monosyllabiques et bisyllabiques du Français ([README](chacqfam/README-Chacqfam.md))
+
 
 ## SUBTLEXus ##
 
