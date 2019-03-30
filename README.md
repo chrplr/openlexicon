@@ -1,6 +1,6 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 19:20:07 christophe@pallier.org>
+% Time-stamp: <2019-03-30 20:55:49 christophe@pallier.org>
 
 This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see [scripts](scripts/README.md))
 
@@ -34,65 +34,36 @@ Important: To get the  actual source tables of the databases, you need to downlo
 
 ## Lexique382 ##
 
-_Lexique382_ est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc. 
-
- - Table: [databases/Lexique382.tsv](databases/Lexique382/Lexique382.tsv)
- - README: [databases/README-Lexique382](databases/Lexique382/README-Lexique.md) 
- - Website: <http://www.lexique.org>
+_Lexique382_ est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc. ([README](databases/Lexique382/README-Lexique.md))
 
 
 ## Frantext ##
 
-La table _Frantext_ fournit la liste de tous les types orthographiques obtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique. 
-
- - Table: [Frantext.tsv](databases/Frantext/Frantext.tsv)
- - README: [README-Frantext](databases/Frantext/README-Frantext.md)
+_Frantext_ fournit la liste de tous les types orthographiques obtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique ([README](databases/Frantext/README-Frantext.md)).
 
 
 ## French Lexicon Project ##
 
-The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota, Yap, Cortese, Hutchison, Kessler, Loftis, Neely, Nelson, Simpson, & Treiman, 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times from 975 participants.
-
- - Tables: [FLP.words.csv](databases/FrenchLexiconProject/FLP.words.csv) and 
-       [FLP.pseudowords.csv](databases/FrenchLexiconProject/FLP.pseudowords.csv)
- - README: [README-FrenchLexiconProject](databases/FrenchLexiconProject/README-FrenchLexiconProject.md))
- - Website: <https://sites.google.com/site/frenchlexicon/>
-
+The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota et al. 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times from 975 participants. ([README](databases/FrenchLexiconProject/README-FrenchLexiconProject.md))
 
 ## Megalex ##
 
-_Megalex_ provides visual and auditory lexical decision times and accuracy rates several thousands of words: Visual lexical decision data are available for 28466 French words and the same number of pseudowords, and auditory lexical decision data are available for 17876 French words and the same number of pseudowords. 
-
-   - Table: ???
-   - README: [README-Megalex](databases/Megalex/README-Megalex.md)
-   - Website: ???
+_Megalex_ provides visual and auditory lexical decision times and accuracy rates several thousands of words: Visual lexical decision data are available for 28466 French words and the same number of pseudowords, and auditory lexical decision data are available for 17876 French words and the same number of pseudowords. ([README](databases/Megalex/README-Megalex.md))
 
 
 ## Chronolex ##
 
-_Chronolex_ provides naming times, lexical decision times and progressive demasking scores on most monosyllabic monomorphemic French (about 1500 items).
-
-Thirty-seven participants (psychology students from Blaise Pascal University in Clermont-Ferrand) were tested in the naming task, 35 additionnal participants in the lexical decision task and 33 additionnal participants (from the same pool) were tested in the progressive demasking task.
-
-   - Table: [Chronolex.tsv](databases/Chronolex/Chronolex.tsv)
-   - README: [README-Chronolex](databases/Chronolex/README-Chronolex.md)
-   - Website:
+_Chronolex_ provides naming times, lexical decision times and progressive demasking scores on most monosyllabic monomorphemic French (about 1500 items). Thirty-seven participants were tested in the naming task, 35 additionnal participants in the lexical decision task and 33 additionnal participants were tested in the progressive demasking task. ([README](databases/Chronolex/README-Chronolex.md))
 
 ## Gougenheim100 ##
 
-La base _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition (nombre de textes dans lesquels ils apparaissent). Le corpus sur lequel, il est basé est un corpus de langue oral basé sur un ensembles d'entretiens avec 275 personnes. C'est donc non seulement un corpus de langue orale mais aussi de langue produite. Le corpus original comprend 163 textes, 312.135 mots et 7.995 lemmes différents. 
-
-   - Table: [gougenheim.tsv](databases/Gougenheim100/gougenheim.tsv)
-   - README: [README-Gougenheim](databases/Gougenheim100/README-Gougenheim.md)
+_Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition (nombre de textes dans lesquels ils apparaissent). Le corpus sur lequel, il est basé est un corpus de langue oral basé sur un ensembles d'entretiens avec 275 personnes. C'est donc non seulement un corpus de langue orale mais aussi de langue produite. Le corpus original comprend 163 textes, 312.135 mots et 7.995 lemmes différents ([README](databases/Gougenheim100/README-Gougenheim.md))
 
 
 ## SUBTLEXus ##
 
-_SUBTLEXus_ provides two frequency measures based on American movies subtitles (51 million words in total): a) The frequency per million words, called SUBTLEXWF (word form frequency) b) The percentage of films in which a word occurs, called SUBTLEXCD (contextual diversity).
+_SUBTLEXus_ provides two frequency measures based on American movies subtitles (51 million words in total): a) The frequency per million words, called SUBTLEXWF (word form frequency) b) The percentage of films in which a word occurs, called SUBTLEXCD (contextual diversity) ([README](databases/SUBTLEXus/README-SUBTLEXus.md))
 
-   - Table: [SUBTLEXus74286wordstextversion.tsv](databases/SUBTLEXus/SUBTLEXus74286wordstextversion.tsv)
-   - README: [README-SUBTLEXus](databases/SUBTLEXus/README-SUBTLEXus.md)
-   - Website: <https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus>
 
 -------------------------------------------------------------------------------
 
