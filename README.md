@@ -1,6 +1,6 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 19:15:09 christophe@pallier.org>
+% Time-stamp: <2019-03-30 19:17:42 christophe@pallier.org>
 
 This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see [scripts](scripts/README.md))
 
@@ -41,7 +41,7 @@ _Lexique382_ est une base de données lexicales du français qui fournit pour ~1
 
 ## Frantext ##
 
-La table _Frantext_ fournit la liste de tous les types orthographiques README-Gougenheimobtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique. 
+La table _Frantext_ fournit la liste de tous les types orthographiques obtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique. 
 
  - Table: [Frantext.tsv](databases/Frantext/Frantext.tsv)
  - README: [README-Frantext](databases/Frantext/README-Frantext.md)
@@ -51,9 +51,8 @@ La table _Frantext_ fournit la liste de tous les types orthographiques README-Go
 
 The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota, Yap, Cortese, Hutchison, Kessler, Loftis, Neely, Nelson, Simpson, & Treiman, 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times from 975 participants.
 
- - Tables:  
-      * [FLP.words.csv](databases/FrenchLexiconProject/FLP.words.csv)  
-      * [FLP.pseudowords.csv](databases/FrenchLexiconProject/FLP.pseudowords.csv)
+ - Tables: [FLP.words.csv](databases/FrenchLexiconProject/FLP.words.csv) and 
+       [FLP.pseudowords.csv](databases/FrenchLexiconProject/FLP.pseudowords.csv)
  - README: [README-FrenchLexiconProject](databases/FrenchLexiconProject/README-FrenchLexiconProject.md))
  - Website: <https://sites.google.com/site/frenchlexicon/>
 
