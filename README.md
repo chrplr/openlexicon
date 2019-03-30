@@ -1,6 +1,6 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 13:00:21 christophe@pallier.org>
+% Time-stamp: <2019-03-30 14:16:14 christophe@pallier.org>
 
 This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see the scripts in `examples`)
 
@@ -94,11 +94,11 @@ Megalex est ... 2017
  
  * Important* : Respect [Markdown syntax](https://help.github.com/en/articles/basic-writing-and-formatting-syntax) when editing `.md` files!
 4. Update the `databases.zip` file:
-
-    cd ..
-    zip -u databases.zip databases/
-    
-5. upload `databases.zip` to http://www.lexique.org web server root
+   ```
+       cd ..
+       zip -u databases.zip databases/
+   ```
+5. Upload `databases.zip` to http://www.lexique.org web server root
 6. Edit `databases2rdata.R` and run it generate the `.RData` file associated to the new database in the `rdata` subfolder
 7. Modify `openlexique/app.R` to load the new table and have it listed in the menu.
 
@@ -181,10 +181,41 @@ Alternativly, if you use a web server like apache2 or nginx, you can configure t
 
 ## Add the openlexicon shiny apps to the shiny-server:
 
-    cd /srv/
-    sudo git clone https://github.com/chrplr/openlexicon.git shiny-server
-    sudo cd /srv/shiny-server/
-    sudo ./get_databases.R
+Execute:
+
+    cd 
+    git clone https://github.com/chrplr/openlexicon.git shiny-server
+    cd shiny-server/
+    ./get_databases.R
+
+Edit `/etc/shiny-server/shiny-server.conf`:
+
+    server {
+    listen 3838;
+
+    # For root shiny server (in shinyapps user home folder)
+    location / {
+
+    # The shiny-server process would run by user `chrplr`
+    run_as chrplr;
+
+    # Save logs here
+    log_dir /var/log/shiny-server;
+
+    # Path to shiny server for separate apps
+    site_dir /home/chrplr/shiny-server;
+
+    # List contents of a (non-Shiny-App) directory when clients visit corresponding URIs
+    directory_index on;
+    }
+
+    # Allow users to host their own apps in `~/ShinyApps`
+    location /users {
+      run_as :HOME_USER:;
+      user_dirs;
+     }
+    }
+
     
 ---
 
