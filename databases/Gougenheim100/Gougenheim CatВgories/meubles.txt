@@ -1,0 +1,42 @@
+table
+buffet
+chaise
+lit
+armoire
+table de nuit
+fauteuil
+cuisinière
+placard
+bureau
+bibliothèque
+poste
+étagère
+gaz
+banc
+table à toilette
+divan
+commode
+machine à coudre
+pendule
+poêle
+garde-manger
+cosy
+garde-robe
+porte-manteau
+glace
+piano
+tabouret
+évier
+tiroir
+cadre
+chaise longue
+penderie
+bahut
+table ronde
+desserte
+canapé
+lingère
+glacière
+frigidaire
+baignoire
+vitrine

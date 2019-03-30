@@ -1,0 +1,19 @@
+---
+title: "Welcome to Openlexique shiny server"
+author: "Christophe Pallier"
+date: "March 28, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Searches in lexical databases
+
+* They can be queried online at [openlexique](openlexique/)
+
+* The source files of databases are accessible at [databases](databases/)
+
+
+

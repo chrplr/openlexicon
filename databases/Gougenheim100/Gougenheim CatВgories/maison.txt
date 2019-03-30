@@ -1,0 +1,40 @@
+fenêtre
+porte
+mur
+grenier
+cheminée
+chambre
+plancher
+plafond
+cuisine
+cave
+escalier
+salle à manger
+tuile
+toit
+couloir
+poutre
+charpente
+salle de bains
+carreau
+cloison
+balcon
+évier
+toiture
+volet
+contrevent
+vitre
+plinthe
+cabinet de toilette
+cabinet
+brique
+pierre
+ardoise
+dalle
+débarras
+terrasse
+plâtre
+mansarde
+ciment
+chevron
+bureau

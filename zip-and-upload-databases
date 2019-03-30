@@ -1,0 +1,6 @@
+#! /bin/bash
+
+
+zip -rp -u databases.zip databases/
+scp databases.zip chrplr@37.59.55.222:
+

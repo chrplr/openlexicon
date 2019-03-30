@@ -1,0 +1,6 @@
+#databases/
+databases.zip
+*.tsv
+*.csv
+.RData
+.Rhistory
