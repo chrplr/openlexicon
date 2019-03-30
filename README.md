@@ -1,8 +1,10 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 19:17:42 christophe@pallier.org>
+% Time-stamp: <2019-03-30 19:20:07 christophe@pallier.org>
 
 This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see [scripts](scripts/README.md))
+
+The source code at <https://github.com/chrplr/openlexicon>
 
 Important: To get the  actual source tables of the databases, you need to download and unzip the file [databases.zip](http://lexique.org/databases.zip) (They are not saved on the github repository as they take too mush disk space)
 
@@ -63,7 +65,7 @@ _Megalex_ provides visual and auditory lexical decision times and accuracy rates
 
    - Table: ???
    - README: [README-Megalex](databases/Megalex/README-Megalex.md)
-   - Website:
+   - Website: ???
 
 
 ## Chronolex ##
