@@ -1,11 +1,6 @@
-# Databases available in OpenLexicon #
+# Available open lexical databases #
 
-This folder and its subfolders are part of the [OpenLexicon](http://chrplr.github.io/openlexicon) and [Lexique](http://www.lexique.org) projects.
-
-The `.tsv` and `.csv` files are plain text files that can be easily important in to R, MATLAB or Python. To open them with Excel, check out <https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel->
-
-If you want to contribute, adding or correcting some databases, please contact `christophe@pallier.org` and `boris.new@gmail.com`
-
+Note: For each database, you can click on the "(README)" link to get more information and access the data.
 
 ## Lexique382 ##
 
@@ -54,4 +49,10 @@ miliarité pour 1225 mots monosyllabiques et bisyllabiques du Français ([README
 
 _SUBTLEXus_ provides two frequency measures based on American movies subtitles (51 million words in total): a) The frequency per million words, called SUBTLEXWF (word form frequency) b) The percentage of films in which a word occurs, called SUBTLEXCD (contextual diversity) ([README](SUBTLEXus/README-SUBTLEXus.md))
 
+----
 
+Remarque:
+
+The `.tsv` and `.csv` files are plain text files that can be easily important in to R, MATLAB or Python. To open them with Excel, check out [How to open .tsv file in Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
+
+If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
