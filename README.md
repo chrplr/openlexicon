@@ -1,6 +1,6 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 18:38:10 christophe@pallier.org>
+% Time-stamp: <2019-03-30 19:15:09 christophe@pallier.org>
 
 This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see [scripts](scripts/README.md))
 
@@ -49,7 +49,7 @@ La table _Frantext_ fournit la liste de tous les types orthographiques README-Go
 
 ## French Lexicon Project ##
 
-The _French Lexicon Project_ (FLP) provides visual lexical decision time for about 39000 French words, obtained from 1,000 participants from different universities (Each participant read XXX items).
+The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota, Yap, Cortese, Hutchison, Kessler, Loftis, Neely, Nelson, Simpson, & Treiman, 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times from 975 participants.
 
  - Tables:  
       * [FLP.words.csv](databases/FrenchLexiconProject/FLP.words.csv)  
@@ -65,6 +65,7 @@ _Megalex_ provides visual and auditory lexical decision times and accuracy rates
    - Table: ???
    - README: [README-Megalex](databases/Megalex/README-Megalex.md)
    - Website:
+
 
 ## Chronolex ##
 
@@ -86,10 +87,7 @@ La base _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répa
 
 ## SUBTLEXus ##
 
-_SUBTLEXus_ provide frequency measures based on American movies subtitles (51 million words in total). There are two measures:
-
-- The frequency per million words, called SUBTLEXWF (Subtitle frequency: word form frequency)
-- The percentage of films in which a word occurs, called SUBTLEXCD (Subtitle frequency: contextual diversity; see Adelman, Brown, & Quesada (2006) for the qualities of this measure).
+_SUBTLEXus_ provides two frequency measures based on American movies subtitles (51 million words in total): a) The frequency per million words, called SUBTLEXWF (word form frequency) b) The percentage of films in which a word occurs, called SUBTLEXCD (contextual diversity).
 
    - Table: [SUBTLEXus74286wordstextversion.tsv](databases/SUBTLEXus/SUBTLEXus74286wordstextversion.tsv)
    - README: [README-SUBTLEXus](databases/SUBTLEXus/README-SUBTLEXus.md)
@@ -110,11 +108,9 @@ _SUBTLEXus_ provide frequency measures based on American movies subtitles (51 mi
 
 # How to add a new database #
 
-1. Create a subfolder where you put all the relevant files: Table(s), LICENSE, publications, ... in text format (no Excel!!!**
-2. Add a REAME-XXXX.md file in this folder. O
-3. Edit the present `README.md` file to add a section describing the new database. 
- 
- * Important* : Respect [Markdown syntax](https://help.github.com/en/articles/basic-writing-and-formatting-syntax) when editing `.md` files!
+1. Create a subfolder where you put all the relevant files: Table(s), LICENSE, publications, ... in text format (no Excel!!).
+2. Add a REAME-XXXX.md file in this folder. 
+3. Edit the present `README.md` file to add a section describing the new database. (* Important* : Respect the [Markdown syntax](https://help.github.com/en/articles/basic-writing-and-formatting-syntax) when editing `.md` files!)
 4. Update the `databases.zip` file:
    ```
        cd ..
@@ -128,15 +124,8 @@ _SUBTLEXus_ provide frequency measures based on American movies subtitles (51 mi
 
 # Installation 
 
-1. Either install the package using git: 
-
-   ```
-       git clone https://github.com/chrplr/shiny-server-lexique.git
-   ```
-
-  *Or* download and unzip <https://github.com/chrplr/shiny-server-lexique/archive/master.zip>
-
-2. Download and unzip  <http://lexique.org/databases.zip> in the directory of the project. This should unpack the tables in the `databases` subfolder.`
+1. Either install the package using `git clone https://github.com/chrplr/shiny-server-lexique.git` *or* download and unzip <https://github.com/chrplr/shiny-server-lexique/archive/master.zip>
+2. Download and unzip  <http://lexique.org/databases.zip> in the directory of the project. This will unpack the databases in the `databases` subfolder.`
 
 ## Shiny server
 

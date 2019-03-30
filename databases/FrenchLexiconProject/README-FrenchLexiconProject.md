@@ -1,10 +1,15 @@
-# Time-stamp: <2019-03-30 12:15:52 christophe@pallier.org>
+# French Lexicon Project
 
-The French Lexicon Project (FLP) involved the collection of lexical decision data for 38,840 French words and the same number of nonwords. The full data represents 1942000 reactions times from 975 participants.
+% Time-stamp: <2019-03-30 19:03:15 christophe@pallier.org>
+
+The French Lexicon Project (FLP) provide lexical decision data for 38,840 French words and the same number of nonwords. The full data represents 1942000 reactions times from 975 participants.
 
 Publication:
 
-Ferrand, Ludovic, Boris New, Marc Brysbaert, Emmanuel Keuleers, Patrick Bonin, Alain Méot, Maria Augustinova, and Christophe Pallier. 2010. [The French Lexicon Project: Lexical Decision Data for 38,840 French Words and 38,840 Pseudowords.](Ferrand\ et\ al.\ -\ 2010\ -\ The\ French\ Lexicon\ Project\ Lexical\ decision\ data\ .pdf) _Behavior Research Methods_ 42 (2): 488–96. https://doi.org/10.3758/BRM.42.2.488.
+Ferrand, Ludovic, Boris New, Marc Brysbaert, Emmanuel Keuleers, Patrick Bonin, Alain Méot, Maria Augustinova, and Christophe Pallier. 2010. The French Lexicon Project: Lexical Decision Data for 38,840 French Words and 38,840 Pseudowords. _Behavior Research Methods_ 42 (2): 488–96. https://doi.org/10.3758/BRM.42.2.488. [pdf](Ferrand\ et\ al.\ -\ 2010\ -\ The\ French\ Lexicon\ Project\ Lexical\ decision\ data\ .pdf)
+
+<https://sites.google.com/site/frenchlexicon/>
+
 
 
 This directory contains the raw lexical decision time data from the
