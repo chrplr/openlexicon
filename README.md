@@ -1,8 +1,8 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 14:16:14 christophe@pallier.org>
+% Time-stamp: <2019-03-30 15:35:20 christophe@pallier.org>
 
-This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see the scripts in `examples`)
+This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see [scrispts](scripts/README.md))
 
 Important: To get the  actual source tables of the databases, you need to download and unzip the file [databases.zip](http://lexique.org/databases.zip) (They are not saved on the github repository as they take too mush disk space)
 
@@ -83,6 +83,18 @@ Megalex est ... 2017
    - Table: [databases/SUBTLEXus74286wordstextversion.tsv](SUBTLEXus/SUBTLEXus74286wordstextversion.tsv)
    - README: [databases/README-SUBTLEXus](SUBTLEXus/README-SUBTLEXus.md)
    - Website: https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus
+
+-------------------------------------------------------------------------------
+
+# Usage #
+
+The databases can be queried on-line at <http://www.lexique.org:81/openlexique>
+
+The tables are plain text files in .tsv (tab-separated values) or .csv (comma separated values) which can easily be imported into R with `read.delim` or in Python with `pandas.read_csv`. Some scripts are provided in the subfolder `[scripts](scripts)`
+
+To open a .tsv or a .csv file with Excel, check out <https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel->
+
+
 
 -------------------------------------------------------------------------------
 
