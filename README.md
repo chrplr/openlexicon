@@ -1,31 +1,19 @@
 OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-30 20:55:49 christophe@pallier.org>
+% Time-stamp: <2019-03-30 21:11:20 christophe@pallier.org>
 
 This package provides various lexical databases, and some code to access them, either online (e.g. at <http://lexique.org:81/openlexique>) or offline (see [scripts](scripts/README.md))
 
 The source code at <https://github.com/chrplr/openlexicon>
 
-Important: To get the  actual source tables of the databases, you need to download and unzip the file [databases.zip](http://lexique.org/databases.zip) (They are not saved on the github repository as they take too mush disk space)
+Important: To get the tables of the databases, you need to download and unzip [databases.zip](http://lexique.org/databases.zip) (The tables are not saved on the github repository as they take up too mush disk space)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
 - [Currently available databases](#currently-available-databases)
-    - [Lexique382](#lexique382)
-    - [Frantext](#frantext)
-    - [French Lexicon Project](#french-lexicon-project)
-    - [Megalex](#megalex)
-    - [Chronolex](#chronolex)
-    - [Gougenheim100](#gougenheim100)
-    - [SUBTLEXus](#subtlexus)
 - [How to add a new database](#how-to-add-a-new-database)
 - [Installation](#installation)
-    - [Shiny server](#shiny-server)
-        - [Installation of R](#installation-of-r)
-        - [Installaion of RShiny and Shiny server](#installaion-of-rshiny-and-shiny-server)
-    - [Running:](#running)
-    - [Add the openlexicon shiny apps to the shiny-server:](#add-the-openlexicon-shiny-apps-to-the-shiny-server)
 
 <!-- markdown-toc end -->
 
@@ -54,6 +42,17 @@ _Megalex_ provides visual and auditory lexical decision times and accuracy rates
 ## Chronolex ##
 
 _Chronolex_ provides naming times, lexical decision times and progressive demasking scores on most monosyllabic monomorphemic French (about 1500 items). Thirty-seven participants were tested in the naming task, 35 additionnal participants in the lexical decision task and 33 additionnal participants were tested in the progressive demasking task. ([README](databases/Chronolex/README-Chronolex.md))
+
+
+## Brulex ##
+
+_Brulex_ donne, pour environ 36.000 mots de la langue française, l'orthographe,
+la prononciation, la classe grammaticale, le genre, le nombre et la fréquence
+d'usage. Il contient également d'autres informations utiles à la sélection de
+matériel expérimental (notamment, point d'unicité, comptage des voisins
+lexicaux, patrons phonologiques, fréquence moyenne des digrammes).
+([README](databases/Brulex/README-Brulex.md))
+
 
 ## Gougenheim100 ##
 

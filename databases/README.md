@@ -1,12 +1,10 @@
-This folder and its subfolders are part of the [OpenLexicon](http://chrplr.github.io/openlexicon) and [Lexique](http://www.lexique.org) projects.
+# Databases available in OpenLexicon #
 
-Important note: As the source tables take up a lot of disk space (>100MB), they are not included in the [github repository](https://github.com/chrplr/openlexicon). To get them, you need to download and unzip [databases.zip](http://lexique.org/databases.zip) 
+This folder and its subfolders are part of the [OpenLexicon](http://chrplr.github.io/openlexicon) and [Lexique](http://www.lexique.org) projects.
 
 The `.tsv` and `.csv` files are plain text files that can be easily important in to R, MATLAB or Python. To open them with Excel, check out <https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel->
 
 If you want to contribute, adding or correcting some databases, please contact `christophe@pallier.org` and `boris.new@gmail.com`
-
-# Currently available databases #
 
 
 ## Lexique382 ##
@@ -31,6 +29,16 @@ _Megalex_ provides visual and auditory lexical decision times and accuracy rates
 ## Chronolex ##
 
 _Chronolex_ provides naming times, lexical decision times and progressive demasking scores on most monosyllabic monomorphemic French (about 1500 items). Thirty-seven participants were tested in the naming task, 35 additionnal participants in the lexical decision task and 33 additionnal participants were tested in the progressive demasking task. ([README](Chronolex/README-Chronolex.md))
+
+## Brulex ##
+
+_Brulex_ donne, pour environ 36.000 mots de la langue française, l'orthographe,
+la prononciation, la classe grammaticale, le genre, le nombre et la fréquence
+d'usage. Il contient également d'autres informations utiles à la sélection de
+matériel expérimental (notamment, point d'unicité, comptage des voisins
+lexicaux, patrons phonologiques, fréquence moyenne des digrammes).
+([README](Brulex/README-Brulex.md))
+
 
 ## Gougenheim100 ##
 

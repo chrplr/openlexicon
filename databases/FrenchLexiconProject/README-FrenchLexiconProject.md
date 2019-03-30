@@ -2,8 +2,8 @@
 
 The French Lexicon Project (FLP) provides lexical decision data for 38,840 French words and the same number of nonwords. The full data represents 1942000 reactions times from 975 participants.
 
-Tables: [FLP.words.csv](FLP.words.csv) and 
-        [FLP.pseudowords.csv](FLP.pseudowords.csv)
+Tables: [FLP.words.csv](http://www.lexique.org/databases/FrenchLexiconProject//FLP.words.csv) and 
+        [FLP.pseudowords.csv](http://www.lexique.org/databases/FrenchLexiconProject/FLP.pseudowords.csv)
 
 Web site: <https://sites.google.com/site/frenchlexicon/>
 
@@ -15,7 +15,7 @@ Ferrand, Ludovic, Boris New, Marc Brysbaert, Emmanuel Keuleers, Patrick Bonin, A
 --------------
 
 
-Running `make` executes the commands in `Makefile`: the scripts [process.words.R](process.words.R) and [process.pseudowords.R](process.pseudowords.R) compute the by-item averages from the [raw lexical decision time](results.utf8.csv) data and produce the final tables.
+Running `make` executes the commands in `Makefile`: the scripts [process.words.R](process.words.R) and [process.pseudowords.R](process.pseudowords.R) compute the by-item averages from the [raw lexical decision time](http://www.lexique.org/databases/FrenchLexiconProject/results.utf8.csv) data and produce the final tables.
 
 Intermediate `*.csv` files contain the raw data with an additional
 column ('keep') signaling the items that are within the subject'
