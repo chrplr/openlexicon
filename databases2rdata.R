@@ -1,6 +1,6 @@
 #! /usr/bin/env Rscript
 # convert the tsv files in `databases` into R dataframes and save them in RData format in the `rdata` folder
-# Time-stamp: <2019-03-30 12:57:49 christophe@pallier.org>
+# Time-stamp: <2019-03-30 13:50:34 christophe@pallier.org>
 
 
 require(readr)
@@ -30,4 +30,4 @@ chronolex <- read_delim('databases/Chronolex/Chronolex.tsv', delim='\t')
 save(chronolex, file='rdata/Chronolex.RData')
 
 subtlexus <- read_delim('databases/SUBTLEXus/SUBTLEXus74286wordstextversion.tsv', delim='\t')
-save(subtlexus, file='rdata/SUBTLEXus.Rdata')
+save(subtlexus, file='rdata/SUBTLEXus.RData')
