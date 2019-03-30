@@ -1,10 +1,25 @@
-# Megalex #
+# MEGALEX : méga-étude de la reconnaissance des mots écrits et parlés #
 
-For more than a century, researchers in psycholinguistics, cognitive psychology, and cognitive science have tried to understand the mental processes underlying visual and auditory word recognition (see e.g., Adelman, 2011; Balota, Yap & Cortese, 2006; Ferrand, New, Brysbaert, Keuleers, Bonin, Méot, Augustinova & Pallier, 2010; Grainger & Holcomb, 2009; Grainger & Ziegler, 2011; Dahan & Magnuson, 2006; Pisoni & Levi, 2007). To date, nearly all research has been based on small studies involving a limited set of monosyllabic words selected according to factorial designs, with a limited number of independent variables matched on a series of control variables. The present project aims to supplement previous studies with a new approach, the 'megastudy approach' (see, e.g., Balota et al., 2007, 2013), by (1) using multiple regression designs involving very large-scale stimuli sets; (2) investigating the cognitive processes underlying the visual and auditory word recognition of more complex words, i.e. polysyllabic and polymorphemic words; and (3) using the psychophysical approach (with the repeated measures design) developed recently by Keuleers, Lacey, Rastle, and Brysbaert (2012).
+_Megalex_ provides visual and auditory lexical decision times and accuracy rates several thousands of words: Visual lexical decision data are available for 28466 French words and the same number of pseudowords, and auditory lexical decision data are available for 17876 French words and the same number of pseudowords.
 
-This project had two main phases. Phase 1 of the project has collected reaction times and percent errors in the visual lexical decision task on about 28,000 French words and 28,000 pseudowords with a small group of participants (n=100). The 28,000 words (mainly polysyllabic and polymorphemic words of different lengths and frequencies) were selected among the 130,000 distinct lexical entries available in Lexique (www.lexique.org; New, Pallier, Brysbaert, & Ferrand, 2004). We have also included inflected forms (such as feminine, plural, and verbal forms).
+Tables: [Megalex-items-visual.tsv](http://www.lexique.org/databases/Megalex/Megalex-items-visual.tsv) and [Megalex-items-auditory.tsv](http://www.lexique.org/databases/Megalex/Megalex-items-auditory.tsv)
 
-Phase 2 of the project has collected reaction times and percent errors on 17,876 words and the same number of pseudowords, in a modality never tested before at such large-scale, namely the auditory modality. Megastudies are virtually nonexistent in auditory word recognition research and the literature on auditory word recognition has been dominated by experimental studies. It was therefore crucial to provide and explore an auditory analogue of what has been already done in visual word recognition. Presenting auditory stimuli has implied more effort than presenting visual stimuli, but it was worth trying because factors specific to the auditory modality are influencing auditory word recognition (e.g., phonological neighborhood density, stimulus duration, uniqueness point, etc.) in plus of the usual factors found in visual word recognition (e.g., word frequency, length in letters and syllables, semantic neighbors, etc.).
+
+*TODO : rewrite *
+
+Les deux méga-bases (visuelle et auditive) de MEGALEX auront plusieurs utilisations importantes : (1) des variables continues (comme la fréquence des mots) seront traitées comme telles, permettant d'étudier les effets sur la gamme entière ; (2) l'importance relative des différentes variables lexicales sera déterminée par le pourcentage de variance expliquée  ; (3) des « expériences virtuelles » seront conduites sur ces deux bases de données, afin d'évaluer de nouvelles hypothèses et de vérifier la fiabilité et la généralité des effets ; (4) ces bases de données seront utilisées pour évaluer les modèles computationnels de la reconnaissance des mots ; (5) ces méga-bases de données seront utiles pour identifier de nouvelles variables afin d’évaluer si elles expliquent un pourcentage de variance additionnel par rapport à d’autres variables classiques.
+
+## Méga-étude de décision lexicale visuelle ##
+
+Dans ce projet MEGALEX, notre premier objectif principal est d'appliquer l'approche psychophysique développée par Keuleers et al. (2010, 2012) au français (décision lexicale visuelle), en testant 28 000 mots et 28 000 pseudomots à travers 100 participants qui réaliseront 20 heures d’expérience. Cela permettra de réaliser de nouvelles analyses et également d’augmenter la puissance de ces analyses (modèles mixtes). Par ailleurs, cela permettra de mieux comprendre les similarités et les différences entre l'anglais (Balota et al., 2007 ; Keuleers et al., 2012), le français (Ferrand et al., 2010) et le néerlandais (Keuleers et al., 2010), ce qui éclairera également les chercheurs qui essayent de séparer les processus spécifiques à une langue donnée des processus généralisables à toutes les langues. De plus, les temps de réaction recueillis seront indispensables pour les simulations des modèles computationnels de la lecture qui utilisent le français comme langue (Grainger & Jacobs, 1996 ; Perry, Ziegler, & Zorzi, 2007, 2010). Enfin, ce corpus permettra d'étudier le traitement des mots polysyllabiques et polymorphémiques, alors que jusqu'à présent, la majorité des études portait sur des mots monosyllabiques seulement.
+
+## Méga-étude de décision lexicale auditive ##
+
+Notre deuxième objectif principal est de tester, pour la première fois au monde à cette échelle, plusieurs dizaines de milliers de mots en présentation auditive (les mêmes mots que ceux utilisés en modalité visuelle seront testés). Il n’existe aucune méga-étude dans le domaine de la reconnaissance des mots parlés et la littérature dans ce domaine est dominée par l’approche factorielle (Dahan & Magnuson, 2007 ; Pisoni & Lévi, 2007). Il est donc crucial de fournir une étude auditive équivalente à ce qui existe déjà dans la modalité visuelle. La présentation de stimuli auditifs demande plus d’efforts que la présentation de stimuli visuels, mais ce projet est important dans la mesure où des facteurs spécifiques à la modalité auditive influencent la reconnaissance des mots parlés (par exemple, la densité du voisinage phonologique, la durée du stimulus, le point d’unicité, etc.) en plus des facteurs habituels trouvés dans la reconnaissance des mots écrits (par exemple, la fréquence lexicale, la longueur, etc.).
+
+
+
+
 
 
 ## Partners ##
@@ -23,6 +38,7 @@ Project supported by the French Agence Nationale de la Recherche (ANR) - ANR-12-
 
 Publication:
 
-Ferrand, Ludovic, Alain Méot, Elsa Spinelli, Boris New, Christophe Pallier, Patrick Bonin, Stéphane Dufau, Sebastiaan Mathôt, and Jonathan Grainger. 2017. “MEGALEX: A Megastudy of Visual and Auditory Word Recognition.” Behavior Research Methods, August. https://doi.org/10.3758/s13428-017-0943-1. [pdf](Ferrand\ et\ al.\ -\ 2017\ -\ MEGALEX\ A\ megastudy\ of\ visual\ and\ auditory\ word\ r.pdf)
+Ferrand, Ludovic, Alain Méot, Elsa Spinelli, Boris New, Christophe Pallier, Patrick Bonin, Stéphane Dufau, Sebastiaan Mathôt, and Jonathan Grainger. 2017. “MEGALEX: A Megastudy of Visual and Auditory Word Recognition.” _Behavior Research Methods_. https://doi.org/10.3758/s13428-017-0943-1. ([pdf](Ferrand et al. - 2017 - MEGALEX A megastudy of visual and auditory word r.pdf))
+
 
 

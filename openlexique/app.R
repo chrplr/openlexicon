@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-03-30 13:17:03 christophe@pallier.org>
+# Time-stamp: <2019-03-30 23:04:08 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -16,6 +16,8 @@ load('../rdata/Frantext.RData')
 load('../rdata/gougenheim.RData')
 load('../rdata/images400.RData')
 load('../rdata/SUBTLEXus.RData')
+load('../rdata/Megalex-auditory.RData')
+load('../rdata/Megalex-visual.RData')
 
 
 server <- function(input, output) {
@@ -29,7 +31,9 @@ server <- function(input, output) {
                "FLP.words" = flp.words,
                "FLP.pseudo" = flp.pseudowords,
                "Chronolex" = chronolex,
-               "SUBTLEXus" = subtlexus)
+               "SUBTLEXus" = subtlexus,
+               "Megalex-auditory" = megalex.auditory,
+               "Megalex-visual" = megalex.visual)
     })
 
     output$caption <- renderText({
@@ -61,7 +65,7 @@ ui <- fluidPage(
         sidebarLayout(
             sidebarPanel(
                 selectInput("dataset", "Choose a dataset:",
-                            choices = c("Lexique3.82", "Brulex", "Frantext", "FLP.pseudo", "FLP.words", "Chronolex",  "400images", "Gougenheim", "SUBTLEXus"))
+                            choices = c("Lexique3.82", "Brulex", "Frantext", "FLP.pseudo", "FLP.words", "Chronolex",  "400images", "Gougenheim", "SUBTLEXus", "Megalex-auditory", "Megalex-visual"))
             ),
         mainPanel(
             h3(textOutput("caption", container = span)),
