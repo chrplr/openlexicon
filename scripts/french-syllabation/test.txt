@@ -1,0 +1,34 @@
+abeille	ab_ï	a-b_ï	2	 V-CVY	abeille	abEj	a-bEj	2	 V-CVY
+aboyer	abüaïé	a-büa-ïé	3	 V-CYV-YV	arbre	aRbR*	aR-bR*	2	 VC-CCV
+arbre	aRbR	aRbR	1	 VCCC	astre	astR*	as-tR*	2	 VC-CCV
+astre	astR	astR	1	 VCCC	autrefois	OtR*fwa	Ot-R*-fwa	3	 VC-CV-CYV
+autrefois	OtR^füa	Ot-R^-füa	3	 VC-CV-CYV	bouilloire	bujwaR	buj-waR	2	 CVY-YVC
+bouilloire	buïüaR	buï-üaR	2	 CVY-YVC	cadeau	kadO	ka-dO	2	 CV-CV
+cadeau	kadO	ka-dO	2	 CV-CV	castor	kastOR	kas-tOR	2	 CVC-CVC
+caillou	kaïu	ka-ïu	2	 CV-YV	chien	Sj5	Sj5	1	 CYV
+castor	kastoR	kas-toR	2	 CVC-CVC	costume	kOstym	kOs-tym	2	 CVC-CVC
+chien	/ïê	/ïê	1	 CYV	exploit	Eksplwa	Ek-splwa	2	 VC-CCCYV
+costume	kostym	kos-tym	2	 CVC-CVC	fluide	fl8id	fl8id	1	 CCYVC
+exploit	_ksplüa	_k-splüa	2	 VC-CCCYV	galerie	galRi	gal-Ri	2	 CVC-CV
+fluide	flyid	fly-id	2	 CCV-VC	joueur	Zw9R	Zw9R	1	 CYVC
+fluide	flyid	fly-id	2	 CCV-VC	madeleine	madlEn	mad-lEn	2	 CVC-CVC
+galerie	galRi	gal-Ri	2	 CVC-CV	notre	nOtR*	nOt-R*	2	 CVC-CV
+joueur	jüeR	jüeR	1	 CYVC	nuage	n8aZ	n8aZ	1	 CYVC
+joueur	jüeR	jüeR	1	 CYVC	obstruer	OpstRye	Op-stRy-e	3	 VC-CCCV-V
+madeleine	madl_n	mad-l_n	2	 CVC-CVC	polluer	pOl8e	pO-l8e	2	 CV-CYV
+notre	notR	notR	1	 CVCC	poète	pOEt	pO-Et	2	 CV-VC
+notre-dame	notR^dam	not-R^-dam	3	 CVC-CV-CVC	sauterelle	sOtREl	sOt-REl	2	 CVC-CVC
+nuage	nÿaj	nÿaj	1	 CYVC	sciure	sjyR	sjyR	1	 CYVC
+octroyer	oktRüaïé	ok-tRüa-ïé	3	 VC-CCYV-YV	skieur	skj9R	skj9R	1	 CCYVC
+poète	po_t	po-_t	2	 CV-VC	stagner	stagne	stag-ne	2	 CCVC-CV
+poète	po_t	po-_t	2	 CV-VC	tatouer	tatwe	ta-twe	2	 CV-CYV
+polluer	polÿé	po-lÿé	2	 CV-CYV	tueuse	t82z	t82z	1	 CYVC
+sauterelle	sOtR_l	sOt-R_l	2	 CVC-CVC	vieillerie	vjEjRi	vjE-jRi	2	 CYV-YCV
+sciure	sïyR	sïyR	1	 CYVC	
+skieur	skïeR	skïeR	1	 CCYVC	
+sonnerie	sonRi	son-Ri	2	 CVC-CV	
+stagner	stagné	stag-né	2	 CCVC-CV	
+stigmate	stigmat	stig-mat	2	 CCVC-CVC	
+tatouer	tatüé	ta-tüé	2	 CV-CYV	
+tueuse	tÿEz	tÿEz	1	 CYVC	
+vieillerie	vï_ïRi	vï_ï-Ri	2	 CYVY-CV	

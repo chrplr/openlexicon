@@ -1,0 +1,20 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2002.8.30)  14 MAY 2004 11:09
+**\nonstopmode\input{master.tex}^^M
+
+! Emergency stop.
+<read *> 
+         
+<*> \nonstopmode\input{master.tex}
+                                  ^^M
+*** (cannot \read from terminal in nonstop modes)
+
+ 
+Here is how much of TeX's memory you used:
+ 2 strings out of 20839
+ 16 string characters out of 194961
+ 46604 words of memory out of 350001
+ 3043 multiletter control sequences out of 10000+15000
+ 3640 words of font info for 14 fonts, out of 400000 for 1000
+ 26 hyphenation exceptions out of 1000
+ 4i,0n,3p,1b,7s stack positions out of 1500i,100n,500p,200000b,4000s
+No pages of output.

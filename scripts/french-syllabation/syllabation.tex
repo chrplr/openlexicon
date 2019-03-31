@@ -1,0 +1,274 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{verbatim}
+\usepackage{moreverb}
+
+\makeatletter
+\def\verbatim@font{\small\ttfamily}
+\makeatother
+\renewcommand{\tt}{\small\ttfamily}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{hyperref}
+
+%\textwidth 18cm
+%\oddsidemargin -1cm 
+
+\begin{document}
+
+\title{Syllabation des représentations phonétiques de Brulex et de Lexique}
+
+\author{Christophe Pallier\thanks{http://www.pallier.org. Voir aussi http://www.lexique.org. Tout
+    commentaire est bien venu.}}  \date{17 février 1999 (mis à jour le
+  12 mai 2004)} \maketitle
+
+Cette note décrit l'algorithme utilisé pour syllaber
+(ou ``syllabifier'') les représentations phonétiques des bases
+lexicales du français Brulex et Lexique.
+
+Disons tout de suite qu'il existe plusieurs théories sur la
+syllabification des groupes de consonnes. Certaines se fondent sur des
+critères acoustico-phonétiques, d'autres sont d'inspiration plus
+phonologique. La table 1 (adaptée de Laeufer (1992) dans le chapitre~6
+de ma thèse (Pallier, 1994)) présente six propositions.
+
+\begin{table}[h!]
+
+\caption{Différentes propositions de syllabifications de mots
+français (d'après Laeufer, 1992)}
+\begin{center}
+\begin{tabular}{llcccccc}
+\hline & & Grammont & \multicolumn{2}{c}{Delattre} & Pulgram &
+Noske &  Levin \\
+ & & & & & Malmberg & & \\
+
+& & & apt. & force & & & \\
+
+OL & {\it caprice\/}    & -pr & -pr & -pr & -pr & -pr & -pr \\
+   & {\it atlas\/}      & -tl & -tl & -tl & t-l & t-l & t-l \\
+
+ON & {\it technique\/}  & -kn & -kn & -kn & k-n & k-n & k-n \\
+
+OF & {\it adverbe\/}    & -dv & -dv & -dv & d-v & d-v & d-v \\
+
+OO & {\it structure\/}  & -kt/k-t & k-t & k-t & k-t & k-t & k-t \\
+\\
+FL & {\it casserole\/}  & -sr & -sr & -sr & s-r & s-r & -sr \\
+   & {\it disloque\/}   & -sl & -sl & s-l & s-l & s-l & s-l \\
+   & {\it influent\/}   & -fl & -fl & -fl & -fl & f-l & -fl \\
+
+FN & {\it transmis\/}   & -sm & s-m & s-m & s-m & s-m & s-m \\
+
+FF & {\it blasphème\/}  & -sf/s-f & s-f & s-f & s-f & s-f & s-f \\
+
+FO & {\it diphtongue\/} & f-t & f-t & f-t & f-t & f-t & f-t \\
+\\
+
+NL & {\it minerai}      & -nr & -nr & -nr & n-r & n-r & n-r \\
+
+NN & {\it calomnie}     & -mn/m-n & -mn & -mn & m-n & m-n & m-n \\
+
+NF & {\it hameçon}      & m-s & -ms & -ms & m-s & m-s & m-s \\
+
+NO & {\it samedi}       & m-d & m-d & -md & m-d & m-d & m-d \\
+\\
+LL & {\it galerie}      & -lr/l-r & -lr & -lr & l-r & l-r & l-r
+\\
+   & {\it berlue}       & -rl/r-l & r-l & r-l & r-l & r-l & r-l \\
+
+LN & {\it calmant}      & l-m & l-m & -lm & l-m & l-m & l-m
+\\
+
+LF & {\it répulsif}     & l-s & l-s & -ls & l-s & l-s & l-s
+\\
+
+LO & {\it culbute}      & l-b & l-b & -lb & l-b & l-b & l-b
+\\
+\\
+\hline
+\multicolumn{8}{l}{O = occlusives ; F = fricatives ; N = nasales ; L = liquides}
+\end{tabular}
+\end{center}
+\end{table}
+
+
+Pratiquement toutes les théories s'accordent à syllabifier les groupes
+occlusive--occlusive (OO) entre les deux consonnes : /capture/ est
+syllabifié en /cap-ture/. Par contre, les théories sont en désaccord
+sur le statut des groupes occlusive-fricative (OF) : /capsule/ est-il
+/ca-psule/ ou /cap-sule/ ? 
+
+La syllabation que nous proposons pour Brulex et Lexique n'est donc
+qu'un choix parmi plusieurs possibles (essentiellement fondé sur nos
+intuitions personnelles !). Elle corresponds à celle de Pulgram sur
+les exemples de la table 1. Notre idée n'a jamais été d'imposer, avec
+Lexique, une syllabation.  Cette note décrit l'algorithme afin
+permettre à ceux qui le désirent de corriger selon leurs besoins la
+syllabation que nous avons proposé.
+
+Si vous utilisez cet algorithme, ou le modifiez, ou détectez des
+problèmes, je vous serais reconnaissant de me le faire
+savoir.\footnote{Mon email est disponible sur le site
+  www.pallier.org}
+
+\clearpage
+
+\renewcommand{\arraystretch}{1.2}
+
+\begin{table}
+\caption{Règles de syllabation simplifiées}
+\begin{tabular}{p{3.2cm}@{\quad$\longrightarrow$\quad}p{2.2cm}p{5cm}} \hline
+Chaine  &  Syllabation  &  Exemple(s) \\
+
+VV      &   V--V         &  poete [po-et] \\
+
+VCV, VLV, VYV    &   V--CV        &   cadeau [ca-do], calot [ca-lo], aboyer [a-büa-ïé]\\
+
+VYYV    &   VY--YV      & bouilloire [buï-üaR] \\
+
+VCYV, VLYV    &   V--CYV   &   tatouer [ta-tüé],  polluer [po-lÿé] \\
+
+V [td]RV V & V--CCV & autrement [o-tre-mâ] \\
+\parbox{3.5cm}{\raggedright\rule{0pt}{12pt}VCLV  (où C $\in$ [pkbgfs/vzj])}   &   V--CLV & caprice [ka-pRis] \\
+
+\parbox{3.5cm}{\raggedright\rule{0pt}{12pt}VCCV, VLCV, VLLV, VYCV, VYLV}   &   VC--CV  &  capture [kap-ture], costume
+        [kos-tum], galerie [gal-Ri], vieillerie, [vï\_ï-Ri], atlas [at-las], madeleine [mad-l\_n]  \\
+
+VXXXV   &   VX--XXV      & astrophysique [as-tRo...] \\ 
+
+VXXXXV  &   VX--XXXV    &  obstruer [op-stRy-é], octroyer [ok-tRüa-ïé] \\ \hline
+
+\end{tabular}
+\parbox{.6\textwidth}{
+Notations:
+
+V = voyelles (incluant schwa), \emph{sans} les semi-voyelles
+
+C = toutes les consonnes sauf liquides et semi-voyelles
+
+L = liquides  \{l, R\}
+
+Y = semi-voyelles \{ü, ï, ÿ\}
+
+X = C ou L ou Y
+}
+\end{table}
+
+
+La table~2 résume les principales règles de syllabation que nous nous
+proposons d'appliquer. Plusieurs remarques méritent d'être soulignées~:
+
+\begin{itemize}
+\item On est obligé de distinguer les semi-voyelles des voyelles: 
+tuer [tüé] vs clouer [klu-é] 
+
+\item On est obligé de distinguer les semi-voyelles des liquides: 
+polluer  [po-lüé] vs. galerie [gal-Ri]
+
+\item On a supprimé les schwa finaux des mots multisyllabiques: 
+ notre (notR\^{}) $\rightarrow$ [notR]
+ arbre (aRbR\^{}) $\rightarrow$ [arbR]
+
+\item Certains choix de syllabation sont certainement discutables, tels que:
+stagner $\rightarrow$ [stag-né],
+castor $\rightarrow$ [kas-toR],
+astro  $\rightarrow$ [as-tRo],
+
+\end{itemize}
+
+Le script de syllabation fournit en annexe explicite toutes les règles. 
+
+Nous n'avons pas systématiquement priviligié la règle de l'attaque
+maximal ou le principe de sonorité.  
+
+Nous avons décidé qu'une syllabe non finale contenait au plus une
+consonne en coda. Par exemple, 'exploit' devient 'ek-sploit'. Ceci est
+conforme avec la règle de l'attaque maximale même si cela viole le
+principe de sonorité.
+
+Il nous a aussi fallu prendre une décision vis-à-vis des schwa finaux. Nous
+avons décidé de les supprimer des représentations phonétiques. Ainsi
+'arbre' est pour nous un monosyllabe.
+
+Finalement, notez que les représentations phonétiques de Brulex et de
+Lexique ne sont pas strictement identiques (cf. par exemple 'fluide' qui
+contient une voyelle 'u' selon le premier, et un semivoyelle selon le
+second). C'est pourquoi les syllabations ne sont pas toujours en
+accord...
+
+
+\section*{Réalisation pratique}
+
+L'algorithme est réalisé par un script \texttt{syllabation.awk} écrit
+dans le language Awk. Le programme libre gawk
+(www.gnu.org/software/gawk/gawk.html) permet de le faire fonctionner.
+
+L'intérêt de Awk est que les expressions régulières permettent
+d'exprimer les règles de façon très lisible.
+
+Les représentations phonétiques de Brulex et Lexique utilisent des
+codages différents. Par défaut, le script suppose que le codage de
+Lexique (en fait de LAIPTTS) est utilisé ; en mettant 'brulex' dans la
+variable 'code', le cadage de Brulex est employé.
+
+Ce script peut être utilisé interactivement, en tapant simplement~:
+
+\begin{verbatim}
+gawk -f syllabation.awk
+\end{verbatim}
+
+puis en entrant des représentations phonétiques (code Lexique).
+
+
+Pour syllaber le fichier brulex.txt:
+
+\begin{verbatim}
+       gawk -vphons=2 -vcode=brulex -f syllabation.awk brulex.txt 
+\end{verbatim}
+
+et pour syllaber lexique260$\_$graph.txt:
+
+\begin{verbatim}
+        gawk -vphons=2 -f syllabation.awk lexique260_graph.txt 
+\end{verbatim} 
+
+Si l'utilitaire '\texttt{make}' est disponible, il suffit de taper
+'make' pour syllaber les deux fichiers.
+
+Le commande '\texttt{make test}' fournit les syllabations des mots listés dans le fichier \texttt{mots$\_$test.txt}. Le résultat est dans le fichier \texttt{tests.txt}.
+
+Les fichiers qui accompagnent  \texttt{syllabation.awk} sont~:
+
+\begin{itemize}
+\item syllabation.pdf:  description (sommaire) des regles de syllabation
+
+\item brulex.txt et lexique260$\_$graph.txt : fichiers contenant les formes orthographique et phonetiques de brulex et la table graphemes de lexique.
+
+\item Makefile:         règles pour l'utilitaire 'make'.
+
+\item mots$\_$test.txt  :  liste de mots dont on veut verifier les syllabations
+
+\item tests.txt      :  resultats de la syllabation (selon brulex, puis selon lexique)
+\end{itemize}
+
+
+
+
+\section*{Code source du script \texttt{syllabation.awk}}
+
+Voici le script awk qui reéalise cette syllabification.
+
+
+\listinginput{1}{syllabation.awk}
+
+\end{document}
+
+
+
+
+
+
+
+
+

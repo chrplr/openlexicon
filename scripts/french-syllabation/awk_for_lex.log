@@ -1,0 +1,183 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2002.8.30)  16 MAY 2004 21:50
+**awk_for_lex
+(awk_for_lex.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, b
+asque, italian, portuges, russian, spanish, swedish, nohyphenation, loaded.
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size11.clo
+File: size11.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2001/07/10 v0.99a Input encoding file 
+
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2001/07/10 v0.99a Input encoding file 
+))
+(/usr/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2001/06/05 v1.94 Standard LaTeX package
+
+(/usr/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 2001/06/05 v1.94 Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 38.
+))
+(/home/pallier/texmf/latex/hyperref/hyperref.sty
+Package: hyperref 1999/02/16 6.50 Hypertext links for LaTeX
+
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/home/pallier/texmf/latex/hyperref/nameref.sty
+Package: nameref 1997/11/24 Cross-referencing by name of section
+)
+\@linkdim=\dimen103
+
+(/home/pallier/texmf/latex/hyperref/pd1enc.def
+File: pd1enc.def 1998/10/28 v0.1 PDFDocEncoding (Heiko Oberdiek)
+)
+Package hyperref Info: Bookmarks ON on input line 444.
+Package hyperref Info: Hyper figures OFF on input line 461.
+Package hyperref Info: Link nesting OFF on input line 466.
+Package hyperref Info: Hyper index ON on input line 469.
+Package hyperref Info: Plain pages ON on input line 474.
+Package hyperref Info: Backreferencing OFF on input line 481.
+
+Implicit mode ON; LaTeX internals redefined
+(/usr/share/texmf/tex/latex/misc/url.sty
+\Urlmuskip=\muskip10
+Package: url 1999/03/28  ver 1.5x  Verb mode for urls, etc.
+)
+\Fld@menulength=\count87
+\Field@Width=\dimen104
+\Fld@charsize=\dimen105
+\Choice@toks=\toks15
+\Field@toks=\toks16
+Package hyperref Info: Hyper figures OFF on input line 950.
+Package hyperref Info: Link nesting OFF on input line 955.
+Package hyperref Info: Hyper index ON on input line 958.
+Package hyperref Info: backreferencing OFF on input line 965.
+Package hyperref Info: Link coloring OFF on input line 970.
+\c@Item=\count88
+\c@Hfootnote=\count89
+\OddToc=\count90
+LaTeX Info: Redefining \ref on input line 1525.
+LaTeX Info: Redefining \pageref on input line 1526.
+)
+*hyperref using default driver hypertex*
+(/home/pallier/texmf/latex/hyperref/hypertex.def)
+(/usr/share/texmf/tex/generic/babel/babel.sty
+Package: babel 2001/03/01 v3.7h The Babel package
+
+(/home/pallier/texmf/latex/french/frenchle/french.ldf
+File: french.ldf 2001/11/28 v1.9 french option of babel loading the French pack
+age
+
+(/home/pallier/texmf/latex/french/frenchle/frenchle.sty
+Package: frenchle 2003/01/03  The light version of the French package /V5,09/
+
+(/usr/share/texmf/tex/generic/babel/babel.def
+File: babel.def 2001/03/01 v3.7h Babel common definitions
+\babel@savecnt=\count91
+\U@D=\dimen106
+)
+\@FrDimen=\dimen107
+
+
+ -23- Extension : style frenchle V5,09 -- 3 janvier 2003 -- (B.Gaulle)
+ -24- frenchle.sty utilise dans ce document le codage de fonte T1.
+ -25- frenchle.sty affiche ici ses messages en 7-bits << \`a la TeX >>.
+
+Package frenchle Info: Initialisation de l'option frenchle pour Babel on input 
+line 1650.
+\c@chapter=\count92
+\@FrCount=\count93
+))) (/usr/share/texmf/tex/latex/psnfss/times.sty
+Package: times 2001/06/04 PSNFSS-v8.2 (SPQR) 
+)
+(/usr/share/texmf/tex/latex/tools/verbatim.sty
+Package: verbatim 2001/03/12 v1.5p LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks17
+\verbatim@line=\toks18
+\verbatim@in@stream=\read1
+)
+(/home/pallier/texmf/latex/moreverb.sty
+Package: moreverb 1997/12/07 v2.2d.2 `more' verbatim facilities
+\verbatim@out=\write3
+\tab@position=\count94
+\tab@size=\count95
+\listing@line=\count96
+) (awk_for_lex.aux)
+\openout1 = `awk_for_lex.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 23.
+
+(/usr/share/texmf/tex/latex/psnfss/t1ptm.fd
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+)
+Package hyperref Info: Link coloring OFF on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 38.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 38.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 38.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 38.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 38.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 65.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 96.
+
+(/usr/share/texmf/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+) [1
+
+]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 115.
+ [2] [3] [4] [5]
+Overfull \hbox (47.20866pt too wide) in paragraph at lines 348--348
+[]    \T1/pcr/m/n/10 if (mot=="") { # la variable mot doit etre definie sur la 
+ligne de commande[] 
+ []
+
+[6] [7] (awk_for_lex.aux) ) 
+Here is how much of TeX's memory you used:
+ 2436 strings out of 20839
+ 28014 string characters out of 194961
+ 80167 words of memory out of 350001
+ 5404 multiletter control sequences out of 10000+15000
+ 26499 words of font info for 43 fonts, out of 400000 for 1000
+ 26 hyphenation exceptions out of 1000
+ 30i,11n,24p,214b,359s stack positions out of 1500i,100n,500p,200000b,4000s
+
+Output written on awk_for_lex.dvi (7 pages, 17688 bytes).
