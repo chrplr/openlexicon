@@ -56,4 +56,6 @@ The `.tsv` and `.csv` files are plain text files that can be easily important in
 
 If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
 
+----
 
+Back to [main page](../README.md)

@@ -1,6 +1,6 @@
 # Installation of openlexicon
 
-% Time-stamp: <2019-03-31 10:46:43 christophe@pallier.org>
+% Time-stamp: <2019-03-31 11:16:57 christophe@pallier.org>
 
 1. Either install the package using `git clone https://github.com/chrplr/shiny-server-lexique.git` *or* download and unzip <https://github.com/chrplr/shiny-server-lexique/archive/master.zip>
 2. Download and unzip  <http://lexique.org/databases.zip> in the directory of the project. This will unpack the databases in the `databases` subfolder.`
@@ -105,4 +105,6 @@ Edit `/etc/shiny-server/shiny-server.conf`:
      }
     }
 
-    
+---- 
+
+Back to [main page](README.md)

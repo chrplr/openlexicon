@@ -1,6 +1,6 @@
 # How to add a new database #
 
-% Time-stamp: <2019-03-31 10:48:29 christophe@pallier.org>
+% Time-stamp: <2019-03-31 11:15:52 christophe@pallier.org>
 
 1. Create a subfolder where you put all the relevant files: Table(s), LICENSE, publications, ... in text format (no Excel!!).
 2. Add a REAME-XXXX.md file in this folder. 
@@ -13,3 +13,7 @@
 5. Upload `databases.zip` to http://www.lexique.org web server root
 6. Edit `databases2rdata.R` and run it generate the `.RData` file associated to the new database in the `rdata` subfolder
 7. Modify `openlexique/app.R` to load the new table and have it listed in the menu.
+
+---
+
+Back to [main page](README.md)
