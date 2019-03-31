@@ -1,14 +1,13 @@
 # OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-31 11:27:36 christophe@pallier.org>
+% Time-stamp: <2019-03-31 11:37:06 christophe@pallier.org>
 
 _Openlexicon_ provides tables from various lexical databases and some code to manipulate them.
 
-* List of [currently available databases](databases/README.md)
-* To query the databases online, go to <http://www.lexique.org:81/openlexique>)
+* List of the [currently available databases](databases/README.md)
+* To query the databases online, go to <http://www.lexique.org:81/openlexique>
 * To manipulate the databases, see  [examples of scripts](scripts/README.md)
 
-  The tables are plain text files in `.tsv` (tab-separated values) or `.csv` (comma separated values) which can easily be imported into R with `readr::read_delim`, or in Python with `pandas.read_csv`. We provide a few examples in [scripts](scripts/README.md). To open a `.tsv` or a `.csv` file with Excel, check out [How do I open a tsv file in Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-**
 
 **Important note**: If you want to get all the tables of the databases, you can download and unzip [databases.zip](http://lexique.org/databases.zip) (The tables are not saved in the [github repository](https://github.com/chrplr/openlexicon) as they take up too mush disk space)
 
