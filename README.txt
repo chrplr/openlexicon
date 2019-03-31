@@ -1,7 +1,7 @@
 OpenLexicon: Access to lexical databases
 ========================================
 
-\% Time-stamp: \<2019-03-31 13:15:43 christophe\@pallier.org\>
+\% Time-stamp: \<2019-03-31 13:30:29 christophe\@pallier.org\>
 
 *Openlexicon* provides tables from various lexical databases and some
 code to manipulate them.
@@ -9,8 +9,7 @@ code to manipulate them.
 -   Check out the [currently available databases](databases/README.md)
 -   Query the databases online at
     <http://www.lexique.org:81/openlexique>
--   Manipulate the databases offline, following [examples of
-    scripts](scripts/README.md)
+-   Manipulate the databases offline using [scripts](scripts/README.md)
 
 **Data Tables:** The tables from all the databases can be downloaded
 from <http://lexique.org/databases.zip> (They take up too much disk
@@ -19,7 +18,7 @@ repository](https://github.com/chrplr/openlexicon)).
 
 **For maintainers:** - [How to add a new
 database](README-how-to-install-a-new-database.md) -
-\[Installation\](README-Install.md\*\*
+[Installation](README-Install.md)
 
 **License:**
 
