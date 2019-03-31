@@ -41,8 +41,7 @@ _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition 
 
 ## Chacqfam ##
 
-CHACQFAM est une base de données renseignant l’âge d’acquisition estimé et la fa
-miliarité pour 1225 mots monosyllabiques et bisyllabiques du Français ([README](chacqfam/README-Chacqfam.md))
+CHACQFAM est une base de données renseignant l’âge d’acquisition estimé et la familiarité de 1225 mots Français ([README](chacqfam/README-Chacqfam.md))
 
 
 ## SUBTLEXus ##
@@ -51,8 +50,10 @@ _SUBTLEXus_ provides two frequency measures based on American movies subtitles (
 
 ----
 
-Remarque:
+Remark:
 
 The `.tsv` and `.csv` files are plain text files that can be easily important in to R, MATLAB or Python. To open them with Excel, check out [How to open .tsv file in Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
 
 If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
+
+
