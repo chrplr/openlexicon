@@ -76,8 +76,8 @@ Chacqfam
 --------
 
 CHACQFAM est une base de données renseignant l'âge d'acquisition estimé
-et la fa miliarité pour 1225 mots monosyllabiques et bisyllabiques du
-Français ([README](chacqfam/README-Chacqfam.md))
+et la familiarité de 1225 mots Français
+([README](chacqfam/README-Chacqfam.md))
 
 SUBTLEXus
 ---------
@@ -90,13 +90,17 @@ in which a word occurs, called SUBTLEXCD (contextual diversity)
 
 ------------------------------------------------------------------------
 
-Remarque:
+Remark:
 
 The `.tsv` and `.csv` files are plain text files that can be easily
-important in to R, MATLAB or Python. To open them with Excel, check out
-[How to open .tsv file in
+imported in to R, MATLAB or Python, or even [opened with
 Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
+Check out our [script examples](../scripts/README.md).
 
 If you want to contribute, by adding a database, or just sending some
 corrections, please contact `christophe@pallier.org` and
 `boris.new@gmail.com`
+
+------------------------------------------------------------------------
+
+Back to [main page](../README.md)

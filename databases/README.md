@@ -52,7 +52,7 @@ _SUBTLEXus_ provides two frequency measures based on American movies subtitles (
 
 Remark:
 
-The `.tsv` and `.csv` files are plain text files that can be easily important in to R, MATLAB or Python. To open them with Excel, check out [How to open .tsv file in Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
+The `.tsv` and `.csv` files are plain text files that can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
 
 If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
 
