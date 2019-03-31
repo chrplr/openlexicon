@@ -1,10 +1,8 @@
 # OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-31 13:30:29 christophe@pallier.org>
+_[Openlexicon](https://chrplr.github.io/openlexicon)_ provides tables from various lexical databases and some code to manipulate them.
 
-_Openlexicon_ provides tables from various lexical databases and some code to manipulate them.
-
-* Check out the [currently available databases](databases/README.md)
+* Check out the list of [currently available databases](databases/README.md)
 * Query the databases online at <http://www.lexique.org:81/openlexique>
 * Manipulate the databases offline using [scripts](scripts/README.md)
 
@@ -31,6 +29,7 @@ Also most databases have associated publications listed in their respective `REA
 
 If you want to contribute, by adding a database, or sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
 
+% Time-stamp: <2019-03-31 13:40:22 christophe@pallier.org>
 
 
 

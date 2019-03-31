@@ -3,17 +3,17 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-    - [Francais](#francais)
-        - [Lexique382](#lexique382)
-        - [Frantext](#frantext)
-        - [French Lexicon Project](#french-lexicon-project)
-        - [Megalex](#megalex)
-        - [Chronolex](#chronolex)
-    - [Brulex](#brulex)
-        - [Gougenheim100](#gougenheim100)
-        - [Chacqfam](#chacqfam)
-    - [English (American and British ##)](#english-american-and-british-)
-        - [SUBTLEXus](#subtlexus)
+- [Francais](#francais)
+    - [Lexique382](#lexique382)
+    - [Frantext](#frantext)
+    - [French Lexicon Project](#french-lexicon-project)
+    - [Megalex](#megalex)
+    - [Chronolex](#chronolex)
+- [Brulex](#brulex)
+    - [Gougenheim100](#gougenheim100)
+    - [Chacqfam](#chacqfam)
+- [English (American and British)](#english-american-and-british)
+    - [SUBTLEXus](#subtlexus)
 
 <!-- markdown-toc end -->
 
@@ -64,7 +64,7 @@ _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition 
 CHACQFAM est une base de données renseignant l’âge d’acquisition estimé et la familiarité de 1225 mots Français ([README](chacqfam/README-Chacqfam.md))
 
 
-## English (American and British ##)
+## English (American and British) ##
 
 ### SUBTLEXus ###
 
