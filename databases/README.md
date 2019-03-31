@@ -2,34 +2,8 @@
 
 This is a list of open lexical databases with links to the data.
 
-Note that similar lists or resources can be found at:
 
-- Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
-- English Lexicon Project at <http://elexicon.wustl.edu/>
-
-
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
-
-- [Available lexical databases](#available-lexical-databases)
-    - [Francais](#francais)
-        - [Lexique382](#lexique382)
-        - [Frantext](#frantext)
-        - [French Lexicon Project](#french-lexicon-project)
-        - [Megalex](#megalex)
-        - [Chronolex](#chronolex)
-        - [Brulex](#brulex)
-        - [Gougenheim100](#gougenheim100)
-        - [Chacqfam](#chacqfam)
-    - [English (American and British)](#english-american-and-british)
-        - [SUBTLEXus](#subtlexus)
-        - [British Lexicon Project](#british-lexicon-project)
-    - [Usage:](#usage)
-
-<!-- markdown-toc end -->
-
-
-Note: For each database, you can click on the "(README)" link to get more information and access the data.
+Note: For each database, you can click on the "(README)" link to get more information. 
 
 ## Francais ##
 
@@ -58,12 +32,7 @@ _Chronolex_ provides naming times, lexical decision times and progressive demask
 
 ### Brulex ###
 
-_Brulex_ donne, pour environ 36.000 mots de la langue française, l'orthographe,
-la prononciation, la classe grammaticale, le genre, le nombre et la fréquence
-d'usage. Il contient également d'autres informations utiles à la sélection de
-matériel expérimental (notamment, point d'unicité, comptage des voisins
-lexicaux, patrons phonologiques, fréquence moyenne des digrammes).
-([README](Brulex/README-Brulex.md))
+_Brulex_ donne, pour environ 36.000 mots de la langue française, l'orthographe, la prononciation, la classe grammaticale, le genre, le nombre et la fréquence d'usage. Il contient également d'autres informations utiles à la sélection de matériel expérimental (notamment, point d'unicité, comptage des voisins lexicaux, patrons phonologiques, fréquence moyenne des digrammes). ([README](Brulex/README-Brulex.md))
 
 
 ### Gougenheim100 ###
@@ -87,11 +56,20 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical decision dat
 
 ----
 
-## Usage:
+
+
+## Usage
 
 The `.tsv` and `.csv` files are plain text files that can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
 
 If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
+
+----
+
+## Similar lists or resources
+
+- Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
+- English Lexicon Project at <http://elexicon.wustl.edu/>
 
 ----
 
