@@ -1,11 +1,39 @@
-Available open lexical databases
-================================
+Available lexical databases
+===========================
 
+This is a list of open lexical databases with links to the data.
+
+Note that similar lists or resources can be found at:
+
+-   Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
+-   English Lexicon Project at <http://elexicon.wustl.edu/>
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+-   [Available lexical databases](#available-lexical-databases)
+    -   [Francais](#francais)
+        -   [Lexique382](#lexique382)
+        -   [Frantext](#frantext)
+        -   [French Lexicon Project](#french-lexicon-project)
+        -   [Megalex](#megalex)
+        -   [Chronolex](#chronolex)
+        -   [Brulex](#brulex)
+        -   [Gougenheim100](#gougenheim100)
+        -   [Chacqfam](#chacqfam)
+    -   [English (American and British)](#english-american-and-british)
+        -   [SUBTLEXus](#subtlexus)
+        -   [British Lexicon Project](#british-lexicon-project)
+    -   [Usage:](#usage)
+
+<!-- markdown-toc end -->
 Note: For each database, you can click on the "(README)" link to get
 more information and access the data.
 
-Lexique382
-----------
+Francais
+--------
+
+### Lexique382
 
 *Lexique382* est une base de données lexicales du français qui fournit
 pour \~140000 mots du français: les représentations orthographiques et
@@ -14,16 +42,14 @@ grammaticale, le genre et le nombre, les fréquences dans un corpus de
 livres et dans un corpus de sous-titres de filems, etc.
 ([README](Lexique382/README-Lexique.md))
 
-Frantext
---------
+### Frantext
 
 *Frantext* fournit la liste de tous les types orthographiques obtenus
 après tokenization du sous-corpus de Frantext utilisé pour calculer les
 fréquences "livres"\" de Lexique
 ([README](Frantext/README-Frantext.md)).
 
-French Lexicon Project
-----------------------
+### French Lexicon Project
 
 The *French Lexicon Project* (FLP) was inspired from the *English
 Lexicon Project* (Balota et al. 2007). It provides visual lexical
@@ -31,8 +57,7 @@ decision time for about 39000 French words and as many pseudowords. The
 full data represents 1942000 reactions times from 975 participants.
 ([README](FrenchLexiconProject/README-FrenchLexiconProject.md))
 
-Megalex
--------
+### Megalex
 
 *Megalex* provides visual and auditory lexical decision times and
 accuracy rates several thousands of words: Visual lexical decision data
@@ -41,8 +66,7 @@ and auditory lexical decision data are available for 17876 French words
 and the same number of pseudowords.
 ([README](Megalex/README-Megalex.md))
 
-Chronolex
----------
+### Chronolex
 
 *Chronolex* provides naming times, lexical decision times and
 progressive demasking scores on most monosyllabic monomorphemic French
@@ -51,8 +75,7 @@ task, 35 additionnal participants in the lexical decision task and 33
 additionnal participants were tested in the progressive demasking task.
 ([README](Chronolex/README-Chronolex.md))
 
-Brulex
-------
+### Brulex
 
 *Brulex* donne, pour environ 36.000 mots de la langue française,
 l'orthographe, la prononciation, la classe grammaticale, le genre, le
@@ -61,8 +84,7 @@ informations utiles à la sélection de matériel expérimental (notamment,
 point d'unicité, comptage des voisins lexicaux, patrons phonologiques,
 fréquence moyenne des digrammes). ([README](Brulex/README-Brulex.md))
 
-Gougenheim100
--------------
+### Gougenheim100
 
 *Gougenheim100* présente, pour 1064 mots, leur fréquence et leur
 répartition (nombre de textes dans lesquels ils apparaissent). Le corpus
@@ -72,15 +94,16 @@ corpus de langue orale mais aussi de langue produite. Le corpus original
 comprend 163 textes, 312.135 mots et 7.995 lemmes différents
 ([README](Gougenheim100/README-Gougenheim.md))
 
-Chacqfam
---------
+### Chacqfam
 
 CHACQFAM est une base de données renseignant l'âge d'acquisition estimé
 et la familiarité de 1225 mots Français
 ([README](chacqfam/README-Chacqfam.md))
 
-SUBTLEXus
----------
+English (American and British)
+------------------------------
+
+### SUBTLEXus
 
 *SUBTLEXus* provides two frequency measures based on American movies
 subtitles (51 million words in total): a) The frequency per million
@@ -88,9 +111,16 @@ words, called SUBTLEXWF (word form frequency) b) The percentage of films
 in which a word occurs, called SUBTLEXCD (contextual diversity)
 ([README](SUBTLEXus/README-SUBTLEXus.md))
 
+### British Lexicon Project
+
+The British Lexicon Project (Keuleers et al, 2012) contains lexical
+decision data for over 28,000 monosyllabic and disyllabic English words.
+([README](BritishLexiconProject/README-BritishLexiconProject)).
+
 ------------------------------------------------------------------------
 
-Remark:
+Usage:
+------
 
 The `.tsv` and `.csv` files are plain text files that can be easily
 imported in to R, MATLAB or Python, or even [opened with
@@ -104,3 +134,7 @@ corrections, please contact `christophe@pallier.org` and
 ------------------------------------------------------------------------
 
 Back to [main page](../README.md)
+
+------------------------------------------------------------------------
+
+Time-stamp: \<2019-03-31 14:01:37 christophe\@pallier.org\>

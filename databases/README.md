@@ -11,17 +11,20 @@ Note that similar lists or resources can be found at:
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Francais](#francais)
-    - [Lexique382](#lexique382)
-    - [Frantext](#frantext)
-    - [French Lexicon Project](#french-lexicon-project)
-    - [Megalex](#megalex)
-    - [Chronolex](#chronolex)
-    - [Brulex](#brulex)
-    - [Gougenheim100](#gougenheim100)
-    - [Chacqfam](#chacqfam)
-- [English (American and British)](#english-american-and-british)
-    - [SUBTLEXus](#subtlexus)
+- [Available lexical databases](#available-lexical-databases)
+    - [Francais](#francais)
+        - [Lexique382](#lexique382)
+        - [Frantext](#frantext)
+        - [French Lexicon Project](#french-lexicon-project)
+        - [Megalex](#megalex)
+        - [Chronolex](#chronolex)
+        - [Brulex](#brulex)
+        - [Gougenheim100](#gougenheim100)
+        - [Chacqfam](#chacqfam)
+    - [English (American and British)](#english-american-and-british)
+        - [SUBTLEXus](#subtlexus)
+        - [British Lexicon Project](#british-lexicon-project)
+    - [Usage:](#usage)
 
 <!-- markdown-toc end -->
 
@@ -84,7 +87,7 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical decision dat
 
 ----
 
-Remark:
+## Usage:
 
 The `.tsv` and `.csv` files are plain text files that can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
 
