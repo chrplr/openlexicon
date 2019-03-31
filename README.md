@@ -1,6 +1,6 @@
 # OpenLexicon: Access to lexical databases
 
-% Time-stamp: <2019-03-31 11:01:25 christophe@pallier.org>
+% Time-stamp: <2019-03-31 11:06:50 christophe@pallier.org>
 
 _Openlexicon_ provides tables from various lexical databases and some code to manipulate them. 
 
@@ -14,7 +14,7 @@ The tables are plain text files in `.tsv` (tab-separated values) or `.csv` (comm
 **Table of Contents**
 
 - [Currently available databases](databases/README.md)
-- [How to add a new database](README-how-to-add-a-new-database.md)
+- [How to add a new database](README-how-to-install-a-new-database.md)
 - [Installation](README-Install.md)
 
 
@@ -29,6 +29,7 @@ Please cite us if you use our work:
 
 * Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
+Most databases have associated publications listed in their respective `README` files. You should also cite them in any derivative work!
 
 If you want to contribute, by adding a database, or sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
 
