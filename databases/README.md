@@ -1,5 +1,6 @@
 # Available lexical databases #
 
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
@@ -81,3 +82,7 @@ If you want to contribute, by adding a database, or just sending some correction
 ----
 
 Back to [main page](../README.md)
+
+----
+
+Time-stamp: <2019-03-31 14:01:37 christophe@pallier.org>
