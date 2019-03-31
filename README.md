@@ -2,17 +2,20 @@
 
 _[Openlexicon](https://chrplr.github.io/openlexicon)_ provides tables from various lexical databases and some code to manipulate them.
 
-* Check out the list of [currently available databases](databases/README.md)
-* Query the databases online at <http://www.lexique.org:81/openlexique>
+* Check out the list of [open lexical databases](databases/README.md)
+* Query most databases online at <http://www.lexique.org:81/openlexique>
 * Manipulate the databases offline using [scripts](scripts/README.md)
 
 
-**Data Tables:** The source tables from all the databases can be downloaded from <http://lexique.org/databases.zip> (They take up too much disk space (>100MB) to be included in [Openlexicon's github repository](https://github.com/chrplr/openlexicon)).
+**Data Tables:** 
+
+The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (They take up too much disk space (>100MB) to be included in [Openlexicon's github repository](https://github.com/chrplr/openlexicon)).
 
 
 **For maintainers:**
+
 - [How to add a new database](README-how-to-install-a-new-database.md)
-- [Installation](README-Install.md)
+- [Installation](README-Install.md**
 
 
 **License:**
