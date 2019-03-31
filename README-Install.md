@@ -1,13 +1,13 @@
 # Installation of openlexicon
 
-% Time-stamp: <2019-03-31 11:16:57 christophe@pallier.org>
+% Time-stamp: <2019-03-31 13:37:49 christophe@pallier.org>
 
-1. Either install the package using `git clone https://github.com/chrplr/shiny-server-lexique.git` *or* download and unzip <https://github.com/chrplr/shiny-server-lexique/archive/master.zip>
+1. Either install the package using `git clone https://github.com/chrplr/openlexicon.git` *or* download and unzip <https://github.com/chrplr/openlexicon/archive/master.zip>
 2. Download and unzip  <http://lexique.org/databases.zip> in the directory of the project. This will unpack the databases in the `databases` subfolder.`
 
 ## Shiny server
 
-These instructions explain how to deploy a [shiny server](https://www.rstudio.com/products/shiny/shiny-server/) on a Ubuntu 18.04 Linux server, and how to install the openlexique databases on it.
+Here, wes explain how to deploy a [shiny server](https://www.rstudio.com/products/shiny/shiny-server/) on a Ubuntu 18.04 Linux server, and how to install the openlexicon databases on it.
 
 The following commands must be executed on the computer that will be used as the server.
 
