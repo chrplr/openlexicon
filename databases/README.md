@@ -1,5 +1,12 @@
 # Available lexical databases #
 
+This is a list of open lexical databases with links to the data.
+
+Note that similar lists or resources can be found at:
+
+- Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
+- English Lexicon Project at <http://elexicon.wustl.edu/>
+
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -10,7 +17,7 @@
     - [French Lexicon Project](#french-lexicon-project)
     - [Megalex](#megalex)
     - [Chronolex](#chronolex)
-- [Brulex](#brulex)
+    - [Brulex](#brulex)
     - [Gougenheim100](#gougenheim100)
     - [Chacqfam](#chacqfam)
 - [English (American and British)](#english-american-and-british)
@@ -46,7 +53,7 @@ _Megalex_ provides visual and auditory lexical decision times and accuracy rates
 
 _Chronolex_ provides naming times, lexical decision times and progressive demasking scores on most monosyllabic monomorphemic French (about 1500 items). Thirty-seven participants were tested in the naming task, 35 additionnal participants in the lexical decision task and 33 additionnal participants were tested in the progressive demasking task. ([README](Chronolex/README-Chronolex.md))
 
-## Brulex ##
+### Brulex ###
 
 _Brulex_ donne, pour environ 36.000 mots de la langue française, l'orthographe,
 la prononciation, la classe grammaticale, le genre, le nombre et la fréquence
@@ -70,6 +77,10 @@ CHACQFAM est une base de données renseignant l’âge d’acquisition estimé e
 ### SUBTLEXus ###
 
 _SUBTLEXus_ provides two frequency measures based on American movies subtitles (51 million words in total): a) The frequency per million words, called SUBTLEXWF (word form frequency) b) The percentage of films in which a word occurs, called SUBTLEXCD (contextual diversity) ([README](SUBTLEXus/README-SUBTLEXus.md))
+
+### British Lexicon Project ###
+
+The British Lexicon Project (Keuleers et al, 2012) contains lexical decision data for over 28,000 monosyllabic and disyllabic English words. ([README](BritishLexiconProject/README-BritishLexiconProject)).
 
 ----
 
