@@ -19,9 +19,9 @@ The files in this repository are distributed under a CC BY-SA 4.0 LICENSE
 
 **Crediting:**
 
-Most databases have associated publications listed in their respective `README** files. They must be cited in any derivative work!
+Most databases have associated publications listed in their respective `README` files. They must be cited in any derivative work! The same goes for some of the scripts (read their documentation for instructions). 
 
-If you make heavy use of scripts or data in this package, please cite the following reference:
+If needed, you can cite this repository as:
 
 * Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
