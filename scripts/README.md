@@ -22,7 +22,7 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
 
     require(readr)
 
-    lex <- read_delim("http://www.lexique.org:81/databases/Lexique382/Lexique382.tsv", delim='\t')
+    lex <- read_delim("http://www.lexique.org/shiny/databases/Lexique382/Lexique382.tsv", delim='\t')
     # lex <- read_delim('Lexique382.tsv', delim='\t')  # if you have the file
 
     selection <- subset(lex, ortho %in% items)
@@ -38,7 +38,7 @@ Remark that this code reads `Lexique382.tsv` directly from the web.
 If the server or the connection is too slow, you will get a message
 "`Error in open.connection(con, "rb") : Timeout was reached`".
 
-In this case, you should first download [Lexique382.tsv](http://wwww.lexique.org:81/databases/Lexique382/Lexique382.tsv) on your local hard drive and change the file path passed as argument to `read_delim`. 
+In this case, you should first download [Lexique382.tsv](http://wwww.lexique.org/shiny/databases/Lexique382/Lexique382.tsv) on your local hard drive and change the file path passed as argument to `read_delim`. 
 
 More generally, you can download the source tables of a number of databases from [our list of open databases](../databases/README.md).
 
@@ -55,7 +55,7 @@ import pandas as pd
 lex = pd.read_csv("../databases/Lexique382/Lexique382.tsv", sep='\t')
 
 # alternatively, you can download the table from the Internet:
-# lex = pandas.read_csv('http://www.lexique.org:81/databases/Lexique382/Lexique382.tsv', sep='\t')
+# lex = pandas.read_csv('http://www.lexique.org/shiny/databases/Lexique382/Lexique382.tsv', sep='\t')
 
 
 lex.head()

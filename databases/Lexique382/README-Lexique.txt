@@ -12,7 +12,7 @@ Table:
 
 Web site: <http://www.lexique.org>
 
-Online: <http://www.lexique.org:81/lexique>
+Online: <http://www.lexique.org/shiny/lexique>
 
 Publications
 ------------

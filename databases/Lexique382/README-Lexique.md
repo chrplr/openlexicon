@@ -6,7 +6,7 @@ Table: [Lexique382.tsv](http://www.lexique.org/databases/Lexique382/Lexique382.t
 
 Web site: <http://www.lexique.org>
 
-Online: <http://www.lexique.org:81/lexique>
+Online: <http://www.lexique.org/shiny/lexique>
 
 ## Publications ##
 

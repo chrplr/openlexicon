@@ -9,7 +9,7 @@ offline or online.**
 2.  Use [scripts](scripts/README.md) to query or manipulate the
     databases.
 3.  Browse and query most databases online at
-    <http://www.lexique.org:81/openlexique>
+    <http://www.lexique.org/shiny/openlexique>
 
 **Contributing:**
 

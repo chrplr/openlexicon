@@ -7,7 +7,7 @@ items <- c('bateau', 'avion', 'maison', 'arbre')
 
 require(readr)
 
-lex <- read_delim("http://www.lexique.org:81/databases/Lexique382/Lexique382.tsv", delim='\t')
+lex <- read_delim("http://www.lexique.org/shiny/databases/Lexique382/Lexique382.tsv", delim='\t')
 
 selection <- subset(lex, ortho %in% items)
 

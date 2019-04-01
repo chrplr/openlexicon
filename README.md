@@ -5,7 +5,7 @@
 
 1. Check out our list of [open lexical databases](databases/README.md)
 2. Use [scripts](scripts/README.md) to query or manipulate the databases.
-3. Browse and query most databases online at <http://www.lexique.org:81/openlexique>
+3. Browse and query most databases online at <http://www.lexique.org/shiny/openlexique>
 
 **Contributing:**
 
