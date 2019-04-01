@@ -23,6 +23,7 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
     require(readr)
 
     lex <- read_delim("http://www.lexique.org:81/databases/Lexique382/Lexique382.tsv", delim='\t')
+    # lex <- read_delim('Lexique382.tsv', delim='\t')  # if you have the file
 
     selection <- subset(lex, ortho %in% items)
 
@@ -33,7 +34,13 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
 
 Download [select.R](select.R). (If you have not already, to install [_R_](https://cran.r-project.org/) and [_Rstudio Desktop_](https://www.rstudio.com))
 
-Remark that we read `Lexique382.tsv` directly from the web. It can be more efficient to download it first on your local hard drive and modify the path in the call to `read_delim`. The source tables of a number of databases are available from [our list of open databases](../databases/README.md).
+Remark that this code reads `Lexique382.tsv` directly from the web. 
+If the server or the connection is too slow, you will get a message
+"`Error in open.connection(con, "rb") : Timeout was reached`".
+
+In this case, you should first download [Lexique382.tsv](http://wwww.lexique.org:81/databases/Lexique382/Lexique382.tsv) on your local hard drive and change the file path passed as argument to `read_delim`. 
+
+More generally, you can download the source tables of a number of databases from [our list of open databases](../databases/README.md).
 
 ## Example 2: sélection d'items avec Python ##
 
