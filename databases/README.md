@@ -70,7 +70,7 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical decision dat
 
 * Most databases are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
 
-* The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (They take up too much disk space (>100MB) to be included in [Openlexicon's github repository](https://github.com/chrplr/openlexicon)**.
+* The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (Warning this file is over 100MB).
 
 
 **Contributing***
