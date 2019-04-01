@@ -45,9 +45,11 @@ This example shows how to select four random sets of twenty nouns and verbs of l
 
 import pandas as pd
 
-TABLE = "../databases/Lexique382/Lexique382.tsv"
+lex = pd.read_csv("../databases/Lexique382/Lexique382.tsv", sep='\t')
 
-lex = pd.read_csv(TABLE, sep='\t')
+# alternatively, you can download the table from the Internet:
+# lex = pandas.read_csv('http://www.lexique.org:81/databases/Lexique382/Lexique382.tsv', sep='\t')
+
 
 lex.head()
 

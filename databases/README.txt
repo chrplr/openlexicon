@@ -3,32 +3,8 @@ Available lexical databases
 
 This is a list of open lexical databases with links to the data.
 
-Note that similar lists or resources can be found at:
-
--   Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
--   English Lexicon Project at <http://elexicon.wustl.edu/>
-
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
-
--   [Available lexical databases](#available-lexical-databases)
-    -   [Francais](#francais)
-        -   [Lexique382](#lexique382)
-        -   [Frantext](#frantext)
-        -   [French Lexicon Project](#french-lexicon-project)
-        -   [Megalex](#megalex)
-        -   [Chronolex](#chronolex)
-        -   [Brulex](#brulex)
-        -   [Gougenheim100](#gougenheim100)
-        -   [Chacqfam](#chacqfam)
-    -   [English (American and British)](#english-american-and-british)
-        -   [SUBTLEXus](#subtlexus)
-        -   [British Lexicon Project](#british-lexicon-project)
-    -   [Usage:](#usage)
-
-<!-- markdown-toc end -->
-Note: For each database, you can click on the "(README)" link to get
-more information and access the data.
+Note: Clicking on the "(README)" links following the short descriptions
+will provide more information and access to the data tables.
 
 Francais
 --------
@@ -119,17 +95,32 @@ decision data for over 28,000 monosyllabic and disyllabic English words.
 
 ------------------------------------------------------------------------
 
-Usage:
-------
+Note
+----
 
-The `.tsv` and `.csv` files are plain text files that can be easily
-imported in to R, MATLAB or Python, or even [opened with
+Most databases are provided in form of `.tsv` or `.csv` files
+(tab-separated-values or comma-separated-values). These are plain text
+files which can be easily imported in to R, MATLAB or Python, or even
+[opened with
 Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
 Check out our [script examples](../scripts/README.md).
+
+The source tables from most databases can be downloaded from
+<http://lexique.org/databases.zip> (They take up too much disk space
+(\>100MB) to be included in [Openlexicon's github
+repository](https://github.com/chrplr/openlexicon)).
 
 If you want to contribute, by adding a database, or just sending some
 corrections, please contact `christophe@pallier.org` and
 `boris.new@gmail.com`
+
+------------------------------------------------------------------------
+
+Similar lists or resources
+--------------------------
+
+-   Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
+-   English Lexicon Project at <http://elexicon.wustl.edu/>
 
 ------------------------------------------------------------------------
 
