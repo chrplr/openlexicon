@@ -1,15 +1,42 @@
-OpenLexicon: Access to lexical databases
-========================================
+OpenLexicon: Easy access to lexical databases
+=============================================
 
-*[Openlexicon](https://chrplr.github.io/openlexicon)* provides tables
+***[Openlexicon](https://chrplr.github.io/openlexicon)* provides tables
 from various lexical databases and some code to manipulate them either
-offline or online.
+offline or online.**
 
--   Check out our list of [open lexical databases](databases/README.md)
--   Use [scripts](scripts/README.md) to query or manipulate the
+1.  Check out our list of [open lexical databases](databases/README.md)
+2.  Use [scripts](scripts/README.md) to query or manipulate the
     databases.
--   Query most databases online at
+3.  Browse and query most databases online at
     <http://www.lexique.org:81/openlexique>
+
+**Contributing:**
+
+If you want to contribute, by adding a database, scripts, or sending
+some corrections, please contact `christophe@pallier.org` and
+`boris.new@gmail.com`, or, *much better*, fork
+[openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull
+request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork).
+
+**License:**
+
+The files in this repository are distributed under a CC BY-SA 4.0
+LICENSE (see <https://creativecommons.org/licenses/by-sa/4.0/>) unless
+overridden by a local `LICENSE.txt` file
+
+**Crediting:**
+
+Most databases have associated publications listed in their respective
+\`README\*\* files. They must be cited in any derivative work!
+
+If you make heavy use of scripts or data in this package, please cite
+the following reference:
+
+-   Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub
+    repository, <https://github.com/chrplr/openlexicon>
+
+------------------------------------------------------------------------
 
 **For maintainers:**
 
@@ -22,31 +49,6 @@ The source tables from most databases can be downloaded from
 <http://lexique.org/databases.zip> (They take up too much disk space
 (\>100MB) to be included in [Openlexicon's github
 repository](https://github.com/chrplr/openlexicon)).
-
-**License:**
-
-The files in this repository are distributed under a CC BY-SA 4.0
-LICENSE (see <https://creativecommons.org/licenses/by-sa/4.0/>) unless
-overridden by a local \`LICENSE.txt\*\* file
-
-**Crediting:**
-
-Please cite the following reference if you use our work:
-
--   Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub
-    repository, <https://github.com/chrplr/openlexicon>
-
-Also most databases have associated publications listed in their
-respective \`README\*\* files. They should be cited in any derivative
-work!
-
-**Contributing:**
-
-If you want to contribute, by adding a database, or sending some
-corrections, please contact `christophe@pallier.org` and
-`boris.new@gmail.com`, or, *even better*, fork
-[openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull
-request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork).
 
 ------------------------------------------------------------------------
 

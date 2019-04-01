@@ -1,10 +1,20 @@
-# OpenLexicon: Access to lexical databases
+# OpenLexicon: Easy access to lexical databases
 
-_[Openlexicon](https://chrplr.github.io/openlexicon)_ provides tables from various lexical databases and some code to manipulate them either offline or online.
+
+**_[Openlexicon](https://chrplr.github.io/openlexicon)_ provides tables from various lexical databases and some code to manipulate them either offline or online.**
 
 1. Check out our list of [open lexical databases](databases/README.md)
 2. Use [scripts](scripts/README.md) to query or manipulate the databases.
 3. Browse and query most databases online at <http://www.lexique.org:81/openlexique>
+
+**Contributing:**
+
+If you want to contribute, by adding a database, scripts, or sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`, or, _much better_, fork [openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork). 
+
+**License:**
+
+The files in this repository are distributed under a CC BY-SA 4.0 LICENSE
+(see <https://creativecommons.org/licenses/by-sa/4.0/>) unless overridden by a local `LICENSE.txt` file
 
 
 **Crediting:**
@@ -15,16 +25,6 @@ If you make heavy use of scripts or data in this package, please cite the follow
 
 * Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
-
-**License:**
-
-The files in this repository are distributed under a CC BY-SA 4.0 LICENSE
-(see <https://creativecommons.org/licenses/by-sa/4.0/>) unless overridden by a local `LICENSE.txt` file
-
-
-**Contributing:**
-
-If you want to contribute, by adding a database, scripts, or sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`, or, _much better_, fork [openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork). 
 
 --- 
 
