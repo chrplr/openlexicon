@@ -31,13 +31,13 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
     write_tsv(selection, 'selection.tsv')
 ```
 
-Download [select.R](select.R).
+Download [select.R](select.R). (If you have not already, to install [_R_](https://cran.r-project.org/) and [_Rstudio Desktop_](https://www.rstudio.com))
 
 Remark that we read `Lexique382.tsv` directly from the web. It can be more efficient to download it first on your local hard drive and modify the path in the call to `read_delim`. The source tables of a number of databases are available from [our list of open databases](../databases/README.md).
 
 ## Example 2: sélection d'items avec Python ##
 
-This example shows how to select four random sets of twenty nouns and verbs of low and high frequencies from Lexique382, using Python.
+This example shows how to select four random sets of twenty nouns and verbs of low and high frequencies from Lexique382, using Python. (If you have not already, install Python: Go to <https://www.anaconda.com/distribution/> ; Select your OS (Windows, MacOS or Linux) and download the Python 3.7 installer.)
 
 ```{python}
 

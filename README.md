@@ -2,9 +2,11 @@
 
 _[Openlexicon](https://chrplr.github.io/openlexicon)_ provides tables from various lexical databases and some code to manipulate them either offline or online.
 
-* Check out our list of [open lexical databases](databases/README.md)
-* Use [scripts](scripts/README.md) to query or manipulate the databases.
-* Query most databases online at <http://www.lexique.org:81/openlexique>
+1. Check out our list of [open lexical databases](databases/README.md)
+2. Use [scripts](scripts/README.md) to query or manipulate the databases.
+3. Browse and query most databases online at <http://www.lexique.org:81/openlexique>
+
+--- 
 
 **For maintainers:**
 
