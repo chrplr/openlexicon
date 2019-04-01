@@ -55,22 +55,27 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical decision dat
 
 ----
 
-
-## Note
-
-Most databases are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
-
-The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (They take up too much disk space (>100MB) to be included in [Openlexicon's github repository](https://github.com/chrplr/openlexicon)).
-
-
-If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`
-
-----
-
-## Similar lists or resources
+**Similar lists or resources**
 
 - Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
 - English Lexicon Project at <http://elexicon.wustl.edu/>
+
+**Crediting**
+
+
+* Most databases have associated publications listed in their respective `README** files. They must be cited in any derivative work!
+
+
+**Accessing**
+
+* Most databases are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
+
+* The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (They take up too much disk space (>100MB) to be included in [Openlexicon's github repository](https://github.com/chrplr/openlexicon)**.
+
+
+**Contributing***
+
+* If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com**
 
 ----
 

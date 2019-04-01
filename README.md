@@ -6,6 +6,26 @@ _[Openlexicon](https://chrplr.github.io/openlexicon)_ provides tables from vario
 2. Use [scripts](scripts/README.md) to query or manipulate the databases.
 3. Browse and query most databases online at <http://www.lexique.org:81/openlexique>
 
+
+**Crediting:**
+
+Most databases have associated publications listed in their respective `README** files. They must be cited in any derivative work!
+
+If you make heavy use of scripts or data in this package, please cite the following reference:
+
+* Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
+
+
+**License:**
+
+The files in this repository are distributed under a CC BY-SA 4.0 LICENSE
+(see <https://creativecommons.org/licenses/by-sa/4.0/>) unless overridden by a local `LICENSE.txt` file
+
+
+**Contributing:**
+
+If you want to contribute, by adding a database, scripts, or sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`, or, _much better_, fork [openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork). 
+
 --- 
 
 **For maintainers:**
@@ -13,27 +33,11 @@ _[Openlexicon](https://chrplr.github.io/openlexicon)_ provides tables from vario
 - [How to add a new database](README-how-to-install-a-new-database.md)
 - [Local installation](README-Install.md)
 
+
 **Data tables:** 
 
 The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (They take up too much disk space (>100MB) to be included in [Openlexicon's github repository](https://github.com/chrplr/openlexicon)).
 
-
-**License:**
-
-The files in this repository are distributed under a CC BY-SA 4.0 LICENSE
-(see <https://creativecommons.org/licenses/by-sa/4.0/>) unless overridden by a local `LICENSE.txt** file
-
-**Crediting:**
-
-Please cite the following reference if you use our work:
-
-* Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
-
-Also most databases have associated publications listed in their respective `README** files. They should be cited in any derivative work!
-
-**Contributing:**
-
-If you want to contribute, by adding a database, or sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com`, or, _even better_, fork [openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork). 
 
 ---
 
