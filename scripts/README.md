@@ -31,11 +31,9 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
     write_tsv(selection, 'selection.tsv')
 ```
 
-[source)(select.R)
+Download [select.R](select.R).
 
-Remark that `Lexique382.tsv` is read directly from the web. It can be more efficient to download it first on your local hard drive and modify the path in the call to `read_delim`. 
-
-To download the source tables for a number of databases, check out [our list of open databases](../databases/README.md).
+Remark that we read `Lexique382.tsv` directly from the web. It can be more efficient to download it first on your local hard drive and modify the path in the call to `read_delim`. The source tables of a number of databases are available from [our list of open databases](../databases/README.md).
 
 ## Example 2: sélection d'items avec Python ##
 
@@ -75,7 +73,7 @@ verbs_hi.sample(N).ortho.to_csv('verhi.txt', index=False)
 verbs_hi.sample(N).ortho.to_csv('verlo.txt', index=False)
 ```
 
-[source](select-words-from-lexique.py) 
+Download [select-words-from-lexique.py](select-words-from-lexique.py) 
 
 ## French syllabation ##
 
