@@ -17,6 +17,10 @@ _Lexique382_ est une base de données lexicales du français qui fournit pour ~1
 _Frantext_ fournit la liste de tous les types orthographiques obtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique ([README](Frantext/README-Frantext.md)).
 
 
+### Voisins ###
+
+_Voisins_ liste les voisins orthographiques par substitution d'une lettre pour 130000 mots français ([README](Voisins/README-Voisins.md))
+
 ### French Lexicon Project ###
 
 The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota et al. 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times from 975 participants. ([README](FrenchLexiconProject/README-FrenchLexiconProject.md))
