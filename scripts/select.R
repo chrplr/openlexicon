@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-05 07:23:59 christophe@pallier.org>
+# Time-stamp: <2019-04-05 11:55:10 christophe@pallier.org>
 
 # select some items from the lexique382 table
 
@@ -16,7 +16,8 @@ head(selection)
 
 write_tsv(selection, 'selection.tsv')
 
-################
+
+### Using regular expressions
 require(tidyverse)
 require(stringr)
 
