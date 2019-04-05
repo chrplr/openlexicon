@@ -1,5 +1,6 @@
 # Available lexical databases #
 
+
 This is a list of open lexical databases with links to the data.
 
 Note: Clicking on the "(README)" links following the short descriptions will provide more information and access to the data tables.
@@ -68,6 +69,9 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical decision dat
 
 **Accessing**
 
+* Most databases can be queried  at <http://www.lexique.org/shiny/openlexique>
+
+
 * Most databases are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
 
 * The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (Warning this file is over 100MB).
@@ -83,4 +87,4 @@ Back to [main page](../README.md)
 
 ----
 
-Time-stamp: <2019-03-31 14:01:37 christophe@pallier.org>
+Time-stamp: <2019-04-03 08:36:33 christophe@pallier.org>
