@@ -24,7 +24,7 @@ ui <- fluidPage(
             h3(textOutput("caption", container = span)),
             fluidRow(DTOutput(outputId="table")),
             downloadButton(outputId='download', label="Download filtered data"),
-            h3(textOutput("help", container = span)),
+            uiOutput("help")
             )
         )
     )
@@ -55,8 +55,10 @@ server <- function(input, output) {
             write.csv(dt,
                       file=fname,
                       row.names=FALSE)
-        }),
-    output$help = render Text({'<a href="http://www.lexique.org/?page_id=166">Mode d\'emploi</a>'})
+        })
+    url  <- a("Au secours!", href="http://www.lexique.org/?page_id=166")
+    output$help = renderUI({ tagList("Mode d'emploi :", url) })
+
 }
 
 
