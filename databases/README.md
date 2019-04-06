@@ -1,9 +1,8 @@
 # Available lexical databases #
 
 
-This is a list of open lexical databases with links to the data.
+This is a list of open lexical databases. The "(README)" links provide more information and access to the data tables.
 
-Note: Clicking on the "(README)" links following the short descriptions will provide more information and access to the data tables.
 
 ## Francais ##
 
@@ -60,6 +59,15 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical decision dat
 
 ----
 
+**Accessing the content**
+
+* Many of these tables can explored at <http://www.lexique.org/shiny/openlexique>
+
+* They can be downloaded from <http://lexique.org/databases.zip> (Warning this file is over 100MB).
+
+* Most databases are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
+
+
 **Similar lists or resources**
 
 - Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
@@ -71,14 +79,6 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical decision dat
 * Most databases have associated publications listed in their respective `README** files. They must be cited in any derivative work!
 
 
-**Accessing**
-
-* Most databases can be queried  at <http://www.lexique.org/shiny/openlexique>
-
-
-* Most databases are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
-
-* The source tables from most databases can be downloaded from <http://lexique.org/databases.zip> (Warning this file is over 100MB).
 
 
 **Contributing***
