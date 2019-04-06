@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-03-30 13:17:34 christophe@pallier.org>
+# Time-stamp: <2019-04-06 15:23:10 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -15,8 +15,10 @@ ui <- fluidPage(
         sidebarLayout(
             sidebarPanel(
                 checkboxGroupInput("show_vars", "Columns to display",
-                                   names(lexique), 
-                                   selected = c('ortho', 'nblettres', 'orthosyll', 'cgram', 'lemme', 'freqlivres', 'freqfilms2', 'phon', 'nbphons', 'syll', 'p_cvcv'))
+                                   names(lexique),
+                                   selected = c('ortho', 'nblettres', 'orthosyll', 'cgram', 'lemme', 'freqlivres', 'freqfilms2', 'phon', 'nbphons', 'syll', 'p_cvcv')
+                                   ),
+                width=2
                 ),
             mainPanel(
             h3(textOutput("caption", container = span)),

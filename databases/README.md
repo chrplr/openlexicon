@@ -22,7 +22,8 @@ _Voisins_ liste les voisins orthographiques par substitution d'une lettre pour 1
 
 ### French Lexicon Project ###
 
-The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota et al. 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times from 975 participants. ([README](FrenchLexiconProject/README-FrenchLexiconProject.md))
+The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota et al. 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times fr
+om 975 participants. ([README](FrenchLexiconProject/README-FrenchLexiconProject.md))
 
 ### Megalex ###
 
