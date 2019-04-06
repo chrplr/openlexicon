@@ -13,17 +13,25 @@ substition d'une seule lettre. Ainsi "vol" a commme voisins "vil" ou "bol"
 
 Cette base est constituée des champs suivants:
 
-* Graph: Toutes les entrées orthographiques de Lexique
-* NbVoisOrth: Le nombre de voisins orthographiques.
-* VoisOrth: Les différents voisins orthographiques.
-* FreqVoisOrth: Les différentes fréquences (de Frantext et par millions) de
+* *Graph*: Toutes les entrées orthographiques de Lexique2
+* *NbVoisOrth*: Le nombre de voisins orthographiques.
+* *VoisOrth*: Les différents voisins orthographiques.
+* *FreqVoisOrth*: Les différentes fréquences (de Frantext et par millions) de
       chacun des voisins
-* FreqCum: La fréquence cumulée de tous les voisins
-    
+* *FreqCum*: La fréquence cumulée de tous les voisins
+
+## Scripts:
+
+- [voisins1.pl](scripts/voisins1.pl)
+- [voisins2.pl](scripts/voisins2.pl)
+- [voisinfreq.pl](scripts/voisinsfreq.pl)
+
+
 ## Auteurs ##
 
-* Boris_New
-* Christophe_Pallier qui a conçu l'algorithme
+* Boris.New@gmail.com pour le codage en perl 
+* Christophe@Pallier.org qui a conçu l'algorithme
+
 
 ## Licence ##
 
