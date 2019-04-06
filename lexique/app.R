@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-06 15:23:10 christophe@pallier.org>
+# Time-stamp: <2019-04-06 18:12:44 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -23,7 +23,8 @@ ui <- fluidPage(
             mainPanel(
             h3(textOutput("caption", container = span)),
             fluidRow(DTOutput(outputId="table")),
-            downloadButton(outputId='download', label="Download filtered data")
+            downloadButton(outputId='download', label="Download filtered data"),
+            h3(textOutput("help", container = span)),
             )
         )
     )
@@ -54,7 +55,8 @@ server <- function(input, output) {
             write.csv(dt,
                       file=fname,
                       row.names=FALSE)
-         })
+        }),
+    output$help = render Text({'<a href="http://www.lexique.org/?page_id=166">Mode d\'emploi</a>'})
 }
 
 
