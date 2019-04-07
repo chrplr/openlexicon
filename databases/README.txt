@@ -1,132 +1,161 @@
 Available lexical databases
 ===========================
 
-This is a list of open lexical databases. The "(README)" links provide
-more information and access to the data tables.
+This is a list of open lexical databases. Clicking on the database name
+provides more information and access to the data tables.
 
-Francais
+Français
 --------
 
-### Lexique382
+  ------------------------------------------------------------------------------------------------------------------------------------------------------
+  Base                                                                                        Description
+  ------------------------------------------------------------------------------------------- ----------------------------------------------------------
+  [Lexique3](Lexique382/README-Lexique.md)                                                    *Lexique3* est une base de données lexicales du français
+                                                                                              qui fournit pour \~140000 mots du français: les
+                                                                                              représentations orthographiques et phonémiques, les lemmes
+                                                                                              associés, la syllabation, la catégorie grammaticale, le
+                                                                                              genre et le nombre, les fréquences dans un corpus de
+                                                                                              livres et dans un corpus de sous-titres de filems, etc.
 
-*Lexique382* est une base de données lexicales du français qui fournit
-pour \~140000 mots du français: les représentations orthographiques et
-phonémiques, les lemmes associés, la syllabation, la catégorie
-grammaticale, le genre et le nombre, les fréquences dans un corpus de
-livres et dans un corpus de sous-titres de filems, etc.
-([README](Lexique382/README-Lexique.md))
+  [Anagrammes](anagrammes/README-anagrammes.md)                                               *Anagrammes* liste plus de 25000 ensembles d'anagrammes du
+                                                                                              français.
 
-### Anagrammes
+  [Voisins](Voisins/README-Voisins.md))                                                       *Voisins* liste les voisins orthographiques par
+                                                                                              substitution d'une lettre pour 130000 mots français.
 
-*Anagrammes* liste plus de 25000 ensembles d'anagrammes du français
-([README](anagrammes/README-anagrammes.md))
+  [French Lexicon Project](FrenchLexiconProject/README-FrenchLexiconProject.md)               The *French Lexicon Project* (FLP) was inspired from the
+                                                                                              *English Lexicon Project* (Balota et al. 2007). It
+                                                                                              provides visual lexical decision time for about 39000
+                                                                                              French words and as many pseudowords. The full data
+                                                                                              represents 1942000 reactions times from 975 participants.
 
-### Voisins
+  [Megalex](Megalex/README-Megalex.md)                                                        *Megalex* provides visual and auditory lexical decision
+                                                                                              times and accuracy rates several thousands of words:
+                                                                                              Visual lexical decision data are available for 28466
+                                                                                              French words and the same number of pseudowords, and
+                                                                                              auditory lexical decision data are available for 17876
+                                                                                              French words and the same number of pseudowords.
 
-*Voisins* liste les voisins orthographiques par substitution d'une
-lettre pour 130000 mots français ([README](Voisins/README-Voisins.md))
+  [Chronolex](Chronolex/README-Chronolex.md)                                                  *Chronolex* provides naming times, lexical decision times
+                                                                                              and progressive demasking scores on most monosyllabic
+                                                                                              monomorphemic French (about 1500 items). Thirty-seven
+                                                                                              participants were tested in the naming task, 35
+                                                                                              additionnal participants in the lexical decision task and
+                                                                                              33 additionnal participants were tested in the progressive
+                                                                                              demasking task.
 
-### French Lexicon Project
+  [Brulex](Brulex/README-Brulex.md)                                                           *Brulex* donne, pour environ 36.000 mots de la langue
+                                                                                              française, l'orthographe, la prononciation, la classe
+                                                                                              grammaticale, le genre, le nombre et la fréquence d'usage.
+                                                                                              Il contient également d'autres informations utiles à la
+                                                                                              sélection de matériel expérimental (notamment, point
+                                                                                              d'unicité, comptage des voisins lexicaux, patrons
+                                                                                              phonologiques, fréquence moyenne des digrammes).
 
-The *French Lexicon Project* (FLP) was inspired from the *English
-Lexicon Project* (Balota et al. 2007). It provides visual lexical
-decision time for about 39000 French words and as many pseudowords. The
-full data represents 1942000 reactions times fr om 975 participants.
-([README](FrenchLexiconProject/README-FrenchLexiconProject.md))
+  [Gougenheim100](Gougenheim100/README-Gougenheim.md)                                         *Gougenheim100* présente, pour 1064 mots, leur fréquence
+                                                                                              et leur répartition (nombre de textes dans lesquels ils
+                                                                                              apparaissent). Le corpus sur lequel, il est basé est un
+                                                                                              corpus de langue oral basé sur un ensembles d'entretiens
+                                                                                              avec 275 personnes. C'est donc non seulement un corpus de
+                                                                                              langue orale mais aussi de langue produite. Le corpus
+                                                                                              original comprend 163 textes, 312.135 mots et 7.995 lemmes
+                                                                                              différents.
 
-### Megalex
+  [Chacqfam](chacqfam/README-Chacqfam.md)                                                     CHACQFAM est une base de données renseignant l'âge
+                                                                                              d'acquisition estimé et la familiarité de 1225 mots
+                                                                                              Français
 
-*Megalex* provides visual and auditory lexical decision times and
-accuracy rates several thousands of words: Visual lexical decision data
-are available for 28466 French words and the same number of pseudowords,
-and auditory lexical decision data are available for 17876 French words
-and the same number of pseudowords.
-([README](Megalex/README-Megalex.md))
+  [Frantext](Frantext/README-Frantext.md)                                                     *Frantext* fournit la liste de tous les types
+                                                                                              orthographiques obtenus après tokenization du sous-corpus
+                                                                                              de Frantext utilisé pour calculer les fréquences
+                                                                                              "livres"\" de Lexique.
 
-### Chronolex
-
-*Chronolex* provides naming times, lexical decision times and
-progressive demasking scores on most monosyllabic monomorphemic French
-(about 1500 items). Thirty-seven participants were tested in the naming
-task, 35 additionnal participants in the lexical decision task and 33
-additionnal participants were tested in the progressive demasking task.
-([README](Chronolex/README-Chronolex.md))
-
-### Brulex
-
-*Brulex* donne, pour environ 36.000 mots de la langue française,
-l'orthographe, la prononciation, la classe grammaticale, le genre, le
-nombre et la fréquence d'usage. Il contient également d'autres
-informations utiles à la sélection de matériel expérimental (notamment,
-point d'unicité, comptage des voisins lexicaux, patrons phonologiques,
-fréquence moyenne des digrammes). ([README](Brulex/README-Brulex.md))
-
-### Gougenheim100
-
-*Gougenheim100* présente, pour 1064 mots, leur fréquence et leur
-répartition (nombre de textes dans lesquels ils apparaissent). Le corpus
-sur lequel, il est basé est un corpus de langue oral basé sur un
-ensembles d'entretiens avec 275 personnes. C'est donc non seulement un
-corpus de langue orale mais aussi de langue produite. Le corpus original
-comprend 163 textes, 312.135 mots et 7.995 lemmes différents
-([README](Gougenheim100/README-Gougenheim.md))
-
-### Chacqfam
-
-CHACQFAM est une base de données renseignant l'âge d'acquisition estimé
-et la familiarité de 1225 mots Français
-([README](chacqfam/README-Chacqfam.md))
-
-### Frantext
-
-*Frantext* fournit la liste de tous les types orthographiques obtenus
-après tokenization du sous-corpus de Frantext utilisé pour calculer les
-fréquences "livres"\" de Lexique
-([README](Frantext/README-Frantext.md)).
-
-### Liste de mot francais Gutenberg
-
-Liste de 336531 mots français obtenue à partir du dictionnaire ispell
-Français-GUTenberg
-([README](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md))
+  [francais-GUTenberg](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md)   Liste de 336531 mots français obtenue à partir du
+                                                                                              dictionnaire ispell Français-GUTenberg
+  ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 English (American and British)
 ------------------------------
 
-### English Lexicon Project
+  -------------------------------------------------------------------------------
+  Base                                                           Description
+  -------------------------------------------------------------- ----------------
+  [SUBTLEX-US](SUBTLEX-US/README-SUBTLEXus.md)                   *SUBTLEXus*
+                                                                 (Brysbaert, New
+                                                                 & Keuleers,
+                                                                 2012) provides
+                                                                 two frequency
+                                                                 measures based
+                                                                 on American
+                                                                 movies subtitles
+                                                                 (51 million
+                                                                 words in total):
+                                                                 a) The frequency
+                                                                 per million
+                                                                 words, called
+                                                                 SUBTLEXWF (word
+                                                                 form frequency)
+                                                                 b) The
+                                                                 percentage of
+                                                                 films in which a
+                                                                 word occurs,
+                                                                 called SUBTLEXCD
+                                                                 (contextual
+                                                                 diversity)
 
-The English Lexicon Project provides a standardized behavioral and
-descriptive data set for 40,481 words and 40,481 nonwords. Data from 816
-participants across six universities were collected in a lexical
-decision task (approximately 3400 responses per participant), and data
-from 444 participants were collected in a speeded naming task
-(approximately 2500 responses per participant).
-([README](EnglishLexiconProject/README-ELP.md))
+  [British Lexicon                                               The British
+  Project](BritishLexiconProject/README-BritishLexiconProject)   Lexicon Project
+                                                                 (Keuleers et al,
+                                                                 2012) contains
+                                                                 lexical decision
+                                                                 data for over
+                                                                 28,000
+                                                                 monosyllabic and
+                                                                 disyllabic
+                                                                 English words..
 
-### SUBTLEX-US
-
-*SUBTLEXus* (Brysbaert, New & Keuleers, 2012) provides two frequency
-measures based on American movies subtitles (51 million words in total):
-a) The frequency per million words, called SUBTLEXWF (word form
-frequency) b) The percentage of films in which a word occurs, called
-SUBTLEXCD (contextual diversity)
-([README](SUBTLEX-US/README-SUBTLEXus.md))
-
-### British Lexicon Project
-
-The British Lexicon Project (Keuleers et al, 2012) contains lexical
-decision data for over 28,000 monosyllabic and disyllabic English words.
-([README](BritishLexiconProject/README-BritishLexiconProject)).
+  [English Lexicon Project](EnglishLexiconProject/README-ELP.md) The English
+                                                                 Lexicon Project
+                                                                 provides a
+                                                                 standardized
+                                                                 behavioral and
+                                                                 descriptive data
+                                                                 set for 40,481
+                                                                 words and 40,481
+                                                                 nonwords. Data
+                                                                 from 816
+                                                                 participants
+                                                                 across six
+                                                                 universities
+                                                                 were collected
+                                                                 in a lexical
+                                                                 decision task
+                                                                 (approximately
+                                                                 3400 responses
+                                                                 per
+                                                                 participant),
+                                                                 and data from
+                                                                 444 participants
+                                                                 were collected
+                                                                 in a speeded
+                                                                 naming task
+                                                                 (approximately
+                                                                 2500 responses
+                                                                 per participant)
+  -------------------------------------------------------------------------------
 
 Chinese
 -------
 
-### SUBTLEX-CH
+  --------------------------------------------------------------------------------------------------------
+  Base                                            Description
+  ----------------------------------------------- --------------------------------------------------------
+  [SUBTLEX-CH](SUBTLEX-CH/README-subtlex-ch.md)   *SUBTLEX-CH* (Cai & Brysbaert 2010) is a database of
+                                                  Chinese word and character frequencies based on a corpus
+                                                  of film and television subtitles (46.8 million
+                                                  characters, 33.5 million words).
 
-*SUBTLEX-CH* (Cai & Brysbaert 2010) is a database of Chinese word and
-character frequencies based on a corpus of film and television subtitles
-(46.8 million characters, 33.5 million words).
-([README](SUBTLEX-CH/README-subtlex-ch.md))
+  --------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
@@ -148,7 +177,6 @@ character frequencies based on a corpus of film and television subtitles
 **Similar lists or resources**
 
 -   Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
--   English Lexicon Project at <http://elexicon.wustl.edu/>
 
 **Crediting**
 
