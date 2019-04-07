@@ -1,6 +1,6 @@
 # Anagrammes #
 
-Le fichier [anagrammes.txt](anagrammes.zip) liste plus de 25000 ensembles d'anagrammes du français.
+Le fichier [anagrammes.txt](anagrammes.txt) liste plus de 25000 ensembles d'anagrammes du français.
 
 Cette liste a été constituée à partir de la [liste de mots français-GUTenberg](../Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md) en utilisant le script Python [anagrams.py](/scripts/anagrams/anagrams.py).
  
