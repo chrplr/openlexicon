@@ -19,7 +19,7 @@ Online: <http://www.lexique.org/shiny/lexique>
 
 
 
-## Contributeurs (par ordre alphabétique) ##
+## Contributeurs ##
 
 - Boris New & Christophe Pallier
 - Ronald Peereman
