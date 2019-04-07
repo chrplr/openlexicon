@@ -8,7 +8,7 @@ matériel expérimental (notamment, point d'unicité, comptage des
 voisins lexicaux, patrons phonologiques, fréquence moyenne des
 digrammes).
 
-Table: [Brulex.csv](http://www.lexique.org/databases/Brulex/Brulex-utf8.csv)
+Table: [Brulex.zip](http://www.lexique.org/databases/Brulex/Brulex.zip)
 
 Publication:
 
