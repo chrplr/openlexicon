@@ -1,10 +1,8 @@
 Available lexical databases
 ===========================
 
-This is a list of open lexical databases with links to the data.
-
-Note: Clicking on the "(README)" links following the short descriptions
-will provide more information and access to the data tables.
+This is a list of open lexical databases. The "(README)" links provide
+more information and access to the data tables.
 
 Francais
 --------
@@ -18,19 +16,22 @@ grammaticale, le genre et le nombre, les fréquences dans un corpus de
 livres et dans un corpus de sous-titres de filems, etc.
 ([README](Lexique382/README-Lexique.md))
 
-### Frantext
+### Anagrammes
 
-*Frantext* fournit la liste de tous les types orthographiques obtenus
-après tokenization du sous-corpus de Frantext utilisé pour calculer les
-fréquences "livres"\" de Lexique
-([README](Frantext/README-Frantext.md)).
+*Anagrammes* liste plus de 25000 ensembles d'anagrammes du français
+([README](anagrammes/README-anagrammes.md))
+
+### Voisins
+
+*Voisins* liste les voisins orthographiques par substitution d'une
+lettre pour 130000 mots français ([README](Voisins/README-Voisins.md))
 
 ### French Lexicon Project
 
 The *French Lexicon Project* (FLP) was inspired from the *English
 Lexicon Project* (Balota et al. 2007). It provides visual lexical
 decision time for about 39000 French words and as many pseudowords. The
-full data represents 1942000 reactions times from 975 participants.
+full data represents 1942000 reactions times fr om 975 participants.
 ([README](FrenchLexiconProject/README-FrenchLexiconProject.md))
 
 ### Megalex
@@ -76,16 +77,40 @@ CHACQFAM est une base de données renseignant l'âge d'acquisition estimé
 et la familiarité de 1225 mots Français
 ([README](chacqfam/README-Chacqfam.md))
 
+### Frantext
+
+*Frantext* fournit la liste de tous les types orthographiques obtenus
+après tokenization du sous-corpus de Frantext utilisé pour calculer les
+fréquences "livres"\" de Lexique
+([README](Frantext/README-Frantext.md)).
+
+### Liste de mot francais Gutenberg
+
+Liste de 336531 mots français obtenue à partir du dictionnaire ispell
+Français-GUTenberg
+([README](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md))
+
 English (American and British)
 ------------------------------
 
-### SUBTLEXus
+### English Lexicon Project
 
-*SUBTLEXus* provides two frequency measures based on American movies
-subtitles (51 million words in total): a) The frequency per million
-words, called SUBTLEXWF (word form frequency) b) The percentage of films
-in which a word occurs, called SUBTLEXCD (contextual diversity)
-([README](SUBTLEXus/README-SUBTLEXus.md))
+The English Lexicon Project provides a standardized behavioral and
+descriptive data set for 40,481 words and 40,481 nonwords. Data from 816
+participants across six universities were collected in a lexical
+decision task (approximately 3400 responses per participant), and data
+from 444 participants were collected in a speeded naming task
+(approximately 2500 responses per participant).
+([README](EnglishLexiconProject/README-ELP.md))
+
+### SUBTLEX-US
+
+*SUBTLEXus* (Brysbaert, New & Keuleers, 2012) provides two frequency
+measures based on American movies subtitles (51 million words in total):
+a) The frequency per million words, called SUBTLEXWF (word form
+frequency) b) The percentage of films in which a word occurs, called
+SUBTLEXCD (contextual diversity)
+([README](SUBTLEX-US/README-SUBTLEXus.md))
 
 ### British Lexicon Project
 
@@ -93,34 +118,49 @@ The British Lexicon Project (Keuleers et al, 2012) contains lexical
 decision data for over 28,000 monosyllabic and disyllabic English words.
 ([README](BritishLexiconProject/README-BritishLexiconProject)).
 
-------------------------------------------------------------------------
+Chinese
+-------
 
-Note
-----
+### SUBTLEX-CH
 
-Most databases are provided in form of `.tsv` or `.csv` files
-(tab-separated-values or comma-separated-values). These are plain text
-files which can be easily imported in to R, MATLAB or Python, or even
-[opened with
-Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
-Check out our [script examples](../scripts/README.md).
-
-The source tables from most databases can be downloaded from
-<http://lexique.org/databases.zip> (They take up too much disk space
-(\>100MB) to be included in [Openlexicon's github
-repository](https://github.com/chrplr/openlexicon)).
-
-If you want to contribute, by adding a database, or just sending some
-corrections, please contact `christophe@pallier.org` and
-`boris.new@gmail.com`
+*SUBTLEX-CH* (Cai & Brysbaert 2010) is a database of Chinese word and
+character frequencies based on a corpus of film and television subtitles
+(46.8 million characters, 33.5 million words).
+([README](SUBTLEX-CH/README-subtlex-ch.md))
 
 ------------------------------------------------------------------------
 
-Similar lists or resources
---------------------------
+**Accessing the content**
+
+-   Many of these tables can explored at
+    <http://www.lexique.org/shiny/openlexique>
+
+-   They can be downloaded from <http://lexique.org/databases.zip>
+    (Warning this file is over 100MB).
+
+-   Most databases are provided in form of `.tsv` or `.csv` files
+    (tab-separated-values or comma-separated-values). These are plain
+    text files which can be easily imported in to R, MATLAB or Python,
+    or even [opened with
+    Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
+    Check out our [script examples](../scripts/README.md).
+
+**Similar lists or resources**
 
 -   Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
 -   English Lexicon Project at <http://elexicon.wustl.edu/>
+
+**Crediting**
+
+-   Most databases have associated publications listed in their
+    respective \`README\*\* files. They must be cited in any derivative
+    work!
+
+**Contributing**\*
+
+-   If you want to contribute, by adding a database, or just sending
+    some corrections, please contact `christophe@pallier.org` and
+    \`boris.new\@gmail.com\*\*
 
 ------------------------------------------------------------------------
 
@@ -128,4 +168,4 @@ Back to [main page](../README.md)
 
 ------------------------------------------------------------------------
 
-Time-stamp: \<2019-03-31 14:01:37 christophe\@pallier.org\>
+Time-stamp: \<2019-04-03 08:36:33 christophe\@pallier.org\>

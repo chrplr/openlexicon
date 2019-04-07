@@ -10,11 +10,9 @@ This is a list of open lexical databases. The "(README)" links provide more info
 
 _Lexique382_ est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc. ([README](Lexique382/README-Lexique.md))
 
+### Anagrammes ###
 
-### Frantext ###
-
-_Frantext_ fournit la liste de tous les types orthographiques obtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique ([README](Frantext/README-Frantext.md)).
-
+_Anagrammes_ liste plus de 25000 ensembles d'anagrammes du français ([README](anagrammes/README-anagrammes.md))
 
 ### Voisins ###
 
@@ -46,6 +44,14 @@ _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition 
 ### Chacqfam ###
 
 CHACQFAM est une base de données renseignant l’âge d’acquisition estimé et la familiarité de 1225 mots Français ([README](chacqfam/README-Chacqfam.md))
+
+### Frantext ###
+
+_Frantext_ fournit la liste de tous les types orthographiques obtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique ([README](Frantext/README-Frantext.md)).
+
+### Liste de mot francais Gutenberg ###
+
+Liste de 336531 mots français obtenue à partir du dictionnaire ispell Français-GUTenberg ([README](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md))
 
 
 ## English (American and British) ##
