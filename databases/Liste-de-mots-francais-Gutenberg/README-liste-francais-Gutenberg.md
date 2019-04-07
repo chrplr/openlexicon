@@ -1,6 +1,6 @@
 # Liste de mots français Gutenberg
 
-Le fichier [liste-frgtu.txt](list-frgut.zip) contient une liste de 336531 mots du français (encodés en utf-8).
+Le fichier [liste.de.mots.francais.frgut.txtliste-frgtu.txt](liste.de.mots.francais.frgut.txt) contient une liste de 336531 mots du français.
 
 J'ai produit cette liste à partir du dictionnaire [Francais-GUTenberg-1.0](Francais-Gutenberg-reference.pdf) de Christophe Pythoud (Pythoud, C. (1998) Français-GUTenberg : un nouveau dictionnaire français pour ISPELL. problèmes résolus et intégration de contributions extérieures _Cahiers GUTenberg_,  n° 28-29, p. 252-275 ([pdf](http://cahiers.gutenberg.eu.org/cg-bin/article/CG_1998___28-29_252_0.pdf))
 ). 
