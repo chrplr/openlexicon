@@ -1,8 +1,18 @@
 # Available lexical databases #
 
 
-
 This is a list of open lexical databases. Clicking on the database name provides more information and access to the data tables.
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+  - [Français](#français)
+  - [English (American and British)](#english-american-and-british)
+  - [Chinese](#chinese)
+  - [Usage](#usage)
+
+<!-- markdown-toc end -->
+
 
 ## Français ##
 
@@ -10,7 +20,7 @@ This is a list of open lexical databases. Clicking on the database name provides
 |-------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Lexique3](Lexique382/README-Lexique.md)                                                  | _Lexique3_ est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.                                                                                  |
 | [Anagrammes](anagrammes/README-anagrammes.md)                                             | _Anagrammes_ liste plus de 25000 ensembles d'anagrammes du français.                                                                                                                                                                                                                                                                                                                                                     |
-| [Voisins](Voisins/README-Voisins.md))                                                     | _Voisins_ liste les voisins orthographiques par substitution d'une lettre pour 130000 mots français.                                                                                                                                                                                                                                                                                                                     |
+| [Voisins](Voisins/README-Voisins.md)                                                      | _Voisins_ liste les voisins orthographiques par substitution d'une lettre pour 130000 mots français.                                                                                                                                                                                                                                                                                                                     |
 | [French Lexicon Project](FrenchLexiconProject/README-FrenchLexiconProject.md)             | The _French Lexicon Project_ (FLP) was inspired from the _English Lexicon Project_ (Balota et al. 2007). It provides visual lexical decision time for about 39000 French words and as many pseudowords. The full data represents 1942000 reactions times from 975 participants.                                                                                                                                          |
 | [Megalex](Megalex/README-Megalex.md)                                                      | _Megalex_ provides visual and auditory lexical decision times and accuracy rates several thousands of words: Visual lexical decision data are available for 28466 French words and the same number of pseudowords, and auditory lexical decision data are available for 17876 French words and the same number of pseudowords.                                                                                           |
 | [Chronolex](Chronolex/README-Chronolex.md)                                                | _Chronolex_ provides naming times, lexical decision times and progressive demasking scores on most monosyllabic monomorphemic French (about 1500 items). Thirty-seven participants were tested in the naming task, 35 additionnal participants in the lexical decision task and 33 additionnal participants were tested in the progressive demasking task.                                                               |
