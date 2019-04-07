@@ -6,17 +6,11 @@ This is a list of open lexical databases. The "(README)" links provide more info
 
 ## Francais ##
 
-### Lexique382 ###
-
-_Lexique382_ est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc. ([README](Lexique382/README-Lexique.md))
-
-### Anagrammes ###
-
-_Anagrammes_ liste plus de 25000 ensembles d'anagrammes du français ([README](anagrammes/README-anagrammes.md))
-
-### Voisins ###
-
-_Voisins_ liste les voisins orthographiques par substitution d'une lettre pour 130000 mots français ([README](Voisins/README-Voisins.md))
+| Base | Description |
+|------|-------------|
+| Lexique382 | _Lexique382_ est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc. ([README](Lexique382/README-Lexique.md)) |
+| Anagrammes | _Anagrammes_ liste plus de 25000 ensembles d'anagrammes du français ([README](anagrammes/README-anagrammes.md)) |
+| Voisins | _Voisins_ liste les voisins orthographiques par substitution d'une lettre pour 130000 mots français ([README](Voisins/README-Voisins.md)) |
 
 ### French Lexicon Project ###
 
@@ -106,8 +100,6 @@ _SUBTLEX-CH_ (Cai & Brysbaert 2010) is a database of Chinese word and character 
 * If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com**
 
 ----
-
-[test](README-databases.md)
 
 Back to [main page](../README.md)
 
