@@ -8,7 +8,7 @@ grammaticale, le genre et le nombre, les fréquences dans un corpus de
 livres et dans un corpus de sous-titres de filems, etc.
 
 Table:
-[Lexique382.tsv](http://www.lexique.org/databases/Lexique382/Lexique382.tsv)
+[Lexique382.zip](http://www.lexique.org/databases/Lexique382/Lexique382.zip)
 
 Web site: <http://www.lexique.org>
 
@@ -27,13 +27,18 @@ Publications
     Sur Internet: LEXIQUE" *L'Année Psychologique* 101 (3): 447--462.
     [pdf](New%20et%20al.%20-%202001%20-%20Une%20base%20de%20données%20lexicales%20du%20français%20contempo.pdf)
 
+-   Boris New, Marc Brysbaert, Jean Veronis, and Christophe
+    Pallier. 2007. "The Use of Film Subtitles to Estimate Word
+    Frequencies." Applied Psycholinguistics 28 (4): 661--77.
+    https://doi.org/10.1017/S014271640707035X.
+    ([pdf](New.Brysbaert.Veronis.Pallier.2007.APU.pdf))
+
 Contributeurs (par ordre alphabétique)
 --------------------------------------
 
--   Boris New
--   Christophe Pallier
+-   Boris New & Christophe Pallier
 -   Ronald Peereman
--   SOphie Dufour
+-   Sophie Dufour
 -   Christian Lachaud
 -   and many others... (contact us to be listed)
 
