@@ -1,6 +1,7 @@
 # Available lexical databases #
 
 
+
 This is a list of open lexical databases. Clicking on the database name provides more information and access to the data tables.
 
 ## Français ##
@@ -40,6 +41,8 @@ This is a list of open lexical databases. Clicking on the database name provides
 
 ----
 
+## Usage
+
 **Accessing the content**
 
 * Many of these tables can explored at <http://www.lexique.org/shiny/openlexique>
@@ -63,7 +66,7 @@ This is a list of open lexical databases. Clicking on the database name provides
 
 **Contributing***
 
-* If you want to contribute, by adding a database, or just sending some corrections, please contact `christophe@pallier.org` and `boris.new@gmail.com**
+* If you want to contribute, by adding a database, or just sending some corrections, please contact <christophe@pallier.org> and <boris.new@gmail.com>
 
 ----
 
@@ -71,4 +74,4 @@ Back to [main page](../README.md)
 
 ----
 
-Time-stamp: <2019-04-03 08:36:33 christophe@pallier.org>
+Time-stamp: <2019-04-07 19:59:58 christophe@pallier.org>
