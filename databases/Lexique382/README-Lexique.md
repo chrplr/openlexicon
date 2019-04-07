@@ -15,12 +15,15 @@ Online: <http://www.lexique.org/shiny/lexique>
 
 * New, Boris, Christophe Pallier, Ludovic Ferrand, and Rafael Matos. 2001. “Une Base de Données Lexicales Du Français Contemporain Sur Internet: LEXIQUE” _L’Année Psychologique_ 101 (3): 447–462. [pdf](New et al. - 2001 - Une base de données lexicales du français contempo.pdf)
 
+* Boris New, Marc Brysbaert, Jean Veronis, and Christophe Pallier. 2007. “The Use of Film Subtitles to Estimate Word Frequencies.” Applied Psycholinguistics 28 (4): 661–77. https://doi.org/10.1017/S014271640707035X. ([pdf](New.Brysbaert.Veronis.Pallier.2007.APU.pdf))
+
+
+
 ## Contributeurs (par ordre alphabétique) ##
 
-- Boris New
-- Christophe Pallier
+- Boris New & Christophe Pallier
 - Ronald Peereman
-- SOphie Dufour
+- Sophie Dufour
 - Christian Lachaud
 - and many others... (contact us to be listed)
 

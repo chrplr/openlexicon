@@ -50,13 +50,26 @@ CHACQFAM est une base de données renseignant l’âge d’acquisition estimé e
 
 ## English (American and British) ##
 
-### SUBTLEXus ###
+### English Lexicon Project ###
 
-_SUBTLEXus_ provides two frequency measures based on American movies subtitles (51 million words in total): a) The frequency per million words, called SUBTLEXWF (word form frequency) b) The percentage of films in which a word occurs, called SUBTLEXCD (contextual diversity) ([README](SUBTLEXus/README-SUBTLEXus.md))
+The English Lexicon Project provides a standardized behavioral and descriptive data set for 40,481 words and 40,481 nonwords. Data from 816 participants across six universities were collected in a lexical decision task (approximately 3400 responses per participant), and data from 444 participants were collected in a speeded naming task (approximately 2500 responses per participant). ([README](EnglishLexiconProject/README-ELP.md))
+
+### SUBTLEX-US ###
+
+_SUBTLEXus_ (Brysbaert, New & Keuleers, 2012) provides two frequency measures based on American movies subtitles (51 million words in total): a) The frequency per million words, called SUBTLEXWF (word form frequency) b) The percentage of films in which a word occurs, called SUBTLEXCD (contextual diversity) ([README](SUBTLEX-US/README-SUBTLEXus.md))
 
 ### British Lexicon Project ###
 
 The British Lexicon Project (Keuleers et al, 2012) contains lexical decision data for over 28,000 monosyllabic and disyllabic English words. ([README](BritishLexiconProject/README-BritishLexiconProject)).
+
+## Chinese  ##
+
+### SUBTLEX-CH ###
+
+_SUBTLEX-CH_ (Cai & Brysbaert 2010) is a database of Chinese word and character frequencies based on a corpus of film and television subtitles (46.8 million characters, 33.5 million words). ([README](SUBTLEX-CH/README-subtlex-ch.md))
+
+
+
 
 ----
 
