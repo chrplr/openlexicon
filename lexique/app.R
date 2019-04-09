@@ -9,6 +9,25 @@ load('../rdata/Lexique382.RData')
 
 lexique$cgram <- as.factor(lexique$cgram)
 
+helper_alert =
+  tags$div(class="alert alert-info",
+    tags$h4(class="alert-heading", "Foreword on usage"),
+    tags$p("The full documentation is available ",
+      tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "here"),
+      "."
+    ),
+    tags$hr(""),
+    tags$p("Crash course:"),
+    tags$ul(
+      tags$li("Select desired columns on the sidebar on the left"),
+      tags$li("For each column you can:"),
+      tags$ul(
+        tags$li("sort (ascending or descending)"),
+        tags$li("Filter using ", tags$a(href="http://regextutorials.com/index.html", "regexes"), ".")
+      ),
+      tags$li("Download the result of your manipulations")
+    )
+  )
 
 ui <- fluidPage(
         title = "Lexique",
@@ -23,6 +42,7 @@ ui <- fluidPage(
             mainPanel(
                 uiOutput("help"),
                 h3(textOutput("caption", container = span)),
+                helper_alert,
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
             )
