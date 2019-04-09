@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-06 15:23:39 christophe@pallier.org>
+# Time-stamp: <2019-04-09 13:35:19 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -19,11 +19,13 @@ load('../rdata/SUBTLEXus.RData')
 load('../rdata/Megalex-auditory.RData')
 load('../rdata/Megalex-visual.RData')
 load('../rdata/Voisins.RData')
+load('../rdata/FrFram.RData')
 
 
 server <- function(input, output) {
     datasetInput <- reactive({
         switch(input$dataset,
+               "SUBTLEXus" = subtlexus,
                "Lexique3.82" = lexique,
                "Brulex" = brulex,
                "Voisins" = voisins,
@@ -33,9 +35,10 @@ server <- function(input, output) {
                "FLP.words" = flp.words,
                "FLP.pseudo" = flp.pseudowords,
                "Chronolex" = chronolex,
-               "SUBTLEXus" = subtlexus,
                "Megalex-auditory" = megalex.auditory,
-               "Megalex-visual" = megalex.visual)
+               "Megalex-visual" = megalex.visual,
+               "FrFamiliarité" = frfam
+               )
     })
 
     output$caption <- renderText({
@@ -58,7 +61,9 @@ server <- function(input, output) {
             write.csv(dt,
                       file=fname,
                       row.names=FALSE)
-         })
+        })
+    url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
+    output$help = renderUI({ tagList("", url) })
 }
 
 ui <- fluidPage(
@@ -67,13 +72,14 @@ ui <- fluidPage(
         sidebarLayout(
             sidebarPanel(
                 selectInput("dataset", "Choose a dataset:",
-                            choices = c("Lexique3.82", "Brulex", "Voisins", "Frantext", "FLP.pseudo", "FLP.words", "Chronolex",  "400images", "Gougenheim", "SUBTLEXus", "Megalex-auditory", "Megalex-visual")),
+                            choices = c("Lexique3.82", "Brulex", "Voisins", "Frantext", "FLP.pseudo", "FLP.words", "Chronolex",  "400images", "Gougenheim", "SUBTLEXus", "Megalex-auditory", "Megalex-visual", "FrFamiliarité")),
                 width=2
             ),
-        mainPanel(
-            h3(textOutput("caption", container = span)),
-            fluidRow(DTOutput(outputId="table")),
-            downloadButton(outputId='download', label="Download filtered data")
+            mainPanel(
+                uiOutput("help"),
+                h3(textOutput("caption", container = span)),
+                fluidRow(DTOutput(outputId="table")),
+                downloadButton(outputId='download', label="Download filtered data")
             )
         )
     )

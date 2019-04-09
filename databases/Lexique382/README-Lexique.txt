@@ -33,8 +33,8 @@ Publications
     https://doi.org/10.1017/S014271640707035X.
     ([pdf](New.Brysbaert.Veronis.Pallier.2007.APU.pdf))
 
-Contributeurs (par ordre alphabétique)
---------------------------------------
+Contributeurs
+-------------
 
 -   Boris New & Christophe Pallier
 -   Ronald Peereman

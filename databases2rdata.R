@@ -1,6 +1,6 @@
 #! /usr/bin/env Rscript
 # convert the tsv files in `databases` into R dataframes and save them in RData format in the `rdata` folder
-# Time-stamp: <2019-04-05 16:16:08 christophe@pallier.org>
+# Time-stamp: <2019-04-09 11:29:43 christophe@pallier.org>
 
 
 require(readr)
@@ -29,7 +29,7 @@ save(gougenheim, file='rdata/gougenheim.RData')
 chronolex <- read_delim('databases/Chronolex/Chronolex.tsv', delim='\t')
 save(chronolex, file='rdata/Chronolex.RData')
 
-subtlexus <- read_delim('databases/SUBTLEXus/SUBTLEXus74286wordstextversion.tsv', delim='\t')
+subtlexus <- read_delim('databases/SUBTLEX-USSUBTLEXus74286wordstextversion.tsv', delim='\t')
 save(subtlexus, file='rdata/SUBTLEXus.RData')
 
 megalex.auditory <- read_delim('databases/Megalex/Megalex-items-auditory.tsv', delim='\t')
@@ -40,3 +40,7 @@ save(megalex.visual, file='rdata/Megalex-visual.RData')
 
 voisins <- read_delim('databases/Voisins/voisins.txt', delim='\t')
 save(voisins, file='rdata/Voisins.RData')
+
+frfam <- read_delim('databases/Robert-Dorot-Mathey/Fr-familiarity660.tsv', delim='\t')
+save(frfam, file='rdata/FrFam.RData')
+

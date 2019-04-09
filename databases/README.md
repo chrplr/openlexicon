@@ -1,7 +1,9 @@
 # Available lexical databases #
 
+This is a directory of open lexical databases for the [openlexicon project](http://chrplr.github.io/openlexicon). Clicking on the name of a database will provide more information.
 
-This is a list of open lexical databases. Clicking on the database name provides more information and access to the data tables.
+Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique> (Select the base in dataset)
+
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**

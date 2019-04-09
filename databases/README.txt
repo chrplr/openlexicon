@@ -1,9 +1,22 @@
 Available lexical databases
 ===========================
 
-This is a list of open lexical databases. Clicking on the database name
-provides more information and access to the data tables.
+This is a directory of open lexical databases for the [openlexicon
+project](http://chrplr.github.io/openlexicon). Clicking on the name of a
+database will provide more information.
 
+Most databases can explored on-line at
+<http://www.lexique.org/shiny/openlexique> (Select the base in dataset)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+-   [Français](#français)
+-   [English (American and British)](#english-american-and-british)
+-   [Chinese](#chinese)
+-   [Usage](#usage)
+
+<!-- markdown-toc end -->
 Français
 --------
 
@@ -20,7 +33,7 @@ Français
   [Anagrammes](anagrammes/README-anagrammes.md)                                               *Anagrammes* liste plus de 25000 ensembles d'anagrammes du
                                                                                               français.
 
-  [Voisins](Voisins/README-Voisins.md))                                                       *Voisins* liste les voisins orthographiques par
+  [Voisins](Voisins/README-Voisins.md)                                                        *Voisins* liste les voisins orthographiques par
                                                                                               substitution d'une lettre pour 130000 mots français.
 
   [French Lexicon Project](FrenchLexiconProject/README-FrenchLexiconProject.md)               The *French Lexicon Project* (FLP) was inspired from the
@@ -159,6 +172,9 @@ Chinese
 
 ------------------------------------------------------------------------
 
+Usage
+-----
+
 **Accessing the content**
 
 -   Many of these tables can explored at
@@ -187,8 +203,8 @@ Chinese
 **Contributing**\*
 
 -   If you want to contribute, by adding a database, or just sending
-    some corrections, please contact `christophe@pallier.org` and
-    \`boris.new\@gmail.com\*\*
+    some corrections, please contact <christophe@pallier.org> and
+    <boris.new@gmail.com>
 
 ------------------------------------------------------------------------
 
@@ -196,4 +212,4 @@ Back to [main page](../README.md)
 
 ------------------------------------------------------------------------
 
-Time-stamp: \<2019-04-03 08:36:33 christophe\@pallier.org\>
+Time-stamp: \<2019-04-07 19:59:58 christophe\@pallier.org\>
