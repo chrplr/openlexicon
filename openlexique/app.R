@@ -19,7 +19,7 @@ load('../rdata/SUBTLEXus.RData')
 load('../rdata/Megalex-auditory.RData')
 load('../rdata/Megalex-visual.RData')
 load('../rdata/Voisins.RData')
-load('../rdata/FrFram.RData')
+load('../rdata/FrFam.RData')
 
 
 server <- function(input, output) {
