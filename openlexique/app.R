@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-09 13:35:19 christophe@pallier.org>
+# Time-stamp: <2019-04-10 08:04:18 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -20,6 +20,46 @@ load('../rdata/Megalex-auditory.RData')
 load('../rdata/Megalex-visual.RData')
 load('../rdata/Voisins.RData')
 load('../rdata/FrFam.RData')
+
+
+helper_alert =
+    tags$div(class="alert alert-info",
+             tags$h4(class="alert-heading", "Foreword on usage"),
+             tags$p("Documentation is available at ",
+                    tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "here"),
+                    "."
+                    ),
+             tags$hr(""),
+             tags$p("Crash course:"),
+             tags$ul(
+                      tags$li("Select desired dataset on the left"),
+                      tags$li("For each column you can:"),
+                      tags$ul(
+                               tags$li("sort (ascending or descending)"),
+                               tags$li("Filter using intervals (e.g. 40...500), or ", tags$a(href="http://regextutorials.com/index.html", "regexes"), ".")
+                           ),
+                      tags$li("Download the result of your manipulations")
+                  )
+             )
+
+
+ui <- fluidPage(
+    titlePanel("OpenLexique"),
+
+    sidebarLayout(
+        sidebarPanel(
+            selectInput("dataset", "Choose a dataset:",
+                        choices = c("Lexique3.82", "Brulex", "Voisins", "Frantext", "FLP.pseudo", "FLP.words", "Chronolex",  "400images", "Gougenheim", "SUBTLEXus", "Megalex-auditory", "Megalex-visual", "FrFamiliarité")),
+            width=2
+        ),
+        mainPanel(
+            helper_alert,
+            h3(textOutput("caption", container = span)),
+            fluidRow(DTOutput(outputId="table")),
+            downloadButton(outputId='download', label="Download filtered data")
+        )
+    )
+)
 
 
 server <- function(input, output) {
@@ -62,26 +102,8 @@ server <- function(input, output) {
                       file=fname,
                       row.names=FALSE)
         })
-    url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
-    output$help = renderUI({ tagList("", url) })
+    #url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
+    #output$help = renderUI({ tagList("", url) })
 }
-
-ui <- fluidPage(
-        titlePanel("OpenLexique"),
-
-        sidebarLayout(
-            sidebarPanel(
-                selectInput("dataset", "Choose a dataset:",
-                            choices = c("Lexique3.82", "Brulex", "Voisins", "Frantext", "FLP.pseudo", "FLP.words", "Chronolex",  "400images", "Gougenheim", "SUBTLEXus", "Megalex-auditory", "Megalex-visual", "FrFamiliarité")),
-                width=2
-            ),
-            mainPanel(
-                uiOutput("help"),
-                h3(textOutput("caption", container = span)),
-                fluidRow(DTOutput(outputId="table")),
-                downloadButton(outputId='download', label="Download filtered data")
-            )
-        )
-    )
 
 shinyApp(ui, server)

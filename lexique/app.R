@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-09 13:35:51 christophe@pallier.org>
+# Time-stamp: <2019-04-10 08:03:02 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -42,7 +42,6 @@ ui <- fluidPage(
             mainPanel(
                 uiOutput("help"),
                 h3(textOutput("caption", container = span)),
-                helper_alert,
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
             )
