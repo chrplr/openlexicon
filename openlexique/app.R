@@ -36,7 +36,7 @@ helper_alert =
                       tags$li("For each column you can:"),
                       tags$ul(
                                tags$li("sort (ascending or descending)"),
-                               tags$li("Filter using intervals (e.g. 40...500), or ", tags$a(href="http://regextutorials.com/index.html", "regexes"), ".")
+                               tags$li("Filter using intervals (e.g. 40...500), or ", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), ".")
                            ),
                       tags$li("Download the result of your manipulations")
                   )
