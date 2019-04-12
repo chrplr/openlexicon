@@ -30,3 +30,5 @@ Online: <http://www.lexique.org/shiny/lexique>
 ## License ##
 
 [CC BY SA40.0](LICENSE-CC-BY-SA4.0.txt)
+
+[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)

@@ -11,3 +11,5 @@ Familiarités de 660 mots estimées par des adultes jeunes et des adultes âgés
 Robert, C., Dorot, D., & Mathey, S. (2012). Du campus au jardin : estimations de fréquence subjective auprès d'adultes jeunes et âgés pour 660 mots de la langue française. L'Année Psychologique, 112, 227-246
 
 Time-stamp: <2019-04-09 11:04:00 christophe@pallier.org>
+
+[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)

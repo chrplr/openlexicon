@@ -36,3 +36,6 @@ Cette base est constituée des champs suivants:
 ## Licence ##
 
 CC-BY-SA
+
+
+[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)

@@ -24,3 +24,5 @@ mean+-3stddev range.
 Christophe Pallier
 
 LICENSE CC BY-SA 4.0
+
+[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)

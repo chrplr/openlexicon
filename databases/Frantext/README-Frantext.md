@@ -7,3 +7,5 @@ Les mots qui commencent avec une majuscule commencent avec "*".
 Les chaînes commençant par "%" indiquent les symboles.
 
 Boris New
+
+[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
