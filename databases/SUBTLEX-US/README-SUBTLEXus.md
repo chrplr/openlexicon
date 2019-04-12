@@ -7,7 +7,7 @@ Improved frequency measures based on American English subtitles (51 million word
 
 The percentage of variance accounted for by these measures is significantly higher than the variance accounted for by Kucera & Francis, and Celex.
 
-**Table**: [SUBTLEXus74286wordstextversion.tsv](http://www.lexique.org/databases/SUBTLEXus/SUBTLEXus74286wordstextversion.tsv)
+**Table**: [SUBTLEXus74286wordstextversion.tsv](http://www.lexique.org/databases/SUBTLEX-US/SUBTLEXus74286wordstextversion.tsv)
 
 **Website:** <https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus>
 
