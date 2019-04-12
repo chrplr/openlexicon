@@ -9,6 +9,14 @@ brulex <- read_csv('databases/Brulex/Brulex-utf8.csv')
 save(brulex, file='rdata/Brulex.RData')
 
 lexique <- read_delim('databases/Lexique382/Lexique382.tsv', delim='\t')
+lexique$nblettres <- as.integer(lexique$nblettres)
+lexique$nbphons <- as.integer(lexique$nbphons)
+lexique$nbsyll <- as.integer(lexique$nbsyll)
+lexique$voisorth <- as.integer(lexique$voisorth)
+lexique$voisphon <- as.integer(lexique$voisphon)
+lexique$nbhomogr <- as.integer(lexique$nbhomogr)
+lexique$nbhomoph <- as.integer(lexique$nbhomoph)
+lexique$islem <- as.integer(lexique$islem)
 save(lexique, file='rdata/Lexique382.RData')
 
 flp.words <- read_csv('databases/FrenchLexiconProject/FLP.words.csv')
@@ -29,7 +37,7 @@ save(gougenheim, file='rdata/gougenheim.RData')
 chronolex <- read_delim('databases/Chronolex/Chronolex.tsv', delim='\t')
 save(chronolex, file='rdata/Chronolex.RData')
 
-subtlexus <- read_delim('databases/SUBTLEX-USSUBTLEXus74286wordstextversion.tsv', delim='\t')
+subtlexus <- read_delim('databases/SUBTLEX-US/SUBTLEXus74286wordstextversion.tsv', delim='\t')
 save(subtlexus, file='rdata/SUBTLEXus.RData')
 
 megalex.auditory <- read_delim('databases/Megalex/Megalex-items-auditory.tsv', delim='\t')

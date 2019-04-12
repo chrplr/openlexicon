@@ -35,7 +35,7 @@ ui <- fluidPage(
             sidebarPanel(
                 checkboxGroupInput("show_vars", "Columns to display",
                                    names(lexique),
-                                   selected = c('ortho', 'nblettres', 'orthosyll', 'cgram', 'lemme', 'freqlivres', 'freqfilms2', 'phon', 'nbphons', 'syll', 'p_cvcv')
+                                   selected = c('ortho', 'nblettres','cgramortho','islem', 'cgram', 'nblettres', 'nbsyll','lemme', 'freqlemfilms2', 'freqfilms2', 'phon')
                                    ),
                 width=2
                 ),
@@ -59,10 +59,11 @@ server <- function(input, output) {
     output$table <- renderDT(datasetInput()[,input$show_vars, drop=FALSE],
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
-                             options=list(search = list(regex = TRUE,
-                                                        caseInsensitive = FALSE,
-                                                        pageLength=50,
-                                                        lengthMenu = c(20, 50, 100, 500))))
+                             options=list(search = list(pageLength=15,
+														lengthMenu = c(5, 15, -1),
+														regex = TRUE,
+                                                        caseInsensitive = FALSE
+                                                        )))
 
     output$download <- downloadHandler(
         filename = function() {
@@ -75,8 +76,8 @@ server <- function(input, output) {
                       file=fname,
                       row.names=FALSE)
         })
-    url  <- a("Au secours!", href="http://www.lexique.org/?page_id=166")
-    output$help = renderUI({ tagList("Mode d'emploi :", url) })
+    url  <- a("Mode d'emploi", href="http://www.lexique.org/?page_id=166")
+    output$help = renderUI({ tagList(tags$h4("Aide pour les recherches :", url)) })
 
 }
 
