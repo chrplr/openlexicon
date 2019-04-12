@@ -25,7 +25,7 @@ load('../rdata/FrFam.RData')
 helper_alert =
     tags$div(class="alert alert-info",
              tags$h4(class="alert-heading", "Foreword on usage"),
-             tags$p("Documentation is available at ",
+             tags$p("Full documentation is available at",
                     tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "here"),
                     "."
                     ),
@@ -33,12 +33,12 @@ helper_alert =
              tags$p("Crash course:"),
              tags$ul(
                       tags$li("Select desired dataset on the left"),
-                      tags$li("For each column you can:"),
+                      tags$li("For each column in the table bellow you can:"),
                       tags$ul(
-                               tags$li("sort (ascending or descending)"),
-                               tags$li("Filter using intervals (e.g. 40...500), or ", tags$a(href="http://regextutorials.com/index.html", "regexes"), ".")
+                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
+                               tags$li("sort, ascending or descending")
                            ),
-                      tags$li("Download the result of your manipulations")
+                      tags$li("Download the result of your manipulations by clicking on the button bellow the table")
                   )
              )
 
