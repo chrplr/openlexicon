@@ -14,6 +14,8 @@ Most databases can explored on-line at
 -   [Français](#français)
 -   [English (American and British)](#english-american-and-british)
 -   [Chinese](#chinese)
+-   [Multilingual](#multilingual)
+
 -   [Usage](#usage)
 
 <!-- markdown-toc end -->
@@ -85,6 +87,8 @@ Français
 
   [francais-GUTenberg](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md)   Liste de 336531 mots français obtenue à partir du
                                                                                               dictionnaire ispell Français-GUTenberg
+
+                                                                                              
   ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 English (American and British)
@@ -169,6 +173,20 @@ Chinese
                                                   characters, 33.5 million words).
 
   --------------------------------------------------------------------------------------------------------
+
+Multilingual
+------------
+
+  -----------------------------------------------------------------------------------------------------
+  Base                                      Description
+  ----------------------------------------- -----------------------------------------------------------
+  [HC                                       HC corpora is a collection of corpora for various
+  corpora](http://corpora.epizy.com/?i=1)   languages. The corpora have been collected from numerous
+                                            different webpages, with the aim of getting a varied and
+                                            comprehensive corpus of current use of the respective
+                                            language.
+
+  -----------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 

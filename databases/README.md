@@ -11,9 +11,13 @@ Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique
   - [Français](#français)
   - [English (American and British)](#english-american-and-british)
   - [Chinese](#chinese)
+  - [Multilingual](#multilingual)
+
   - [Usage](#usage)
 
 <!-- markdown-toc end -->
+
+
 
 
 ## Français ##
@@ -30,7 +34,8 @@ Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique
 | [Gougenheim100](Gougenheim100/README-Gougenheim.md)                                       | _Gougenheim100_ présente, pour 1064 mots, leur fréquence et leur répartition (nombre de textes dans lesquels ils apparaissent). Le corpus sur lequel, il est basé est un corpus de langue oral basé sur un ensembles d'entretiens avec 275 personnes. C'est donc non seulement un corpus de langue orale mais aussi de langue produite. Le corpus original comprend 163 textes, 312.135 mots et 7.995 lemmes différents. |
 | [Chacqfam](chacqfam/README-Chacqfam.md)                                                   | CHACQFAM est une base de données renseignant l’âge d’acquisition estimé et la familiarité de 1225 mots Français                                                                                                                                                                                                                                                                                                          |
 | [Frantext](Frantext/README-Frantext.md)                                                   | _Frantext_ fournit la liste de tous les types orthographiques obtenus après tokenization du sous-corpus de Frantext utilisé pour calculer les fréquences "livres"" de Lexique.                                                                                                                                                                                                                                           |
-| [francais-GUTenberg](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md) | Liste de 336531 mots français obtenue à partir du dictionnaire ispell Français-GUTenberg                                                                                                                                                                                                                                                                                                                                 |
+| [francais-GUTenberg](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md) | Liste de 336531 mots français obtenue à partir du dictionnaire ispell Français-GUTenberg                                                                                                                                                                                  | [Fr- Familiary660](Robert-Dorot-Mathey/README-RobertDorotMathey2012.md) | Familiarités de 660 mots estimées par des adultes jeunes et des adultes âgés.            |
+                                                                                                                          |
 
 
 ## English (American and British) ##
@@ -48,6 +53,11 @@ Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique
 |-----------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [SUBTLEX-CH](SUBTLEX-CH/README-subtlex-ch.md) | _SUBTLEX-CH_ (Cai & Brysbaert 2010) is a database of Chinese word and character frequencies based on a corpus of film and television subtitles (46.8 million characters, 33.5 million words). |
 
+## Multilingual ##
+
+| Base                                        | Description                                                                                                                                                                                                                         |
+|---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [HC corpora](http://corpora.epizy.com/?i=1) | HC corpora is a collection of corpora for various languages. The corpora have been collected from numerous different webpages, with the aim of getting a varied and comprehensive corpus of current use of the respective language. |
 
 
 
