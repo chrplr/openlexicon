@@ -57,7 +57,7 @@ Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique
 
 | Base                                    | Description                                                                            |
 |-----------------------------------------|----------------------------------------------------------------------------------------|
-| [WorldLex](WorldLex/README-worldlex.md) | Worldlex provides word frequencies estimated from web pages collected in 66 languages.   |
+| [WorldLex](WorldLex/README-Worldlex.md) | Worldlex provides word frequencies estimated from web pages collected in 66 languages.   |
 
 
 ----

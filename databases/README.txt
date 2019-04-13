@@ -197,7 +197,7 @@ Multilingual
   ------------------------------------------------------------------------------------------
   Base                                      Description
   ----------------------------------------- ------------------------------------------------
-  [WorldLex](WorldLex/README-worldlex.md)   Worldlex provides word frequencies estimated
+  [WorldLex](WorldLex/README-Worldlex.md)   Worldlex provides word frequencies estimated
                                             from web pages collected in 66 languages.
 
   ------------------------------------------------------------------------------------------
