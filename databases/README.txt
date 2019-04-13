@@ -22,74 +22,91 @@ Most databases can explored on-line at
 Français
 --------
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------------
-  Base                                                                                        Description
-  ------------------------------------------------------------------------------------------- ----------------------------------------------------------
-  [Lexique3](Lexique382/README-Lexique.md)                                                    *Lexique3* est une base de données lexicales du français
-                                                                                              qui fournit pour \~140000 mots du français: les
-                                                                                              représentations orthographiques et phonémiques, les lemmes
-                                                                                              associés, la syllabation, la catégorie grammaticale, le
-                                                                                              genre et le nombre, les fréquences dans un corpus de
-                                                                                              livres et dans un corpus de sous-titres de filems, etc.
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Base                                                                                        Description                                                                                                       
+  ------------------------------------------------------------------------------------------- -------------------------------------------- -------------------------------------------------------------------- --------------
+  [Lexique3](Lexique382/README-Lexique.md)                                                    *Lexique3* est une base de données lexicales                                                                      
+                                                                                              du français qui fournit pour \~140000 mots                                                                        
+                                                                                              du français: les représentations                                                                                  
+                                                                                              orthographiques et phonémiques, les lemmes                                                                        
+                                                                                              associés, la syllabation, la catégorie                                                                            
+                                                                                              grammaticale, le genre et le nombre, les                                                                          
+                                                                                              fréquences dans un corpus de livres et dans                                                                       
+                                                                                              un corpus de sous-titres de filems, etc.                                                                          
 
-  [Anagrammes](anagrammes/README-anagrammes.md)                                               *Anagrammes* liste plus de 25000 ensembles d'anagrammes du
-                                                                                              français.
+  [Anagrammes](anagrammes/README-anagrammes.md)                                               *Anagrammes* liste plus de 25000 ensembles                                                                        
+                                                                                              d'anagrammes du français.                                                                                         
 
-  [Voisins](Voisins/README-Voisins.md)                                                        *Voisins* liste les voisins orthographiques par
-                                                                                              substitution d'une lettre pour 130000 mots français.
+  [Voisins](Voisins/README-Voisins.md)                                                        *Voisins* liste les voisins orthographiques                                                                       
+                                                                                              par substitution d'une lettre pour 130000                                                                         
+                                                                                              mots français.                                                                                                    
 
-  [French Lexicon Project](FrenchLexiconProject/README-FrenchLexiconProject.md)               The *French Lexicon Project* (FLP) was inspired from the
-                                                                                              *English Lexicon Project* (Balota et al. 2007). It
-                                                                                              provides visual lexical decision time for about 39000
-                                                                                              French words and as many pseudowords. The full data
-                                                                                              represents 1942000 reactions times from 975 participants.
+  [French Lexicon Project](FrenchLexiconProject/README-FrenchLexiconProject.md)               The *French Lexicon Project* (FLP) was                                                                            
+                                                                                              inspired from the *English Lexicon Project*                                                                       
+                                                                                              (Balota et al. 2007). It provides visual                                                                          
+                                                                                              lexical decision time for about 39000 French                                                                      
+                                                                                              words and as many pseudowords. The full data                                                                      
+                                                                                              represents 1942000 reactions times from 975                                                                       
+                                                                                              participants.                                                                                                     
 
-  [Megalex](Megalex/README-Megalex.md)                                                        *Megalex* provides visual and auditory lexical decision
-                                                                                              times and accuracy rates several thousands of words:
-                                                                                              Visual lexical decision data are available for 28466
-                                                                                              French words and the same number of pseudowords, and
-                                                                                              auditory lexical decision data are available for 17876
-                                                                                              French words and the same number of pseudowords.
+  [Megalex](Megalex/README-Megalex.md)                                                        *Megalex* provides visual and auditory                                                                            
+                                                                                              lexical decision times and accuracy rates                                                                         
+                                                                                              several thousands of words: Visual lexical                                                                        
+                                                                                              decision data are available for 28466 French                                                                      
+                                                                                              words and the same number of pseudowords,                                                                         
+                                                                                              and auditory lexical decision data are                                                                            
+                                                                                              available for 17876 French words and the                                                                          
+                                                                                              same number of pseudowords.                                                                                       
 
-  [Chronolex](Chronolex/README-Chronolex.md)                                                  *Chronolex* provides naming times, lexical decision times
-                                                                                              and progressive demasking scores on most monosyllabic
-                                                                                              monomorphemic French (about 1500 items). Thirty-seven
-                                                                                              participants were tested in the naming task, 35
-                                                                                              additionnal participants in the lexical decision task and
-                                                                                              33 additionnal participants were tested in the progressive
-                                                                                              demasking task.
+  [Chronolex](Chronolex/README-Chronolex.md)                                                  *Chronolex* provides naming times, lexical                                                                        
+                                                                                              decision times and progressive demasking                                                                          
+                                                                                              scores on most monosyllabic monomorphemic                                                                         
+                                                                                              French (about 1500 items). Thirty-seven                                                                           
+                                                                                              participants were tested in the naming task,                                                                      
+                                                                                              35 additionnal participants in the lexical                                                                        
+                                                                                              decision task and 33 additionnal                                                                                  
+                                                                                              participants were tested in the progressive                                                                       
+                                                                                              demasking task.                                                                                                   
 
-  [Brulex](Brulex/README-Brulex.md)                                                           *Brulex* donne, pour environ 36.000 mots de la langue
-                                                                                              française, l'orthographe, la prononciation, la classe
-                                                                                              grammaticale, le genre, le nombre et la fréquence d'usage.
-                                                                                              Il contient également d'autres informations utiles à la
-                                                                                              sélection de matériel expérimental (notamment, point
-                                                                                              d'unicité, comptage des voisins lexicaux, patrons
-                                                                                              phonologiques, fréquence moyenne des digrammes).
+  [Brulex](Brulex/README-Brulex.md)                                                           *Brulex* donne, pour environ 36.000 mots de                                                                       
+                                                                                              la langue française, l'orthographe, la                                                                            
+                                                                                              prononciation, la classe grammaticale, le                                                                         
+                                                                                              genre, le nombre et la fréquence d'usage. Il                                                                      
+                                                                                              contient également d'autres informations                                                                          
+                                                                                              utiles à la sélection de matériel                                                                                 
+                                                                                              expérimental (notamment, point d'unicité,                                                                         
+                                                                                              comptage des voisins lexicaux, patrons                                                                            
+                                                                                              phonologiques, fréquence moyenne des                                                                              
+                                                                                              digrammes).                                                                                                       
 
-  [Gougenheim100](Gougenheim100/README-Gougenheim.md)                                         *Gougenheim100* présente, pour 1064 mots, leur fréquence
-                                                                                              et leur répartition (nombre de textes dans lesquels ils
-                                                                                              apparaissent). Le corpus sur lequel, il est basé est un
-                                                                                              corpus de langue oral basé sur un ensembles d'entretiens
-                                                                                              avec 275 personnes. C'est donc non seulement un corpus de
-                                                                                              langue orale mais aussi de langue produite. Le corpus
-                                                                                              original comprend 163 textes, 312.135 mots et 7.995 lemmes
-                                                                                              différents.
+  [Gougenheim100](Gougenheim100/README-Gougenheim.md)                                         *Gougenheim100* présente, pour 1064 mots,                                                                         
+                                                                                              leur fréquence et leur répartition (nombre                                                                        
+                                                                                              de textes dans lesquels ils apparaissent).                                                                        
+                                                                                              Le corpus sur lequel, il est basé est un                                                                          
+                                                                                              corpus de langue oral basé sur un ensembles                                                                       
+                                                                                              d'entretiens avec 275 personnes. C'est donc                                                                       
+                                                                                              non seulement un corpus de langue orale mais                                                                      
+                                                                                              aussi de langue produite. Le corpus original                                                                      
+                                                                                              comprend 163 textes, 312.135 mots et 7.995                                                                        
+                                                                                              lemmes différents.                                                                                                
 
-  [Chacqfam](chacqfam/README-Chacqfam.md)                                                     CHACQFAM est une base de données renseignant l'âge
-                                                                                              d'acquisition estimé et la familiarité de 1225 mots
-                                                                                              Français
+  [Chacqfam](chacqfam/README-Chacqfam.md)                                                     CHACQFAM est une base de données renseignant                                                                      
+                                                                                              l'âge d'acquisition estimé et la familiarité                                                                      
+                                                                                              de 1225 mots Français                                                                                             
 
-  [Frantext](Frantext/README-Frantext.md)                                                     *Frantext* fournit la liste de tous les types
-                                                                                              orthographiques obtenus après tokenization du sous-corpus
-                                                                                              de Frantext utilisé pour calculer les fréquences
-                                                                                              "livres"\" de Lexique.
+  [Frantext](Frantext/README-Frantext.md)                                                     *Frantext* fournit la liste de tous les                                                                           
+                                                                                              types orthographiques obtenus après                                                                               
+                                                                                              tokenization du sous-corpus de Frantext                                                                           
+                                                                                              utilisé pour calculer les fréquences                                                                              
+                                                                                              "livres"\" de Lexique.                                                                                            
 
-  [francais-GUTenberg](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md)   Liste de 336531 mots français obtenue à partir du
-                                                                                              dictionnaire ispell Français-GUTenberg
-
-                                                                                              
-  ------------------------------------------------------------------------------------------------------------------------------------------------------
+  [francais-GUTenberg](Liste-de-mots-francais-Gutenberg/README-liste-francais-Gutenberg.md)   Liste de 336531 mots français obtenue à      [Fr-                                                                 Familiarités
+                                                                                              partir du dictionnaire ispell                Familiary660](Robert-Dorot-Mathey/README-RobertDorotMathey2012.md)   de 660 mots
+                                                                                              Français-GUTenberg                                                                                                estimées par
+                                                                                                                                                                                                                des adultes
+                                                                                                                                                                                                                jeunes et des
+                                                                                                                                                                                                                adultes âgés.
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 English (American and British)
 ------------------------------
@@ -177,13 +194,13 @@ Chinese
 Multilingual
 ------------
 
-  -----------------------------------------------------------------------------------------
-  Base                                     Description
-  ---------------------------------------- ------------------------------------------------
-  [WorlLex](http://worldlex.lexique.org)   Worldlex provides surface frequency estimated
-                                           from web pages collected in 66 languages
+  ------------------------------------------------------------------------------------------
+  Base                                      Description
+  ----------------------------------------- ------------------------------------------------
+  [WorldLex](WorldLex/README-worldlex.md)   Worldlex provides word frequencies estimated
+                                            from web pages collected in 66 languages.
 
-  -----------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
