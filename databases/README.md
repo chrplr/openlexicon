@@ -55,9 +55,9 @@ Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique
 
 ## Multilingual ##
 
-| Base                                        | Description                                                                                                                                                                                                                         |
-|---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [HC corpora](http://corpora.epizy.com/?i=1) | HC corpora is a collection of corpora for various languages. The corpora have been collected from numerous different webpages, with the aim of getting a varied and comprehensive corpus of current use of the respective language. |
+| Base                                   | Description                                                                            |
+|----------------------------------------|----------------------------------------------------------------------------------------|
+| [WorlLex](http://worldlex.lexique.org) | Worldlex provides surface frequency estimated from web pages collected in 66 languages |
 
 
 

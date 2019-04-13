@@ -177,16 +177,13 @@ Chinese
 Multilingual
 ------------
 
-  -----------------------------------------------------------------------------------------------------
-  Base                                      Description
-  ----------------------------------------- -----------------------------------------------------------
-  [HC                                       HC corpora is a collection of corpora for various
-  corpora](http://corpora.epizy.com/?i=1)   languages. The corpora have been collected from numerous
-                                            different webpages, with the aim of getting a varied and
-                                            comprehensive corpus of current use of the respective
-                                            language.
+  -----------------------------------------------------------------------------------------
+  Base                                     Description
+  ---------------------------------------- ------------------------------------------------
+  [WorlLex](http://worldlex.lexique.org)   Worldlex provides surface frequency estimated
+                                           from web pages collected in 66 languages
 
-  -----------------------------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
