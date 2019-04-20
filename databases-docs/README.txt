@@ -8,6 +8,9 @@ database will provide more information.
 Most databases can explored on-line at
 <http://www.lexique.org/shiny/openlexique> (Select the base in dataset)
 
+Warning: Do not edit this document directly; Its sources is at
+<http://github.com/chrplr/openlexicon/databases-docs>.
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
