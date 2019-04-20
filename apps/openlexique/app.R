@@ -1,5 +1,7 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-10 08:04:18 christophe@pallier.org>
+# Time-stamp: <2019-04-20 14:44:08 christophe@pallier.org>
+
+source('../set-variables.R')
 
 library(shiny)
 library(DT)
@@ -7,19 +9,19 @@ library(DT)
 # lexique <- read.csv('Lexique380.utf8.csv')
 # brulex <- read.csv('Brulex.utf8.csv')
 
-load('../rdata/Lexique382.RData')
-load('../rdata/Brulex.RData')
-load('../rdata/flp-pseudowords.RData')
-load('../rdata/flp-words.RData')
-load('../rdata/Chronolex.RData')
-load('../rdata/Frantext.RData')
-load('../rdata/gougenheim.RData')
-load('../rdata/images400.RData')
-load('../rdata/SUBTLEXus.RData')
-load('../rdata/Megalex-auditory.RData')
-load('../rdata/Megalex-visual.RData')
-load('../rdata/Voisins.RData')
-load('../rdata/FrFam.RData')
+load(file.path(RDATA, 'Lexique382.RData')
+load(file.path(RDATA, 'Brulex.RData')
+load(file.path(RDATA, 'flp-pseudowords.RData')
+load(file.path(RDATA, 'flp-words.RData')
+load(file.path(RDATA, 'Chronolex.RData')
+load(file.path(RDATA, 'Frantext.RData')
+load(file.path(RDATA, 'gougenheim.RData')
+load(file.path(RDATA, 'images400.RData')
+load(file.path(RDATA, 'SUBTLEXus.RData')
+load(file.path(RDATA, 'Megalex-auditory.RData')
+load(file.path(RDATA, 'Megalex-visual.RData')
+load(file.path(RDATA, 'Voisins.RData')
+load(file.path(RDATA, 'FrFam.RData')
 
 
 helper_alert =

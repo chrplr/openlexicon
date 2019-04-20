@@ -1,14 +1,16 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-10 08:04:18 christophe@pallier.org>
+# Time-stamp: <2019-04-20 14:44:39 christophe@pallier.org>
+
+
+source('../set-variables.R')
+
+load(file.path(RDATA, 'WorldLex_FR.RData'))
+load(file.path(RDATA, 'WorldLex_EN.RData'))
+
 
 library(shiny)
 library(DT)
 
-# lexique <- read.csv('Lexique380.utf8.csv')
-# brulex <- read.csv('Brulex.utf8.csv')
-
-load('../rdata/WorldLex_FR.RData')
-load('../rdata/WorldLex_EN.RData')
 
 
 helper_alert =
