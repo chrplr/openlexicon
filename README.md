@@ -1,14 +1,15 @@
 # OpenLexicon: Easy access to lexical databases
 
-Here, you will find a list of [open lexical databases](databases-docs/README.md), and
-some [apps](apps/) and [scripts](scripts/README.md) to query or manipulate them.
+This document is at <http://github.com/chrplr/openlexicon> but can be
+read in a nicer format at <https://chrplr.github.io/openlexicon>.
+
+Here, you will find a list of [open lexical databases](databases-docs/README.md), as well as
+some [shiny apps](apps/) and [scripts](scripts/README.md) to query or manipulate them.
 
 This repository provides the infrastructure of the site <http://www.lexique.org>
 where many of these databases are hosted and can be queried on-line (check
 out <http://www.lexique.org/shiny/openlexique>)
 
-This document is at <http://github.com/chrplr/openlexicon> but can be
-read in a nicer format at <https://chrplr.github.io/openlexicon>.
 
 **Contributing:**
 

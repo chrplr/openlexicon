@@ -1,27 +1,24 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-20 14:44:08 christophe@pallier.org>
+# Time-stamp: <2019-04-20 15:20:18 christophe@pallier.org>
 
 source('../set-variables.R')
 
 library(shiny)
 library(DT)
 
-# lexique <- read.csv('Lexique380.utf8.csv')
-# brulex <- read.csv('Brulex.utf8.csv')
-
-load(file.path(RDATA, 'Lexique382.RData')
-load(file.path(RDATA, 'Brulex.RData')
-load(file.path(RDATA, 'flp-pseudowords.RData')
-load(file.path(RDATA, 'flp-words.RData')
-load(file.path(RDATA, 'Chronolex.RData')
-load(file.path(RDATA, 'Frantext.RData')
-load(file.path(RDATA, 'gougenheim.RData')
-load(file.path(RDATA, 'images400.RData')
-load(file.path(RDATA, 'SUBTLEXus.RData')
-load(file.path(RDATA, 'Megalex-auditory.RData')
-load(file.path(RDATA, 'Megalex-visual.RData')
-load(file.path(RDATA, 'Voisins.RData')
-load(file.path(RDATA, 'FrFam.RData')
+load(file.path(RDATA, 'Lexique382.RData'))
+load(file.path(RDATA, 'Brulex.RData'))
+load(file.path(RDATA, 'flp-pseudowords.RData'))
+load(file.path(RDATA, 'flp-words.RData'))
+load(file.path(RDATA, 'Chronolex.RData'))
+load(file.path(RDATA, 'Frantext.RData'))
+load(file.path(RDATA, 'gougenheim.RData'))
+load(file.path(RDATA, 'images400.RData'))
+load(file.path(RDATA, 'SUBTLEXus.RData'))
+load(file.path(RDATA, 'Megalex-auditory.RData'))
+load(file.path(RDATA, 'Megalex-visual.RData'))
+load(file.path(RDATA, 'Voisins.RData'))
+load(file.path(RDATA, 'FrFam.RData'))
 
 
 helper_alert =
@@ -37,7 +34,7 @@ helper_alert =
                       tags$li("Select desired dataset on the left"),
                       tags$li("For each column in the table bellow you can:"),
                       tags$ul(
-                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
+p                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
                                tags$li("sort, ascending or descending")
                            ),
                       tags$li("Download the result of your manipulations by clicking on the button bellow the table")
