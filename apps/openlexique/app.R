@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-20 15:20:18 christophe@pallier.org>
+# Time-stamp: <2019-04-20 15:31:34 christophe@pallier.org>
 
 source('../set-variables.R')
 
@@ -34,7 +34,7 @@ helper_alert =
                       tags$li("Select desired dataset on the left"),
                       tags$li("For each column in the table bellow you can:"),
                       tags$ul(
-p                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
+                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
                                tags$li("sort, ascending or descending")
                            ),
                       tags$li("Download the result of your manipulations by clicking on the button bellow the table")
