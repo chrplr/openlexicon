@@ -1,6 +1,20 @@
 # Introduction aux expressions régulières #
 
+% Time-stamp: <2019-04-21 17:48:14 christophe@pallier.org>
+
 Les expressions régulières --- ou _regex_ --- sont des “patterns” qui permettent de rechercher des mots possédant certaines propriétés. 
+
+Il existe de nombreux tutoriaux concernant les _regex_ sur le web, notamment <http://regextutorials.com/index.html> et <http://www.canyouseome.com/guide-regex/>
+
+La bible sur le sujet est le livre _Maitriser les expressions régulières_ (voir <http://regex.info/book.html>)
+
+Une regex décrit un automate de transition à états finis. Le site <https://regexper.com/> vous permet de visualiser l’automate associé à votre regex. Par exemple:
+
+`[ptk].*[aiou][aiou].?ion$` correspond à l’automate fini:
+
+![](fsa.png)
+
+Voici quelques exemples:
 
 *    `ion` : recherche les mots qui contiennent la chaine _ion_, dans n’importe quelle position.
 *    `oid|ion|ein` : recherche les mots qui contiennent (au moins) une des trois chaînes“_iod_, _ion_ ou _ein_ (| = ou). Par exemple, vous pouvez rechercher des mots qui _contiennent_ chien, chat ou lapin avec la regex chien|chat|lapin
@@ -14,13 +28,4 @@ Les expressions régulières --- ou _regex_ --- sont des “patterns” qui perm
 *    `^[aeiou]` : mots commençant par une voyelle
 *    `^[^aeriou]` : mots ne commençant pas par une voyelle
 
-Il existe de nombreux tutoriaux concernant les _regex_ sur le web, notamment <http://regextutorials.com/index.html> et <http://www.canyouseome.com/guide-regex/>
-
-La bible sur le sujet est le livre _Maitriser les expressions régulières_ (voir <)http://regex.info/book.html>)
-
-Une regex décrit un automate de transition à états finis. Le site <https://regexper.com/> vous permet de visualiser l’automate associé à votre regex. Par exemple:
-
-`[ptk].*[aiou][aiou].?ion$` correspond à l’automate fini:
-
-![](fsa.png)
 
