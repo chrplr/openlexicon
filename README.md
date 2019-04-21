@@ -1,7 +1,6 @@
----
-title: OpenLexicon: Easy access to lexical databases
-author: christophe@pallier.org
----
+# OpenLexicon: Easy access to lexical databases
+
+
 
 At OpenLexicon, you will find:
 
