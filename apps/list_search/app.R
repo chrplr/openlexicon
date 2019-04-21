@@ -3,35 +3,24 @@
 
 library(shiny)
 library(DT)
+library(dplyr)
 
 source('../set-variables.R')
 
 load(file.path(RDATA, 'Lexique382.RData'))
 
-lexique$cgram <- as.factor(lexique$cgram)
-
-helper_alert =
-  tags$div(class="alert alert-info",
-           tags$h4(class="alert-heading", "Foreword on usage"),
-           tags$p("The full documentation is available ",
-                  tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "here"),
-                  "."
-           ),
-           tags$hr(""),
-           tags$p("Crash course:"),
-           tags$ul(
-             tags$li("Select desired columns on the sidebar on the left"),
-             tags$li("For each column you can:"),
-             tags$ul(
-               tags$li("sort (ascending or descending)"),
-               tags$li("Filter using ", tags$a(href="http://regextutorials.com/index.html", "regexes"), ".")
-             ),
-             tags$li("Download the result of your manipulations")
-           )
-  )
-
 ui <- fluidPage(
   title = "Lexique",
+  fluidRow(
+    column(8,offset = 3,
+           textarea_demo <- textAreaInput(
+             "mots", 
+             label = h3("Liste de mots à rechercher dans la table"),
+             cols =20,
+             rows = 10
+            )    
+    )
+  ),
   fluidRow(
     column(2,
       wellPanel(
@@ -41,13 +30,8 @@ ui <- fluidPage(
         )
       )
     ),
-    column(4,
-           textarea_demo <- textAreaInput(
-             "mots", 
-             "Liste de mots à rechercher dans la table"
-           )    ),
-    column(4,
-           uiOutput("help"),
+    column(10,
+           #uiOutput("help"),
            h3(textOutput("caption", container = span)),
            DTOutput(outputId="table"),
            downloadButton(outputId='download', label="Download filtered data")
@@ -56,21 +40,29 @@ ui <- fluidPage(
   )
 )
 
-
 server <- function(input, output) {
-  datasetInput <- reactive({lexique})
+  # Génère le dataframe avec les mots rentrés par l'utilisateur
+  mots2<-reactive({strsplit(input$mots,"[ \n\t]")})
+  # num pourra servir à récupérer l'ordre original des mots rentrés par l'utilisateur.
+  # Pour l'instant ça ne marche pas (il faudrait juste trier lexique_mots par num) mais ça devrait marcher un jour
+  num<-reactive({seq(from=1,to=nrow(mots2))})
+  mots2df<-reactive({data.frame(ortho=matrix(unlist(mots2())))})
+  lexique_mots <- reactive({merge(mots2df(),lexique,by.x="ortho",by.y="ortho",all.x=TRUE)})
+  
   output$caption <- renderText({
     "Lexique3.82" 
   })
 
-  output$table <- renderDT(subset(datasetInput(), lexique$ortho %in% strsplit(input$mots, "[ \n\t]")[[1]], select=input$show_vars, drop=FALSE),
+  output$table <- renderDT(lexique_mots()[,input$show_vars, drop=FALSE],
                            server=TRUE, escape = TRUE, selection = 'none',
-                           filter=list(position = 'top', clear = FALSE),
-                           options=list(search = list(pageLength=15,
-                                                      lengthMenu = c(5, 15, -1),
+                           #filter=list(position = 'top', clear = FALSE),
+                           options=list(pageLength=20,
+                                                      lengthMenu = c(20, 50, 1000),
                                                       regex = TRUE,
+                                                      searching = FALSE,
                                                       caseInsensitive = FALSE
-                           )))
+                                      )
+  )
   
   output$download <- downloadHandler(
     filename = function() {
@@ -78,13 +70,15 @@ server <- function(input, output) {
     },
     content = function(fname){
       # write.csv(datasetInput(), fname)
-      dt = datasetInput()[input[["table_rows_all"]], ]
-      write.csv(dt,
+      dt = lexique_mots()[input[["table_rows_all"]], ]
+      write.table(dt,
                 file=fname,
+                quote=FALSE,
+                sep=";",
                 row.names=FALSE)
     })
   url  <- a("Mode d'emploi", href="http://www.lexique.org/?page_id=166")
-  output$help = renderUI({ tagList(tags$h4("Aide pour les recherches :", url)) })
+  #output$help = renderUI({ tagList(tags$h4("Aide pour les recherches :", url)) })
   
 }
 
