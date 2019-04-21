@@ -1,11 +1,15 @@
-# OpenLexicon: Easy access to lexical databases
+---
+title: OpenLexicon: Easy access to lexical databases
+author: christophe@pallier.org
+---
 
 At OpenLexicon, you will find:
 
-1. a directory of [open lexical databases](databases-docs/README.md)
-2. [scripts](scripts/README.md) to query, manipulate or create lexical databases.
-3. [apps](apps/) to create dynamic graphical interfaces to the lexical databases. 
-4. [documents](documents/) relevant to the processing of lexical databases.
+1. a [directory of lexical databases](databases-docs/README.md)
+2. [scripts](https://github.com/chrplr/openlexicon/tree/master/scripts) to query, manipulate or create lexical databases.
+3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. 
+4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
+
 
 Some of the apps provide the infrastructure of <http://www.lexique.org>
 where many of lexical databases are hosted and can be queried on-line --- check
