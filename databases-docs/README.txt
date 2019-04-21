@@ -1,26 +1,36 @@
-Available lexical databases
-===========================
+Open lexical databases
+======================
 
-This is a directory of open lexical databases for the [openlexicon
-project](http://chrplr.github.io/openlexicon). Clicking on the name of a
-database will provide more information.
+You will find below a directory of open lexical databases. Click on the
+name of any database to obtain more information and links to datasets.
 
-Most databases can explored on-line at
-<http://www.lexique.org/shiny/openlexique> (Select the base in dataset),
-or downloaded from <http://www.lexique.org/databases>
+Most datasets are provided in form of `.tsv` or `.csv` files
+(tab-separated-values or comma-separated-values). These are plain text
+files which can be easily imported in to R, MATLAB or Python, or even
+[opened with
+Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
+Check out our [script examples](../scripts/README.md).
 
-Warning: Do not edit this document directly; Its sources is at
-<http://github.com/chrplr/openlexicon/databases-docs>.
+Many of these databases can also be explored or queried on-line at
+<http://www.lexique.org/shiny/openlexique>, with shiny apps from the
+[openlexicon project](http://github.com/chrplr/openlexicon).
+
+**Crediting**
+
+-   Most databases have associated publications listed in their
+    respective \`README\*\* files. They must be cited in any derivative
+    work!
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
--   [Français](#français)
--   [English (American and British)](#english-american-and-british)
--   [Chinese](#chinese)
--   [Multilingual](#multilingual)
-
--   [Usage](#usage)
+-   [Open lexical databases](#open-lexical-databases)
+    -   [Français](#français)
+    -   [English (American and British)](#english-american-and-british)
+    -   [Chinese](#chinese)
+    -   [Multilingual](#multilingual)
+    -   [Similar lists or resource](#similar-lists-or-resource)
+    -   [Contributing](#contributing)
 
 <!-- markdown-toc end -->
 Français
@@ -190,46 +200,21 @@ Multilingual
 
   ------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------
-
-Usage
------
-
-**Accessing the content**
-
--   Many of these tables can explored at
-    <http://www.lexique.org/shiny/openlexique>
-
--   They can be downloaded from <http://lexique.org/databases.zip>
-    (Warning this file is over 100MB).
-
--   Most databases are provided in form of `.tsv` or `.csv` files
-    (tab-separated-values or comma-separated-values). These are plain
-    text files which can be easily imported in to R, MATLAB or Python,
-    or even [opened with
-    Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
-    Check out our [script examples](../scripts/README.md).
-
-**Similar lists or resources**
+Similar lists or resources
+--------------------------
 
 -   Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
 
-**Crediting**
+Contributing
+------------
 
--   Most databases have associated publications listed in their
-    respective \`README\*\* files. They must be cited in any derivative
-    work!
-
-**Contributing**\*
-
--   If you want to contribute, by adding a database, or just sending
-    some corrections, please contact <christophe@pallier.org> and
-    <boris.new@gmail.com>
+If you want to contribute, by adding a database, or just sending some
+corrections, please contact <christophe@pallier.org> and
+<boris.new@gmail.com>.
 
 ------------------------------------------------------------------------
 
-Back to [main page](../README.md)
+The source of the current document is at
+<https://github.com/chrplr/openlexicon/blob/master/databases-docs/README.md>.
 
-------------------------------------------------------------------------
-
-Time-stamp: \<2019-04-07 19:59:58 christophe\@pallier.org\>
+Time-stamp: \<2019-04-21 16:27:29 christophe\@pallier.org\>
