@@ -1,31 +1,32 @@
 # OpenLexicon: Easy access to lexical databases
 
-This document is at <http://github.com/chrplr/openlexicon> but can be
-read in a nicer format at <https://chrplr.github.io/openlexicon>.
+At OpenLexicon, you will find:
 
-Here, you will find a list of [open lexical databases](databases-docs/README.md), as well as
-some [shiny apps](apps/) and [scripts](scripts/README.md) to query or manipulate them.
+1. a directory of [open lexical databases](databases-docs/README.md)
+2. [scripts](scripts/README.md) to query, manipulate or create lexical databases.
+3. [apps](apps/) to create dynamic graphical interfaces to the lexical databases. 
+4. [documents](documents/) relevant to the processing of lexical databases.
 
-This repository provides the infrastructure of the site <http://www.lexique.org>
-where many of these databases are hosted and can be queried on-line (check
-out <http://www.lexique.org/shiny/openlexique>)
+Some of the apps provide the infrastructure of <http://www.lexique.org>
+where many of lexical databases are hosted and can be queried on-line --- check
+out, for example, <http://www.lexique.org/shiny/openlexique>.
 
+### Contributing ###
 
-**Contributing:**
-
-If you want to contribute, by adding a database, an app, a script, or sending
-some corrections, please contact `christophe@pallier.org` and
-`boris.new@gmail.com`, or, _much better_, fork
+Everybody is warmly encouraged to contribute, by adding a database, an app, or a script.
+First, check out Lexique's google-group at <https://groups.google.com/forum/#!forum/lexiqueorg>.  You can then contact `christophe@pallier.org` and
+`boris.new@gmail.com` privately, or, _much better_, fork
 [openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull
 request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork).
 
-**License:**
+
+### License ###
 
 The files in this repository are distributed under a CC BY-SA 4.0 LICENSE (see
 <https://creativecommons.org/licenses/by-sa/4.0/>).
 
 
-**Crediting:**
+### Crediting ###
 
 Most databases have associated publications listed in their respective `README`
 files. They must be cited in any derivative work! The same goes for some of the
@@ -33,7 +34,7 @@ scripts (read their documentation for instructions).
 
 If needed, you can cite this repository as:
 
-* Pallier, Christophe & New, Boris (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
+* Pallier, Christophe & New, Boris (2019** Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
 --- 
 
@@ -43,15 +44,8 @@ If needed, you can cite this repository as:
 - [Server installation](README-server-installation.md)
 
 
-**Data tables:** 
-
-The source tables from most databases can be downloaded from
-<http://lexique.org/databases>. (They take up way too much disk space to
-be included in a github repository)
-
 ---
 
-Time-stamp: <2019-04-13 15:15:06 christophe@pallier.org>
-
+Time-stamp: <2019-04-21 16:54:43 christophe@pallier.org>
 
 

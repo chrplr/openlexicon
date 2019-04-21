@@ -4,21 +4,20 @@ Open lexical databases
 You will find below a directory of open lexical databases. Click on the
 name of any database to obtain more information and links to datasets.
 
-Most datasets are provided in form of `.tsv` or `.csv` files
-(tab-separated-values or comma-separated-values). These are plain text
-files which can be easily imported in to R, MATLAB or Python, or even
-[opened with
-Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
-Check out our [script examples](../scripts/README.md).
+Remarks:
 
-Many of these databases can also be explored or queried on-line at
-<http://www.lexique.org/shiny/openlexique>, with shiny apps from the
-[openlexicon project](http://github.com/chrplr/openlexicon).
-
-**Crediting**
-
+-   Most datasets are provided in form of `.tsv` or `.csv` files
+    (tab-separated-values or comma-separated-values). These are plain
+    text files which can be easily imported in to R, MATLAB or Python,
+    or even [opened with
+    Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-).
+    Check out our [script examples](../scripts/README.md).
+-   Many of these databases can also be explored or queried on-line at
+    <http://www.lexique.org/shiny/openlexique>, thanks to shiny apps
+    from the [openlexicon
+    project](http://github.com/chrplr/openlexicon).
 -   Most databases have associated publications listed in their
-    respective \`README\*\* files. They must be cited in any derivative
+    respective `README` files. They must be cited in any derivative
     work!
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
@@ -210,7 +209,8 @@ Contributing
 
 If you want to contribute, by adding a database, or just sending some
 corrections, please contact <christophe@pallier.org> and
-<boris.new@gmail.com>.
+<boris.new@gmail.com>, or use the google-group
+<https://groups.google.com/forum/#!forum/lexiqueorg>.
 
 ------------------------------------------------------------------------
 
