@@ -2,7 +2,7 @@
 
 This is a directory of open lexical databases for the [openlexicon project](http://chrplr.github.io/openlexicon). Clicking on the name of a database will provide more information.
 
-Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique> (Select the base in dataset)
+Most databases can explored on-line at <http://www.lexique.org/shiny/openlexique> (Select the base in dataset), or downloaded from <http://www.lexique.org/databases>
 
 Warning: Do not edit this document directly; Its sources is at  <http://github.com/chrplr/openlexicon/databases-docs>.
 

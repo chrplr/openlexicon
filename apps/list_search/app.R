@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-20 15:24:49 christophe@pallier.org>
+# Time-stamp: <2019-04-21 06:44:44 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -56,16 +56,14 @@ ui <- fluidPage(
   )
 )
 
-# il faut que je fasse le merge dans le datatable qui sera automatiquement affiché lexique
 
 server <- function(input, output) {
   datasetInput <- reactive({lexique})
-  
   output$caption <- renderText({
-    "Lexique3.82"
+    "Lexique3.82" 
   })
-  
-  output$table <- renderDT(datasetInput()[,input$show_vars, drop=FALSE],
+
+  output$table <- renderDT(subset(datasetInput(), lexique$ortho %in% strsplit(input$mots, "[ \n\t]")[[1]], select=input$show_vars, drop=FALSE),
                            server=TRUE, escape = TRUE, selection = 'none',
                            filter=list(position = 'top', clear = FALSE),
                            options=list(search = list(pageLength=15,
