@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-21 06:44:44 christophe@pallier.org>
+# Time-stamp: <2019-04-22 10:07:03 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -14,11 +14,11 @@ ui <- fluidPage(
   fluidRow(
     column(8,offset = 3,
            textarea_demo <- textAreaInput(
-             "mots", 
+             "mots",
              label = h3("Liste de mots à rechercher dans la table"),
              cols =20,
              rows = 10
-            )    
+            )
     )
   ),
   fluidRow(
@@ -36,19 +36,18 @@ ui <- fluidPage(
            DTOutput(outputId="table"),
            downloadButton(outputId='download', label="Download filtered data")
       )
-    
   )
 )
 
 server <- function(input, output) {
   # Génère le dataframe avec les mots rentrés par l'utilisateur
-  mots2<-reactive({strsplit(input$mots,"[ \n\t]")})
-  # num pourra servir à récupérer l'ordre original des mots rentrés par l'utilisateur.
-  # Pour l'instant ça ne marche pas (il faudrait juste trier lexique_mots par num) mais ça devrait marcher un jour
-  num<-reactive({seq(from=1,to=nrow(mots2))})
-  mots2df<-reactive({data.frame(ortho=matrix(unlist(mots2())))})
-  lexique_mots <- reactive({merge(mots2df(),lexique,by.x="ortho",by.y="ortho",all.x=TRUE)})
-  
+  mots2 <- reactive( { strsplit(input$mots,"[ \n\t]")[[1]] } )
+  lexique_mots <- reactive( { merge(data.frame(ortho=mots2()),
+                                    lexique,
+                                    by.x="ortho",
+                                    by.y="ortho",
+                                    all.x=TRUE)} )
+
   output$caption <- renderText({
     "Lexique3.82" 
   })
@@ -57,29 +56,26 @@ server <- function(input, output) {
                            server=TRUE, escape = TRUE, selection = 'none',
                            #filter=list(position = 'top', clear = FALSE),
                            options=list(pageLength=20,
-                                                      lengthMenu = c(20, 50, 1000),
-                                                      regex = TRUE,
-                                                      searching = FALSE,
-                                                      caseInsensitive = FALSE
-                                      )
+                                        lengthMenu = c(20, 50, 1000),
+                                        regex = TRUE,
+                                        searching = FALSE,
+                                        caseInsensitive = FALSE
+                                        )
   )
-  
-  output$download <- downloadHandler(
-    filename = function() {
-      paste("Lexique-query-", Sys.time(), ".csv", sep="")
-    },
-    content = function(fname){
-      # write.csv(datasetInput(), fname)
-      dt = lexique_mots()[input[["table_rows_all"]], ]
-      write.table(dt,
-                file=fname,
-                quote=FALSE,
-                sep=";",
-                row.names=FALSE)
-    })
-  url  <- a("Mode d'emploi", href="http://www.lexique.org/?page_id=166")
-  #output$help = renderUI({ tagList(tags$h4("Aide pour les recherches :", url)) })
-  
+
+    output$download <- downloadHandler(
+        filename = function() {
+            paste("Lexique-query-", Sys.time(), ".csv", sep="")
+        },
+        content = function(fname){
+            dt = lexique_mots()[input[["table_rows_all"]], ]
+            write.table(dt,
+                        file=fname,
+                        quote=FALSE,
+                        sep=";",
+                        row.names=FALSE)
+        })
+    url  <- a("Mode d'emploi", href="http://www.lexique.org/?page_id=166")
 }
 
 
