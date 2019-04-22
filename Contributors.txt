@@ -1,0 +1,14 @@
+Le site lexique.org et la base lexique ont été créés et sont maintenus et développés depuis 1999 par Boris New et Christophe Pallier, avec le support du CNRS, de l’INSERM, de l’université Paris Descartes et de l’université Savoie Mont Blanc.
+
+L’application shiny d’accès a Megalex (à venir) à été créé par Stéphane Dufau.
+
+
+De nombreuses personnes ont créé ou contribué aux diverses bases de données. Les fichiers README associés à chacune de ces bases détaillent ces contributions et xomment les citer
+
+List of congtibutors to the git repo:
+
+C. Pallier
+B. New
+M. Sablè-Meyer
+
+(TODO: automatize this from github)
