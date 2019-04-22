@@ -1,5 +1,6 @@
-# shiny R code for lexique.org
-# Time-stamp: <2019-04-22 10:07:03 christophe@pallier.org>
+# shiny R code for recherche de par liste de mots on <www.lexique.org>
+# Authors: Boris New & C. Pallier
+# Time-stamp: <2019-04-22 10:21:05 christophe@pallier.org>
 
 library(shiny)
 library(DT)
