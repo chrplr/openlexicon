@@ -1,0 +1,84 @@
+---
+title: "Listing the context in which words appear"
+output:
+  html_document:
+    df_print: paged
+author: Christophe@pallier.org
+---
+
+Given a text corpus, consisting of a bunch of sentences, a _concordancer_ is a tool that, given a word, displays all the sentences in which it appears.
+
+When the corpus is very large (several millions words), a simple list search is too costly in terms of time.
+
+In this document, I show how to build an efficient concordancer using R. 
+
+
+## Reading in the Corpus
+
+The corpus is nothing but a text file with one sentence per line. Let us read it in R, using the `scan` function:
+
+
+```{r}
+source('../set-variables.R')
+uscorpuspath <- file.path(DATABASES, 'SUBTLEX-US', 'Subtlex-US-corpus.txt.gz')  # nicer if it had been tokenized (?)
+Sys.setlocale('LC_ALL','C')
+
+
+uscorpus <- scan(uscorpuspath, what=character(), sep='\n', encoding='UTF-8', nlines=100000)  
+# Notes
+#  * here, for demo purposes, we limit ourselves to the first 100k line (about 20% of the entire file)
+#  * The fileEncoding should be 'UTF-8', but the subtlex-us file uses another encoding
+```
+
+
+## Building the hashtable
+
+From the corpus, we create an associative array (a.k.a. "hastable") mapping words to lines numbers. The hastable is implemented with an [R environment](http://adv-r.had.co.nz/Environments.html) 
+
+```{r}
+assoc <- new.env()
+for (linenum in 1:length(uscorpus))
+{
+  for (token in strsplit(uscorpus[linenum], " ")[[1]])
+  { 
+    token = gsub('[[:punct:] ]+','', token)  # remove punctuation because the corpus has not been tokenized
+    # token = tolower(token)  # To make it case insensitive
+    # TODO: to limit the memory footprint. we could use a dictionary to filter out non existing words.
+    if (token != "") {
+      if (exists(token, assoc)) { 
+        assign(token, append(get(token, envir=assoc), linenum), envir=assoc)
+      } else {
+      assign(token, linenum, envir=assoc)
+      }
+    }
+  }
+}
+
+```
+
+
+## Searching for lines in which a word appears
+
+We can now define a function that returns the lines in which a word appears:
+
+```{r}
+
+get.context <- function(word, envir=assoc) {
+   uscorpus[get(word, envir=envir)]
+}
+```
+
+And use it:
+
+```{r}
+print(get.context('dog'))
+```
+
+
+```{r}
+save(list = ls(all.names = TRUE), file='uscorp-assoc.RData', envir=assoc)
+save(list = c("uscorpus", "get.context"), file='uscorp.RData')
+```
+
+
+
