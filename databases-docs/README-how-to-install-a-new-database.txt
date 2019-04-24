@@ -5,9 +5,10 @@ How to add a new database
 
     cd /var/www/databases
 
-2.  Create a folder for the newdatabase, and add there the relevant
-    files (csv, tcsv, xlsx, zip, ...)
-
+2.  Create a folder for the newdatabase:
+    -   add there the relevant files (csv, tcsv, xlsx, zip, ...)
+    -   create a `database2rdata.R` script in this folder and run it to
+        generate a RData file containing the database.
 3.  Go to you fork of
     <http://github.com/chrplr/openlexicon/databases-docs> and add some
     documentation --- at a minimum a README.md file) describing the
@@ -15,17 +16,17 @@ How to add a new database
 
 4.  Optionaly, if you want to make the database accessible in
     openlexique:
-    -   Add lines to convert the tables(s) into a `.RData` objects in
-        the folder `rdata` in the script `databases2rdata.R` on the
-        server and run it.
+    -   Add a link to the `.RData` file in the rdata directory on the
+        server and run:
+
+              sudo systemctl restart shiny-server.service
+
     -   Modify the [openlexicon
         apps](http://github.com/chrplr/openlexicon/apps) that will use
-        this database.
+        this database (or issue a pull request).
     -   Connect to the server and run:
 
-        cd \~chrplr/shiny-server git pull
-
---
+        cd \~chrplr/shiny-server git pull --
 
 Back to [OpenLexicon](https://chrplr.github.com/openlexicon)
 

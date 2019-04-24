@@ -7,3 +7,4 @@ databases.zip
 *.xz
 .RData
 .Rhistory
+.Rproj.user
