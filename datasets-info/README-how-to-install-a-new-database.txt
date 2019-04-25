@@ -10,7 +10,7 @@ How to add a new database
     -   create a `database2rdata.R` script in this folder and run it to
         generate a RData file containing the database.
 3.  Go to you fork of
-    <http://github.com/chrplr/openlexicon/databases-docs> and add some
+    <http://github.com/chrplr/openlexicon/datasets-info> and add some
     documentation --- at a minimum a README.md file) describing the
     database -- and issue a pull request.
 

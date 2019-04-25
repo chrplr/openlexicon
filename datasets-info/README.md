@@ -75,7 +75,7 @@ If you want to contribute, by adding a database, or just sending some correction
 
 ----
 
-The source of the current document is at <https://github.com/chrplr/openlexicon/blob/master/databases-docs/README.md>.
+The source of the current document is at <https://github.com/chrplr/openlexicon/blob/master/datasets-info/README.md>.
 
 
 Time-stamp: <2019-04-21 16:27:29 christophe@pallier.org>

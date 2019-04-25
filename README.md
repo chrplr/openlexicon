@@ -1,10 +1,9 @@
 # OpenLexicon: Easy access to lexical databases
 
 
-
 At OpenLexicon, you will find:
 
-1. a [directory of lexical databases](databases-docs/README.md)
+1. a [directory of lexical databases](datasets-info/README.md)
 2. [scripts](https://github.com/chrplr/openlexicon/tree/master/scripts) to query, manipulate or create lexical databases.
 3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. 
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
@@ -43,7 +42,7 @@ If needed, you can cite this repository as:
 
 **For maintainers:**
 
-- [How to add a new database](databases-docs/README-how-to-install-a-new-database.md)
+- [How to add a new database](datasets-info/README-how-to-install-a-new-database.md)
 - [Server installation](README-server-installation.md)
 
 

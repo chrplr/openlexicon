@@ -3,7 +3,7 @@ OpenLexicon: Easy access to lexical databases
 
 At OpenLexicon, you will find:
 
-1.  a directory of [open lexical databases](databases-docs/README.md)
+1.  a directory of [open lexical databases](datasets-info/README.md)
 2.  [scripts](scripts/README.md) to query, manipulate or create lexical
     databases.
 3.  [apps](apps/) to create dynamic graphical interfaces to the lexical
@@ -46,7 +46,7 @@ If needed, you can cite this repository as:
 **For maintainers:**
 
 -   [How to add a new
-    database](databases-docs/README-how-to-install-a-new-database.md)
+    database](datasets-info/README-how-to-install-a-new-database.md)
 -   [Server installation](README-server-installation.md)
 
 ------------------------------------------------------------------------

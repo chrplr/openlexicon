@@ -1,17 +1,19 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-24 21:40:10 christophe@pallier.org>
+# Time-stamp: <2019-04-25 07:35:18 christophe@pallier.org>
 
 # function to download openlexicon's datasets
 
 require("rjson")
 
 # localdir where datasets are saved
-data.home <- file.path(path.expand('~'), 'databases')
+data.home = Sys.getenv('DATASETS')
+if (data.home == "") {
+  data.home <-  file.path(path.expand('~'), 'datasets')
+}
 dir.create(data.home, showWarnings=FALSE, recursive=TRUE)
 
 # remote dir containing the json files describing the datasets
-remote <- "https://github.com/chrplr/openlexicon/blob/master/databases-docs/"
-
+remote <- "https://github.com/chrplr/openlexicon/blob/master/datasets-info/"
 
 
 fetch_dataset <- function(dataset_id)
