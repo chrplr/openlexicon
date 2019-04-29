@@ -1,5 +1,5 @@
 # To be executed on the server that contains the datasets' sources files 
-# Time-stamp: <2019-04-25 12:34:12 christophe@pallier.org>
+# Time-stamp: <2019-04-25 13:12:38 christophe@pallier.org>
 
 rdatas:
 # create RData files
@@ -7,4 +7,6 @@ rdatas:
 # link them in rdata
 	mkdir -p rdata; cd rdata; for f in ../*/*.RData; do ln -s $$f ./; done
 
-
+README2.md:
+	rm -f README2.md
+	for f in */*.json; do ./json2md $$f >> README2.md; done

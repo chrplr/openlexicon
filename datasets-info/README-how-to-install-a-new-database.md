@@ -21,28 +21,31 @@ You can inspire yourself from the json file associated to the database _Lexique3
 }
 ```
 
-2. Optionaly, you can create a subfolder with more info about the database in `datasets-info`
-
-3. If the dataset is not yet on the Internet, you need to put it on a server somewhere.
-
+3. If the dataset is not yet on the Internet, you need to put it on a server/
 
 For example, for <www.lexique.org> maintainers:
 
+* Connect to the server and go to the databases directory 
 
-* Connect to the server and go to the database directory 
+        cd /var/www/databases
 
-    cd /var/www/databases
-
-* Create a folder for the newdatabase:
-   * add there the relevant files (csv, tcsv, xlsx, zip, ...)
-   * create a `database2rdata.R` script in this folder and run it to generate a RData file containing the database. 
+* Create there a folder for the newdatabase:
+   * put there the relevant files (csv, tcsv, xlsx, zip, ...)
+   * create a `make_rdata.R` script in this folder and run it to generate a RData file containing the database. 
+   * run:
    
-* Go to you fork of <http://github.com/chrplr/openlexicon/datasets-info> and add some documentation --- at a minimum a README.md file) describing the database -- and issue a pull request.
+         cd /var/www.data/bases
+         make
+         
+    * make sure the links has been created in `rdata` and run:
+    `
+         sudo systemctl restart shiny-server.service
+
+* Go to your fork of <http://github.com/chrplr/openlexicon/> and add the json files descirbing the database, as well as some documentation --- at a minimum a README.md file) describing the database -- and issue a pull request.
 
 * Optionaly, if you want to make the database accessible in openlexique:
    * Add a link to the `.RData` file on the server and run:  
    
-           sudo systemctl restart shiny-server.service
    
    * Modify the [openlexicon apps](http://github.com/chrplr/openlexicon/apps) that will use this database (or issue a pull request).
    * Connect to the server and run: 

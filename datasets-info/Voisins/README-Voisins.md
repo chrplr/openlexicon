@@ -1,7 +1,7 @@
 # Voisins 1.02 
 
 Le fichier
-[voisins.txt](http://www.lexique.org/databases/Voisins/voisins.zip) contient
+[voisins.txt](http://www.lexique.org/databases/Voisins/Voisins.zip) contient
 divers descripteurs concernant les voisins orthographiques (calculés d'après les
 130000 entrées de la base `Graphemes` de Lexique262).
 
