@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 12:35:13 christophe@pallier.org>
+# Time-stamp: <2019-04-30 13:57:17 christophe@pallier.org>
 
 # source('../set-variables.R')
 
@@ -10,34 +10,24 @@ library(DT)
 source('../../datasets-info/fetch_datasets.R')
 dataset_ids <- c('Lexique382', 'SUBTLEX-US')
 
-
-
 datasets = list()
 for (ds in dataset_ids)
 {
-    datasets <- append(datasets, list(fetch_dataset(ds, format='RData')))
+    datasets[[ds]] <- fetch_dataset(ds, format='rds')
 }
-
-# each dataset is associated to a list with four elements
-# lexique$name
-# lexique$datatables   : list of local copies of the database
-# lexique$description
-# lexique$readme
 
 dsnames <- list()
 dsdesc <- list()
 dsreadme <- list()
+dstable <- list()
 
-for (d in datasets) {
-    dsnames <- append(dsnames, d$name)
-    dsdesc <- append(dsdesc, d$description)
-    dsreadme <- append(dsreadme, d$readme)
-    for (t in d$datatables)
-    {
-        load(t)  # stupid problem: we do not know the name of the variable that holds the table!!! We might have to assume it is the same as the 'name' of the dataset :-(
-    }
+for (i in 1:length(datasets)) {
+    name <- datasets[[i]]$name
+    dsnames[[name]] <- name
+    dsdesc[[name]] <- datasets[[i]]$description
+    dsreadme[[name]] <- datasets[[i]]$readme
+    dstable[[name]] <- readRDS(datasets[[i]]$datatables[[1]])
 }
-
 
 dataset_info <-
   tags$div(class="alert-info",
@@ -50,30 +40,32 @@ helper_alert <-
     tags$div(class="alert alert-info",
              tags$p("Crash course:"),
              tags$ul(
-                      tags$li("Select desired dataset on the left"),
-                      tags$li("For each column in the table bellow you can:"),
+                      tags$li("Select desired dataset below"),
+                      tags$li("For each column in the table, you can:"),
                       tags$ul(
                                tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
                                tags$li("sort, ascending or descending")
                            ),
-                      tags$li("Download the result of your manipulations by clicking on the button bellow the table")
+                      tags$li("Download the result of your manipulations by clicking on the button below the table")
                   )
              )
 
 
 ui <- fluidPage(
-    titlePanel("OpenLexique"),
+    titlePanel("OpenLexicon"),
 
     sidebarLayout(
         sidebarPanel(
+           helper_alert,
             selectInput("dataset", "Choose a dataset:",
-                        choices = dsnames),
+                        choices = names(datasets)),
                         width=4
                         ),
             mainPanel(
-                helper_alert,
                 h3(textOutput("caption", container = span)),
-                dataset_info,
+                tags$div(class="alert-info",
+                         tags$p(textOutput(outputId="currentdesc")),
+                         tags$p(tags$a(href=textOutput(outputId="currentreadme"), "More info"))),
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
             )
@@ -83,27 +75,20 @@ ui <- fluidPage(
 
 server <- function(input, output) {
     datasetInput <- reactive({
-        switch(input$dataset,
-               "SUBTLEXus" = subtlexus,
-               "Lexique3.82" = lexique,
-               "Brulex" = brulex,
-               "Voisins" = voisins,
-               "Gougenheim" = gougenheim,
-               "400images" = images400,
-               "Frantext" = frantext,
-               "FLP.words" = flp.words,
-               "FLP.pseudo" = flp.pseudowords,
-               "Chronolex" = chronolex,
-               "Megalex-auditory" = megalex.auditory,
-               "Megalex-visual" = megalex.visual,
-               "FrFamiliarité" = frfam
-               )  # TODO: change this to use the datasets list
+        dstable[[input$dataset]]
     })
 
     output$caption <- renderText({
         input$dataset
     })
 
+    output$currentdesc <- renderText({
+      dsdesc[[input$dataset]]
+      })
+    output$currentreadme <- renderText({
+      dsreadme[[input$dataset]]
+      })
+    
     output$table <- renderDT(datasetInput(),
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
