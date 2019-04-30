@@ -31,13 +31,13 @@ For example, for <www.lexique.org> maintainers:
 
 * Create there a folder for the newdatabase:
    * put there the relevant files (csv, tcsv, xlsx, zip, ...)
-   * create a `make_rdata.R` script in this folder and run it to generate a RData file containing the database. 
+   * create a `make_rds.R` script in this folder and run it to generate a `rds` file containing the database. 
    * run:
    
          cd /var/www.data/bases
          make
          
-    * make sure the links has been created in `rdata` and run:
+    * make sure the links has been created in `rds` and run:
     `
          sudo systemctl restart shiny-server.service
 

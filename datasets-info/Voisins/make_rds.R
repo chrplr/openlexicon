@@ -4,5 +4,5 @@
 require(readr)
 
 voisins <- read_delim('voisins.txt', delim='\t')
-save(voisins, file='Voisins.RData')
+saveRDS(voisins, file='Voisins.rds')
 

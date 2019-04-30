@@ -12,5 +12,5 @@ lexique$voisphon <- as.integer(lexique$voisphon)
 lexique$nbhomogr <- as.integer(lexique$nbhomogr)
 lexique$nbhomoph <- as.integer(lexique$nbhomoph)
 lexique$islem <- as.integer(lexique$islem)
-save(lexique, file='Lexique382.RData')
+saveRDS(lexique, file='Lexique382.rds')
 

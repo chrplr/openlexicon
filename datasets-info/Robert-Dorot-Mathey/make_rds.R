@@ -4,5 +4,5 @@
 require(readr)
 
 frfam <- read_delim('Fr-familiarity660.tsv', delim='\t')
-save(frfam, file='FrFam.RData')
+saveRDS(frfam, file='FrFam.rds')
 

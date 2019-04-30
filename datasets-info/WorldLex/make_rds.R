@@ -9,7 +9,7 @@ worldlexfr$nbcar = nchar(worldlexfr$Word)
 worldlexfr$nbcar <- as.integer(worldlexfr$nbcar)
 worldlexfr <- worldlexfr %>%
   select(Word, nbcar, everything())
-save(worldlexfr, file='WorldLex_FR.RData')
+saveRDS(worldlexfr, file='WorldLex_FR.rds')
 
 
 worldlexen <- read_delim('Eng_US.Freq.3.Hun.txt', delim='\t')
@@ -17,5 +17,5 @@ worldlexen$nbcar = nchar(worldlexen$Word)
 worldlexen$nbcar <- as.integer(worldlexen$nbcar)
 worldlexen <- worldlexen %>%
   select(Word, nbcar, everything())
-save(worldlexen, file='WorldLex_EN.RData')
+saveRDS(worldlexen, file='WorldLex_EN.rds')
 

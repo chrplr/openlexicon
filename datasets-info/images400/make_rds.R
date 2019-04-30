@@ -4,5 +4,5 @@
 require(readr)
 
 images400 <- read_delim('images400.tsv', delim='\t')
-save(images400, file='images400.RData')
+saveRDS(images400, file='images400.rds')
 

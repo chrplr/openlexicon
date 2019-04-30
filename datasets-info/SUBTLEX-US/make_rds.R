@@ -4,6 +4,6 @@
 require(readr)
 
 subtlexus <- read_delim('SUBTLEXus74286wordstextversion.tsv', delim='\t')
-save(subtlexus, file='SUBTLEXus.RData')
+saveRDS(subtlexus, file='SUBTLEXus.rds')
 
 

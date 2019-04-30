@@ -4,5 +4,5 @@
 require(readr)
 
 brulex <- read_csv('Brulex-utf8.csv')
-save(brulex, file='Brulex.RData')
+saveRDS(brulex, file='Brulex.rds')
 

@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 12:30:53 christophe@pallier.org>
+# Time-stamp: <2019-04-30 12:35:13 christophe@pallier.org>
 
 # source('../set-variables.R')
 
@@ -9,6 +9,8 @@ library(DT)
 # loads all datasets
 source('../../datasets-info/fetch_datasets.R')
 dataset_ids <- c('Lexique382', 'SUBTLEX-US')
+
+
 
 datasets = list()
 for (ds in dataset_ids)
@@ -39,14 +41,13 @@ for (d in datasets) {
 
 dataset_info <-
   tags$div(class="alert-info",
-     tags$h3(dsnames[[1]]),
+     #tags$h3(dsnames[[1]]),
      tags$p(dsdesc[[1]]),
      tags$p(tags$a(href=dsreadme[[1]], "More info"))
   )
 
 helper_alert <-
     tags$div(class="alert alert-info",
-             tags$hr(""),
              tags$p("Crash course:"),
              tags$ul(
                       tags$li("Select desired dataset on the left"),
@@ -66,13 +67,13 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             selectInput("dataset", "Choose a dataset:",
-                        choices = dsnames,
-                        width=2
-                        )),
+                        choices = dsnames),
+                        width=4
+                        ),
             mainPanel(
-                dataset_info,
                 helper_alert,
                 h3(textOutput("caption", container = span)),
+                dataset_info,
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
             )

@@ -6,6 +6,6 @@ require(readr)
 flp.words <- read_csv('FLP.words.csv')
 flp.pseudowords <- read_csv('FLP.pseudowords.csv')
 
-save(flp.words, file='flp-words.RData')
-save(flp.pseudowords, file='flp-pseudowords.RData')
+saveRDS(flp.words, file='flp-words.rds')
+saveRDS(flp.pseudowords, file='flp-pseudowords.rds')
 
