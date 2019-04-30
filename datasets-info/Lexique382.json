@@ -1,19 +1,19 @@
 {
-  "name": "lexique3",
-  "urls": [
-    {
-      "url": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
-      "bytes": 25850842,
-      "md5sum": "28d18d7ac1464d09e379f30995d9d605"
-    },
-    {
-      "url": "http://www.lexique.org/databases/Lexique382/Lexique382.RData",
-      "bytes": 5923711,
-      "md5sum": "26e26236c4928cb504e859001f60073e"
-    }
-  ],
-  "type": "tsv",
-  "tags": ["french", "frequencies"],
-  "description": "Lexique382 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.",
-  "readme": "http://chrplr.github.io/openlexicon/datasets-info/Lexique382/README"
+    "_comment": "# Time-stamp: <2019-04-30 12:22:48 christophe@pallier.org>",
+    "name": "lexique3",
+    "urls": [{
+            "url": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
+            "bytes": 25850842,
+            "md5sum": "28d18d7ac1464d09e379f30995d9d605"
+        },
+        {
+            "url": "http://www.lexique.org/databases/Lexique382/Lexique382.RData",
+            "bytes": 5923711,
+            "md5sum": "26e26236c4928cb504e859001f60073e"
+        }
+    ],
+    "type": "tsv",
+    "tags": ["french", "frequencies"],
+    "description": "Lexique382 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/Lexique382/README-Lexique.html"
 }

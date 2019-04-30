@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 11:28:43 christophe@pallier.org>
+# Time-stamp: <2019-04-30 12:30:53 christophe@pallier.org>
 
 # source('../set-variables.R')
 
@@ -8,7 +8,7 @@ library(DT)
 
 # loads all datasets
 source('../../datasets-info/fetch_datasets.R')
-dataset_ids <- c('Lexique382')
+dataset_ids <- c('Lexique382', 'SUBTLEX-US')
 
 datasets = list()
 for (ds in dataset_ids)
@@ -46,11 +46,6 @@ dataset_info <-
 
 helper_alert <-
     tags$div(class="alert alert-info",
-             tags$h4(class="alert-heading", "Foreword on usage"),
-             tags$p("Full documentation is available at",
-                    tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "here"),
-                    "."
-                    ),
              tags$hr(""),
              tags$p("Crash course:"),
              tags$ul(
