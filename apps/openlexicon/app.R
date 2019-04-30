@@ -8,7 +8,7 @@ library(DT)
 
 # loads all datasets
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-dataset_ids <- c('Lexique382', 'SUBTLEX-US')
+dataset_ids <- c('Lexique382', 'SUBTLEX-US', 'Megalex-auditory', 'Megalex-visual', 'FrenchLexiconProject-words', 'WorldLex-French', 'WorldLex-English')
 
 datasets = list()
 for (ds in dataset_ids)

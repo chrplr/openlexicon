@@ -40,7 +40,7 @@ helper_alert =
 
 
 ui <- fluidPage(
-    titlePanel("OpenLexique"),
+    titlePanel("WorldLex"),
 
     sidebarLayout(
         sidebarPanel(
