@@ -4,7 +4,7 @@
 
 require(tidyverse)
 
-worldlexfr <- read_delim('Fre.Freq.3.Hun.txt', delim='\t')
+worldlexfr <- read_delim('Fre.Freq.3.Hun.txt.gz', delim='\t')
 worldlexfr$nbcar = nchar(worldlexfr$Word)
 worldlexfr$nbcar <- as.integer(worldlexfr$nbcar)
 worldlexfr <- worldlexfr %>%
@@ -12,7 +12,7 @@ worldlexfr <- worldlexfr %>%
 saveRDS(worldlexfr, file='WorldLex_FR.rds')
 
 
-worldlexen <- read_delim('Eng_US.Freq.3.Hun.txt', delim='\t')
+worldlexen <- read_delim('Eng_US.Freq.3.Hun.txt.gz', delim='\t')
 worldlexen$nbcar = nchar(worldlexen$Word)
 worldlexen$nbcar <- as.integer(worldlexen$nbcar)
 worldlexen <- worldlexen %>%
