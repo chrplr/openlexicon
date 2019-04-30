@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 10:23:28 christophe@pallier.org>
+# Time-stamp: <2019-04-30 10:34:49 christophe@pallier.org>
 
 
 require("rjson")
@@ -41,6 +41,7 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     description <- json_data$description
     readme <- json_data$readme
 
+    tables = list()
     for (u in json_data$urls)
     {
         fname <- basename(u$url)
@@ -58,25 +59,27 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
               warning("Something is wrong: the md5sums don't match. Either the upstream files are inconsistent or someone is messing with your internet connection.")
             } else
             {
-              print(paste("File", destname, "downloaded without issue."))
+                print(paste("File", destname, "downloaded without issue."))
+                tables <- append(tables, destname)
             }
-        }  else
+        }  else  # The local file exists
         {
             if (md5sum(destname) != u$md5sum) {
                 warning(paste("Your local file", destname, "doesn't match the distant version. Aborting."))
             }
             else
             {
-              warning(paste("You already have the file", destname, "which seems up to date."))
+                warning(paste("You already have the file", destname, "which seems up to date."))
+                tables <- append(tables, destname)
             }
         }
     }
-    if (destname == '')
+    if (length(tables) == 0)
     {
         warning("could not find a file with a matching format")
     }
     list(name=dataset_id,
-         datatable=destname,
+         datatables=tables,
          description=description,
          readme=readme)
 }
