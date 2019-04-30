@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 13:33:53 christophe@pallier.org>
+# Time-stamp: <2019-04-30 17:02:50 christophe@pallier.org>
 
 
 require("rjson")
@@ -38,8 +38,13 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     json_file <- paste(location, dataset_id, '.json', sep="")
 
     json_data <- fromJSON(file=json_file)
+    print('=====')
+    print(json_data)
+    print('=====')
+
     description <- json_data$description
     readme <- json_data$readme
+    website <- json_data$website
 
     tables = list()
     for (u in json_data$urls)
@@ -81,7 +86,8 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     list(name=dataset_id,
          datatables=tables,
          description=description,
-         readme=readme)
+         readme=readme,
+         website=website)
 }
 
 get_data.home <- function()

@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 13:57:17 christophe@pallier.org>
+# Time-stamp: <2019-04-30 16:14:56 christophe@pallier.org>
 
 # source('../set-variables.R')
 
@@ -26,6 +26,7 @@ for (i in 1:length(datasets)) {
     dsnames[[name]] <- name
     dsdesc[[name]] <- datasets[[i]]$description
     dsreadme[[name]] <- datasets[[i]]$readme
+    dsweb[[name]] <- datasets[[i]]$website
     dstable[[name]] <- readRDS(datasets[[i]]$datatables[[1]])
 }
 
@@ -48,11 +49,13 @@ helper_alert <-
                            ),
                       tags$li("Download the result of your manipulations by clicking on the button below the table")
                   )
+             #tags$hr(),
+             #tags$p(tags$a(href="https://chrplr.github.io/openlexicon/datasets-info/", "More information about the datatasets"))
              )
 
 
 ui <- fluidPage(
-    titlePanel("OpenLexicon"),
+    titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "OpenLexicon")),
 
     sidebarLayout(
         sidebarPanel(
@@ -65,7 +68,7 @@ ui <- fluidPage(
                 h3(textOutput("caption", container = span)),
                 tags$div(class="alert-info",
                          tags$p(textOutput(outputId="currentdesc")),
-                         tags$p(tags$a(href=textOutput(outputId="currentreadme"), "More info"))),
+                         tags$p(uiOutput("readmelink"))),
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
             )
@@ -85,10 +88,17 @@ server <- function(input, output) {
     output$currentdesc <- renderText({
       dsdesc[[input$dataset]]
       })
-    output$currentreadme <- renderText({
-      dsreadme[[input$dataset]]
-      })
     
+    output$website <- renderUI({
+      url <- a("More info", href=dsweb[[input$dataset]])
+      tagList("", url)
+    })
+    
+    output$readmelink <- renderUI({
+      url <- a("More info", href=dsreadme[[input$dataset]])
+      tagList("", url)
+      })
+
     output$table <- renderDT(datasetInput(),
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
