@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 17:16:46 christophe@pallier.org>
+# Time-stamp: <2019-04-30 18:23:00 christophe@pallier.org>
 
 
 require("rjson")
@@ -106,4 +106,23 @@ get_lexique382 <- function()
 {
     info <- fetch_dataset('Lexique382', format='rds')
     readRDS(info$datatables[[1]])
+}
+
+get_worldlex.french <- function()
+{
+    info <- fetch_dataset('WorldLex-French', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
+get_worldlex.english <- function()
+{
+    info <- fetch_dataset('WorldLex-English', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
+get_subtlex.us <- function()
+{
+    info <- fetch_dataset('SUBTLEX-US', format='rds')
+    readRDS(info$datatables[[1]])
+
 }

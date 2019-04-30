@@ -1,15 +1,20 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-20 14:44:39 christophe@pallier.org>
+# Time-stamp: <2019-04-30 18:14:07 christophe@pallier.org>
 
 
-source('../set-variables.R')
 
-load(file.path(RDATA, 'WorldLex_FR.RData'))
-load(file.path(RDATA, 'WorldLex_EN.RData'))
+
+
 
 
 library(shiny)
 library(DT)
+
+
+
+source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
+worldlexfr <- get_worldlex.french()
+worldlexen <- get_worldlex.english()
 
 
 
