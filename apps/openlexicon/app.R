@@ -36,6 +36,14 @@ for (d in datasets) {
     }
 }
 
+
+dataset_info <-
+  tags$div(class="alert-info",
+     tags$h3(dsnames[[1]]),
+     tags$p(dsdesc[[1]]),
+     tags$p(tags$a(href=dsreadme[[1]], "More info"))
+  )
+
 helper_alert <-
     tags$div(class="alert alert-info",
              tags$h4(class="alert-heading", "Foreword on usage"),
@@ -65,8 +73,9 @@ ui <- fluidPage(
             selectInput("dataset", "Choose a dataset:",
                         choices = dsnames,
                         width=2
-                        ),
+                        )),
             mainPanel(
+                dataset_info,
                 helper_alert,
                 h3(textOutput("caption", container = span)),
                 fluidRow(DTOutput(outputId="table")),
@@ -74,7 +83,7 @@ ui <- fluidPage(
             )
         )
     )
-)
+
 
 server <- function(input, output) {
     datasetInput <- reactive({
