@@ -1,5 +1,5 @@
 {
-    "_comment": "# Time-stamp: <2019-04-30 13:05:17 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-04-30 13:10:58 christophe@pallier.org>",
     "name": "SUTLEX-US",
     "urls": [{
             "url": "http://www.lexique.org/databases/SUBTLEX-US/SUBTLEXus74286wordstextversion.tsv",
@@ -9,7 +9,7 @@
         {
             "url": "http://www.lexique.org/databases/SUBTLEX-US/SUBTLEXus.rds",
             "bytes": 772391,
-            "md5sum": "6102f2396e79d5304e0e1adcae0436ad"
+            "md5sum": "a14db9f70260412145a56055b8aa427f"
         }
     ],
     "type": "tsv",

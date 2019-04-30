@@ -1,5 +1,5 @@
 {
-    "_comment": "# Time-stamp: <2019-04-30 13:05:04 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-04-30 13:32:04 christophe@pallier.org>",
     "name": "lexique3",
     "urls": [{
             "url": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
@@ -8,8 +8,8 @@
         },
         {
             "url": "http://www.lexique.org/databases/Lexique382/Lexique382.rds",
-            "bytes": 5923711,
-            "md5sum": "26e26236c4928cb504e859001f60073e"
+            "bytes": 5923674,
+            "md5sum": "e3e5f47409b91fdb620edfdd960dd7a5"
         }
     ],
     "type": "tsv",

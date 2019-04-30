@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 10:34:49 christophe@pallier.org>
+# Time-stamp: <2019-04-30 13:33:53 christophe@pallier.org>
 
 
 require("rjson")
@@ -65,7 +65,7 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
         }  else  # The local file exists
         {
             if (md5sum(destname) != u$md5sum) {
-                warning(paste("Your local file", destname, "doesn't match the distant version. Aborting."))
+                warning(paste("the md5 sum of your local file", destname, md5sum(destname), "doesn't match the distant version", u$md5sum, ". Aborting."))
             }
             else
             {
