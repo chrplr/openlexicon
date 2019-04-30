@@ -7,7 +7,7 @@ library(shiny)
 library(DT)
 
 # loads all datasets
-source('../../datasets-info/fetch_datasets.R')
+source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
 dataset_ids <- c('Lexique382', 'SUBTLEX-US')
 
 datasets = list()
@@ -20,6 +20,7 @@ dsnames <- list()
 dsdesc <- list()
 dsreadme <- list()
 dstable <- list()
+dsweb <- list()
 
 for (i in 1:length(datasets)) {
     name <- datasets[[i]]$name
@@ -68,7 +69,8 @@ ui <- fluidPage(
                 h3(textOutput("caption", container = span)),
                 tags$div(class="alert-info",
                          tags$p(textOutput(outputId="currentdesc")),
-                         tags$p(uiOutput("readmelink"))),
+                         tags$p(uiOutput("readmelink")),
+                         tags$p(uiOutput("website"))),
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
             )
@@ -90,7 +92,7 @@ server <- function(input, output) {
       })
     
     output$website <- renderUI({
-      url <- a("More info", href=dsweb[[input$dataset]])
+      url <- a("Website", href=dsweb[[input$dataset]])
       tagList("", url)
     })
     

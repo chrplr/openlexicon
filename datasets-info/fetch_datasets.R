@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 17:02:50 christophe@pallier.org>
+# Time-stamp: <2019-04-30 17:16:46 christophe@pallier.org>
 
 
 require("rjson")
@@ -20,13 +20,10 @@ require("tools") # Required for md5sum
 ##   ],
 ##   "type": "tsv",
 ##   "tags": ["french", "frequencies"],
-##   "description": "Lexique382 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.",
+##   "description": "Lexique382 est une base de données le xicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.",
 ##   "readme": "http://chrplr.github.io/openlexicon/datasets-info/Lexique382/README"
 ## }
 
-
-# Usage:
-# fetch_dataset('Lexique382')
 
 # remote dir containing the json files describing the datasets, use *raw* github
 default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/"
@@ -38,10 +35,6 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     json_file <- paste(location, dataset_id, '.json', sep="")
 
     json_data <- fromJSON(file=json_file)
-    print('=====')
-    print(json_data)
-    print('=====')
-
     description <- json_data$description
     readme <- json_data$readme
     website <- json_data$website
@@ -109,3 +102,8 @@ get_data.home <- function()
 }
 
 
+get_lexique382 <- function()
+{
+    info <- fetch_dataset('Lexique382', format='rds')
+    readRDS(info$datatables[[1]])
+}
