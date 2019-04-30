@@ -1,53 +1,96 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-26 13:45:31 christophe@pallier.org>
+# Time-stamp: <2019-04-30 09:54:00 christophe@pallier.org>
 
-# script to download openlexicon's datasets using dafter json syntax (see https://github.com/vinzeebreak/dafter/)
-
-# example of usage:
-# fetch_dataset('Lexique382')
 
 require("rjson")
 require("tools") # Required for md5sum
 
-# TODO: add an option to read the json file name from the command line
-# args = commandArgs(trailingOnly=TRUE)  
+#  Download openlexicon's datasets from json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
-# localdir where datasets are saved
-data.home = Sys.getenv('DATASETS')
-if (data.home == "") {
-  data.home <-  file.path(path.expand('~'), 'datasets')
-}
-dir.create(data.home, showWarnings=FALSE, recursive=TRUE)
+### Example of a json file:
+
+## {
+##   "name": "lexique3",
+##   "urls": [
+##     {
+##       "url": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
+##       "bytes": 25850842,
+##       "md5sum": "28d18d7ac1464d09e379f30995d9d605"
+##     }
+##   ],
+##   "type": "tsv",
+##   "tags": ["french", "frequencies"],
+##   "description": "Lexique382 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.",
+##   "readme": "http://chrplr.github.io/openlexicon/datasets-info/Lexique382/README"
+## }
+
+
+# Usage:
+# fetch_dataset('Lexique382')
 
 # remote dir containing the json files describing the datasets, use *raw* github
-remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/"
+default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/"
 
-fetch_dataset <- function(dataset_id)
+fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
 {
-    json_file <- paste(remote, dataset_id, '.json', sep="")
-    print(json_file)
+    json_file <- paste(location, dataset_id, '.json', sep="")
+
     json_data <- fromJSON(file=json_file)
 
     for (u in json_data$urls)
     {
         fname <- basename(u$url)
+
+        if (!is.null(format))   # check if format (extension) matches
+        {
+            if (tools::file_ext(filename) != format)
+                break  # skip this file
+        }
+
         destname <- file.path(data.home, fname)
-        if (!file.exists(destname)) {
+        if (!file.exists(destname))
+        {
             download.file(u$url, destname)
-            if (md5sum(destname) != u$md5sum) {
+            if (md5sum(destname) != u$md5sum)
+            {
               warning("Something is wrong: the md5sums don't match. Either the upstream files are inconsistent or someone is messing with your internet connection.")
-            }
-            else {
+            } else
+            {
               print("File downloaded without issue.")
             }
-        }
-        else {
+        }  else
+        {
             if (md5sum(destname) != u$md5sum) {
-              warning("Your local file doesn't march the distant version. Aborting.")
+                warning("Your local file doesn't match the distant version. Aborting.")
             }
-            else {
+            else
+            {
               warning('You already have the file and seem up to date.')
             }
         }
     }
+    list(name=dataset_id,
+         datatable=destname,
+         description=json$description,
+         readme=json$readme)
 }
+
+get_datahome <- function()
+{
+    data.home <- Sys.getenv('OPENLEXICON_DATASETS')
+    xdg.data.home <- Sys.getenv('XDG_DATA_HOME')
+
+    if (data.home == "")
+    {
+        if (xdg.data.home == "")
+        {
+            data.home <- file.path(path.expand('~'), 'openlexicon_datasets')
+        } else {
+            data.home <- file.path(xdg.data.home, 'openlexicon_datasets')
+        }
+    }
+    dir.create(data.home, showWarnings=FALSE, recursive=TRUE)
+    data.home
+}
+
+
