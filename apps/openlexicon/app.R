@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 11:07:58 christophe@pallier.org>
+# Time-stamp: <2019-04-30 11:28:43 christophe@pallier.org>
 
 # source('../set-variables.R')
 
@@ -8,12 +8,12 @@ library(DT)
 
 # loads all datasets
 source('../../datasets-info/fetch_datasets.R')
-dataset_ids <- c('Lexique382', 'Brulex')
+dataset_ids <- c('Lexique382')
 
 datasets = list()
 for (ds in dataset_ids)
 {
-    datasets <- append(datasets, fetch_dataset(ds, format='.RData'))
+    datasets <- append(datasets, list(fetch_dataset(ds, format='RData')))
 }
 
 # each dataset is associated to a list with four elements
@@ -36,7 +36,7 @@ for (d in datasets) {
     }
 }
 
-helper_alert =
+helper_alert <-
     tags$div(class="alert alert-info",
              tags$h4(class="alert-heading", "Foreword on usage"),
              tags$p("Full documentation is available at",
@@ -63,14 +63,15 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             selectInput("dataset", "Choose a dataset:",
-                        choices = dsnames,,
-            width=2
-        ),
-        mainPanel(
-            helper_alert,
-            h3(textOutput("caption", container = span)),
-            fluidRow(DTOutput(outputId="table")),
-            downloadButton(outputId='download', label="Download filtered data")
+                        choices = dsnames,
+                        width=2
+                        ),
+            mainPanel(
+                helper_alert,
+                h3(textOutput("caption", container = span)),
+                fluidRow(DTOutput(outputId="table")),
+                downloadButton(outputId='download', label="Download filtered data")
+            )
         )
     )
 )
@@ -91,7 +92,7 @@ server <- function(input, output) {
                "Megalex-auditory" = megalex.auditory,
                "Megalex-visual" = megalex.visual,
                "FrFamiliarité" = frfam
-               )
+               )  # TODO: change this to use the datasets list
     })
 
     output$caption <- renderText({
