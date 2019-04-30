@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 10:05:20 christophe@pallier.org>
+# Time-stamp: <2019-04-30 10:11:51 christophe@pallier.org>
 
 
 require("rjson")
@@ -48,7 +48,7 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
         if (!is.null(format) && tools::file_ext(fname) != format)   # check if format (extension) matches
                 break  # skip this file
 
-        destname <- file.path(data.home, fname)
+        destname <- file.path(get_data.home(), fname)
         print(destname)
         if (!file.exists(destname))
         {
@@ -71,13 +71,17 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
             }
         }
     }
+    if (destname == '')
+    {
+        warning("could not find a file with a matching format")
+    }
     list(name=dataset_id,
          datatable=destname,
          description=description,
          readme=readme)
 }
 
-get_datahome <- function()
+get_data.home <- function()
 {
     data.home <- Sys.getenv('OPENLEXICON_DATASETS')
     xdg.data.home <- Sys.getenv('XDG_DATA_HOME')
