@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 16:14:56 christophe@pallier.org>
+# Time-stamp: <2019-04-30 18:42:05 christophe@pallier.org>
 
 # source('../set-variables.R')
 
@@ -45,7 +45,7 @@ helper_alert <-
                       tags$li("Select desired dataset below"),
                       tags$li("For each column in the table, you can:"),
                       tags$ul(
-                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
+                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes", target="_blank"), "."),
                                tags$li("sort, ascending or descending")
                            ),
                       tags$li("Download the result of your manipulations by clicking on the button below the table")
@@ -92,12 +92,12 @@ server <- function(input, output) {
       })
     
     output$website <- renderUI({
-      url <- a("Website", href=dsweb[[input$dataset]])
+        url <- a("Website", href=dsweb[[input$dataset]], target="_blank")
       tagList("", url)
     })
     
     output$readmelink <- renderUI({
-      url <- a("More info", href=dsreadme[[input$dataset]])
+        url <- a("More info", href=dsreadme[[input$dataset]], target="_blank")
       tagList("", url)
       })
 
