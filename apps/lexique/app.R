@@ -1,14 +1,12 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-20 14:40:41 christophe@pallier.org>
+# Time-stamp: <2019-04-30 13:41:02 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 
-source('../set-variables.R')
+lexique <- readRDS(lex$datatables[[1]])
 
-load(file.path(RDATA, 'Lexique382.RData'))
 
-lexique$cgram <- as.factor(lexique$cgram)
 
 helper_alert =
   tags$div(class="alert alert-info",
