@@ -5,6 +5,11 @@
       "url": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
       "bytes": 25850842,
       "md5sum": "28d18d7ac1464d09e379f30995d9d605"
+    },
+      {
+      "url": "http://www.lexique.org/databases/Lexique382/Lexique382.RData",
+      "bytes": 5923711,
+      "md5sum": "26e26236c4928cb504e859001f60073e"
     }
   ],
   "type": "tsv",

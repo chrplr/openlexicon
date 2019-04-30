@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 09:54:00 christophe@pallier.org>
+# Time-stamp: <2019-04-30 10:05:20 christophe@pallier.org>
 
 
 require("rjson")
@@ -33,21 +33,23 @@ default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/d
 
 fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
 {
+    destname <- ''
+
     json_file <- paste(location, dataset_id, '.json', sep="")
 
     json_data <- fromJSON(file=json_file)
+    description <- json_data$description
+    readme <- json_data$readme
 
     for (u in json_data$urls)
     {
         fname <- basename(u$url)
-
-        if (!is.null(format))   # check if format (extension) matches
-        {
-            if (tools::file_ext(filename) != format)
+        print(fname)
+        if (!is.null(format) && tools::file_ext(fname) != format)   # check if format (extension) matches
                 break  # skip this file
-        }
 
         destname <- file.path(data.home, fname)
+        print(destname)
         if (!file.exists(destname))
         {
             download.file(u$url, destname)
@@ -71,8 +73,8 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     }
     list(name=dataset_id,
          datatable=destname,
-         description=json$description,
-         readme=json$readme)
+         description=description,
+         readme=readme)
 }
 
 get_datahome <- function()
