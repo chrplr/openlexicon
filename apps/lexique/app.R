@@ -1,9 +1,11 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 13:41:02 christophe@pallier.org>
+# Time-stamp: <2019-04-30 13:47:55 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 
+source('../../datasets-info/fetch_datasets.R')
+lex <- fetch_dataset('Lexique382', format='rds')
 lexique <- readRDS(lex$datatables[[1]])
 
 
