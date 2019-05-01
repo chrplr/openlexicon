@@ -1588,17 +1588,14 @@ $(document).ready(function () {
 <p>In this document, I show how to build an efficient concordancer using R.</p>
 <div id="reading-in-the-corpus" class="section level2">
 <h2>Reading in the Corpus</h2>
-<p>The corpus is nothing but a text file with one sentence per line. Let us read it in R, using the <code>scan</code> function:</p>
-<pre class="r"><code>source('../set-variables.R')
-uscorpuspath &lt;- file.path(DATABASES, 'SUBTLEX-US', 'Subtlex-US-corpus.txt.gz')  # nicer if it had been tokenized (?)
-Sys.setlocale('LC_ALL','C')</code></pre>
-<pre><code>## [1] &quot;LC_CTYPE=C;LC_NUMERIC=C;LC_TIME=C;LC_COLLATE=C;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=fr_FR.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=fr_FR.UTF-8;LC_IDENTIFICATION=C&quot;</code></pre>
-<pre class="r"><code>uscorpus &lt;- scan(uscorpuspath, what=character(), sep='\n', encoding='UTF-8', nlines=100000)  </code></pre>
-<pre><code>## Warning in scan(uscorpuspath, what = character(), sep = &quot;\n&quot;, encoding =
-## &quot;UTF-8&quot;, : embedded nul(s) found in input</code></pre>
-<pre class="r"><code># Notes
-#  * here, for demo purposes, we limit ourselves to the first 100k line (about 20% of the entire file)
-#  * The fileEncoding should be 'UTF-8', but the subtlex-us file uses another encoding</code></pre>
+<p>Let us import the corpus using <a href="http://chrplr.github.io/openlexicon">OpenlLexicon</a>’s fetcher:</p>
+<pre class="r"><code>source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')</code></pre>
+<pre><code>## Loading required package: rjson</code></pre>
+<pre><code>## Loading required package: tools</code></pre>
+<pre class="r"><code>filename &lt;- fetch_dataset('SUBTLEX-US-corpus', format='rds')$datatables[[1]]</code></pre>
+<pre><code>## [1] &quot;File /home/cp983411/openlexicon_datasets/SUBTLEX-US-corpus.rds downloaded without issue.&quot;</code></pre>
+<pre class="r"><code>uscorpus &lt;- readRDS(filename)</code></pre>
+<p>The corpus is nothing but a text file with one sentence per line.</p>
 </div>
 <div id="building-the-hashtable" class="section level2">
 <h2>Building the hashtable</h2>
