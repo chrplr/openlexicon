@@ -5,14 +5,17 @@ Lexique382 est une base de données lexicales du français qui fournit
 pour \~140000 mots du français: les représentations orthographiques et
 phonémiques, les lemmes associés, la syllabation, la catégorie
 grammaticale, le genre et le nombre, les fréquences dans un corpus de
-livres et dans un corpus de sous-titres de filems, etc.
+livres et dans un corpus de sous-titres de films, etc.
 
-Table:
+**Documentation:** [html](Manuel_Lexique3.html) \|
+[pdf](Manuel_Lexique3.pdf) \| [doc](Manuel_Lexique3.doc)
+
+**Table:**
 [Lexique382.zip](http://www.lexique.org/databases/Lexique382/Lexique382.zip)
 
-Web site: <http://www.lexique.org>
+**Online:** <http://www.lexique.org/shiny/lexique>
 
-Online: <http://www.lexique.org/shiny/lexique>
+**Web site:** <http://www.lexique.org>
 
 Publications
 ------------
@@ -46,3 +49,9 @@ License
 -------
 
 [CC BY SA40.0](LICENSE-CC-BY-SA4.0.txt)
+
+[Openlexicon](http://chrplr.github.io/openlexicon)
+
+------------------------------------------------------------------------
+
+Time-stamp: \<2019-05-01 10:14:21 christophe\@pallier.org\>
