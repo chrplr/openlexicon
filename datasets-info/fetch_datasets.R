@@ -1,34 +1,32 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 18:23:00 christophe@pallier.org>
+# Time-stamp: <2019-05-01 11:10:57 christophe@pallier.org>
 
 
 require("rjson")
 require("tools") # Required for md5sum
 
-#  Download openlexicon's datasets from json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
+#  Download openlexicon's datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
-### Example of a json file:
-
-## {
-##   "name": "lexique3",
-##   "urls": [
-##     {
-##       "url": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
-##       "bytes": 25850842,
-##       "md5sum": "28d18d7ac1464d09e379f30995d9d605"
-##     }
-##   ],
-##   "type": "tsv",
-##   "tags": ["french", "frequencies"],
-##   "description": "Lexique382 est une base de données le xicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.",
-##   "readme": "http://chrplr.github.io/openlexicon/datasets-info/Lexique382/README"
-## }
-
-
-# remote dir containing the json files describing the datasets, use *raw* github
+# Remote dir containing the json files describing the datasets, use *raw* github
 default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/"
 
+
+# Usage:
+# source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+# lexique <- get_lexique382()
+#  or
+# uscorpus <- readRDS(fetch_dataset('SUBTLEX-US-corpus', format='rds')$datatables[[1]])
+
+
+
 fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
+# download, only if needed, a dataset from openlexicon databases
+# returns a list with information about the dataset and a list of local filenames containing the datatables):
+## list(name=dataset_id,
+##      datatables=tables,
+##      description=description,
+##      readme=readme,
+##      website=website)
 {
     destname <- ''
 
