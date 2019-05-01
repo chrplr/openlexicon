@@ -7,11 +7,14 @@ phonémiques, les lemmes associés, la syllabation, la catégorie
 grammaticale, le genre et le nombre, les fréquences dans un corpus de
 livres et dans un corpus de sous-titres de films, etc.
 
-**Documentation:** [html](Manuel_Lexique3.html) \|
-[pdf](Manuel_Lexique3.pdf) \| [doc](Manuel_Lexique3.doc)
-
 **Table:**
 [Lexique382.zip](http://www.lexique.org/databases/Lexique382/Lexique382.zip)
+
+**Documentation:** [manuel.html](Manuel_Lexique3.html) /
+[manuel.pdf](Manuel_Lexique3.pdf) / [manuel.doc](Manuel_Lexique3.doc)
+(note: the parts of the documentation dealing with the online interface
+are no longer relevant as the website has changed. However, the
+description of the databases is still useful)
 
 **Online:** <http://www.lexique.org/shiny/lexique>
 
