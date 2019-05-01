@@ -9,9 +9,11 @@ At OpenLexicon, you will find:
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
 
 
-Some of the apps provide the infrastructure of <http://www.lexique.org>
-where many of lexical databases are hosted and can be queried on-line --- check
-out, for example, <http://www.lexique.org/shiny/openlexique>.
+* To automatically download datasets, you can use [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R)
+* To add a new dataset, create a `.json` file in datasets-info (see [Howto](datasets-info/README-how-to-install-a-new-database.md)
+* Some of the apps provide the infrastructure of <http://www.lexique.org> where many of lexical databases are hosted and can be queried on-line --- check
+out, for example, <http://www.lexique.org/shiny/openlexicon>.
+
 
 ### Contributing ###
 
@@ -20,12 +22,6 @@ First, check out Lexique's google-group at <https://groups.google.com/forum/#!fo
 `boris.new@gmail.com` privately, or, _much better_, fork
 [openlexicon](https://github.com/chrplr/openlexicon) and issue a [pull
 request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork).
-
-
-### License ###
-
-The files in this repository are distributed under a CC BY-SA 4.0 LICENSE (see
-<https://creativecommons.org/licenses/by-sa/4.0/>).
 
 
 ### Crediting ###
@@ -42,12 +38,16 @@ If needed, you can cite this repository as:
 
 **For maintainers:**
 
-- [How to add a new database](datasets-info/README-how-to-install-a-new-database.md)
 - [Server installation](README-server-installation.md)
 
 
+### License ###
+
+The files in this repository are distributed under a CC BY-SA 4.0 LICENSE (see
+<https://creativecommons.org/licenses/by-sa/4.0/>).
+
 ---
 
-Time-stamp: <2019-04-21 16:54:43 christophe@pallier.org>
+Time-stamp: <2019-05-01 09:48:32 christophe@pallier.org>
 
 
