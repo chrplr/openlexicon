@@ -1,12 +1,10 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 18:42:05 christophe@pallier.org>
-
-# source('../set-variables.R')
+# Time-stamp: <2019-05-01 09:04:19 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 
-# loads all datasets
+# loads datasets
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
 dataset_ids <- c('Lexique382', 'SUBTLEX-US', 'Megalex-auditory', 'Megalex-visual', 'FrenchLexiconProject-words', 'WorldLex-French', 'WorldLex-English')
 
@@ -104,9 +102,13 @@ server <- function(input, output) {
     output$table <- renderDT(datasetInput(),
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
-                             options=list(search = list(regex = TRUE,
-                                                        caseInsensitive = FALSE)))
-
+                             options=list(pageLength=20,
+                                          lengthMenu = c(20, 100, 500, 1000),
+                                          regex = TRUE,
+                                          searching = FALSE,
+                                          caseInsensitive = FALSE
+                             )
+    )  
     output$download <- downloadHandler(
         filename = function() {
             paste("Lexique-query-", Sys.time(), ".csv", sep="")
@@ -116,6 +118,8 @@ server <- function(input, output) {
             dt = datasetInput()[input[["table_rows_all"]], ]
             write.csv(dt,
                       file=fname,
+                      quote=FALSE,
+                      sep=";",
                       row.names=FALSE)
         })
     #url  <- a("Help!", href="http://www.lexique.org/?page_id=166")

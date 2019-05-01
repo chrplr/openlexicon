@@ -1,5 +1,13 @@
-* In databases:
+- add json description files in datasets-info
 
-- create json description files in databases.doc
+- improve documentation (readme files) of datatasets in datasets-info, notably add description of fields!
+
+- normalize the names of databases to clearly indicate the language
+
+- update all scripts and apps to rely on `datasetst-info/fetch_datasets.R` rather than directly load
+
+- write a fetcher in Python or make a script from fetch_datasets.R
+
+
+
  
-- in shiny apps. Create a system to provides links to the README for each dataset: there should be a lists of 3-uples, with dataset names, filename, url to README)
