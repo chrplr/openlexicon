@@ -8,12 +8,10 @@ At OpenLexicon, you will find:
 3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. 
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
 
-
-* To automatically download datasets, you can use [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R)
-* To add a new dataset, create a `.json` file in datasets-info (see [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md))
+* To add a new dataset, add a `.json` in `datasets-info/`; check out [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md).
 * Some of the apps provide the infrastructure of <http://www.lexique.org> where many of lexical databases are hosted and can be queried on-line --- check
 out, for example, <http://www.lexique.org/shiny/openlexicon>.
-
+* To automatically download datasets, you can use [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R)
 
 ### Contributing ###
 
@@ -22,6 +20,7 @@ First, check out Lexique's google-group at <https://groups.google.com/forum/#!fo
 `boris.new@gmail.com` privately, or, _much better_, fork the 
 [openlexicon](https://github.com/chrplr/openlexicon) repository (see [How to fork a repo](https://help.github.com/en/articles/fork-a-repo)) and issue a pull request (see [Creating a pull request from a fork](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)).
 
+Check out the [TODO list](TODO.md)
 
 ### Crediting ###
 
