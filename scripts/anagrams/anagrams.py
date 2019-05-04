@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-# Time-stamp: <2019-04-07 18:17:32 christophe@pallier.org>
+# Time-stamp: <2019-05-02 18:53:42 christophe@pallier.org>
 # License: GPL-2
 
 """Input: a text file with one word per line
@@ -26,11 +26,16 @@ for w in dictionary:
         ana[key] = [ w ]
 
 # print the anagrams
+liste = []
+
 for k in ana:
     if len(ana[k]) > 1:
-        for w in ana[k]:
-            print(w, end=" ")
-        print(end="\n")
+        ana[k].sort()
+        liste.append(" ".join(ana[k])
+
+liste.sort()
+for w in liste:
+    print(w)
 
 
 
