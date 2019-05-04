@@ -1,7 +1,7 @@
 {
-    "_comment": "# Time-stamp: <2019-05-02 18:31:52 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-05-04 13:43:59 christophe@pallier.org>",
     "name": "anagrammes",
-    "description": "Le fichier [anagrammes.txt](anagrammes.txt) liste plus de 25000 ensembles d'anagrammes du français.",,
+    "description": "Le fichier `anagrammes.txt`` liste tous les anagrammes possibles calculés à partir du champ ortho de la base Lexique382.",
     "website": "http://chrplr.github.io/openlexicon/scripts/anagrams/anagrams.py",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/anagrammes/README-anagrammes.html",
     "urls": [{
