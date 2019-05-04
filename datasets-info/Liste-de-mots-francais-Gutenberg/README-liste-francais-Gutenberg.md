@@ -29,4 +29,4 @@ Pour cela j'ai appliqué la procédure suivante, sur une machine sur laquelle é
 <http://www.pallier.org>
 
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

@@ -14,4 +14,4 @@ Publication:
 
 Content, Alain, Philippe Mousty, and Monique Radeau. 1990. “Brulex: Une Base de Données Lexicales Informatisée Pour Le Français Écrit et Parlé.” _L’Année Psychologique_ 90: 551–66. [pdf](Brulex-ContentMoustyRadeau1990.pdf)
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

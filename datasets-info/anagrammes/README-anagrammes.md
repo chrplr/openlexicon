@@ -13,4 +13,4 @@ Le fichier a été créé par :
 Time-stamp: <2019-04-07 18:24:22 christophe@pallier.org>
 
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

@@ -20,4 +20,4 @@ Brysbaert, Marc, Boris New, and Emmanuel Keuleers (2012). “Adding Part-of-Spee
 **LICENSE:** CC-BY-SA
 
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

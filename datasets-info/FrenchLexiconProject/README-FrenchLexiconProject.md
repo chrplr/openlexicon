@@ -25,4 +25,4 @@ Christophe Pallier
 
 LICENSE CC BY-SA 4.0
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

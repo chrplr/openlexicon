@@ -54,8 +54,9 @@ You will find below a directory of open lexical databases. Click on the name of 
 
 ## Similar lists or resources ##
 
-- Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
 
+- Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
+- Meiryum Al's [Best 25 Datasets for Natural Language Processing](https://gengo.ai/datasets/the-best-25-datasets-for-natural-language-processing/)
 
 ## Contributing ##
 

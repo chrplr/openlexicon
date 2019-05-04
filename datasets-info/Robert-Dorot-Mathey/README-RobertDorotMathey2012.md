@@ -12,4 +12,4 @@ Robert, C., Dorot, D., & Mathey, S. (2012). Du campus au jardin : estimations de
 
 Time-stamp: <2019-04-09 11:04:00 christophe@pallier.org>
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

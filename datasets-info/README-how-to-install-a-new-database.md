@@ -51,7 +51,7 @@ For example, for <http://www.lexique.org> maintainers:
 
 * Go to your fork of <http://github.com/chrplr/openlexicon/> and add the json files describing the database, as well as some documentation --- at a minimum a README.md file) describing the database -- and issue a pull request.
 
-* Optionaly, if you want to make the database accessible in openlexique:   
+* Optionaly, if you want to make the database accessible in openlexicon:   
    * Modify the [openlexicon apps](http://github.com/chrplr/openlexicon/apps) that will use this database (issue a pull request).
    * Connect to the server and run: 
    

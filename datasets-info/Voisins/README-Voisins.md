@@ -9,7 +9,7 @@ Les voisins orthographiques d'un mot sont les mots qui peuvent être
 créés en changeant une lettre sans modifier pour autant la position des autres
 lettres (Coltheart, Davelaar, Jonasson et Besner, 1977). En d'autres termes,
 les voisins sont tous les mots différents d'un autre uniquement par la
-substition d'une seule lettre. Ainsi "vol" a commme voisins "vil" ou "bol"
+substitution d'une seule lettre. Ainsi "vol" a commme voisins "vil" ou "bol"
 
 Cette base est constituée des champs suivants:
 
@@ -38,4 +38,4 @@ Cette base est constituée des champs suivants:
 CC-BY-SA
 
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

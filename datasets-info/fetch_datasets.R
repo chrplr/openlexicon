@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-05-01 11:10:57 christophe@pallier.org>
+# Time-stamp: <2019-05-01 20:31:23 christophe@pallier.org>
 
 
 require("rjson")
@@ -19,7 +19,8 @@ default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/d
 
 
 
-fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
+
+fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, format=NULL)
 # download, only if needed, a dataset from openlexicon databases
 # returns a list with information about the dataset and a list of local filenames containing the datatables):
 ## list(name=dataset_id,
@@ -42,8 +43,11 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     {
         fname <- basename(u$url)
 
+        if (!is.null(filename) && (filename != fname))
+            next  # skip this file
+
         if (!is.null(format) && tools::file_ext(fname) != format)   # check if format (extension) matches
-                next  # skip this file
+            next  # skip this file
 
         destname <- file.path(get_data.home(), fname)
 

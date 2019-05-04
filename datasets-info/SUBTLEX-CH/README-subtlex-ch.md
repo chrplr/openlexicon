@@ -10,4 +10,4 @@ SUBTEL-CH (Cai & Brysbaert 2010) is a database of Chinese word and character fre
 
 Cai, Qing, and Marc Brysbaert. 2010. “SUBTLEX-CH: Chinese Word and Character Frequencies Based on Film Subtitles.” _PLOS ONE_ 5 (6): e10729. https://doi.org/10.1371/journal.pone.0010729.
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

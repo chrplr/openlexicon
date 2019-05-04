@@ -15,4 +15,4 @@ Je remercie les auteurs ci-dessus pour leur fabuleux travail.
 Boris New
 
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)
