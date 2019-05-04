@@ -1,12 +1,12 @@
 {
-    "_comment": "# Time-stamp: <2019-05-04 14:01:51 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-05-04 14:12:57 christophe@pallier.org>",
     "name": "lexique3",
     "description": "
     Les voisins orthographiques d'un mot sont les mots qui peuvent être
     créés en changeant une lettre sans modifier pour autant la position des autres
     lettres. En d'autres termes,
     les voisins sont tous les mots différents d'un autre uniquement par la
-    substitution d'une seule lettre (\'paire minimale orthographique\'). Ainsi \"vol\" a commme voisins \"vil\" ou \"bol\"
+    substitution d'une seule lettre (paire minimale orthographique). Ainsi _vol_ a commme voisins _vil_ ou _bol_
 
 La table `Voisins` a été construite à partir des 130000 entrées de la base `Graphemes`
         de Lexique262. Elle est constituée des champs suivants:

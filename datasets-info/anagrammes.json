@@ -1,18 +1,18 @@
 {
-    "_comment": "# Time-stamp: <2019-05-04 14:09:04 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-05-04 14:16:56 christophe@pallier.org>",
     "name": "anagrammes",
-    "description": "Le fichier `anagrammes.txt`` liste tous les anagrammes possibles calculés à partir du champ ortho de la base Lexique382.",
+    "description": "Le fichier `anagrammes.txt` liste tous les anagrammes possibles calculés à partir du champ ortho de la base Lexique382.",
     "website": "http://chrplr.github.io/openlexicon/scripts/anagrams/anagrams.py",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/anagrammes/README-anagrammes.html",
     "urls": [{
-            "url": "http://www.lexique.org/databases/anagrammes/anagrames.txt",
+            "url": "http://www.lexique.org/databases/anagrammes/anagrammes.txt",
             "bytes": 611369,
             "md5sum": "8356ba52a14026726c75e4bb3540adeb"
         },
         {
-            "url": "http://www.lexique.org/databases/anagrammes/Anagrames.rds",
+            "url": "http://www.lexique.org/databases/anagrammes/Anagrammes.rds",
             "bytes": 209028,
-            "md5sum": "4b0a2c525997e63e2e72fb673e81d19b",
+            "md5sum": "4b0a2c525997e63e2e72fb673e81d19b"
         }
     ],
     "type": "txt",
