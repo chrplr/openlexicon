@@ -1,12 +1,12 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-05-01 09:04:19 christophe@pallier.org>
+# Time-stamp: <2019-05-04 13:34:20 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 
 # loads datasets
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-dataset_ids <- c('Lexique382', 'SUBTLEX-US', 'Megalex-auditory', 'Megalex-visual', 'FrenchLexiconProject-words', 'WorldLex-French', 'WorldLex-English')
+dataset_ids <- c('Lexique382', 'SUBTLEX-US', 'Megalex-auditory', 'Megalex-visual', 'FrenchLexiconProject-words', 'WorldLex-French', 'WorldLex-English','Voisins','anagrammes')
 
 datasets = list()
 for (ds in dataset_ids)
