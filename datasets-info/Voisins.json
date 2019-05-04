@@ -1,5 +1,5 @@
 {
-    "_comment": "# Time-stamp: <2019-05-04 13:28:35 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-05-04 14:01:51 christophe@pallier.org>",
     "name": "lexique3",
     "description": "
     Les voisins orthographiques d'un mot sont les mots qui peuvent être
@@ -31,8 +31,8 @@ La table `Voisins` a été construite à partir des 130000 entrées de la base `
         },
         {
             "url": "http://www.lexique.org/databases/Voisins/Voisins.rds",
-            "bytes": 1632722,
-            "md5sum": "4cb1cfa04e8846e1645f7e780746eb67"
+            "bytes": 1632735,
+            "md5sum": "f70aa302f5452cf3210d16d41ee37b29"
         }
     ],
     "type": "tsv",
