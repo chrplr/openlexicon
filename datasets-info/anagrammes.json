@@ -1,7 +1,7 @@
 {
-    "_comment": "# Time-stamp: <2019-05-04 15:09:33 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-05-05 18:19:07 christophe@pallier.org>",
     "name": "anagrammes",
-    "description": "Le fichier `anagrammes.txt` liste tous les anagrammes possibles (plus de 17000) calculés à partir du champ `ortho` de la base Lexique382.",
+    "description": "Le fichier `anagrammes.txt` liste plus de 25000 ensembles d'anagrammes calculés à partir d'une liste de plus de 300.000 mots français. Le script Python ayant servi à calculer ces anagrammes est accessible par les liens ci-dessous.",
     "website": "http://chrplr.github.io/openlexicon/scripts/anagrams/anagrams.py",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/anagrammes/README-anagrammes.html",
     "urls": [{

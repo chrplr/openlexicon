@@ -1,27 +1,8 @@
 {
-    "_comment": "# Time-stamp: <2019-05-04 14:12:57 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-05-05 18:23:44 christophe@pallier.org>",
     "name": "lexique3",
     "description": "
-    Les voisins orthographiques d'un mot sont les mots qui peuvent être
-    créés en changeant une lettre sans modifier pour autant la position des autres
-    lettres. En d'autres termes,
-    les voisins sont tous les mots différents d'un autre uniquement par la
-    substitution d'une seule lettre (paire minimale orthographique). Ainsi _vol_ a commme voisins _vil_ ou _bol_
-
-La table `Voisins` a été construite à partir des 130000 entrées de la base `Graphemes`
-        de Lexique262. Elle est constituée des champs suivants:
-
-
-        * Graph : Toutes les entrées orthographiques de Lexique2
-
-        * NbVoisOrth : Le nombre de voisins orthographiques.
-
-        * VoisOrth : Les différents voisins orthographiques.
-
-        * FreqVoisOrth : Les différentes fréquences(de Frantext et par millions) de
-    chacun des voisins
-
-        * FreqCum : La fréquence cumulée de tous les voisins ",
+    L'une de définitions possible des voisins orthographiques d'un mot sont les mots qui peuvent être créés en changeant une lettre sans modifier pour autant la position des autres lettres (formant une 'paire minimale'). La table `Voisins` a été construite à partir des 130000 entrées de la base `Graphemes` de Lexique262. Elle est constituée des champs suivants: *Graph: Toutes les entrées orthographiques de Lexique2; *NbVoisOrth: Le nombre de voisins orthographiques; *VoisOrth: Les différents voisins orthographiques. *FreqVoisOrth: Les différentes fréquences (de la bases de livres Frantext et par million) de chacun des voisins; *FreqCum: La fréquence cumulée de tous les voisins.",
     "website": "http://www.lexique.org",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Voisins/README-Voisins..html",
     "urls": [{
