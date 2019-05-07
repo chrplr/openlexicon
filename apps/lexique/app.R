@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 17:16:11 christophe@pallier.org>
+# Time-stamp: <2019-05-07 18:17:35 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -57,9 +57,8 @@ server <- function(input, output) {
     output$table <- renderDT(datasetInput()[,input$show_vars, drop=FALSE],
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
-                             options=list(search = list(pageLength=15,
-														lengthMenu = c(5, 15, -1),
-														regex = TRUE,
+                             options=list(search = list(pageLength=20,
+                                                        lengthMenu = c(20, 100, 500, 1000),                                                      regex = TRUE, searching=FALSE,
                                                         caseInsensitive = FALSE
                                                         )))
 
