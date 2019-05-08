@@ -58,7 +58,7 @@ server <- function(input, output) {
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
                              options=list(pageLength=20,
-                                          lengthMenu = c(20, 100, 500, 1000),                                                      regex = TRUE, searching=FALSE,
+                                          lengthMenu = c(20, 100, 500, 1000),                                                      regex = TRUE, searching=TRUE,
                                           caseInsensitive = FALSE
                                           ))
 

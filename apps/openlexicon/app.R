@@ -105,7 +105,7 @@ server <- function(input, output) {
                              options=list(pageLength=20,
                                           lengthMenu = c(20, 100, 500, 1000),
                                           regex = TRUE,
-                                          searching = FALSE,
+                                          searching = TRUE,
                                           caseInsensitive = FALSE
                              )
     )  
