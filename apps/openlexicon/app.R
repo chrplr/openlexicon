@@ -104,9 +104,9 @@ server <- function(input, output) {
                              filter=list(position = 'top', clear = FALSE),
                              options=list(pageLength=20,
                                           lengthMenu = c(20, 100, 500, 1000),
-                                          regex = TRUE,
+                                          search=list(regex = TRUE,
                                           searching = TRUE,
-                                          caseInsensitive = FALSE
+                                          caseInsensitive = FALSE)
                              )
     )  
     output$download <- downloadHandler(
