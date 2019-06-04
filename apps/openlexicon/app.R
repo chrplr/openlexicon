@@ -6,7 +6,7 @@ library(DT)
 
 # loads datasets
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-dataset_ids <- c('Lexique382', 'SUBTLEX-US', 'Megalex-auditory', 'Megalex-visual', 'FrenchLexiconProject-words', 'WorldLex-French', 'WorldLex-English','Voisins','anagrammes')
+dataset_ids <- c('SUBTLEX-US', 'Megalex-visual', 'Megalex-auditory', 'Lexique382', 'FrenchLexiconProject-words', 'WorldLex-French', 'WorldLex-English','Voisins','anagrammes')
 
 datasets = list()
 for (ds in dataset_ids)
@@ -105,7 +105,7 @@ server <- function(input, output) {
                              options=list(pageLength=20,
                                           lengthMenu = c(20, 100, 500, 1000),
                                           search=list(regex = TRUE,
-                                          searching = TRUE,
+                                          searching = FALSE,
                                           caseInsensitive = FALSE)
                              )
     )  
