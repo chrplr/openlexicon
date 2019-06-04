@@ -1,11 +1,11 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-05-07 18:24:32 christophe@pallier.org>
+# Time-stamp: <2019-06-04 21:57:26 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-lexique <- get_lexique382()
+lexique <- get_lexique383()
 
 helper_alert =
   tags$div(class="alert alert-info",

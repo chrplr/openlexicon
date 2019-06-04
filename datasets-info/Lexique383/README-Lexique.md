@@ -6,7 +6,7 @@ Lexique383 est une base de données lexicales du français qui fournit pour ~140
 
 **Table:** [Lexique383.zip](http://www.lexique.org/databases/Lexique383/Lexique383.zip)
 
-**Documentation:** [manuel.html](../Lexique282/Manuel_Lexique3.html) / [manuel.pdf](Manuel_Lexique3.pdf) / [../Lexique382/manuel.doc](Manuel_Lexique3.doc) (note: the parts of the documentation dealing with the online interface are no longer relevant as the website has changed. However, the description of the databases is still useful)
+**Documentation:** [manuel.pdf](Manuel_Lexique.3.pdf) (note: the parts of the documentation dealing with the online interface are no longer relevant as the website has changed. However, the description of the databases is still useful)
 
 **Online:** <http://www.lexique.org/shiny/lexique>
 

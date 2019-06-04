@@ -1,18 +1,23 @@
 Lexique3
 ========
 
-Lexique 3.83 est une base de données lexicales du français qui fournit
+Lexique383 est une base de données lexicales du français qui fournit
 pour \~140000 mots du français: les représentations orthographiques et
 phonémiques, les lemmes associés, la syllabation, la catégorie
 grammaticale, le genre et le nombre, les fréquences dans un corpus de
-livres et dans un corpus de sous-titres de filems, etc.
+livres et dans un corpus de sous-titres de films, etc.
 
-Table:
-[Lexique383.zip](http://www.lexique.org/databases/Lexique382/Lexique383.zip)
+**Table:**
+[Lexique383.zip](http://www.lexique.org/databases/Lexique383/Lexique383.zip)
 
-Web site: <http://www.lexique.org>
+**Documentation:** [manuel.pdf](Manuel_Lexique.3.pdf) (note: the parts
+of the documentation dealing with the online interface are no longer
+relevant as the website has changed. However, the description of the
+databases is still useful)
 
-Online: <http://www.lexique.org/shiny/lexique>
+**Online:** <http://www.lexique.org/shiny/lexique>
+
+**Web site:** <http://www.lexique.org>
 
 Publications
 ------------
@@ -47,3 +52,8 @@ License
 
 [CC BY SA40.0](LICENSE-CC-BY-SA4.0.txt)
 
+[Openlexicon](http://chrplr.github.io/openlexicon)
+
+------------------------------------------------------------------------
+
+Time-stamp: \<2019-06-04 21:45:48 christophe\@pallier.org\>
