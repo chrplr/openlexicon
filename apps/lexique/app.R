@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-06-04 21:57:26 christophe@pallier.org>
+# Time-stamp: <2019-06-04 22:01:01 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -51,7 +51,7 @@ server <- function(input, output) {
     datasetInput <- reactive({lexique})
 
     output$caption <- renderText({
-        "Lexique3.82"
+        "Lexique3"
     })
 
     output$table <- renderDT(datasetInput()[,input$show_vars, drop=FALSE],
