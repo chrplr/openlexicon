@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-05-01 20:31:23 christophe@pallier.org>
+# Time-stamp: <2019-06-04 21:50:24 christophe@pallier.org>
 
 
 require("rjson")
@@ -107,6 +107,12 @@ get_data.home <- function()
 get_lexique382 <- function()
 {
     info <- fetch_dataset('Lexique382', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
+get_lexique383 <- function()
+{
+    info <- fetch_dataset('Lexique383', format='rds')
     readRDS(info$datatables[[1]])
 }
 
