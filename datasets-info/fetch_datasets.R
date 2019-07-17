@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-06-04 21:50:24 christophe@pallier.org>
+# Time-stamp: <2019-07-17 17:32:25 christophe@pallier.org>
 
 
 require("rjson")
@@ -53,7 +53,7 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
 
         if (!file.exists(destname))
         {
-            download.file(u$url, destname)
+            download.file(u$url, destname, mode='wb')
             if (md5sum(destname) != u$md5sum)
             {
               warning("Something is wrong: the md5sums don't match. Either the upstream files are inconsistent or someone is messing with your internet connection.")
