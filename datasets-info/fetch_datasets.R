@@ -1,37 +1,33 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-04-30 13:33:53 christophe@pallier.org>
+# Time-stamp: <2019-06-04 21:50:24 christophe@pallier.org>
 
 
 require("rjson")
 require("tools") # Required for md5sum
 
-#  Download openlexicon's datasets from json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
+#  Download openlexicon's datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
-### Example of a json file:
-
-## {
-##   "name": "lexique3",
-##   "urls": [
-##     {
-##       "url": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
-##       "bytes": 25850842,
-##       "md5sum": "28d18d7ac1464d09e379f30995d9d605"
-##     }
-##   ],
-##   "type": "tsv",
-##   "tags": ["french", "frequencies"],
-##   "description": "Lexique382 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc.",
-##   "readme": "http://chrplr.github.io/openlexicon/datasets-info/Lexique382/README"
-## }
+# Remote dir containing the json files describing the datasets, use *raw* github
+default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/"
 
 
 # Usage:
-# fetch_dataset('Lexique382')
+# source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+# lexique <- get_lexique382()
+#  or
+# uscorpus <- readRDS(fetch_dataset('SUBTLEX-US-corpus', format='rds')$datatables[[1]])
 
-# remote dir containing the json files describing the datasets, use *raw* github
-default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/"
 
-fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
+
+
+fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, format=NULL)
+# download, only if needed, a dataset from openlexicon databases
+# returns a list with information about the dataset and a list of local filenames containing the datatables):
+## list(name=dataset_id,
+##      datatables=tables,
+##      description=description,
+##      readme=readme,
+##      website=website)
 {
     destname <- ''
 
@@ -40,14 +36,18 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     json_data <- fromJSON(file=json_file)
     description <- json_data$description
     readme <- json_data$readme
+    website <- json_data$website
 
     tables = list()
     for (u in json_data$urls)
     {
         fname <- basename(u$url)
 
+        if (!is.null(filename) && (filename != fname))
+            next  # skip this file
+
         if (!is.null(format) && tools::file_ext(fname) != format)   # check if format (extension) matches
-                next  # skip this file
+            next  # skip this file
 
         destname <- file.path(get_data.home(), fname)
 
@@ -81,7 +81,8 @@ fetch_dataset <- function(dataset_id, location=default_remote, format=NULL)
     list(name=dataset_id,
          datatables=tables,
          description=description,
-         readme=readme)
+         readme=readme,
+         website=website)
 }
 
 get_data.home <- function()
@@ -103,3 +104,33 @@ get_data.home <- function()
 }
 
 
+get_lexique382 <- function()
+{
+    info <- fetch_dataset('Lexique382', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
+get_lexique383 <- function()
+{
+    info <- fetch_dataset('Lexique383', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
+get_worldlex.french <- function()
+{
+    info <- fetch_dataset('WorldLex-French', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
+get_worldlex.english <- function()
+{
+    info <- fetch_dataset('WorldLex-English', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
+get_subtlex.us <- function()
+{
+    info <- fetch_dataset('SUBTLEX-US', format='rds')
+    readRDS(info$datatables[[1]])
+
+}

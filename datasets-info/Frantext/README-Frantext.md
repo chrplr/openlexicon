@@ -8,4 +8,4 @@ Les chaînes commençant par "%" indiquent les symboles.
 
 Boris New
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

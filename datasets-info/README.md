@@ -1,27 +1,8 @@
 # Open lexical databases #
 
+
+
 You will find below a directory of open lexical databases. Click on the name of any database to obtain more information and links to datasets.
-
-Remarks:
-
-* Most datasets are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
-* Many of these databases can also be explored or queried on-line at <http://www.lexique.org/shiny/openlexique>, thanks to shiny apps from the [openlexicon project](http://github.com/chrplr/openlexicon).
-* Most databases have associated publications listed in their respective `README` files. They must be cited in any derivative work!
-
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
-
-- [Open lexical databases](#open-lexical-databases)
-    - [Français](#français)
-    - [English (American and British)](#english-american-and-british)
-    - [Chinese](#chinese)
-    - [Multilingual](#multilingual)
-    - [Similar lists or resource](#similar-lists-or-resource)
-    - [Contributing](#contributing)
-
-<!-- markdown-toc end -->
-
-
 
 ## Français ##
 
@@ -63,19 +44,22 @@ Remarks:
 | [WorldLex](WorldLex/README-Worldlex.md) | Worldlex provides word frequencies estimated from web pages collected in 66 languages.   |
 
 
+## Usage ##
+
+
+* Most datasets are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
+* Many of these databases can also be explored or queried on-line at <http://www.lexique.org/shiny/openlexicon>, thanks to shiny apps from the [openlexicon project](http://github.com/chrplr/openlexicon).
+* Most databases have associated publications listed in their respective `README` files. They must be cited in any derivative work!
+
 
 ## Similar lists or resources ##
 
-- Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
 
+- Marc Brysbaert's web site at <http://crr.ugent.be/programs-data>
+- Meiryum Al's [Best 25 Datasets for Natural Language Processing](https://gengo.ai/datasets/the-best-25-datasets-for-natural-language-processing/)
 
 ## Contributing ##
 
-If you want to contribute, by adding a database, or just sending some corrections, please contact <christophe@pallier.org> and <boris.new@gmail.com>, or use the google-group <https://groups.google.com/forum/#!forum/lexiqueorg>.
+If you want to contribute, check out the [OpenLexicon project](http://chrplr.github.io/openlexicon)
 
-----
-
-The source of the current document is at <https://github.com/chrplr/openlexicon/blob/master/datasets-info/README.md>.
-
-
-Time-stamp: <2019-04-21 16:27:29 christophe@pallier.org>
+Time-stamp: <2019-05-01 11:24:52 christophe@pallier.org>

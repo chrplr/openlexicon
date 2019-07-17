@@ -1,5 +1,5 @@
 {
-    "_comment": "# Time-stamp: <2019-04-30 13:10:58 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-04-30 16:40:37 christophe@pallier.org>",
     "name": "SUTLEX-US",
     "urls": [{
             "url": "http://www.lexique.org/databases/SUBTLEX-US/SUBTLEXus74286wordstextversion.tsv",
@@ -14,6 +14,7 @@
     ],
     "type": "tsv",
     "tags": ["english", "frequencies"],
-    "description": "SubtlexUS is database containing word frequencies based on English and American movies and TV series subtitles (51 million words in total)",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SUBTLEX-US/README-SUBTLEXus.html"
+    "description": "SubtlexUS is database containing word frequencies based on English and American movies and TV series subtitles (51 million words in total). This table corresponds to the file '74286words'",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SUBTLEX-US/README-SUBTLEXus.html",
+    "website": "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus>"
 }

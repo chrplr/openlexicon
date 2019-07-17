@@ -5,6 +5,7 @@ databases.zip
 *.zip
 *.gz
 *.xz
+.rds
 .RData
 .Rhistory
 .Rproj.user

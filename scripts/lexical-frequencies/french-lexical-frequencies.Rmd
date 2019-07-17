@@ -1,0 +1,36 @@
+---
+title: "Frequences Lexicales du Français"
+author: "Christophe Pallier"
+date: "5/16/2019"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Nous allons afficher les distributions des fréquences lexicales des mots listés dans la base lexique3 (voir <http://www.lexique.org>)
+
+Nous chargeons d'abord la table lexique382
+
+```{r, results='hide', warning=FALSE, output=FALSE}
+source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+lexique <- get_lexique382()
+```
+
+
+Comme l'echelle des frequences est extremement large, et dominée par les mots de très basse fréquence, nous compressons en passant par logarithme (ainsi, sur l'axe des x sur la figure: 
+
+* 0 =  fréquence de 1 par million
+* 1 =              10 par million 
+* 2 =             100 par million
+...
+
+```{r}
+s = min(lexique$freqlivres[lexique$freqlemlivres>0])
+log10freqlivres = log10(lexique$freqlivres + s / 2)
+hist(log10freqlivres, nclass = 50)
+```
+```{r}
+s = min(lexique$freqfilms2[lexique$freqlemfilms2>0])
+log10freqfilms2 = log10(lexique$freqfilms2 + s / 2)
+hist(log10freqfilms2, nclass = 50)
+```

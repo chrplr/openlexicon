@@ -1,14 +1,13 @@
 # shiny R code for recherche de par liste de mots on <www.lexique.org>
 # Authors: Boris New & C. Pallier
-# Time-stamp: <2019-04-22 10:21:05 christophe@pallier.org>
+# Time-stamp: <2019-05-01 09:29:55 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 library(dplyr)
 
-source('../set-variables.R')
-
-load(file.path(RDATA, 'Lexique382.RData'))
+source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
+lexique <- get_lexique382()
 
 ui <- fluidPage(
   title = "Lexique",

@@ -1,12 +1,16 @@
 # Lexique3 #
 
-Lexique382 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de filems, etc. 
+Lexique382 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de films, etc. 
 
-Table: [Lexique382.zip](http://www.lexique.org/databases/Lexique382/Lexique382.zip)
 
-Web site: <http://www.lexique.org>
+**Table:** [Lexique382.zip](http://www.lexique.org/databases/Lexique382/Lexique382.zip)
 
-Online: <http://www.lexique.org/shiny/lexique>
+**Documentation:** [manuel.html](Manuel_Lexique3.html) / [manuel.pdf](Manuel_Lexique3.pdf) / [manuel.doc](Manuel_Lexique3.doc) (note: the parts of the documentation dealing with the online interface are no longer relevant as the website has changed. However, the description of the databases is still useful)
+
+**Online:** <http://www.lexique.org/shiny/lexique>
+
+**Web site:** <http://www.lexique.org>
+
 
 ## Publications ##
 
@@ -31,4 +35,7 @@ Online: <http://www.lexique.org/shiny/lexique>
 
 [CC BY SA40.0](LICENSE-CC-BY-SA4.0.txt)
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Openlexicon](http://chrplr.github.io/openlexicon)
+
+---
+Time-stamp: <2019-05-01 10:14:21 christophe@pallier.org>

@@ -1,0 +1,106 @@
+History
+-------
+-3.83 
+Minor phonological corrections
+
+3.82 (14/12/2017)
+-Correction de 321 entrées ayant des problèmes de représentation phonologique
+
+3.81
+-Correction d'un problème pour le champs Morpho_Der
+-Distribution au format utf8 du fichier texte
+
+3.80
+-11800 corrections des formes phonologiques, notamment les schwas (mais pas uniquement) (Merci au projet Wiktionnaire, au logiciel de reconnaissance phonologique SPPAS de Brigitte Bigi, et à Olivier Bonami)
+
+3.71
+-Correction d'un problème de la syllabation sur certaines entrées du à un bug du gawk3.1.8 de cygwin
+
+3.70 (Merci à Fiammetta Namer)
+-Ajout du champs donnant la morphologie dérivationnelle du mot [obtenu grâce à Fiammetta Namer et son superbe outil Derif]. Ce champs est, pour le moment, perfectible mais j'espère avoir du feedback des utilisateurs pour que l'on dispose d'un champs "parfait" -Ajout du champs "Nombre de Morphèmes" basé sur le champs précédent
+
+3.60 (Merci à Starf)
+-Ajout des champs donnant le voisinage de Levenshtein (OLD20 et PLD20) [http://elexicon.wustl.edu/Yarkoni_Balota_Yap_in_press.pdf] 
+-Correction de petits problèmes (Merci à FredOoo du forum, Christophe Dos Santos, Glorieux du forum)
+
+3.55 (Merci à Starf)
+-Correction de problèmes de lemmes (400 entrées) (Merci à Starf du forum)
+-Correction de problèmes phonologiques
+-Correction du champs "Nombre de voisins phonologiques"
+
+3.50 (Merci à Christian Lachaud et Jean-Philippe Goldman)
+-Correction des problèmes indiqués ici:
+http://www.lexique.org/addons/phpbb3/viewtopic.php?f=2&t;=409:
+[-Corrections de problème de féminisation de lemme
+-Corrections d'entrées avec le mauvais lemme
+-Correction de certains temps conjugués pour l'infinitif]
+-Nombreuses corrections de la phonologie [11] (Merci à Christian Lachaud et Jean-Philippe Goldman) 
+-Réintroduction du phonème N (pagne -> paN) perdu avec la version 3.20 
+
+3.45
+-Inclusion des lemmes de Brulex et Morphalou étant présents dans notre nouveau corpus de sous-titres (~4500 mots)
+-Correction d'un bug sur les 4 dernières colonnes de Lexique
+
+3.40
+-3.40a Correction d'un bug pour la syllabation et le champs pcvcv (du au nouveau phonème 3)
+-Corrections diverses de infover, lemme, etc.
+-Nouvelles fréquences de sous-titres basées sur un corpus de 50 millions de mots
+-2 nouveaux champs basés sur le site "Combien de mots connaissez-vous"? (donne une fréquence subjective "objective")
+-Très nombreuses corrections de la phonologie (Merci à Christian Lachaud et Jean-Philippe Goldman) 
+
+3.30
+- Correction de phonologie des formes homographes (convient,...)
+- Certains mots supprimés par erreur lors du nettoyage sont à nouveau présents (si, ces, ...)
+- Certains mots n'avaient pas de catégorie grammaticale (mot, phrase)
+- Correction de lemmes de certains mots composés (vesses-de-loup)
+- Correction des entrées infinitif qui sont notées comme ayant 2e pers du pluriel (retrouver)
+- Correction des entrées ayant deux lemmes différents selon Cordial (agneaux)
+
+3.20 (Merci à Christian Lachaud et Jean-Philippe Goldman)
+- Correction des formes phonologiques par Christian Lachaud
+- Entre autres corrections:
+- Introduction o ouvert / o fermé
+- Changement du signe du schwa (* devient ° car * était utilisé dans les expressions régulières)
+- Suppression du phonème h
+- Corrections diverses (1% des entrées)
+- Nouveau champs cgramortho donne les catégories grammaticales possibles pour une entrée donnée
+
+3.02
+- Corrections des Fréquences basées sur les sous-titres (fréquences brutes divisées par 16.6 au lieu de 18.8)
+- Corrections de problèmes de lemmatisation, catégorie grammaticale, etc (20 entrées)
+- Corrections d'entrées phonologiques (~50; ex: supporter, diplômer)
+- Le nombre de phonèmes ne prend plus en compte le phonème "h"
+
+3.01
+- Corrections de lemmatisations (300 entrées)
+- Corrections d'entrées phonologiques (ex: me, te, onomatopées)
+- Correction de la légende des champs
+- Correction des champs CV qui avaient des problèmes avec les accents
+
+3.00
+- Nouvelles fréquences écrites et orales (basées sur des dialogues de films)
+- Fréquences des films plus réalistes
+- Fréquences des homonymes et homographes
+- Fréquence des syntagmes de n'importe quelle longueur
+- Formes orthographiques syllabées
+- Nouvelles formes phonologiques (15 000)
+- Présence des mots composés
+- Nouveaux lemmes
+- Informations de cgram, genre, nombre beaucoup mieux structuré
+- Cgram, genre, nombre et lemme + complets
+- Codes grammaticaux + cohérents
+- Fréquences des chiffres et des nombres
+
+2.62 (Merci à Roger Mampey)
+-Correction d'un grand nombre d'entrées phonologiques (ajout des homophones, schwas, /e/ et /E/). 3457 entrées ont été modifiées
+-Syllabation.awk adapté pour les homophones
+
+2.61 (Merci, entre autres, à Lodesi, Alexandre, SQLpro, Jeremy Goslin, rangzen).
+
+-Correction des bugs signalés sur le forum (catégorie grammaticale, phonologie)
+-Correction de l'algorithme de syllabation
+
+2.60
+-La numérotation des noms de champs commencent désormais à 1 (et pas à 0 comme avant)
+-Naissance de la version indépendante des bases de Lexique (avant les bases étaient distribuées avec l'environnement Undows)
+

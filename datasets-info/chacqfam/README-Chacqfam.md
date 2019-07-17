@@ -14,4 +14,4 @@ Publication:
 
 Time-stamp: <2019-03-31 15:11:28 christophe@pallier.org>
 
-[Online access](http://www.lexique.org/shiny/openlexique) | [Openlexicon](http://chrplr.github.io/openlexicon)
+[Online access](http://www.lexique.org/shiny/openlexicon) | [Openlexicon](http://chrplr.github.io/openlexicon)

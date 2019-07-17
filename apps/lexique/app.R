@@ -1,14 +1,11 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-04-30 13:47:55 christophe@pallier.org>
+# Time-stamp: <2019-06-04 22:01:01 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 
-source('../../datasets-info/fetch_datasets.R')
-lex <- fetch_dataset('Lexique382', format='rds')
-lexique <- readRDS(lex$datatables[[1]])
-
-
+source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
+lexique <- get_lexique383()
 
 helper_alert =
   tags$div(class="alert alert-info",
@@ -54,17 +51,16 @@ server <- function(input, output) {
     datasetInput <- reactive({lexique})
 
     output$caption <- renderText({
-        "Lexique3.82"
+        "Lexique3"
     })
 
     output$table <- renderDT(datasetInput()[,input$show_vars, drop=FALSE],
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
-                             options=list(search = list(pageLength=15,
-														lengthMenu = c(5, 15, -1),
-														regex = TRUE,
-                                                        caseInsensitive = FALSE
-                                                        )))
+                             options=list(pageLength=20,
+                                          lengthMenu = c(20, 100, 500, 1000),
+                                          search=list(searching = TRUE, regex=TRUE, caseInsensitive = FALSE)
+                                          ))
 
     output$download <- downloadHandler(
         filename = function() {

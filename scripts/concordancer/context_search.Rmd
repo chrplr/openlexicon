@@ -15,21 +15,15 @@ In this document, I show how to build an efficient concordancer using R.
 
 ## Reading in the Corpus
 
-The corpus is nothing but a text file with one sentence per line. Let us read it in R, using the `scan` function:
-
+Let us import the corpus using [OpenlLexicon](http://chrplr.github.io/openlexicon)'s fetcher:
 
 ```{r}
-source('../set-variables.R')
-uscorpuspath <- file.path(DATABASES, 'SUBTLEX-US', 'Subtlex-US-corpus.txt.gz')  # nicer if it had been tokenized (?)
-Sys.setlocale('LC_ALL','C')
-
-
-uscorpus <- scan(uscorpuspath, what=character(), sep='\n', encoding='UTF-8', nlines=100000)  
-# Notes
-#  * here, for demo purposes, we limit ourselves to the first 100k line (about 20% of the entire file)
-#  * The fileEncoding should be 'UTF-8', but the subtlex-us file uses another encoding
+source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+filename <- fetch_dataset('SUBTLEX-US-corpus', format='rds')$datatables[[1]]
+uscorpus <- readRDS(filename)
 ```
 
+The corpus is nothing but a text file with one sentence per line.
 
 ## Building the hashtable
 
