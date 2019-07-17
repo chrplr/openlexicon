@@ -40,10 +40,14 @@ For example, for <http://www.lexique.org> maintainers:
 * Create there a folder for the database:
    * put there the relevant files (csv, tcsv, xlsx, zip, ...)
    * create a `make_rds.R` script in this folder 
+   
+        yyyyyyyyyy <- read_delim('xxxxxxxxxxxxxxxxxxxxxxx.tsv', delim='\t')
+        saveRDS(yyyyyyyyyy, file='xxxxxxxxxxxxxxxxxxxxxxx.rds')
+
    * generate a `rds` file containing the datasets:
    
-         cd /var/www/databases/bases
-         make
+         cd /var/www/databases
+         make rds
          
     * make sure the links has been created in `rds` and run:
     `

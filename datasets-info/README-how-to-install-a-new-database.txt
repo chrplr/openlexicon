@@ -38,15 +38,19 @@ For example, for <http://www.lexique.org> maintainers:
 
 -   Connect to the server and go to the databases directory
 
-          cd /var/www/databases
+        cd /var/www/databases
 
 -   Create there a folder for the database:
-    -   put there the relevant files (csv, tcsv, xlsx, zip, ...)
-    -   create a `make_rds.R` script in this folder
-    -   generate a `rds` file containing the datasets:
+-   put there the relevant files (csv, tcsv, xlsx, zip, ...)
+-   create a `make_rds.R` script in this folder
 
-            cd /var/www/databases/bases
-            make
+        yyyyyyyyyy <- read_delim('xxxxxxxxxxxxxxxxxxxxxxx.tsv', delim='\t')
+        saveRDS(yyyyyyyyyy, file='xxxxxxxxxxxxxxxxxxxxxxx.rds')
+
+-   generate a `rds` file containing the datasets:
+
+         cd /var/www/databases
+         make rds
 
     -   make sure the links has been created in `rds` and run: \` sudo
         systemctl restart shiny-server.service
@@ -57,16 +61,17 @@ For example, for <http://www.lexique.org> maintainers:
     database -- and issue a pull request.
 
 -   Optionaly, if you want to make the database accessible in
-    openlexique:
-    -   Modify the [openlexicon
-        apps](http://github.com/chrplr/openlexicon/apps) that will use
-        this database (issue a pull request).
-    -   Connect to the server and run:
+    openlexicon:\
+-   Modify the [openlexicon
+    apps](http://github.com/chrplr/openlexicon/apps) that will use this
+    database (issue a pull request).
+-   Connect to the server and run:
 
-        cd \~chrplr/shiny-server git pull
+        cd ~chrplr/shiny-server
+        git pull
 
 --
 
 Back to [OpenLexicon](https://chrplr.github.com/openlexicon)
 
-Time-stamp: \<2019-05-01 09:39:19 christophe\@pallier.org\>
+Time-stamp: &lt;2019-05-01 09:39:19 christophe@pallier.org&gt;
