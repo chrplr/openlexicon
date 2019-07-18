@@ -5,6 +5,8 @@
 library(shiny)
 library(DT)
 library(dplyr)
+library(writexl)
+
 
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
 lexique <- get_lexique382()
@@ -65,16 +67,11 @@ server <- function(input, output) {
 
     output$download <- downloadHandler(
         filename = function() {
-            paste("Lexique-query-", Sys.time(), ".csv", sep="")
+            paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
         },
         content = function(fname){
             dt = lexique_mots()[input[["table_rows_all"]], ]
-            write.table(dt,
-                        file=fname,
-                        quote=FALSE,
-                        sep=";",
-                        row.names=FALSE)
-        })
+            write_xlsx(dt, fname)        })
     url  <- a("Mode d'emploi", href="http://www.lexique.org/?page_id=166")
 }
 
