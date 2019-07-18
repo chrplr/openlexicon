@@ -1,12 +1,12 @@
-# Time-stamp: <2019-04-30 13:11:27 christophe@pallier.org>
+# Time-stamp: <2019-07-18 11:31:54 christophe@pallier.org>
 
-JSONFILES=$(wildcard *.json)
+JSONFILES=$(wildcard _json/*.json)
 
 list-of-datasets.md: $(JSONFILES)
-	./json2md *.json > list-of-datasets.md
+	python3 json2md $^ > list-of-datasets.md
 
 rds:
 # create rds files (R binary format) from raw tsv files (must be run on the server)
-	for f in */make_rds.R; do cd $$( dirname $$f ); ./make_rds.R; cd ..; done
-# link them in rdata
-	mkdir -p rds; cd rds; for f in ../*/*.rds; do ln -s $$f ./; done
+	for f in */make_rds.R; do cd $$( dirname $$f ); Rscript --vanilla ./make_rds.R; cd ..; done
+# link them in rds
+	mkdir -p rds; find -type f -name '*.rds' -exec do ln -s '{}' rds ';'

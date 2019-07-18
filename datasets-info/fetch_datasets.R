@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-07-17 17:32:25 christophe@pallier.org>
+# Time-stamp: <2019-07-18 11:02:04 christophe@pallier.org>
 
 
 require("rjson")
@@ -8,7 +8,7 @@ require("tools") # Required for md5sum
 #  Download openlexicon's datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
 # Remote dir containing the json files describing the datasets, use *raw* github
-default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/"
+default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/_json"
 
 
 # Usage:
@@ -115,6 +115,13 @@ get_lexique383 <- function()
     info <- fetch_dataset('Lexique383', format='rds')
     readRDS(info$datatables[[1]])
 }
+
+get_lexique3 <- function()
+{
+    info <- fetch_dataset('Lexique383', format='rds')
+    readRDS(info$datatables[[1]])
+}
+
 
 get_worldlex.french <- function()
 {

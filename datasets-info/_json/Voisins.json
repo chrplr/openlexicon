@@ -1,0 +1,20 @@
+{
+    "_comment": "# Time-stamp: <2019-07-18 11:27:11 christophe@pallier.org>",
+    "name": "lexique3",
+    "description": "L'une de définitions possible des voisins orthographiques d'un mot sont les mots qui peuvent être créés en changeant une lettre sans modifier pour autant la position des autres lettres (formant une 'paire minimale'). La table `Voisins` a été construite à partir des 130000 entrées de la base `Graphemes` de Lexique262. Elle est constituée des champs suivants: *Graph: Toutes les entrées orthographiques de Lexique2; *NbVoisOrth: Le nombre de voisins orthographiques; *VoisOrth: Les différents voisins orthographiques. *FreqVoisOrth: Les différentes fréquences (de la bases de livres Frantext et par million) de chacun des voisins; *FreqCum: La fréquence cumulée de tous les voisins.",
+    "website": "http://www.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/Voisins/README-Voisins..html",
+    "urls": [{
+            "url": "http://www.lexique.org/databases/Voisins/voisins.txt",
+            "bytes": 4711456,
+            "md5sum": "de577d9ca25dd0af007f249d7a9eb04f"
+        },
+        {
+            "url": "http://www.lexique.org/databases/Voisins/Voisins.rds",
+            "bytes": 1632735,
+            "md5sum": "f70aa302f5452cf3210d16d41ee37b29"
+        }
+    ],
+    "type": "tsv",
+    "tags": ["french", "lexical neighboors", "minimal pairs"]
+}
