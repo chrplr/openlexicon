@@ -20,7 +20,7 @@ HEADER="""
       "description": "XXXXXX",
       "website": "XXXXXX",
       "readme": "XXXXXX",
-      "urls" : [ {
+      "urls" : [ 
 """
 
 
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         md5sum = md5(fname)
         nbytes = os.path.getsize(fname)
         url =  "http://www.lexique.org" + os.path.abspath(fname).replace('/var/www','')
-        print('        "urls": [{')
+        print('         {')
         print(f'            "url": "{url}",')
         print(f'            "bytes": {nbytes},')
         print(f'            "md5sum": "{md5sum}"')
