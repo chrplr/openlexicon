@@ -1,4 +1,10 @@
 #! /usr/bin/env python3
+# Time-stamp: <2019-07-18 15:12:18 christophe@pallier.org>
+
+
+""" take a list of tables (.tsv, .csv, .rds, ... ) as arguments and generates
+the embryon of the json file for openlexicon.
+"""
 
 import os
 import sys
@@ -20,11 +26,11 @@ HEADER="""
       "description": "XXXXXX",
       "website": "XXXXXX",
       "readme": "XXXXXX",
-      "urls" : [ 
+      "urls" : [
 """
 
 
-FOOTER="""  ], 
+FOOTER="""      ], 
        "type": "tsv",
        "tags": []
 }
@@ -32,17 +38,23 @@ FOOTER="""  ],
 
 if __name__ == '__main__':
 
-   print(HEADER)
+   print(HEADER, end='')
 
+   first = True
    for fname in sys.argv[1:]:
         md5sum = md5(fname)
         nbytes = os.path.getsize(fname)
         url =  "http://www.lexique.org" + os.path.abspath(fname).replace('/var/www','')
+
+        if not first:
+            print(',')
+            first = False
+
         print('         {')
         print(f'            "url": "{url}",')
         print(f'            "bytes": {nbytes},')
         print(f'            "md5sum": "{md5sum}"')
-        print('         },')
+        print('         }')
 
    print(FOOTER)
 
