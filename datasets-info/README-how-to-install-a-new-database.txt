@@ -1,10 +1,54 @@
 How to add a new dataset
 ========================
 
-It is as simple as creating a `.json` file describing the dataset and
-pushing it to <http://github.com/chrplr/openlexicon/datasets-info>
+Add the table(s) on a server
+----------------------------
 
-Here is for example the `.json` file associated to *Lexique3*
+If the dataset is not yet on the Internet, you need to put it on a web
+server.
+
+Here we show an example for <http://www.lexique.org> maintainers:
+
+-   Connect to the server and go to the databases directory
+
+          cd /var/www/databases
+
+-   Create a folder for the database, for example `zzzz`
+
+          cd zzz
+
+-   Copy there the relevant files (csv, tcsv, xlsx, zip, ...)
+
+-   To generate a `.rds` file (a binary format for faster loading in R),
+    create a script `make_rds.R` like the following:
+
+          #! /usr/bin/env Rscript
+          require(readr)
+          yyyyyyyyyy <- read_delim('xxxxxxxxxxxxxxxxxxxxxxx.tsv', delim='\t')
+          saveRDS(yyyyyyyyyy, file='xxxxxxxxxxxxxxxxxxxxxxx.rds')
+
+-   Run the script to generate the rds file:
+
+          chmod +x make_rds.R
+          ./make_rds.R
+
+-   Create a link towards the rds file in the `../rds` folder:
+
+          cd ../rds
+          ln -s ../zzzz/xxxxxxxxxxxxxxxx.rds .
+
+-   Restart the shiny server:
+
+          sudo systemctl restart shiny-server.service
+
+create a json description file
+------------------------------
+
+If you plan to use the data fetchers, it is necessary to create a
+`.json` file describing the dataset, and to push it to
+<http://github.com/chrplr/openlexicon/datasets-info>
+
+Here is, for example, the `.json` file associated to *Lexique3*
 
 ``` {.{json}}
 {
@@ -29,27 +73,13 @@ Here is for example the `.json` file associated to *Lexique3*
 }
 ```
 
+Note: the filesizes (bytes) and md5sum are obtained on the command line
+by running
+
+     ls -l *.{rds,tsv}
+     md5sum *.{rds,tsv}
+
 ------------------------------------------------------------------------
-
-If the dataset is not yet on the Internet, you need to put it on a web
-server.
-
-For example, for <http://www.lexique.org> maintainers:
-
--   Connect to the server and go to the databases directory
-
-          cd /var/www/databases
-
--   Create there a folder for the database:
-    -   put there the relevant files (csv, tcsv, xlsx, zip, ...)
-    -   create a `make_rds.R` script in this folder
-    -   generate a `rds` file containing the datasets:
-
-            cd /var/www/databases/bases
-            make
-
-    -   make sure the links has been created in `rds` and run: \` sudo
-        systemctl restart shiny-server.service
 
 -   Go to your fork of <http://github.com/chrplr/openlexicon/> and add
     the json files describing the database, as well as some
@@ -57,7 +87,7 @@ For example, for <http://www.lexique.org> maintainers:
     database -- and issue a pull request.
 
 -   Optionaly, if you want to make the database accessible in
-    openlexique:
+    openlexicon:
     -   Modify the [openlexicon
         apps](http://github.com/chrplr/openlexicon/apps) that will use
         this database (issue a pull request).
@@ -69,4 +99,4 @@ For example, for <http://www.lexique.org> maintainers:
 
 Back to [OpenLexicon](https://chrplr.github.com/openlexicon)
 
-Time-stamp: \<2019-05-01 09:39:19 christophe\@pallier.org\>
+Time-stamp: \<2019-07-17 19:05:17 christophe\@pallier.org\>
