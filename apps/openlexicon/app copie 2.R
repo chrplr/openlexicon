@@ -1,14 +1,14 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-06-04 21:51:05 christophe@pallier.org>
+# Time-stamp: <2019-04-30 13:57:17 christophe@pallier.org>
+
+# source('../set-variables.R')
 
 library(shiny)
 library(DT)
-library(writexl)
 
-
-# loads datasets
-source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-dataset_ids <- c('SUBTLEX-US', 'Megalex-visual', 'Megalex-auditory', 'Lexique383', 'FrenchLexiconProject-words', 'WorldLex-French', 'WorldLex-English','Voisins','anagrammes')
+# loads all datasets
+source('../../datasets-info/fetch_datasets.R')
+dataset_ids <- c('Lexique382', 'SUBTLEX-US')
 
 datasets = list()
 for (ds in dataset_ids)
@@ -20,14 +20,12 @@ dsnames <- list()
 dsdesc <- list()
 dsreadme <- list()
 dstable <- list()
-dsweb <- list()
 
 for (i in 1:length(datasets)) {
     name <- datasets[[i]]$name
     dsnames[[name]] <- name
     dsdesc[[name]] <- datasets[[i]]$description
     dsreadme[[name]] <- datasets[[i]]$readme
-    dsweb[[name]] <- datasets[[i]]$website
     dstable[[name]] <- readRDS(datasets[[i]]$datatables[[1]])
 }
 
@@ -45,18 +43,16 @@ helper_alert <-
                       tags$li("Select desired dataset below"),
                       tags$li("For each column in the table, you can:"),
                       tags$ul(
-                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes", target="_blank"), "."),
+                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes"), "."),
                                tags$li("sort, ascending or descending")
                            ),
                       tags$li("Download the result of your manipulations by clicking on the button below the table")
                   )
-             #tags$hr(),
-             #tags$p(tags$a(href="https://chrplr.github.io/openlexicon/datasets-info/", "More information about the datatasets"))
              )
 
 
 ui <- fluidPage(
-    titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "OpenLexicon")),
+    titlePanel("OpenLexicon"),
 
     sidebarLayout(
         sidebarPanel(
@@ -69,8 +65,7 @@ ui <- fluidPage(
                 h3(textOutput("caption", container = span)),
                 tags$div(class="alert-info",
                          tags$p(textOutput(outputId="currentdesc")),
-                         tags$p(uiOutput("readmelink")),
-                         tags$p(uiOutput("website"))),
+                         tags$p(tags$a(href=textOutput(outputId="currentreadme"), "More info"))),
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
             )
@@ -90,35 +85,33 @@ server <- function(input, output) {
     output$currentdesc <- renderText({
       dsdesc[[input$dataset]]
       })
-    
-    output$website <- renderUI({
-        url <- a("Website", href=dsweb[[input$dataset]], target="_blank")
-      tagList("", url)
-    })
-    
-    output$readmelink <- renderUI({
-        url <- a("More info", href=dsreadme[[input$dataset]], target="_blank")
-      tagList("", url)
+    output$currentreadme <- renderText({
+      dsreadme[[input$dataset]]
       })
-
+    
     output$table <- renderDT(datasetInput(),
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
                              options=list(pageLength=20,
                                           lengthMenu = c(20, 100, 500, 1000),
-                                          search=list(regex = TRUE,
+                                          regex = TRUE,
                                           searching = FALSE,
-                                          caseInsensitive = FALSE)
+                                          caseInsensitive = FALSE
                              )
     )  
     output$download <- downloadHandler(
         filename = function() {
-            paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
+            paste("Lexique-query-", Sys.time(), ".csv", sep="")
         },
         content = function(fname){
             # write.csv(datasetInput(), fname)
             dt = datasetInput()[input[["table_rows_all"]], ]
-            write_xlsx(dt, fname)        })
+            write.csv(dt,
+                      file=fname,
+                      quote=FALSE,
+                      sep=";",
+                      row.names=FALSE)
+        })
     #url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
     #output$help = renderUI({ tagList("", url) })
 }
