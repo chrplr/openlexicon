@@ -11,6 +11,7 @@ library(writexl)
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
 lexique <- get_lexique382()
 
+
 ui <- fluidPage(
   title = "Lexique",
   fluidRow(

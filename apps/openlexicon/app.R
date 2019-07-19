@@ -40,7 +40,7 @@ dataset_info <-
 
 helper_alert <-
     tags$div(class="alert alert-info",
-             tags$p("Crash course:"),
+             tags$p("Quick how-to:"),
              tags$ul(
                       tags$li("Select desired dataset below"),
                       tags$li("For each column in the table, you can:"),

@@ -10,23 +10,30 @@ lexique <- get_lexique383()
 
 helper_alert =
   tags$div(class="alert alert-info",
-    tags$h4(class="alert-heading", "Foreword on usage"),
-    tags$p("The full documentation is available ",
-      tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "here"),
-      "."
-    ),
-    tags$hr(""),
-    tags$p("Crash course:"),
-    tags$ul(
-      tags$li("Select desired columns on the sidebar on the left"),
-      tags$li("For each column you can:"),
-      tags$ul(
-        tags$li("sort (ascending or descending)"),
-        tags$li("Filter using ", tags$a(href="http://regextutorials.com/index.html", "regexes"), ".")
-      ),
-      tags$li("Download the result of your manipulations")
+   
+    tags$p( tags$img(src="bouton_aide.png"),"Watch an ",
+           tags$a(class="alert-link", href="http://www.lexique.org/_media/AideRecherche4.gif", "intro video"),
+           "or access ",
+           tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "documentation.")
     )
   )
+
+    # tags$p("or access ",
+    #   tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "documentation"),
+    #   "."
+    #  ),
+    #   tags$hr(""),
+    #   tags$p("Crash course:"),
+    #   tags$ul(
+    #     tags$li("Select desired columns on the sidebar on the left"),
+    #     tags$li("For each column you can:"),
+    #     tags$ul(
+    #       tags$li("sort (ascending or descending)"),
+    #       tags$li("Filter using ", tags$a(href="http://regextutorials.com/index.html", "regexes"), ".")
+    #     ),
+    #     tags$li("Download the result of your manipulations")
+    # )
+    #)
 
 ui <- fluidPage(
         title = "Lexique",
@@ -39,7 +46,9 @@ ui <- fluidPage(
                 width=2
                 ),
             mainPanel(
-                uiOutput("help"),
+                helper_alert,  
+                # uiOutput("help"),
+                
                 h3(textOutput("caption", container = span)),
                 fluidRow(DTOutput(outputId="table")),
                 downloadButton(outputId='download', label="Download filtered data")
@@ -76,9 +85,10 @@ server <- function(input, output) {
             dt = datasetInput()[input[["table_rows_all"]], ]
             write_xlsx(dt, fname)
         })
-    url  <- a("Mode d'emploi", href="http://www.lexique.org/?page_id=166")
-    output$help = renderUI({ tagList(tags$h4("Aide pour les recherches :", url)) })
-
+    url  <- a("Aide", href="http://www.lexique.org/?page_id=166")
+    # output$help = renderUI({ tagList(tags$h4("Aide pour les recherches :", url)) })
+    output$help = renderUI({ tagList(tags$a(tags$img(src="bouton_aide.png"), href="http://www.lexique.org/?page_id=166") )
+      })
 }
 
 
