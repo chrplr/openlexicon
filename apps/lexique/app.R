@@ -58,10 +58,14 @@ server <- function(input, output) {
     output$table <- renderDT(datasetInput()[,input$show_vars, drop=FALSE],
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
+                             rownames= FALSE,
                              options=list(pageLength=20,
+                                          sDom  = '<"top">lrt<"bottom">ip',
                                           lengthMenu = c(20, 100, 500, 1000),
                                           search=list(searching = TRUE, regex=TRUE, caseInsensitive = FALSE)
-                                          ))
+                                          )
+                             )
+                              
 
     output$download <- downloadHandler(
         filename = function() {

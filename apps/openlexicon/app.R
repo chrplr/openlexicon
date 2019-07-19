@@ -104,13 +104,13 @@ server <- function(input, output) {
     output$table <- renderDT(datasetInput(),
                              server=TRUE, escape = TRUE, selection = 'none',
                              filter=list(position = 'top', clear = FALSE),
+                             rownames= FALSE,
                              options=list(pageLength=20,
+                                          sDom  = '<"top">lrt<"bottom">ip',
                                           lengthMenu = c(20, 100, 500, 1000),
-                                          search=list(regex = TRUE,
-                                          searching = FALSE,
-                                          caseInsensitive = FALSE)
-                             )
-    )  
+                                          search=list(searching = TRUE, regex=TRUE, caseInsensitive = FALSE)
+                                          )
+                            )  
     output$download <- downloadHandler(
         filename = function() {
             paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
