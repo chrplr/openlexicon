@@ -73,11 +73,14 @@ ui <- fluidPage(
                                   4:15,
                                   width = "100%"))
              ),
-      actionButton("go", "Go")),
+      column(3, 
+             actionButton("go", "Press here to generate pseudowords!"))
+            ),
   fluidRow(column(8, 
                   offset = 3,
                   textarea_output <- textOutput("pseudomots"))
-           )
+           ),
+  downloadButton(outputId='download', label="Download pseudowords")
 )
 
 
