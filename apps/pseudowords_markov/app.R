@@ -13,8 +13,8 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudowords
   # models: vector of items to get trigrams from (all of the same length!)
-                                        # exclude: vector of items to exclude
-    # time.out = a time in seconds to stop
+  # exclude: vector of items to exclude
+  # time.out = a time in seconds to stop
 {
   if (length(models) == 0) { return (NULL) }
 
@@ -49,7 +49,11 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
       np = np + 1
     }
   }
-  return (pseudos)
+  if (length(pseudos) == n) {
+    return (pseudos)
+  } else {
+    return (paste("could no find", n, "pseudowords"))
+  }
 }
 
 
@@ -63,16 +67,22 @@ ui <- fluidPage(
              ),
       column(3,
              tags$div(selectInput("nbpseudos",
-                                  "Select number of pseudowords",
+                                  "Select number of pseudowords to create",
                                   c(1,5,20,50,100),
                                   width = "100%"))
              ),
       column(3,
              tags$div(selectInput("longueur",
-                                  "Select length of pseudowords",
+                                  "Select length of pseudowords to create",
                                   4:15,
                                   width = "100%"))
              ),
+      column(3,
+             tags$div(selectInput("timeout",
+                                  "Maximum time to run (in seconds)",
+                                  c(1, 5, 10, 30, 60, 120, 300, 600),
+                                  width = "100%"))
+      ),
       column(3, 
              actionButton("go", "Press here to generate pseudowords!"))
             ),
@@ -91,7 +101,8 @@ server <- function(input, output) {
        longueur = as.numeric(input$longueur)
        words <- strsplit(input$mots,"[ \n\t]")[[1]]
        wordsok <- words[nchar(words) == longueur]
-       generate_pseudowords(nbpseudos, longueur, wordsok)
+       timeout <- as.numeric(input$timeout)
+       generate_pseudowords(nbpseudos, longueur, wordsok, exclude=NULL, timeout)
     }
     )
 
