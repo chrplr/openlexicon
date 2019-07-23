@@ -1,5 +1,5 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-06-04 22:01:01 christophe@pallier.org>
+# Time-stamp: <2019-07-23 15:35:37 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -9,20 +9,21 @@ source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
 lexique <- get_lexique383()
 
 helper_alert =
-  tags$div(class="alert alert-info",
-   
-    tags$p( tags$img(src="bouton_aide.png"),"Watch an ",
-           tags$a(class="alert-link", href="http://www.lexique.org/_media/AideRecherche4.gif", "intro video"),
-           "or access ",
-           tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "documentation.")
-    )
-  )
+    tags$div(class="alert alert-info",
 
-    # tags$p("or access ",
-    #   tags$a(class="alert-link", href="http://www.lexique.org/?page_id=166", "documentation"),
-    #   "."
-    #  ),
-    #   tags$hr(""),
+             tags$p(tags$img(src="bouton_aide.png"),
+                    "Watch an ",
+                    tags$a(class="alert-link",
+                           href="http://www.lexique.org/_media/aide-interface-lexique3.mp4",
+                           "intro video"),
+                    "or access ",
+                    tags$a(class="alert-link",
+                           href="http://www.lexique.org/?page_id=166",
+                           "documentation.")
+                    )
+             )
+
+                                        #   tags$hr(""),
     #   tags$p("Crash course:"),
     #   tags$ul(
     #     tags$li("Select desired columns on the sidebar on the left"),
@@ -36,25 +37,27 @@ helper_alert =
     #)
 
 ui <- fluidPage(
-        title = "Lexique",
-        sidebarLayout(
-            sidebarPanel(
-                checkboxGroupInput("show_vars", "Columns to display",
-                                   names(lexique),
-                                   selected = c('ortho', 'nblettres','cgramortho','islem', 'cgram', 'nblettres', 'nbsyll','lemme', 'freqlemfilms2', 'freqfilms2', 'phon')
-                                   ),
-                width=2
-                ),
-            mainPanel(
-                helper_alert,  
-                # uiOutput("help"),
-                
-                h3(textOutput("caption", container = span)),
-                fluidRow(DTOutput(outputId="table")),
-                downloadButton(outputId='download', label="Download filtered data")
-            )
+    title = "Lexique",
+    sidebarLayout(
+        sidebarPanel(
+            checkboxGroupInput("show_vars", "Columns to display",
+                               names(lexique),
+                               selected = c('ortho', 'nblettres', 'cgramortho', 'islem',
+                                            'cgram', 'nblettres', 'nbsyll','lemme',
+                                            'freqlemfilms2', 'freqfilms2', 'phon')
+                               ),
+            width=2
+        ),
+        mainPanel(
+            helper_alert,  
+                                        # uiOutput("help"),
+            
+            h3(textOutput("caption", container = span)),
+            fluidRow(DTOutput(outputId="table")),
+            downloadButton(outputId='download', label="Download filtered data")
         )
     )
+)
 
 
 server <- function(input, output) {
@@ -71,7 +74,9 @@ server <- function(input, output) {
                              options=list(pageLength=20,
                                           sDom  = '<"top">lrt<"bottom">ip',
                                           lengthMenu = c(20, 100, 500, 1000),
-                                          search=list(searching = TRUE, regex=TRUE, caseInsensitive = FALSE)
+                                          search=list(searching = TRUE,
+                                                      regex=TRUE,
+                                                      caseInsensitive = FALSE)
                                           )
                              )
                               
@@ -81,10 +86,10 @@ server <- function(input, output) {
             paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
         },
         content = function(fname){
-            # write.csv(datasetInput(), fname)
             dt = datasetInput()[input[["table_rows_all"]], ]
             write_xlsx(dt, fname)
         })
+
     url  <- a("Aide", href="http://www.lexique.org/?page_id=166")
     # output$help = renderUI({ tagList(tags$h4("Aide pour les recherches :", url)) })
     output$help = renderUI({ tagList(tags$a(tags$img(src="bouton_aide.png"), href="http://www.lexique.org/?page_id=166") )
