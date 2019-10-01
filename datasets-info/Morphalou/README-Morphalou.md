@@ -16,3 +16,4 @@ Web site: <https://www.ortolang.fr/market/lexicons/morphalou/v3.1>
 
 Référence: Analyse et traitement informatique de la langue française - UMR 7118 (ATILF) (2019). Morphalou [Lexique]. ORTOLANG (Open Resources and TOols for LANGuage) - www.ortolang.fr, https://hdl.handle.net/11403/morphalou/v3.1.
 
+License: [Lesser General Public License For Linguistic Resources](http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html)
