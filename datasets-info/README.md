@@ -47,6 +47,8 @@ You will find below a directory of open lexical databases. Click on the name of 
 | Base                                    | Description                                                                            |
 |-----------------------------------------|----------------------------------------------------------------------------------------|
 | [WorldLex](WorldLex/README-Worldlex.md) | Worldlex provides word frequencies estimated from web pages collected in 66 languages.   |
+| [AoA-32lang](AoA-32lang/README-AoA-32lang.md) | AoA-32lang presents a set of subjective Age of Acquisition (AoA) ratings for 299 words (158 nouns, 141 verbs) in 32 languages.
+   |
 
 
 ## Usage ##
