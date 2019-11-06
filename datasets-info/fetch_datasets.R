@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-11-06 13:34:05 christophe@pallier.org>
+# Time-stamp: <2019-11-06 14:02:39 christophe@pallier.org>
 
 
 require("rjson")
@@ -148,3 +148,4 @@ get_aoa32 <- function()
     info <-  fetch_dataset('AoA-32lang', format='tsv')
     read.table(info$datatables[[1]], header=TRUE, sep='\t')
 }
+
