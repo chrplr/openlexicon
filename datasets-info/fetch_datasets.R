@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-11-06 13:13:12 christophe@pallier.org>
+# Time-stamp: <2019-11-06 13:34:05 christophe@pallier.org>
 
 
 require("rjson")
@@ -50,7 +50,7 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
             next  # skip this file
 
         destname <- file.path(get_data.home(), fname)
-        warning(paste()"Downloading in ", destname)
+        warning(paste("Downloading in ", destname))
 
         if (!file.exists(destname))
         {
@@ -145,6 +145,6 @@ get_subtlex.us <- function()
 
 get_aoa32 <- function()
 {
-    info <-  fetch_dataset('AoA-32lang', format='rds')
-    readRDS(info$datatables[[1]])
+    info <-  fetch_dataset('AoA-32lang', format='tsv')
+    read.table(info$datatables[[1]], header=TRUE, sep='\t')
 }
