@@ -3,7 +3,7 @@
 AoA-32lang provides a set of subjective Age of Acquisition (AoA) ratings for 299 words (158 nouns, 141 verbs) in 32 languages.
 
 
-**File**: [AoA32lang.tsv}(AoA32lang.tsv)
+**File**: [AoA32lang.tsv](AoA32lang.tsv)
 
 **Web site:**  [Words’ AoA across 32 languages](https://doi.org/10.1371/journal.pone.0220611.s001)
 

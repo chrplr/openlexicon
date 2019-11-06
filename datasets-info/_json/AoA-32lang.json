@@ -3,7 +3,7 @@
       "name": "AoA32lang",
       "description": "AoA-32lang provides a set of subjective Age of Acquisition (AoA) ratings for 299 words (158 nouns, 141 verbs) in 32 languages.",
       "website": "https://doi.org/10.1371/journal.pone.0220611.s001",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/AoA-32lang/AoA-32lang.html",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/AoA-32lang/README-AoA-32lang.html",
     "urls" : [
         	 {
             "url": "http://www.lexique.org/databases/AoA-32lang/AoA32lang.rds",
