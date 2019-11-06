@@ -12,27 +12,44 @@ At OpenLexicon, you will find:
 
 1. a [directory of lexical databases](datasets-info/README.md)
 2. [scripts](https://github.com/chrplr/openlexicon/tree/master/scripts) to query, manipulate or create lexical databases.
-3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. 
+3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. Some of the apps provide the infrastructure of <http://www.lexique.org> where many of lexical databases are hosted and can be queried on-line --- check out, for example, <http://www.lexique.org/shiny/openlexicon>.
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
 
 
-* To automatically download a dataset from R, use [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R). For example:
+
+## Downloading a database to work locally
+
+You can download datasets from the links provided in the README files. Then you would use Excel, or R's `readr.read_csv` or Python's `pandas.read_csv` to open them. 
+
+For R, there is better way: we have written [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R), which has several advantages:
+- it avoids having to specify the location of the dataset on the web
+- it will always point to the latest version of a dataset if it has been updated
+- it provides a caching mechanism: the dataset will be downloaded only if necessary, toherwise a local copy will be used.
+- it checks the sumfile of the dataset to make sure that you have the correct version.
+
+Example:
 
 ```{r}
     require(tidyverse)
     require(rjson)
     source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
-    aoa32 <- readRDS(fetch_dataset('AoA-32lang', format='rds')$datatables[[1]])
+    lexique383 <- get_lexique383()
 ```
 
-* To add a new dataset, you must create a `.json` file in `datasets-info/`. Check out [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md).
-* Some of the apps provide the infrastructure of <http://www.lexique.org> where many of lexical databases are hosted and can be queried on-line --- check out, for example, <http://www.lexique.org/shiny/openlexicon>.
+**For maintainers:**
+
+- [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md)]
+- [Server installation](README-server-installation.md)
+
 
 ### Contributing ###
 
-Everybody is warmly encouraged to contribute, by adding a database, an app, or a script.
+Everybody is warmly encouraged to contribute, by adding new databases (To add a new dataset, you must create a `.json` file in `datasets-info/_json`. Check out [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md)), an app, or a script.
+
 First, check out Lexique's google-group at <https://groups.google.com/forum/#!forum/lexiqueorg>.  You can then contact `christophe@pallier.org` and `boris.new@gmail.com` privately, or, _much better_, fork the 
 [openlexicon](https://github.com/chrplr/openlexicon) repository (see [How to fork a repo](https://help.github.com/en/articles/fork-a-repo)) and issue a pull request (see [Creating a pull request from a fork](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)).
+
+## TODO ##
 
 Check out the [TODO list](TODO.md)
 
@@ -46,14 +63,8 @@ If needed, you can cite this repository as:
 
 * Pallier, Christophe & New, Boris (2019** Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
- 
 
 
-
-**For maintainers:**
-
-- [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md)]
-- [Server installation](README-server-installation.md)
 
 ### License ###
 
@@ -62,6 +73,6 @@ The files in this repository are distributed under a CC BY-SA 4.0 LICENSE (see
 
 ---
 
-Time-stamp: <2019-05-01 09:48:32 christophe@pallier.org>
+Time-stamp: <2019-10-05 09:48:32 christophe@pallier.org>
 
 

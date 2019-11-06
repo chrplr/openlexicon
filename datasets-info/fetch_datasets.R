@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-07-18 15:23:13 christophe@pallier.org>
+# Time-stamp: <2019-11-06 13:13:12 christophe@pallier.org>
 
 
 require("rjson")
@@ -50,6 +50,7 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
             next  # skip this file
 
         destname <- file.path(get_data.home(), fname)
+        warning(paste()"Downloading in ", destname)
 
         if (!file.exists(destname))
         {
@@ -65,11 +66,11 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
         }  else  # The local file exists
         {
             if (md5sum(destname) != u$md5sum) {
-                warning(paste("the md5 sum of your local file", destname, md5sum(destname), "doesn't match the distant version", u$md5sum, ". Aborting."))
+                warning(paste("the md5 sum of your local file", destname, md5sum(destname), "doesn't match the distant version", u$md5sum, ". Aborting. Delete the local file if necessary"))
             }
             else
             {
-                warning(paste("You already have the file", destname, "which seems up to date."))
+                warning(paste("You already have the file", destname, "which is up to date."))
                 tables <- append(tables, destname)
             }
         }
@@ -140,4 +141,10 @@ get_subtlex.us <- function()
     info <- fetch_dataset('SUBTLEX-US', format='rds')
     readRDS(info$datatables[[1]])
 
+}
+
+get_aoa32 <- function()
+{
+    info <-  fetch_dataset('AoA-32lang', format='rds')
+    readRDS(info$datatables[[1]])
 }
