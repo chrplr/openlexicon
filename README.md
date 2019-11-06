@@ -16,7 +16,15 @@ At OpenLexicon, you will find:
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
 
 
-* To automatically download datasets from R, use [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R)
+* To automatically download a dataset from R, use [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R). For example:
+
+```{r}
+    require(tidyverse)
+    require(rjson)
+    source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+    aoa32 <- readRDS(fetch_dataset('AoA-32lang', format='rds')$datatables[[1]])
+```
+
 * To add a new dataset, you must create a `.json` file in `datasets-info/`. Check out [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md).
 * Some of the apps provide the infrastructure of <http://www.lexique.org> where many of lexical databases are hosted and can be queried on-line --- check out, for example, <http://www.lexique.org/shiny/openlexicon>.
 
@@ -38,7 +46,9 @@ If needed, you can cite this repository as:
 
 * Pallier, Christophe & New, Boris (2019** Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
---- 
+ 
+
+
 
 **For maintainers:**
 
