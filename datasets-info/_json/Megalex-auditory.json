@@ -4,17 +4,18 @@
     "description": "_Megalex-auditory_ provides auditory lexical decision times and accuracy rates for 17878 French words",
     "website": "http://megalex.lexique.org",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Megalex/README-Megalex.html",
-    "urls": [{
+    "urls" : [
+         {
+            "url": "http://www.lexique.org/databases/Megalex/Megalex-auditory.RData",
+            "bytes": 751979,
+            "md5sum": "b7c689cfa532d92c24e2517fdb3f9e98"
+         },
+         {
             "url": "http://www.lexique.org/databases/Megalex/Megalex-auditory.rds",
-            "bytes": 751945,
-            "md5sum": "9b308c1be1a0cd06c3a9f4842a3090b6"
-        },
-        {
-            "url": "http://www.lexique.org/databases/Megalex/Megalex-items-auditory.tsv",
-            "bytes": 1673559,
-            "md5sum": "c4e64f7cec02ef567c0f147a2a29e1af"
-        }
-    ],
+            "bytes": 713524,
+            "md5sum": "572fc12d482a5a2d36cf258a5d211726"
+         }
+      ], 
     "type": "tsv",
     "tags": ["french", "lexical decision"]
 }
