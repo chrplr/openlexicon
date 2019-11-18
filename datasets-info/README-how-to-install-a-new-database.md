@@ -1,11 +1,13 @@
 # How to add a new dataset #
 
-You must:
+The procedure, in brief, is the following:
 
-1. add the table(s) of the datasets on some server on the internet, preferably in `.tsv` (text with tab separated columns) and `.rds` (R binary) format. Note that the file must be directly accessible with an URL.
-2. create a `.json` file describing the datasets, and do a pull request on http://github.com/chrplr/openlexicon to have it added to the `datasets-info/_json`_  
-3. if you want the dataset to be accessible on http://www.lexique.org/shiny/openlexicon , you must update https://github.com/chrplr/openlexicon/blob/master/apps/openlexicon/app.R (again using a pull request), s that the table is loaded by the app.
-4. if you want the dataset to be easily accessible for offline use, you may want to update the R data fetcher at  https://github.com/chrplr/openlexicon/blob/master/datasets-info/fetch_datasets.R 
+1. add the table(s) of the datasets on some server on the internet, preferably in `.tsv` (text with tab separated columns) and `.rds` (R binary) formats. Other formats are ok, but `.rds` is needed if you intend to make it accessible by the [R data fetcher](https://github.com/chrplr/openlexicon/blob/master/datasets-info/fetch_datasets.R).  Note that the files must be directly accessible with  URLs.
+2. create a [`.json` file](_json/README_json.md) describing the datasets , and do a pull request on http://github.com/chrplr/openlexicon to have it added to the `datasets-info/_json`.
+3. (optional) To make the dataset easily accessible from R, update the R data fetcher at  https://github.com/chrplr/openlexicon/blob/master/datasets-info/fetch_datasets.R (again using a pull request)
+4. (optional) To make the dataset visible on the interactive page http://www.lexique.org/shiny/openlexicon , you must update https://github.com/chrplr/openlexicon/blob/master/apps/openlexicon/app.R  so that the table is loaded by the app (again using a pull request)
+
+Here are more detailed explanations:
 
 ## Add the table(s) on a server ##
 
@@ -78,6 +80,7 @@ Here is, for example, the `.json` file associated to _Lexique3_
 ```
 
 
+See [_json/README_json.md]
 
 Note: the filesizes (bytes) and md5sum are obtained on the command line by running
 
@@ -90,23 +93,27 @@ For example:
 
      python3 create_json.py databasefile1.csv databasefile2.rds
 
-See [_json/README_json.md]
 
 --------
 
 
 * Go to your fork of <http://github.com/chrplr/openlexicon/> and add the json file describing the database in `datasets-info/_json`, as well as some documentation --- at a minimum a `README.md` file describing the database -- and issue a pull request.
 
-* Optionaly, if you want to make the database accessible in openlexicon:
-   * Modify the [openlexicon apps](http://github.com/chrplr/openlexicon/app.R) that will use this database (issue a pull request).
-   * Connect to the server and run: 
+## Add the dataset to the interactive openlexicon app at lexique.org ##
+
+To make the database accessible in openlexicon:
+
+1. Modify the [openlexicon app](http://github.com/chrplr/openlexicon/app.R) that will use this database (issue a pull request).
+2. Connect to the lexique server by ssh and run: 
    
         cd ~chrplr/shiny-server
         git pull
+
+3. If some database has been modified (new md5 sum), you may have to clean the cache in ~/openlexicon_datasets/
 
 --
 
 Back to [OpenLexicon](https://chrplr.github.com/openlexicon)
 
 
-Time-stamp: <2019-11-16 19:05:17 christophe@pallier.org>
+Time-stamp: <2019-11-18 11:39:17 christophe@pallier.org>
