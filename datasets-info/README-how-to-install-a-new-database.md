@@ -1,10 +1,17 @@
 # How to add a new dataset #
 
+You must:
+
+1. add the table(s) of the datasets on some server on the internet, preferably in `.tsv` (text with tab separated columns) and `.rds` (R binary) format. Note that the file must be directly accessible with an URL.
+2. create a `.json` file describing the datasets, and do a pull request on http://github.com/chrplr/openlexicon to have it added to the `datasets-info/_json`_  
+3. if you want the dataset to be accessible on http://www.lexique.org/shiny/openlexicon , you must update https://github.com/chrplr/openlexicon/blob/master/apps/openlexicon/app.R (again using a pull request), s that the table is loaded by the app.
+4. if you want the dataset to be easily accessible for offline use, you may want to update the R data fetcher at  https://github.com/chrplr/openlexicon/blob/master/datasets-info/fetch_datasets.R 
 
 ## Add the table(s) on a server ##
 
-
 If the dataset is not yet on the Internet, you need to put it on a web server.
+
+
 
 Here we show an example for <http://www.lexique.org> maintainers:
 
@@ -20,7 +27,7 @@ Here we show an example for <http://www.lexique.org> maintainers:
 
 * To generate a `.rds` file (a binary format for faster loading in R), create a script `make_rds.R` like the following:
    
-        #! /usr/bin/env Rscript
+        #! /usr/bin/env Rscript 
         require(readr)
         yyyyyyyyyy <- read_delim('xxxxxxxxxxxxxxxxxxxxxxx.tsv', delim='\t')
         saveRDS(yyyyyyyyyy, file='xxxxxxxxxxxxxxxxxxxxxxx.rds')
@@ -29,12 +36,12 @@ Here we show an example for <http://www.lexique.org> maintainers:
 
         chmod +x make_rds.R
         ./make_rds.R
-        
+
 * Create a link towards the rds file in the `../rds` folder:
 
         cd ../rds
         ln -s ../zzzz/xxxxxxxxxxxxxxxx.rds .
-        
+
 * Restart the shiny server:
 
         sudo systemctl restart shiny-server.service
@@ -77,7 +84,7 @@ Note: the filesizes (bytes) and md5sum are obtained on the command line by runni
      ls -l *.{rds,tsv}
      md5sum *.{rds,tsv}
 
-The `_create_json.py` script in `datasets-info/_json`can help generate a json file:
+The `create_json.py` script in `datasets-info/_json`can help generate a json file:
 
 For example:
 
