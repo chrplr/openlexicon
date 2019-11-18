@@ -10,5 +10,8 @@
 
 - write a fetcher in Python or make a script out of `fetch_datasets.R`
 
+- improve the appearance of the openlexicon pages (nicer css, adda menu?), to make it more similar to lexique.org
+
+
 
  
