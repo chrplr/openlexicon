@@ -80,7 +80,7 @@ Here is, for example, the `.json` file associated to _Lexique3_
 ```
 
 
-See [_json/README_json.md]
+See [_json/README_json.md](_json/README_json.md)
 
 Note: the filesizes (bytes) and md5sum are obtained on the command line by running
 
