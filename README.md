@@ -17,17 +17,20 @@ At OpenLexicon, you will find:
 
 
 
-## Downloading a database to work locally
+## Downloading a database to work locally (on your computer)
 
-You can download datasets from the links provided in the README files. Then you would use Excel, or R's `readr.read_csv` or Python's `pandas.read_csv` to open them. 
+You can download datasets directly from the links provided in the README files. 
+Then you would open them in Excel, in R with `readr.read_csv` or in Python with  `pandas.read_csv`.
 
-For R, there is better way: we have written [fetch_datasets.R](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R), which has several advantages:
+However, in R, there is a much better way: the [R dataset fetcher](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R). 
+
+It provides several advantages:
 - it avoids having to specify the location of the dataset on the web
 - it will always point to the latest version of a dataset if it has been updated
-- it provides a caching mechanism: the dataset will be downloaded only if necessary, toherwise a local copy will be used.
+- it provides a caching mechanism: the dataset will be downloaded only if necessary, otherwise a local copy will be used.
 - it checks the sumfile of the dataset to make sure that you have the correct version.
 
-Example:
+For example, to download the table of Lexique383:
 
 ```{r}
     require(tidyverse)
@@ -36,7 +39,7 @@ Example:
     lexique383 <- get_lexique383()
 ```
 
-**For maintainers:**
+### For maintainers ###
 
 - [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md)]
 - [Server installation](README-server-installation.md)

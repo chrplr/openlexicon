@@ -25,7 +25,7 @@ Here we show an example for <http://www.lexique.org> maintainers:
     
         cd zzz
 
-* Copy there  the relevant files (csv, tcsv, xlsx, zip, ...)
+* Copy there  the relevant files (csv, csv, xlsx, zip, ...)
 
 * To generate a `.rds` file (a binary format for faster loading in R), create a script `make_rds.R` like the following:
    
