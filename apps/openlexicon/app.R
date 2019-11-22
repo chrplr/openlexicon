@@ -274,7 +274,7 @@ server <- function(input, output, session) {
     },
     content = function(fname){
       # write.csv(datasetInput(), fname)
-      dt = datasetInput()[input[["table_rows_all"]],]
+      dt = datasetInput()[input[["table_rows_all"]],str_replace_all(input$show_vars, "\n", "<br>")]
       names(dt) = lapply(names(dt),function(n){str_replace(n, "<br>","\n")})
       write_xlsx(dt, fname)
     })
