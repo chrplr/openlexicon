@@ -1,15 +1,54 @@
 # shiny R code for lexique.org
 # Time-stamp: <2019-06-04 21:51:05 christophe@pallier.org>
+# Afficher info deuxième database en haut
 
 library(shiny)
+library(shinyBS)
 library(DT)
 library(writexl)
+library(plyr)
+library(data.table)
+library(rlist)
+library(stringr)
+
+#### Functions ####
+usePackage <- function(i){
+  if(! i %in% installed.packages()){
+    install.packages(i, dependencies = TRUE)
+  }
+  require(i, character.only = TRUE)
+}
+usePackage("shinyWidgets")
+
+extendedCheckboxGroup <- function(..., extensions = list()) {
+  cbg <- checkboxGroupInput(...)
+  nExtensions <- length(extensions)
+  nChoices <- length(cbg$children[[2]]$children[[1]])
+  
+  if (nExtensions > 0 && nChoices > 0) {
+    lapply(1:min(nExtensions, nChoices), function(i) {
+      # For each Extension, add the element as a child (to one of the checkboxes)
+      cbg$children[[2]]$children[[1]][[i]]$children[[2]] <<- extensions[[i]]
+    })
+  }
+  cbg
+}
+
+get_mandatory_columns <- function(dataset_name) {
+  if (!is.null(dsmandcol[[dataset_name]])) {
+    return(dsmandcol[[dataset_name]])
+  }
+  else {
+    return (colnames(dstable[[dataset_name]]))
+  }
+}
+
+#### Script begins ####
 
 # loads datasets
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-
-french_datasets <- c('Megalex-visual', 'Megalex-auditory', 'Lexique383', 'FrenchLexiconProject-words', 'WorldLex-French')
-english_datasets <- c('SUBTLEX-US', 'WorldLex-English')
+french_datasets <- c('Lexique383', 'FrenchLexiconProject-words', 'WorldLex-French','Megalex-visual', 'Megalex-auditory')
+english_datasets <- c('WorldLex-English','SUBTLEX-US')
 others <- c('Voisins','anagrammes')
 
 dataset_ids <- c(french_datasets,english_datasets,others)
@@ -21,16 +60,14 @@ for (ds in dataset_ids)
 }
 
 join_column = "Word"
-button_several_datasets = "Two datasets"
-button_one_dataset = "One dataset"
-select_first_dataset_text = "Choose a first dataset"
-select_dataset_text = "Choose a dataset"
 
 dsnames <- list()
 dsdesc <- list()
 dsreadme <- list()
 dstable <- list()
 dsweb <- list()
+dsmandcol <- list()
+colnames_dataset <- list()
 
 for (i in 1:length(datasets)) {
     name <- datasets[[i]]$name
@@ -38,8 +75,13 @@ for (i in 1:length(datasets)) {
     dsdesc[[name]] <- datasets[[i]]$description
     dsreadme[[name]] <- datasets[[i]]$readme
     dsweb[[name]] <- datasets[[i]]$website
+    dsmandcol[[name]] <- datasets[[i]]$mandatory_columns
     dstable[[name]] <- readRDS(datasets[[i]]$datatables[[1]])
     colnames(dstable[[name]])[1] <- join_column
+    colnames_dataset[[name]] <- colnames(dstable[[name]])
+    if (is.null(dsmandcol[[name]])) {
+      dsmandcol[[name]] <- colnames_dataset[[name]]
+    }
 }
 
 dataset_info <-
@@ -53,11 +95,12 @@ helper_alert <-
     tags$div(class="alert alert-info",
              tags$p("Quick how-to:"),
              tags$ul(
-                      tags$li("Select desired dataset below"),
-                      tags$li("If you want to get informations from several datasets, click on the ", tags$b(button_several_datasets), "button, and then select two datasets below."),
+                      tags$li("Choose a language to see the available datasets in this language below."),
+                      tags$li("Select desired datasets. If you want more informations about a specific dataset, you can click on its tooltip."),
+                      tags$li("Select columns to display for each dataset."),
                       tags$li("For each column in the table, you can:"),
                       tags$ul(
-                               tags$li("Filter using intervals (e.g. 40...500) or", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes", target="_blank"), "."),
+                               tags$li("Filter using intervals (e.g. 40...500) or ", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes", target="_blank"), ".", sep =""),
                                tags$li("sort, ascending or descending")
                            ),
                       tags$li("Download the result of your manipulations by clicking on the button below the table")
@@ -73,149 +116,171 @@ ui <- fluidPage(
 
     sidebarLayout(
         sidebarPanel(
-            helper_alert,
-            actionButton('join_button', label=button_several_datasets),
-            br(),
-            br(),
-            uiOutput("outdataset"),
-            uiOutput("outsecond_dataset"),
+                        helper_alert,
+                        br(),
+                        uiOutput("outlang"),
+                        br(),
+                        uiOutput("outdatabases"),
+                        br(),
+                        uiOutput("outshow_vars"),
+                        br(),
            width=4
         ),
             mainPanel(
-                h3(textOutput("caption", container = span)),
-                tags$div(class="alert-info",
-                         tags$p(textOutput(outputId="currentdesc")),
-                         tags$p(uiOutput("readmelink")),
-                         tags$p(uiOutput("website"))),
-                fluidRow(DTOutput(outputId="table")),
-                uiOutput("outdownload")
+              fluidRow(tags$style(HTML("
+                  thead:first-child > tr:first-child > th {
+                      border-top: 0;
+                      font-size: normal;
+                      font-weight: bold;
+                  }
+              ")), 
+                       DTOutput(outputId="table")),
+              uiOutput("outdownload")
+              #h3(textOutput("caption", container = span)),
             )
         )
     )
 
 #### Server ####
 server <- function(input, output, session) {
-  v <- reactiveValues(button_label = button_several_datasets,
-                      second_categories = c(),
-                      first_choice = select_dataset_text,
-                      first_dataset_selected = '\n')
+  v <- reactiveValues(language_selected = 'French',
+                      categories = french_datasets,
+                      first_dataset_selected = french_datasets[1],
+                      selected_columns = c())
   
-  # To select a dataset
-  output$outdataset <- renderUI({
-    selectInput("dataset", v$first_choice,
-                choices = c('\n',names(datasets)), selected = v$first_dataset_selected)
-  })
-  
-  # To select a second dataset
-  output$outsecond_dataset <- renderUI({
-    if (!is.null(input$dataset) && input$dataset %in% names(datasets) && v$button_label == button_one_dataset) {
-      selectInput("second_dataset", "Choose a second dataset:",
-                  choices = c('\n',v$second_categories), selected = '\n')
-    }
+  # To select a language
+  output$outlang <- renderUI({
+    selectInput("language", "Choose a language",
+                choices = c('\n','French', 'English'),
+                selected = v$language_selected)
   })
   
   # Updating second dataset categories
-  observeEvent(input$dataset, {
-    v$first_dataset_selected <- input$dataset
-    if (input$dataset %in% french_datasets) {
-      v$second_categories <- french_datasets[french_datasets != input$dataset]
+  observeEvent(input$language, {
+    v$language_selected <- input$language
+    if (input$language == "French") {
+      v$categories <- french_datasets
+      v$first_dataset_selected <- french_datasets[1]
     }
-    else if (input$dataset %in% english_datasets) {
-      v$second_categories <- english_datasets[english_datasets != input$dataset]
+    else if (input$language == "English") {
+      v$categories <- english_datasets
+      v$first_dataset_selected <- english_datasets[1]
     }
     else {
-      v$second_categories <- c()
+      v$categories <- c()
+      v$first_dataset_selected <- ""
     }
   })
   
-  # Handling merge button label
-  observeEvent(input$join_button, {
-    if (v$button_label == button_several_datasets){
-      v$button_label <- button_one_dataset
-      v$first_choice <- select_first_dataset_text
+  output$outdatabases <- renderUI({
+    if (v$language_selected != "\n") {
+      tooltips = list()
+      for (i in 1:length(v$categories)) {
+        tooltips <- list.append(tooltips, popify(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), trigger = "click hover",
+                                                 title = v$categories[i],
+                                                 content= paste("<div><p>",
+                                                                str_replace_all(dsdesc[[v$categories[i]]],"'",'"'),
+                                                                "</p><p><a href=",
+                                                                dsreadme[[v$categories[i]]],
+                                                                ">More info</a></p><p><a href =",
+                                                                dsweb[[v$categories[i]]],
+                                                                ">Website</a></p></div>",sep = "")
+                                                 ))
+      }
+      extendedCheckboxGroup("databases", label = "Choose datasets", choiceNames  = v$categories, choiceValues = v$categories, selected = v$first_dataset_selected, 
+                            extensions = tooltips
+                            )
     }
-    else{
-      v$button_label <- button_several_datasets
-      v$first_choice <- select_dataset_text
+    else {
+      checkboxGroupInput("databases", "",
+                         choices = c())
     }
-    updateActionButton(session, "join_button", label = v$button_label)
   })
   
   # Changes table content according to the number of datasets
   datasetInput <- reactive({
-    if (!is.null(input$dataset) && input$dataset %in% names(datasets))
-    {
-      if (!is.null(input$second_dataset) && input$second_dataset %in% names(datasets) && v$button_label == button_one_dataset)
-      {
-        merge(x=dstable[[input$dataset]], y=dstable[[input$second_dataset]], by=join_column)
+    selected_columns<- c()
+    if (length(input$databases) > 0) {
+      list_df <- list()
+      for (i in 1:length(input$databases)){
+        dat <- dstable[[input$databases[i]]]
+        for (j in 2:ncol(dat)) {
+          if (length(input$databases) > 1){
+            colnames(dat)[j] <- paste(input$databases[i],"<br>", colnames_dataset[[input$databases[i]]][j], sep = "")
+          }
+          else {
+            colnames(dat)[j] <- colnames_dataset[[input$databases[i]]][j]
+          }
+          if (colnames_dataset[[input$databases[i]]][j] %in% dsmandcol[[input$databases[i]]]){
+            selected_columns <- c(selected_columns, colnames(dat)[j])
+          }
+        }
+        list_df <- list.append(list_df,dat)
       }
-      else
-      {
-        dstable[[input$dataset]]
-      }
+      v$selected_columns <- selected_columns
+      Reduce(function(x,y) merge(x,y, by=join_column), list_df)
     }
-  })
-
-  output$caption <- renderText({
-    if (!is.null(input$dataset) && input$dataset %in% names(datasets))
-    {
-      input$dataset
-    }
-  })
-
-  output$currentdesc <- renderText({
-    if (!is.null(input$dataset) && input$dataset %in% names(datasets))
-    {
-      dsdesc[[input$dataset]]
+  }
+  )
+  
+  # Column filter
+  output$outshow_vars <- renderUI({
+    if (length(input$databases) >= 1) {
+      pickerInput(
+        inputId = "show_vars", 
+        label = "Choose columns to display", 
+        choices = lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}), 
+        selected = c(join_column,lapply(v$selected_columns,function(n){str_replace(n, "<br>","\n")})),#lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}),
+        options = list(
+          `actions-box` = TRUE,
+          size = 10,
+          `dropup-auto` = FALSE,
+          `selected-text-format`= "count > 3"
+        ), 
+        multiple = TRUE
+      )
+    } else {
+      checkboxGroupInput("show_vars",
+                         label = "")
     }
   })
   
-  output$website <- renderUI({
-    if (!is.null(input$dataset) && input$dataset %in% names(datasets))
-    {
-      url <- a("Website", href=dsweb[[input$dataset]], target="_blank")
-    tagList("", url)
-    }
-  })
-  
-  output$readmelink <- renderUI({
-    if (!is.null(input$dataset) && input$dataset %in% names(datasets))
-    {
-      url <- a("More info", href=dsreadme[[input$dataset]], target="_blank")
-    tagList("", url)
-    }
-  })
-
-  output$table <- renderDT(datasetInput(),
-                           server=TRUE, escape = TRUE, selection = 'none',
+  # Displaying table
+  retable <- eventReactive(input$show_vars, {datasetInput()[,str_replace_all(input$show_vars, "\n", "<br>"), drop=FALSE]})
+  output$table <- renderDT(retable(),
+                           server=TRUE, escape = FALSE, selection = 'none',
                            filter=list(position = 'top', clear = FALSE),
                            rownames= FALSE,
-                           options=list(pageLength=20,
+                           options=list(pageLength=10,
+                                        columnDefs = list(list(className = 'dt-center', targets = "_all")),
                                         sDom  = '<"top">lrt<"bottom">ip',
-                                        lengthMenu = c(20, 100, 500, 1000),
-                                        search=list(searching = TRUE, regex=TRUE, caseInsensitive = FALSE)
-                                        )
-                          )  
-  
+                                        lengthMenu = c(10, 25, 100, 500, 1000),
+                                        search=list(searching = TRUE,
+                                                    regex=TRUE,
+                                                    caseInsensitive = FALSE)
+                           )
+  )
   
   output$outdownload <- renderUI({
-    if (!is.null(input$dataset) && input$dataset %in% names(datasets))
+    if (length(input$databases) >= 1)
     {
-      downloadButton('download', label="Download filtered data")
+      downloadButton('download.xlsx', label="Download filtered data")
     }
   })
   
-  output$download <- downloadHandler(
-      filename = function() {
-          paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
-      },
-      content = function(fname){
-          # write.csv(datasetInput(), fname)
-          dt = datasetInput()[input[["table_rows_all"]], ]
-          write_xlsx(dt, fname)
-          })
+  output$download.xlsx <- downloadHandler(
+    filename = function() {
+      paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
+    },
+    content = function(fname){
+      # write.csv(datasetInput(), fname)
+      dt = datasetInput()[input[["table_rows_all"]],]
+      names(dt) = lapply(names(dt),function(n){str_replace(n, "<br>","\n")})
+      write_xlsx(dt, fname)
+    })
   #url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
   #output$help = renderUI({ tagList("", url) })
 }
-
+  
+#options(warn = 2, shiny.error = recover)
 shinyApp(ui, server)

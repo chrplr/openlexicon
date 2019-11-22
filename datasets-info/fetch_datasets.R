@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-11-06 14:02:39 christophe@pallier.org>
+# Time-stamp: <2019-07-18 15:23:13 christophe@pallier.org>
 
 
 require("rjson")
@@ -16,8 +16,6 @@ default_remote <- "https://raw.githubusercontent.com/chrplr/openlexicon/master/d
 # lexique <- get_lexique382()
 #  or
 # uscorpus <- readRDS(fetch_dataset('SUBTLEX-US-corpus', format='rds')$datatables[[1]])
-
-
 
 
 fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, format=NULL)
@@ -37,6 +35,7 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
     description <- json_data$description
     readme <- json_data$readme
     website <- json_data$website
+    mandatory_columns <- json_data$mandatory_columns
 
     tables = list()
     for (u in json_data$urls)
@@ -50,7 +49,6 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
             next  # skip this file
 
         destname <- file.path(get_data.home(), fname)
-        warning(paste("Downloading in ", destname))
 
         if (!file.exists(destname))
         {
@@ -66,11 +64,11 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
         }  else  # The local file exists
         {
             if (md5sum(destname) != u$md5sum) {
-                warning(paste("the md5 sum of your local file", destname, md5sum(destname), "doesn't match the distant version", u$md5sum, ". Aborting. Delete the local file if necessary"))
+                warning(paste("the md5 sum of your local file", destname, md5sum(destname), "doesn't match the distant version", u$md5sum, ". Aborting."))
             }
             else
             {
-                warning(paste("You already have the file", destname, "which is up to date."))
+                warning(paste("You already have the file", destname, "which seems up to date."))
                 tables <- append(tables, destname)
             }
         }
@@ -83,7 +81,8 @@ fetch_dataset <- function(dataset_id, location=default_remote, filename=NULL, fo
          datatables=tables,
          description=description,
          readme=readme,
-         website=website)
+         website=website,
+         mandatory_columns=mandatory_columns)
 }
 
 get_data.home <- function()
@@ -142,10 +141,3 @@ get_subtlex.us <- function()
     readRDS(info$datatables[[1]])
 
 }
-
-get_aoa32 <- function()
-{
-    info <-  fetch_dataset('AoA-32lang', format='tsv')
-    read.table(info$datatables[[1]], header=TRUE, sep='\t')
-}
-
