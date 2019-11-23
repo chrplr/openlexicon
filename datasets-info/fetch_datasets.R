@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-11-23 09:05:42 christophe@pallier.org>
+# Time-stamp: <2019-11-23 10:30:41 christophe@pallier.org>
 
 #  Download a datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
@@ -8,11 +8,11 @@ require("tools") # Required for md5sum
 
 
 get_data.home <- function()
-    # return the path of the folder where to put datasets
+    # return the path of the local folder where to put datasets
 {
     data.home <- Sys.getenv('OPENLEXICON_DATASETS')
     xdg.data.home <- Sys.getenv('XDG_DATA_HOME')
-    
+
     if (data.home == "")
     {
         if (xdg.data.home == "")
@@ -46,22 +46,22 @@ get_dataset_from_json <- function(json_url, filename)
     # returns the path to the local version of the dataset
 {
     destname <- file.path(get_data.home(), filename)
-    
+
     json_data <- fromJSON(file = json_url)
-    
+
     for (u in json_data$urls)
     {
         fname <- basename(u$url)
-        
+
         if (fname != filename)
             next
-        
+
         if (!file.exists(destname))  {
             download.file(u$url, destname, mode = 'wb')
         }  else if (md5sum(destname) != u$md5sum) {
             download.file(u$url, destname, mode = 'wb')
         }
-        
+
         if (md5sum(destname) != u$md5sum)
         {
             warning(
@@ -98,30 +98,30 @@ fetch_dataset <-
         ##      website=website)
     {
         destname <- ''
-        
+
         json_file <- paste(location, dataset_id, '.json', sep = "")
-        
+
         json_data <- fromJSON(file = json_file)
         description <- json_data$description
         readme <- json_data$readme
         website <- json_data$website
-        
+
         tables = list()
         for (u in json_data$urls)
         {
             fname <- basename(u$url)
-            
+
             if (!is.null(filename) && (filename != fname))
                 next  # skip this file
-            
+
             if (!is.null(format) &&
                 tools::file_ext(fname) != format)
                 # check if format (extension) matches
                 next  # skip this file
-            
+
             destname <- file.path(get_data.home(), fname)
             warning(paste("Downloading in ", destname))
-            
+
             if (!file.exists(destname))
             {
                 download.file(u$url, destname, mode = 'wb')
@@ -179,8 +179,8 @@ fetch_dataset <-
 default_remote <-
     "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/_json/"
 
-lexique_remote <- 
-    "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/_json/"
+lexique_remote <-
+    "https://www.lexique.org/databases/_json/"
 
 
 get_lexique383_rds <- function()

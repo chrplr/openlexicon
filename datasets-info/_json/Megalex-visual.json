@@ -1,21 +1,16 @@
 {
-    "_comment": "# Time-stamp: <2019-04-30 17:38:37 christophe@pallier.org>",
+    "_comment": "# Time-stamp: <2019-11-23 12:13:09 christophe@pallier.org>",
     "name": "Megalex-visual",
     "description": "_Megalex-visual_ provides visual lexical decision times and accuracy rates for 28466 French words",
     "website": "http://megalex.lexique.org",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Megalex/README-Megalex.html",
      "urls" : [
          {
-            "url": "http://www.lexique.org/databases/Megalex/Megalex-visual.RData",
-            "bytes": 1141870,
-            "md5sum": "a298052807d6c06206dda5c08df149ef"
-         },
-         {
             "url": "http://www.lexique.org/databases/Megalex/Megalex-visual.rds",
             "bytes": 1074961,
             "md5sum": "ee78de93453e73d3ea47b34153a74735"
          }
       ], 
-    "type": "tsv",
+    "type": "rds",
     "tags": ["french", "frequencies"]
 }
