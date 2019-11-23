@@ -180,7 +180,7 @@ default_remote <-
     "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/_json/"
 
 lexique_remote <-
-    "https://www.lexique.org/databases/_json/"
+    "http://www.lexique.org/databases/_json"
 
 
 get_lexique383_rds <- function()
@@ -197,17 +197,16 @@ get_worldlex.french_rds <- function()
 }
 
 
-
 get_worldlex.english_rds <- function()
 {
-    readRDS(get_dataset_from_json(paste(lexique_remote, 'WorldLex-Englishrench.json', sep='/'),
+    readRDS(get_dataset_from_json(paste(lexique_remote, 'WorldLex-English.json', sep='/'),
                                   "WorldLex_EN.rds"))
 }
 
 get_subtlex.us <- function()
 {
-    readRDS(get_dataset_from_json(paste(lexique_remote, 'WorldLex-Englishrench.json', sep='/'),
-                                  "WorldLex_EN.rds"))
+    readRDS(get_dataset_from_json(paste(lexique_remote, 'SUBTLEX-US.json', sep='/'),
+                                  "SUBTLEX-us.rds"))
 }
 
 get_aoa32 <- function()
