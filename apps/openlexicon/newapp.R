@@ -34,14 +34,17 @@ datasets[['anagrammes']] = c('http://www.lexique.org/databases/_json/anagrammes.
 datasets[['Voisins']] =  c('http://www.lexique.org/databases/_json/Voisins.json',
                            'Voisins.rds')
 
+datasets[['FrenchLexiconProject-words']] = c('http://www.lexique.org/databases/_json/FrenchLexiconProject-words.json',
+                                             'flp-words.rds')
 
-# TODO:
+datasets[['FrenchLexiconProject-words']] = c('http://www.lexique.org/databases/_json/FrenchLexiconProject-words.json',
+                                             'flp-words.rds')
 
-# datasets[['FrenchLexiconProject-words']] =
+datasets[['WorldLex-French']] = c('http://www.lexique.org/databases/_json/WorldLex-French.json',
+                                  'WorldLex_FR.rds')
 
-# datasets[['WorldLex-French']] =
-
-# datasets[['WorldLex-English']] =
+datasets[['WorldLex-English']] = c('http://www.lexique.org/databases/_json/WorldLex-English.json',
+                                   'WorldLex_EN.rds')
 
 
 # Note: we should find a better way to identify the language, it should be a tag in the info listed in the json
