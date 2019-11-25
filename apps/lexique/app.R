@@ -1,12 +1,12 @@
 # shiny R code for lexique.org
-# Time-stamp: <2019-07-26 09:52:49 christophe@pallier.org>
+# Time-stamp: <2019-11-23 10:33:15 christophe@pallier.org>
 
 library(shiny)
 library(DT)
 library(writexl)
 
-source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-lexique <- get_lexique383()
+source("https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R")
+lexique <- get_lexique383_rds()
 
 helper_alert =
     tags$div(class="alert alert-info",
@@ -50,8 +50,8 @@ ui <- fluidPage(
         ),
         mainPanel(
             helper_alert,  
-                                        # uiOutput("help"),
-            
+            # uiOutput("help"),
+
             h3(textOutput("caption", container = span)),
             fluidRow(DTOutput(outputId="table")),
             downloadButton(outputId='download', label="Download filtered data")
@@ -79,7 +79,6 @@ server <- function(input, output) {
                                                       caseInsensitive = FALSE)
                                           )
                              )
-                              
 
     output$download <- downloadHandler(
         filename = function() {

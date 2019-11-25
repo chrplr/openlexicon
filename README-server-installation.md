@@ -1,13 +1,17 @@
-# Installation of openlexicon
+# Installation of the lexique server 
 
-% Time-stamp: <2019-04-02 00:06:10 christophe@pallier.org>
+% Time-stamp: <2019-11-20 08:20:13 christophe@pallier.org>
 
-1. Either install the package using `git clone https://github.com/chrplr/openlexicon.git` *or* download and unzip <https://github.com/chrplr/openlexicon/archive/master.zip>
-2. Download and unzip  <http://lexique.org/databases.zip> in the directory of the project. This will unpack the databases in the `databases` subfolder.`
+The interactive apps on www.lexique.org are programmed in RShiny.  Their source code is in http://www.github.com/chrplr/openlexicon/apps
+
+After following the instructions below, it is enough to do a ``git clone https://github.com/chrplr/openlexicon.git shiny-server` in the home directory on the server to get it up an running.
+
+(Note: the files containing the lexical datasets must be installed at the locations described in the `.json` files located in  `datasets-info/_json`. At lexique.org, we installed the atabases in `/var/www/databases`)
+
 
 ## Shiny server
 
-Here, wes explain how to deploy a [shiny server](https://www.rstudio.com/products/shiny/shiny-server/) on a Ubuntu 18.04 Linux server, and how to install the openlexicon databases on it.
+Here, we explain how to deploy a [shiny server](https://www.rstudio.com/products/shiny/shiny-server/) on a Ubuntu 18.04 Linux server.
 
 The following commands must be executed on the computer that will be used as the server.
 
@@ -52,7 +56,7 @@ Execute:
     cd 
     git clone https://github.com/chrplr/openlexicon.git shiny-server
     cd shiny-server/
-    ./get_databases.R
+
 
 Edit `/etc/shiny-server/shiny-server.conf`:
 

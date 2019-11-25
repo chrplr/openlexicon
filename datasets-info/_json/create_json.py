@@ -48,13 +48,13 @@ if __name__ == '__main__':
 
         if not first:
             print(',')
-            first = False
+        first = False
 
         print('         {')
         print(f'            "url": "{url}",')
         print(f'            "bytes": {nbytes},')
         print(f'            "md5sum": "{md5sum}"')
-        print('         }')
+        print('         }',end='')
 
    print(FOOTER)
 
