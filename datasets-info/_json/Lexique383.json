@@ -16,5 +16,6 @@
         }
     ],
     "type": "tsv",
+	"mandatory_columns": ["phon", "lemme", "cgram", "freqlemfilms2", "freqfilms2", "islem", "nblettres", "puorth", "puphon", "nbsyll", "cgramortho"],
     "tags": ["french", "frequencies"]
 }

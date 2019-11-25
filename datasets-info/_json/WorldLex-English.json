@@ -10,5 +10,5 @@
         "md5sum": "33c6d36449c1ced5970585b1d838c4ec"
     } ],
     "type": "rds",
-    "tags": ["french", "frequencies"]
+    "tags": ["english", "frequencies"]
 }
