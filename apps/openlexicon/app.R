@@ -34,9 +34,9 @@ extendedCheckboxGroup <- function(..., extensions = list()) {
   cbg
 }
 
-get_mandatory_columns <- function(dataset_name) {
-  if (!is.null(dsmandcol[[dataset_name]])) {
-    return(dsmandcol[[dataset_name]])
+get_mandatory_columns <- function(dataset_name, info) {
+  if (!is.null(info$mandatory_columns)) {
+    return(info$mandatory_columns)
   }
   else {
     return (colnames(dstable[[dataset_name]]))
@@ -46,17 +46,34 @@ get_mandatory_columns <- function(dataset_name) {
 #### Script begins ####
 
 # loads datasets
-source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-french_datasets <- c('Lexique383', 'FrenchLexiconProject-words', 'WorldLex-French','Megalex-visual', 'Megalex-auditory')
-english_datasets <- c('WorldLex-English','SUBTLEX-US')
-others <- c('Voisins','anagrammes')
+source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+#source('../../datasets-info/fetch_datasets.R')
 
-dataset_ids <- c(french_datasets,english_datasets,others)
+dataset_ids <- c('Lexique383', 'FrenchLexiconProject-words', 'WorldLex-French','Megalex-visual', 'Megalex-auditory',
+                 'SUBTLEX-US','WorldLex-English', 'Voisins','anagrammes','Aoa32lang')
+                 
+datasets <- list()
+ex_filenames_ds <- list('FrenchLexiconProject-words' = c('FrenchLexiconProject-words', 'flp-words'),
+                        'WorldLex-French' = c('WorldLex-French','WorldLex_FR'),
+                        'WorldLex-English' = c('WorldLex-English', 'WorldLex_EN'),
+                        'Aoa32lang' = c('AoA-32lang', 'AoA32lang'),
+                        'SUBTLEX-US' = c('SUBTLEX-US', 'SUBTLEXus'),
+                        'anagrammes' = c('anagrammes', 'Anagrammes'))
 
-datasets = list()
+json_folder = 'http://www.lexique.org/databases/_json/'
+#json_folder = '../../../openlexicon/datasets-info/_json/'
+
 for (ds in dataset_ids)
 {
-    datasets[[ds]] <- fetch_dataset(ds, format='rds')
+    #datasets[[ds]] <- fetch_dataset(ds, format='rds')
+    rds_file <- ds
+    json_file <- ds
+    if (!is.null(ex_filenames_ds[[ds]])) {
+      json_file <- ex_filenames_ds[[ds]][1]
+      rds_file <- ex_filenames_ds[[ds]][2]
+    }
+    datasets[[ds]] = c(paste(json_folder,json_file,'.json', sep = ""),
+                       paste(rds_file,'.rds', sep = ""))
 }
 
 join_column = "Word"
@@ -67,21 +84,39 @@ dsreadme <- list()
 dstable <- list()
 dsweb <- list()
 dsmandcol <- list()
+dslanguage <- list()
 colnames_dataset <- list()
 
-for (i in 1:length(datasets)) {
-    name <- datasets[[i]]$name
-    dsnames[[name]] <- name
-    dsdesc[[name]] <- datasets[[i]]$description
-    dsreadme[[name]] <- datasets[[i]]$readme
-    dsweb[[name]] <- datasets[[i]]$website
-    dsmandcol[[name]] <- datasets[[i]]$mandatory_columns
-    dstable[[name]] <- readRDS(datasets[[i]]$datatables[[1]])
-    colnames(dstable[[name]])[1] <- join_column
-    colnames_dataset[[name]] <- colnames(dstable[[name]])
-    if (is.null(dsmandcol[[name]])) {
-      dsmandcol[[name]] <- colnames_dataset[[name]]
-    }
+# We try to load the databases
+for (ds in names(datasets)) {
+  tryCatch({
+    json_url <- datasets[[ds]][1]
+    rds_file <- datasets[[ds]][2]
+    dstable[[ds]] <- readRDS(get_dataset_from_json(json_url, rds_file))
+  },
+  error = function(e) {
+    message(paste("Couldn't load database ", ds, ". Check json and rds files.", sep = ""))
+  } 
+  )
+}
+
+# Removes not loaded datasets from the list
+for (ds in names(datasets)) { if (is.null(dstable[[ds]])) { datasets[[ds]] <- NULL}}
+       
+for (ds in names(datasets)) {
+  json_url <- datasets[[ds]][1]
+  info = get_info_from_json(json_url)
+  dsnames[[ds]] <- ds
+  dslanguage[[ds]]['name'] <- info$language
+  dsdesc[[ds]] <- info$description
+  dsreadme[[ds]] <- info$readme
+  dsweb[[ds]] <- info$website
+  dsmandcol[[ds]] <- get_mandatory_columns(ds, info)
+  colnames(dstable[[ds]])[1] <- join_column
+  colnames_dataset[[ds]] <- colnames(dstable[[ds]])
+  if (is.null(dsmandcol[[ds]])) {
+    dsmandcol[[ds]] <- colnames_dataset[[ds]]
+  }
 }
 
 dataset_info <-
@@ -144,8 +179,8 @@ ui <- fluidPage(
 #### Server ####
 server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
-                      categories = french_datasets,
-                      first_dataset_selected = french_datasets[1],
+                      categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
+                      first_dataset_selected = 'Lexique383',
                       selected_columns = c())
   
   # To select a language
@@ -159,12 +194,12 @@ server <- function(input, output, session) {
   observeEvent(input$language, {
     v$language_selected <- input$language
     if (input$language == "French") {
-      v$categories <- french_datasets
-      v$first_dataset_selected <- french_datasets[1]
+      v$categories <- names(list.filter(dslanguage, 'french' %in% tolower(name)))
+      v$first_dataset_selected <- 'Lexique383'
     }
     else if (input$language == "English") {
-      v$categories <- english_datasets
-      v$first_dataset_selected <- english_datasets[1]
+      v$categories <- names(list.filter(dslanguage, 'english' %in% tolower(name)))
+      v$first_dataset_selected <- 'SUBTLEX-US'
     }
     else {
       v$categories <- c()
@@ -176,10 +211,10 @@ server <- function(input, output, session) {
     if (v$language_selected != "\n") {
       tooltips = list()
       for (i in 1:length(v$categories)) {
-        tooltips <- list.append(tooltips, popify(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), trigger = "click hover",
-                                                 title = v$categories[i],
+        tooltips <- list.append(tooltips, popify(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), trigger = "click",
+                                                 title = "",
                                                  content= paste("<div><p>",
-                                                                str_replace_all(dsdesc[[v$categories[i]]],"'",'"'),
+                                                                str_replace_all(dsdesc[[v$categories[i]]],"'","&#39"),
                                                                 "</p><p><a href=",
                                                                 dsreadme[[v$categories[i]]],
                                                                 ">More info</a></p><p><a href =",

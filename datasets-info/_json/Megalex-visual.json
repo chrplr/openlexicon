@@ -1,7 +1,7 @@
 {
     "_comment": "# Time-stamp: <2019-11-23 12:13:09 christophe@pallier.org>",
     "name": "Megalex-visual",
-    "description": "_Megalex-visual_ provides visual lexical decision times and accuracy rates for 28466 French words",
+    "description": "<b>Megalex-visual</b> provides visual lexical decision times and accuracy rates for 28466 French words",
     "website": "http://megalex.lexique.org",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Megalex/README-Megalex.html",
      "urls" : [
