@@ -77,6 +77,13 @@ get_dataset_from_json <- function(json_url, filename)
 
 
 
+get_all_datasets <- function(list_url)
+  # list_url points to a tsv file with two columns. Each row contains a json_url and a filename 
+{
+  bases = read.table(list_url, sep='\t')
+  for (i in 1:nrow(bases))
+     get_dataset_from_json(bases[i, 1], bases[i, 2])
+}
 
 
 # Usage:
