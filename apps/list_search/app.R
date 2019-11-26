@@ -1,6 +1,6 @@
 # shiny R code for recherche de par liste de mots on <www.lexique.org>
 # Authors: Boris New & C. Pallier
-# Time-stamp: <2019-05-01 09:29:55 christophe@pallier.org>
+# Time-stamp: <2019-11-26 07:44:54 christophe@pallier.org>
 
 library(shiny)
 library(DT)
@@ -8,9 +8,8 @@ library(dplyr)
 library(writexl)
 
 
-source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-lexique <- get_lexique382()
-
+source("https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R")
+lexique <- get_lexique383_rds()
 
 ui <- fluidPage(
   title = "Lexique",
