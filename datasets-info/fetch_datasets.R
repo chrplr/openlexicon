@@ -100,7 +100,7 @@ fetch_dataset <-
         destname <- ''
 
         json_file <- paste(location, dataset_id, '.json', sep = "")
-
+        
         json_data <- fromJSON(file = json_file)
         description <- json_data$description
         readme <- json_data$readme
