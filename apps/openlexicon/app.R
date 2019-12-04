@@ -186,7 +186,7 @@ server <- function(input, output, session) {
   # To select a language
   output$outlang <- renderUI({
     selectInput("language", "Choose a language",
-                choices = c('\n','French', 'English'),
+                choices = c('\n','French', 'English', 'Multiple languages'),
                 selected = v$language_selected)
   })
   
@@ -200,6 +200,10 @@ server <- function(input, output, session) {
     else if (input$language == "English") {
       v$categories <- names(list.filter(dslanguage, 'english' %in% tolower(name)))
       v$first_dataset_selected <- 'SUBTLEX-US'
+    }
+    else if (input$language == "Multiple languages") {
+      v$categories <- names(list.filter(dslanguage, 'multiple_languages' %in% tolower(name)))
+      v$first_dataset_selected <- 'Aoa32lang'
     }
     else {
       v$categories <- c()
