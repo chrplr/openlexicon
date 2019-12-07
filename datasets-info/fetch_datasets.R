@@ -82,6 +82,13 @@ datasets <- data.frame(t(matrix(c(
     "WorldLex_EN", "http://www.lexique.org/databases/_json/WorldLex-English.json", "WorldLex_EN.rds"
 ), ncol=3)))
 
+get_all_datasets <- function(list_url)
+  # list_url points to a tsv file with two columns. Each row contains a json_url and a filename 
+{
+  bases = read.table(list_url, sep='\t')
+  for (i in 1:nrow(bases))
+     get_dataset_from_json(bases[i, 1], bases[i, 2])
+}
 
 
 
