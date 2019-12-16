@@ -55,6 +55,8 @@ if __name__ == '__main__':
         print(f'            "bytes": {nbytes},')
         print(f'            "md5sum": "{md5sum}"')
         print('         }',end='')
+        
+        
 
    print(FOOTER)
 
