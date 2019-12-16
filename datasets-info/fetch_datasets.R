@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-11-26 08:00:36 christophe@pallier.org>
+# Time-stamp: <2019-11-26 15:36:20 christophe@pallier.org>
 
 #  Download a datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
@@ -76,6 +76,11 @@ get_dataset_from_json <- function(json_url, filename)
 }
 
 
+datasets <- data.frame(t(matrix(c(
+    "Lexique3",   "http://www.lexique.org/databases/_json/Lexique383.json"     , "Lexique383.rds",
+    "WorldLex_FR", "http://www.lexique.org/databases/_json/WorldLex-French.json", "WorldLex_FR.rds",
+    "WorldLex_EN", "http://www.lexique.org/databases/_json/WorldLex-English.json", "WorldLex_EN.rds"
+), ncol=3)))
 
 get_all_datasets <- function(list_url)
   # list_url points to a tsv file with two columns. Each row contains a json_url and a filename 
@@ -85,6 +90,52 @@ get_all_datasets <- function(list_url)
      get_dataset_from_json(bases[i, 1], bases[i, 2])
 }
 
+
+
+##########################################################################################
+default_remote <-
+  "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/_json/"
+
+lexique_remote <-
+  "http://www.lexique.org/databases/_json"
+
+
+
+
+get_lexique383_rds <- function()
+{
+  readRDS(get_dataset_from_json(paste(lexique_remote, "Lexique383.json", sep="/"),
+                                "Lexique383.rds"))
+}
+
+
+get_worldlex.french_rds <- function()
+{
+  readRDS(get_dataset_from_json(paste(lexique_remote, 'WorldLex-French.json', sep='/'),
+                                "WorldLex_FR.rds"))
+}
+
+
+get_worldlex.english_rds <- function()
+{
+  readRDS(get_dataset_from_json(paste(lexique_remote, 'WorldLex-English.json', sep='/'),
+                                "WorldLex_EN.rds"))
+}
+
+get_subtlex.us_rds <- function()
+{
+  readRDS(get_dataset_from_json(paste(lexique_remote, 'SUBTLEX-US.json', sep='/'),
+                                "SUBTLEX-us.rds"))
+}
+
+get_aoa32_rds <- function()
+{
+    readRDS(get_dataset_from_json(paste(lexique_remote, 'AoA-32lang.json', sep='/'),
+                                  "AoA-32lang.rds"))
+}
+
+
+################################################################################
 
 # Usage:
 # source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
@@ -189,43 +240,3 @@ get_all_datasets <- function(list_url)
 ##     )
 ##   }
 
-
-##########################################################################################
-default_remote <-
-  "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/_json/"
-
-lexique_remote <-
-  "http://www.lexique.org/databases/_json"
-
-
-get_lexique383_rds <- function()
-{
-  readRDS(get_dataset_from_json(paste(lexique_remote, "Lexique383.json", sep="/"),
-                                "Lexique383.rds"))
-}
-
-
-get_worldlex.french_rds <- function()
-{
-  readRDS(get_dataset_from_json(paste(lexique_remote, 'WorldLex-French.json', sep='/'),
-                                "WorldLex_FR.rds"))
-}
-
-
-get_worldlex.english_rds <- function()
-{
-  readRDS(get_dataset_from_json(paste(lexique_remote, 'WorldLex-English.json', sep='/'),
-                                "WorldLex_EN.rds"))
-}
-
-get_subtlex.us <- function()
-{
-  readRDS(get_dataset_from_json(paste(lexique_remote, 'SUBTLEX-US.json', sep='/'),
-                                "SUBTLEX-us.rds"))
-}
-
-get_aoa32 <- function()
-{
-  info <-  fetch_dataset('AoA-32lang', format = 'tsv')
-  read.table(info$datatables[[1]], header = TRUE, sep = '\t')
-}
