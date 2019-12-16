@@ -5,10 +5,11 @@ L’application shiny d’accès a Megalex (à venir) à été créé par Stéph
 
 De nombreuses personnes ont créé ou contribué aux diverses bases de données. Les fichiers README associés à chacune de ces bases détaillent ces contributions et xomment les citer
 
-List of congtibutors to the git repo:
+List of contributors to the git repo:
 
-C. Pallier
-B. New
-M. Sablè-Meyer
+Christophe Pallier
+Boris New
+Jessica Bourgeois
+Mathias Sablé-Meyer
 
 (TODO: automatize this from github)

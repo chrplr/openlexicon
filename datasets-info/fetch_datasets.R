@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-11-26 15:36:20 christophe@pallier.org>
+# Time-stamp: <2019-12-16 11:53:48 christophe@pallier.org>
 
 #  Download a datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
@@ -76,18 +76,19 @@ get_dataset_from_json <- function(json_url, filename)
 }
 
 
-datasets <- data.frame(t(matrix(c(
-    "Lexique3",   "http://www.lexique.org/databases/_json/Lexique383.json"     , "Lexique383.rds",
-    "WorldLex_FR", "http://www.lexique.org/databases/_json/WorldLex-French.json", "WorldLex_FR.rds",
-    "WorldLex_EN", "http://www.lexique.org/databases/_json/WorldLex-English.json", "WorldLex_EN.rds"
-), ncol=3)))
+locations <- list(
+    Lexique3=c("http://www.lexique.org/databases/_json/Lexique383.json"     , "Lexique383.rds"),
+    WorldLex_FR=c("http://www.lexique.org/databases/_json/WorldLex-French.json", "WorldLex_FR.rds"),
+    WorldLex_EN=c("http://www.lexique.org/databases/_json/WorldLex-English.json", "WorldLex_EN.rds"))
 
-get_all_datasets <- function(list_url)
-  # list_url points to a tsv file with two columns. Each row contains a json_url and a filename 
+
+get_datasets <- function(listofdatasets, locations) 
 {
-  bases = read.table(list_url, sep='\t')
-  for (i in 1:nrow(bases))
-     get_dataset_from_json(bases[i, 1], bases[i, 2])
+    locs = list()
+    for (name in listofdatasets)
+        locs = append(locs, get_dataset_from_json(locations[[name]][1],locations[[name]][2]))
+    names(locs) = listofdatasets
+    return(locs)
 }
 
 
