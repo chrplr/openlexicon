@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-12-16 11:53:48 christophe@pallier.org>
+# Time-stamp: <2019-12-16 12:21:00 christophe@pallier.org>
 
 #  Download a datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
@@ -77,12 +77,40 @@ get_dataset_from_json <- function(json_url, filename)
 
 
 locations <- list(
-    Lexique3=c("http://www.lexique.org/databases/_json/Lexique383.json"     , "Lexique383.rds"),
-    WorldLex_FR=c("http://www.lexique.org/databases/_json/WorldLex-French.json", "WorldLex_FR.rds"),
-    WorldLex_EN=c("http://www.lexique.org/databases/_json/WorldLex-English.json", "WorldLex_EN.rds"))
+    Anagrammes=c("http://www.lexique.org/databases/_json/anagrammes.json", "Anagrammes.rds"),
+    AoA32=c("http://www.lexique.org/databases/_json/AoA-32lang.json", "AoA32lang.rds"),
+    AoA_FamConcept_1225=c("http://www.lexique.org/databases/_json/AoA_FamConcept_1225.json", "AoA_FamConcept_1225.rds"),
+    XX=c("http://www.lexique.org/databases/_json/AoA_FreqSub_1493.json", "AoA_FreqSub_1493.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Assoc_366.json", "Assoc_366.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Assoc_520.json", "Assoc_520.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Concr_ContextAv_ValEmo_Arous_1659.json", "Bonin_2018_Concr_ContextAv_ValEmo_Arous_1659/Concr_ContextAv_ValEmo_Arous_1659.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Concr_Imag_FreqSub_Valemo_866.json", "Bonin_2003_Concr_Imag_FreqSub_Valemo_866/Concr_Imag_FreqSub_Valemo_866.rds"),
+    XX=c("http://www.lexique.org/databases/_json/FrenchLexiconProject-words.json", "flp-words.rds"),
+    XX=c("http://www.lexique.org/databases/_json/FreqSub_Adulte_Senior_660.json", "FreqSub_Adulte_Senior_660.rds"),
+    XX=c("http://www.lexique.org/databases/_json/FreqSub_Imag_1916.json", "FreqSub_Imag_1916.rds"),
+    XX=c("http://www.lexique.org/databases/_json/FreqSub_Imag_3600.json", "FreqSub_Imag_3600.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Imag_1493.json", "Imag_1493.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Lexique382.json", "Lexique382.rds"),
+    Lexique3=c("http://www.lexique.org/databases/_json/Lexique383.json", "Lexique383.rds"),
+    LexiqueInfraGP=c("http://www.lexique.org/databases/_json/LexiqueInfra-Graphèmes-Phonèmes.json", "Lexique.Infra.Corresp.Graphème.Phonème.rds"),
+#    XX=c("http://www.lexique.org/databases/_json/Lexique-Infra-Stats-Infra.json", ""),  
+#    XX=c("http://www.lexique.org/databases/_json/Manulex.json", ""),
+    Megalex_auditory=c("http://www.lexique.org/databases/_json/Megalex-auditory.json", "Megalex-auditory.rds"),
+    Megalex_visual=c("http://www.lexique.org/databases/_json/Megalex-visual.json", "Megalex-visual.rds"),
+    XX=c("http://www.lexique.org/databases/_json/SensoryExp_1659.json", "SensoryExp_1659.rds"),
+    XX=c("http://www.lexique.org/databases/_json/SUBTLEX-US-corpus.json", "SUBTLEX-US-corpus.rds"),
+    SubtlexUS=c("http://www.lexique.org/databases/_json/SUBTLEX-US.json", "SUBTLEXus.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Valemo_Adultes_604.json", "Valemo_Adultes_604.rds"),
+    XX=c("http://www.lexique.org/databases/_json/ValEmo_Arous_1286.json", "ValEmo_Arous_1286.rds"),
+    XX=c("http://www.lexique.org/databases/_json/ValEmo_Arous_Imag_835.json", "ValEmo_Arous_Imag_835.rds"),
+    XX=c("http://www.lexique.org/databases/_json/Valemo_Enfants_600.json", "Valemo_Enfants_600.rds"),
+    Voisins=c("http://www.lexique.org/databases/_json/Voisins.json", "Voisins.rds"),
+    WorldLex_EN=c("http://www.lexique.org/databases/_json/WorldLex-English.json", "WorldLex_EN.rds"),
+    WorldLex_FR=c("http://www.lexique.org/databases/_json/WorldLex-French.json", "WorldLex_FR.rds"))
 
 
-get_datasets <- function(listofdatasets, locations) 
+get_datasets <- function(listofdatasets, locations)
+# returns the local locations of datasets listed in listdatasets (downloading them from the internet if needed)
 {
     locs = list()
     for (name in listofdatasets)
