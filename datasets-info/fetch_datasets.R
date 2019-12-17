@@ -1,5 +1,5 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2019-12-16 12:21:00 christophe@pallier.org>
+# Time-stamp: <2019-12-17 11:25:00 christophe@pallier.org>
 
 #  Download a datasets from a json file using 'dafter' syntax (see https://github.com/vinzeebreak/dafter/)
 
@@ -46,6 +46,8 @@ get_info_from_json <- function(json_url)
 get_dataset_from_json <- function(json_url, filename)
   # download (only if needed), the dataset 'filename' indicated from the json description file
   # returns the path to the local version of the dataset
+                                        # Example:
+    # lexique = readRDS(get_dataset_from_json("http://www.lexique.org/databases/_json/Lexique383.json", "Lexique383.rds"))
 {
   destname <- file.path(get_data.home(), filename)
 
@@ -110,7 +112,9 @@ locations <- list(
 
 
 get_datasets <- function(listofdatasets, locations)
-# returns the local locations of datasets listed in listdatasets (downloading them from the internet if needed)
+  # returns the local locations of datasets listed in listdatasets (downloading them from the internet if needed)
+  # Example:
+  #    get_datasets(c('Lexique3', 'Voisins', 'Anagrammes'), locations)
 {
     locs = list()
     for (name in listofdatasets)
@@ -121,7 +125,30 @@ get_datasets <- function(listofdatasets, locations)
 
 
 
+get_all_datasets <- function(locations)
+   # download all the datasets listed in location (only oif not already downloaded)
+{
+    return(get_datasets(names(locations), locations))
+}
+
+
+
+load_rds <- function(list_rds)
+  # load in memory the rds files listed in list_rds, in variables with the names matching names(list_rds) 
+{
+    for (n in names(list_rds))
+    {
+        warning(paste('Loading ', n, ' from ', list_rds[[n]]))
+        assign(n, readRDS(list_rds[[n]]), envir= .GlobalEnv)
+    }
+}
+
+
+
 ##########################################################################################
+# No: the following functions should be obsolete now that there is `get_datasets` `
+
+
 default_remote <-
   "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/_json/"
 
@@ -129,9 +156,8 @@ lexique_remote <-
   "http://www.lexique.org/databases/_json"
 
 
-
-
 get_lexique383_rds <- function()
+
 {
   readRDS(get_dataset_from_json(paste(lexique_remote, "Lexique383.json", sep="/"),
                                 "Lexique383.rds"))
