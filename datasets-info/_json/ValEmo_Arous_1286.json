@@ -4,7 +4,7 @@
       "name": "ValEmo_Arous_1286",
       "description": "A base of emotionality (valence, arousal, category) of 1286 French words according to age",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Gobin_2017_ValEmo_Arous_1286/ValEmo_Arous_1286.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/ValEmo_Arous_1286.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Gobin_2017_ValEmo_Arous_1286/ValEmo_Arous_1286.rds",

@@ -4,10 +4,10 @@
       "name": "FreqSub Imag 1916",
       "description": "Cette base donne la fréquence subjective et les valeurs d'imagerie pour 1916 mots.",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Megalex/FreqSub_Imag_1916.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/FreqSub_Imag_1916.md",
       "urls" : [
          {
-            "url": "http://www.lexique.org/databases/Desrochers_2000_FreqSub_Imag 1916/FreqSub_Imag_1916.tsv",
+            "url": "http://www.lexique.org/databases/Desrochers_2000_FreqSub_Imag_1916/FreqSub_Imag_1916.tsv",
             "bytes": 88999,
             "md5sum": "1feb3bb904def57652a28d9e6d4bde2f"
          }

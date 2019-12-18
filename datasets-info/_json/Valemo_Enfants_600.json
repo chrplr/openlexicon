@@ -4,7 +4,7 @@
       "name": "Valemo_Enfants_600",
       "description": "Valence émotionnelle collectées chez l'enfant pour 600 mots",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Syssau_2009_Valemo_Enfants_600/Valemo_Enfants_600.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Valemo_Enfants_600.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Syssau_2009_Valemo_Enfants_600/Valemo_Enfants_600.rds",

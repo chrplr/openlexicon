@@ -4,7 +4,7 @@
       "name": "Concr_Imag_FreqSub_Valemo_866",
       "description": "Concrétude, imageabilité, fréquence subjective et valence émotionnelle pour 866 mots.",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Bonin_2003_Concr_Imag_FreqSub_Valemo_866/Concr_Imag_FreqSub_Valemo_866.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Concr_Imag_FreqSub_Valemo_866.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Bonin_2003_Concr_Imag_FreqSub_Valemo_866/Concr_Imag_FreqSub_Valemo_866.rds",

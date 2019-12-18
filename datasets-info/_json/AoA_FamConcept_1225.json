@@ -4,7 +4,7 @@
       "name": "AoA_FamConcept_1225",
       "description": "Age d'acquisition et Familiarité conceptuelle pour 1225 mots.",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Lachaud_2007_AoA_FamConcept_1225/AoA_FamConcept_1225.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/AoA_FamConcept_1225.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Lachaud_2007_AoA_FamConcept_1225/AoA_FamConcept_1225.rds",

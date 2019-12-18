@@ -4,7 +4,7 @@
       "name": "FreqSub_Adulte_Senior_660",
       "description": "Fréquences subjectives pour des adultes et des adultes senior pour 660 mots",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Robert_2012_FreqSub_Adulte_Senior_660/FreqSub_Adulte_Senior_660.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/FreqSub_Adulte_Senior_660.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Robert_2012_FreqSub_Adulte_Senior_660/FreqSub_Adulte_Senior_660.rds",

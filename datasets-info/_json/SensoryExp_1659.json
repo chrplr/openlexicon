@@ -4,7 +4,7 @@
       "name": "SensoryExp_1659",
       "description": "Sensory experience ratings (SERs) for 1,659 French words",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Bonin_2014_SensoryExp_1659/SensoryExp_1659.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/SensoryExp_1659.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Bonin_2014_SensoryExp_1659/SensoryExp_1659.rds",

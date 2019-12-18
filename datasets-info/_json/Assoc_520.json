@@ -4,7 +4,7 @@
       "name": "Assoc_520",
       "description": "Normes d'associations verbales pour 520 mots concrets.",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Bonin_2013_Assoc_520/Assoc_520.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Assoc_520.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Bonin_2013_Assoc_520/Assoc_520.rds",

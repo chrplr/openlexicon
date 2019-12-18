@@ -4,7 +4,7 @@
       "name": "Assoc_366",
       "description": "Normes d'associations verbales pour 366 mots concrets.",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Ferrand_1998_Assoc_366/Assoc_366.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Assoc_366.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Ferrand_1998_Assoc_366/Assoc_366.rds",
