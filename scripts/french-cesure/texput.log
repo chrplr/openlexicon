@@ -1,0 +1,140 @@
+This is TeX, Version 3.14159 (Web2C 7.4.5) (format=latex 2005.6.27)  27 JUN 2005 17:21
+MLTeX v2.2 enabled
+**&pal
+
+*\language=0
+
+*\showhyphens{aller}
+
+Underfull \hbox (badness 10000) detected at line 0
+[] \OT1/cmr/m/n/10 aller
+
+\hbox(6.94444+0.0)x16383.99998, glue set 9805.10982 []
+
+
+*\language=1
+
+*\showhyphens{aller}
+
+Underfull \hbox (badness 10000) detected at line 0
+[] \OT1/cmr/m/n/10 aller
+
+\hbox(6.94444+0.0)x16383.99998, glue set 9805.10982 []
+
+
+*\documentclass{article}
+
+*\usepackage[latin1]{inputenc}
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+*\usepackage[T1]{fontenc}
+(/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2004/02/05 v1.0d Input encoding file
+
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2004/02/05 v1.0d Input encoding file
+))
+*\usepackage[frenchb]{babel}
+(/usr/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+
+(/usr/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+*\begin{document}
+(/usr/share/texmf/tex/generic/babel/babel.sty
+Package: babel 2004/06/12 v3.8c The Babel package
+
+(/usr/share/texmf/tex/generic/babel/babel.def
+File: babel.def 2004/06/12 v3.8c Babel common definitions
+
+(/usr/share/texmf/tex/generic/babel/switch.def
+File: switch.def 2004/06/12 v3.8c Babel language switching mechanism
+)
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+(/usr/share/texmf/tex/generic/babel/frenchb.ldf
+Language: french 2004/04/02 v1.6f French support from the babel system
+
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `French'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@french = a dialect from \language0
+Package babel Info: Making : an active character on input line 219.
+Package babel Info: Making ; an active character on input line 220.
+Package babel Info: Making ! an active character on input line 221.
+Package babel Info: Making ? an active character on input line 222.
+\parindentFFN=\dimen104
+\std@mcc=\count88
+\dec@mcc=\count89
+*************************************
+* Local config file frenchb.cfg used
+*
+(/usr/share/texmf/tex/generic/babel/frenchb.cfg)))
+No file texput.aux.
+\openout1 = `texput.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for IL2/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Info: Redefining \dots on input line 0.
+
+*
+(Please type a command or say `\end')
+*\lefthyphenmin=1
+
+*\righthyphenmin=1
+
+*x
+
+*X
+
+*X
+
+*X
+
+*\bye
+! Undefined control sequence.
+<*> \bye
+        
+? x
+ 
+Here is how much of TeX's memory you used:
+ 1035 strings out of 95688
+ 11305 string characters out of 1194152
+ 62893 words of memory out of 1000001
+ 4185 multiletter control sequences out of 10000+50000
+ 4403 words of font info for 15 fonts, out of 500000 for 1000
+ 24 hyphenation exceptions out of 1000
+ 20i,1n,24p,169b,74s stack positions out of 3000i,1500n,5000p,200000b,15000s
+No pages of output.
