@@ -22,7 +22,7 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
 
     require(readr)
 
-    lex <- read_delim("http://www.lexique.org/shiny/databases/Lexique382/Lexique382.tsv.gz", delim='\t')
+    lex <- read_delim("http://www.lexique.org/databases/Lexique382/Lexique382.tsv.gz", delim='\t')
     # lex <- read_delim('Lexique382.tsv.gz', delim='\t')  # if you have the file
 
     selection <- subset(lex, ortho %in% items)
@@ -48,7 +48,7 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
 
 ```
 
-Download [select.R](select.R). (If you have not already, to install [_R_](https://cran.r-project.org/) and [_Rstudio Desktop_](https://www.rstudio.com))
+Download [select-words-from-lexique.R](select-words-from-lexique.R). (If you have not already, to install [_R_](https://cran.r-project.org/) and [_Rstudio Desktop_](https://www.rstudio.com))
 
 Remark that this code reads `Lexique382.tsv` directly from the web. 
 If the server or the connection is too slow, you will get a message
@@ -68,11 +68,7 @@ This example shows how to select four random sets of twenty nouns and verbs of l
 
 import pandas as pd
 
-lex = pd.read_csv("../databases/Lexique382/Lexique382.tsv", sep='\t')
-
-# alternatively, you can download the table from the Internet:
-# lex = pandas.read_csv('http://www.lexique.org/shiny/databases/Lexique382/Lexique382.tsv', sep='\t')
-
+lex = pd.read_csv("http://www.lexique.org/databases/Lexique382/Lexique382.tsv", sep='\t')
 
 lex.head()
 
@@ -100,10 +96,17 @@ verbs_hi.sample(N).ortho.to_csv('verlo.txt', index=False)
 
 Download [select-words-from-lexique.py](select-words-from-lexique.py) 
 
+
 ## French syllabation ##
 
 [french-syllabation](french-syllabation/README.md) provides the scripts that were used to syllabify the phonological representations in Brulex and Lexique.
 
+
+## pseudoword creations 
+
+Several methods to generate pseudowords are implemented. Check the folder.
+
+For example: [pseudoword-generation-by-markov-on-trigrams]([pseudoword-generation-by-markov-on-trigrams/[pseudoword-generation-by-markov-on-trigrams.R)
 
 ----
 

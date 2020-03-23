@@ -27,14 +27,29 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
 
     require(readr)
 
-    lex <- read_delim("http://www.lexique.org/shiny/databases/Lexique382/Lexique382.tsv", delim='\t')
-    # lex <- read_delim('Lexique382.tsv', delim='\t')  # if you have the file
+    lex <- read_delim("http://www.lexique.org/shiny/databases/Lexique382/Lexique382.tsv.gz", delim='\t')
+    # lex <- read_delim('Lexique382.tsv.gz', delim='\t')  # if you have the file
 
     selection <- subset(lex, ortho %in% items)
 
     head(selection)
 
     write_tsv(selection, 'selection.tsv')
+
+    ### Using regular expressions
+   require(tidyverse)
+   require(stringr)
+
+   # liste les mots qui finissent par "ion"
+   lex$ortho %>% str_subset("ion$")
+
+   # liste les mots qui contiennent trois voyelles successives
+   lex$ortho %>% str_subset('[aeiouy][aeiouy][aeiouy]')
+
+   # trouve les mots qui contiennent des groupes de 3 lettres répétés
+   lex$ortho %>% str_subset("(...)\\1")
+
+   # see https://stringr.tidyverse.org/articles/regular-expressions.html
 ```
 
 Download [select.R](select.R). (If you have not already, to install

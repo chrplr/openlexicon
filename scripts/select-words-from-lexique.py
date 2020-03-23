@@ -1,13 +1,17 @@
 #! /usr/bin/env python
-# Time-stamp: <2019-03-30 15:51:27 christophe@pallier.org>
+# Time-stamp: <2020-02-07 10:38:09 christophe@pallier.org>
 
 """ Exemple de sélection d'items dans la base Lexique382 """
 
+import os
+import os.path as op
 import pandas as pd
 
-TABLE = "../databases/Lexique382/Lexique382.tsv"
 
-lex = pd.read_csv(TABLE, sep='\t')
+# location of Lexique383.tsv file (adapt to your case!)
+LEXIQUE = op.join(os.getenv('HOME'), 'openlexicon_datasets/Lexique383.tsv')
+
+lex = pd.read_csv(LEXIQUE, sep='\t')
 
 lex.head()
 

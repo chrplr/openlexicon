@@ -1,0 +1,100 @@
+\showhyphens{a capella}
+\showhyphens{a cappella}
+\showhyphens{a contrario}
+\showhyphens{a fortiori}
+\showhyphens{a fortiori}
+\showhyphens{a giorno}
+\showhyphens{a jeun}
+\showhyphens{a l'instar}
+\showhyphens{a posteriori}
+\showhyphens{a priori}
+\showhyphens{a priori}
+\showhyphens{a}
+\showhyphens{a}
+\showhyphens{a}
+\showhyphens{à bras-le}
+\showhyphens{à brûle-pourpoint}
+\showhyphens{à cloche-pied}
+\showhyphens{à cropetons}
+\showhyphens{à croupetons}
+\showhyphens{à fortiori}
+\showhyphens{à giorno}
+\showhyphens{à glagla}
+\showhyphens{à jeun}
+\showhyphens{à l'aveuglette}
+\showhyphens{à l'encan}
+\showhyphens{à l'encontre}
+\showhyphens{à l'envi}
+\showhyphens{à l'improviste}
+\showhyphens{à l'instar}
+\showhyphens{à la daumont}
+\showhyphens{à la saint-glinglin}
+\showhyphens{à leur encontre}
+\showhyphens{à lurelure}
+\showhyphens{à mon encontre}
+\showhyphens{à notre encontre}
+\showhyphens{à posteriori}
+\showhyphens{à priori}
+\showhyphens{à rebrousse-poil}
+\showhyphens{à son encontre}
+\showhyphens{à tâtons}
+\showhyphens{à tire-d}
+\showhyphens{à tire-larigot}
+\showhyphens{à ton encontre}
+\showhyphens{à touche-touche}
+\showhyphens{à tue-tête}
+\showhyphens{à vau-l}
+\showhyphens{à votre encontre}
+\showhyphens{à}
+\showhyphens{à-côté}
+\showhyphens{à-côtés}
+\showhyphens{à-coup}
+\showhyphens{à-coups}
+\showhyphens{à-dieu-vat}
+\showhyphens{à-peu-près}
+\showhyphens{à-pic}
+\showhyphens{à-pics}
+\showhyphens{à-plat}
+\showhyphens{à-plats}
+\showhyphens{à-propos}
+\showhyphens{à-valoir}
+\showhyphens{ab absurdo}
+\showhyphens{ab initio}
+\showhyphens{ab ovo}
+\showhyphens{abaissa}
+\showhyphens{abaissai}
+\showhyphens{abaissaient}
+\showhyphens{abaissait}
+\showhyphens{abaissant}
+\showhyphens{abaissant}
+\showhyphens{abaisse}
+\showhyphens{abaisse}
+\showhyphens{abaissé}
+\showhyphens{abaissé}
+\showhyphens{abaisse-langue}
+\showhyphens{abaissée}
+\showhyphens{abaissée}
+\showhyphens{abaissées}
+\showhyphens{abaissées}
+\showhyphens{abaissement}
+\showhyphens{abaissent}
+\showhyphens{abaisser}
+\showhyphens{abaissera}
+\showhyphens{abaisserai}
+\showhyphens{abaisseraient}
+\showhyphens{abaisserais}
+\showhyphens{abaisserait}
+\showhyphens{abaissèrent}
+\showhyphens{abaisserez}
+\showhyphens{abaisses}
+\showhyphens{abaissés}
+\showhyphens{abaissés}
+\showhyphens{abaissez}
+\showhyphens{abaissons}
+\showhyphens{abalone}
+\showhyphens{abalones}
+\showhyphens{abandon}
+\showhyphens{abandonna}
+\showhyphens{abandonnai}
+\showhyphens{abandonnaient}
+\showhyphens{abandonnais}
