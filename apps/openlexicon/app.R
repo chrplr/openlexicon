@@ -11,8 +11,8 @@ library(data.table)
 library(rlist)
 library(stringr)
 library(RCurl) # To test if string is url
-library(tippy)
-library(comprehenr)
+library(tippy) # Tooltip
+library(comprehenr) # Comprehension list
 
 #### Functions ####
 usePackage <- function(i){
@@ -42,10 +42,10 @@ get_mandatory_columns <- function(dataset_name, info) {
     return(info$mandatory_columns)
   }
   else {
-    return (colnames(dstable[[dataset_name]]))
+    return (colnames(dictionary_databases[[dataset_name]][["dstable"]]))
   }
 }
-# Essai
+
 #### Script begins ####
 
 # loads datasets
@@ -91,22 +91,15 @@ for (ds in dataset_ids)
 
 join_column = "Word"
 
-dsnames <- list()
-dsdesc <- list()
-dsreadme <- list()
-dstable <- list()
-dsweb <- list()
-dsmandcol <- list()
+dictionary_databases <- list()
 dslanguage <- list()
-colnames_dataset <- list()
-colnames_tooltips <- list()
 
 # We try to load the databases
 for (ds in names(datasets)) {
   tryCatch({
     json_url <- datasets[[ds]][1]
     rds_file <- datasets[[ds]][2]
-    dstable[[ds]] <- readRDS(get_dataset_from_json(json_url, rds_file))
+    dictionary_databases[[ds]][["dstable"]] <- readRDS(get_dataset_from_json(json_url, rds_file))
   },
   error = function(e) {
     message(paste("Couldn't load database ", ds, ". Check json and rds files.", sep = ""))
@@ -115,31 +108,23 @@ for (ds in names(datasets)) {
 }
 
 # Removes not loaded datasets from the list
-for (ds in names(datasets)) { if (is.null(dstable[[ds]])) { datasets[[ds]] <- NULL}}
+for (ds in names(datasets)) { if (is.null(dictionary_databases[[ds]][["dstable"]])) { datasets[[ds]] <- NULL}}
        
 for (ds in names(datasets)) {
   json_url <- datasets[[ds]][1]
   info = get_info_from_json(json_url)
-  dsnames[[ds]] <- ds
   dslanguage[[ds]]['name'] <- info$language
-  dsdesc[[ds]] <- info$description
-  dsreadme[[ds]] <- info$readme
-  dsweb[[ds]] <- info$website
-  dsmandcol[[ds]] <- get_mandatory_columns(ds, info)
-  colnames_tooltips[[ds]] <- info$column_names
-  colnames(dstable[[ds]])[1] <- join_column
-  colnames_dataset[[ds]] <- colnames(dstable[[ds]])
-  if (is.null(dsmandcol[[ds]])) {
-    dsmandcol[[ds]] <- colnames_dataset[[ds]]
+  dictionary_databases[[ds]][["dsdesc"]] <- info$description
+  dictionary_databases[[ds]][["dsreadme"]] <- info$readme
+  dictionary_databases[[ds]][["dsweb"]] <- info$website
+  dictionary_databases[[ds]][["dsmandcol"]] <- get_mandatory_columns(ds, info)
+  dictionary_databases[[ds]][["tooltips"]] <- info$column_names
+  colnames(dictionary_databases[[ds]][["dstable"]])[1] <- join_column
+  dictionary_databases[[ds]][["colnames_dataset"]] <- colnames(dictionary_databases[[ds]][["dstable"]])
+  if (is.null(dictionary_databases[[ds]][["dsmandcol"]])) {
+    dictionary_databases[[ds]][["dsmandcol"]] <- dictionary_databases[[ds]][["colnames_dataset"]]
   }
 }
-
-dataset_info <-
-  tags$div(class="alert-info",
-     #tags$h3(dsnames[[1]]),
-     tags$p(dsdesc[[1]]),
-     tags$p(tags$a(href=dsreadme[[1]], "More info"))
-  )
 
 helper_alert <-
     tags$div(class="alert alert-info",
@@ -159,31 +144,8 @@ helper_alert <-
              #tags$p(tags$a(href="https://chrplr.github.io/openlexicon/datasets-info/", "More information about the datatasets"))
              )
 
-# To call tooltips for column names
-
-headerCallback <- function(col_tooltips) {c(
-  "function(thead, data, start, end, display){",
-  sprintf("  var tooltips = [%s];", toString(paste0("'", col_tooltips, "'"))),
-  "if (typeof(v$selected_columns) != 'undefined'){",
-  " console.log(v$selected_columns)}",
-  "console.log(tooltips)",
-  "  for(var i = 1; i <= tooltips.length; i++){",
-  "    $('th:eq('+i+')',thead).attr('title', tooltips[i-1]);",
-  "  }",
-  "}"
-)}
-
-
 #### UI ####
 ui <- fluidPage(
-  tags$head(
-    tags$style(HTML("
-      .tippy-tooltip.tomato-theme {
-      background-color: tomato;
-      color: yellow;
-    }
-    "))
-  ),
     titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
     title = "Open Lexicon",
     sidebarLayout(
@@ -250,12 +212,12 @@ server <- function(input, output, session) {
       tooltips = list()
       for (i in 1:length(v$categories)) {
         info_tooltip = paste("<span style='font-size:14px;'>", "<div><p>",
-              str_replace_all(dsdesc[[v$categories[i]]],"'","&#39"), "<span>", sep = "")
-        if (!is.null(dsweb[[v$categories[i]]]) && RCurl::url.exists(dsweb[[v$categories[i]]])){
+              str_replace_all(dictionary_databases[[v$categories[i]]][["dsdesc"]],"'","&#39"), "<span>", sep = "")
+        if (!is.null(dictionary_databases[[v$categories[i]]][["dsweb"]]) && RCurl::url.exists(dictionary_databases[[v$categories[i]]][["dsweb"]])){
           info_tooltip = paste(info_tooltip, "</p><p><a href=",
           # dsreadme[[v$categories[i]]],
           #">More info</a></p><p><a href =",
-          dsweb[[v$categories[i]]],
+          dictionary_databases[[v$categories[i]]][["dsweb"]],
           " >Website</a></p></div>",sep = "")
         }
         tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), interactive = TRUE, tooltip = info_tooltip))
@@ -276,15 +238,15 @@ server <- function(input, output, session) {
     if (length(input$databases) > 0) {
       list_df <- list()
       for (i in 1:length(input$databases)){
-        dat <- dstable[[input$databases[i]]]
+        dat <- dictionary_databases[[input$databases[i]]][["dstable"]]
         for (j in 2:ncol(dat)) {
           if (length(input$databases) > 1){
-            colnames(dat)[j] <- paste(input$databases[i],"<br>", colnames_dataset[[input$databases[i]]][j], sep = "")
+            colnames(dat)[j] <- paste(input$databases[i],"<br>", dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j], sep = "")
           }
           else {
-            colnames(dat)[j] <- colnames_dataset[[input$databases[i]]][j]
+            colnames(dat)[j] <- dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j]
           }
-          if (colnames_dataset[[input$databases[i]]][j] %in% dsmandcol[[input$databases[i]]]){
+          if (dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j] %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
             selected_columns <- c(selected_columns, colnames(dat)[j])
           }
         }
@@ -320,11 +282,39 @@ server <- function(input, output, session) {
   
   # Displaying table
   retable <- eventReactive(input$show_vars, {datasetInput()[,str_replace_all(input$show_vars, "\n", "<br>"), drop=FALSE]})
-  output$table <- renderDT(retable(),
-                           server=TRUE, escape = FALSE, selection = 'none',
+  output$table <- renderDT({
+                  dat <- retable()
+                  
+                  col_tooltips <- c()
+                  for (i in 1:length(input$databases)){
+                    all_data <- dictionary_databases[[input$databases[i]]][["dstable"]]
+                    for (j in 2:ncol(all_data)) {
+                      if (typeof(dictionary_databases[[input$databases[i]]][["tooltips"]][[colnames(all_data)[j]]]) != "NULL"){
+                        col_tooltips <- c(col_tooltips, dictionary_databases[[input$databases[i]]][["tooltips"]][[colnames(all_data)[j]]])
+                      }
+                      else{
+                        col_tooltips <- c(col_tooltips, "")
+                      }
+                    }
+                  }
+                  print(col_tooltips)
+                
+                  headerCallback <- c(
+                    "function(thead, data, start, end, display){",
+                    sprintf("  var tooltips = [%s];", toString(paste0("'", col_tooltips, "'"))),
+                    "  for(var i = 1; i <= tooltips.length; i++){",
+                    "    $('th:eq('+i+')',thead).attr('title', tooltips[i-1]);",
+                    "  }",
+                    "}"
+                  )
+                  
+                  #https://laustep.github.io/stlahblog/posts/DTqTips.html
+                  #https://stackoverflow.com/questions/58082260/shorten-column-names-provide-tooltip-on-hover-of-full-name
+                  datatable(dat,
+                           escape = FALSE, selection = 'none',
                            filter=list(position = 'top', clear = FALSE),
                            rownames= FALSE,
-                           options=list(headerCallback = JS(headerCallback(to_list(for (x in v$selected_columns) x))),
+                           options=list(headerCallback = JS(headerCallback),
                                         pageLength=20,
                                         columnDefs = list(list(className = 'dt-center', targets = "_all")),
                                         sDom  = '<"top">lrt<"bottom">ip',
@@ -332,8 +322,8 @@ server <- function(input, output, session) {
                                         search=list(searching = TRUE,
                                                     regex=TRUE,
                                                     caseInsensitive = FALSE)
-                           )
-  )
+                           ))
+  }, server = TRUE)
   
   output$outdownload <- renderUI({
     if (length(input$databases) >= 1)

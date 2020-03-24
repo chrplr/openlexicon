@@ -21,6 +21,7 @@
     "column_names":
     {
         "phon": "phonème",
-        "lemme": "lemme"
+        "lemme": "lemme",
+        "puorth": "orthographe"
     }
 }
