@@ -118,9 +118,20 @@ for (ds in names(datasets)) {
   dictionary_databases[[ds]][["dsreadme"]] <- info$readme
   dictionary_databases[[ds]][["dsweb"]] <- info$website
   dictionary_databases[[ds]][["dsmandcol"]] <- get_mandatory_columns(ds, info)
-  dictionary_databases[[ds]][["tooltips"]] <- info$column_names
-  colnames(dictionary_databases[[ds]][["dstable"]])[1] <- join_column
   dictionary_databases[[ds]][["colnames_dataset"]] <- colnames(dictionary_databases[[ds]][["dstable"]])
+  colnames(dictionary_databases[[ds]][["dstable"]])[1] <- join_column
+  
+  # Column names description
+  dictionary_databases[[ds]][["tooltips"]] <- info$column_names
+  if (is.null(dictionary_databases[[ds]][["tooltips"]])){
+    dictionary_databases[[ds]][["tooltips"]] <- list()
+  }
+  for (j in 2:length(dictionary_databases[[ds]][["colnames_dataset"]])) {
+    if (typeof(dictionary_databases[[ds]][["tooltips"]][[dictionary_databases[[ds]][["colnames_dataset"]][j]]]) == "NULL"){
+      dictionary_databases[[ds]][["tooltips"]][[dictionary_databases[[ds]][["colnames_dataset"]][j]]] = ""
+    }
+  }
+  
   if (is.null(dictionary_databases[[ds]][["dsmandcol"]])) {
     dictionary_databases[[ds]][["dsmandcol"]] <- dictionary_databases[[ds]][["colnames_dataset"]]
   }
@@ -135,6 +146,7 @@ helper_alert <-
                       tags$li("Select columns to display for each dataset."),
                       tags$li("For each column in the table, you can:"),
                       tags$ul(
+                               tags$li("Hover the mouse over the column name to see a brief description (ongoing work)"),
                                tags$li("Filter using ", tags$b("intervals (e.g. 40...500) "), "or ", tags$a(class="alert-link", href="http://www.lexique.org/?page_id=101", "regular expressions", target="_blank"), ".", sep =""),
                                tags$li("sort, ascending or descending")
                            ),
@@ -177,7 +189,7 @@ server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
                       first_dataset_selected = 'Lexique383',
-                      selected_columns = c())
+                      selected_columns = list())
   
   # To select a language
   output$outlang <- renderUI({
@@ -234,7 +246,7 @@ server <- function(input, output, session) {
   
   # Changes table content according to the number of datasets
   datasetInput <- reactive({
-    selected_columns<- c()
+    selected_columns <- list()
     if (length(input$databases) > 0) {
       list_df <- list()
       for (i in 1:length(input$databases)){
@@ -247,7 +259,7 @@ server <- function(input, output, session) {
             colnames(dat)[j] <- dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j]
           }
           if (dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j] %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
-            selected_columns <- c(selected_columns, colnames(dat)[j])
+            selected_columns[[colnames(dat)[j]]] <- dictionary_databases[[input$databases[[i]]]][["tooltips"]][[dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j]]]
           }
         }
         list_df <- list.append(list_df,dat)
@@ -265,7 +277,7 @@ server <- function(input, output, session) {
         inputId = "show_vars", 
         label = "Choose columns to display", 
         choices = lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}), 
-        selected = c(join_column,lapply(v$selected_columns,function(n){str_replace(n, "<br>","\n")})),#lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}),
+        selected = c(join_column,lapply(names(v$selected_columns),function(n){str_replace(n, "<br>","\n")})),#lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}),
         options = list(
           `actions-box` = TRUE,
           size = 10,
@@ -284,21 +296,12 @@ server <- function(input, output, session) {
   retable <- eventReactive(input$show_vars, {datasetInput()[,str_replace_all(input$show_vars, "\n", "<br>"), drop=FALSE]})
   output$table <- renderDT({
                   dat <- retable()
-                  
-                  col_tooltips <- c()
-                  for (i in 1:length(input$databases)){
-                    all_data <- dictionary_databases[[input$databases[i]]][["dstable"]]
-                    for (j in 2:ncol(all_data)) {
-                      if (typeof(dictionary_databases[[input$databases[i]]][["tooltips"]][[colnames(all_data)[j]]]) != "NULL"){
-                        col_tooltips <- c(col_tooltips, dictionary_databases[[input$databases[i]]][["tooltips"]][[colnames(all_data)[j]]])
-                      }
-                      else{
-                        col_tooltips <- c(col_tooltips, "")
-                      }
-                    }
-                  }
-                  print(col_tooltips)
                 
+                  # Adding tooltips for column names
+                  col_tooltips <- c()
+                  for (elt in colnames(retable())){
+                    col_tooltips <- c(col_tooltips, v$selected_columns[[elt]])
+                  }
                   headerCallback <- c(
                     "function(thead, data, start, end, display){",
                     sprintf("  var tooltips = [%s];", toString(paste0("'", col_tooltips, "'"))),

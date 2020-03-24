@@ -20,8 +20,8 @@
     "tags": ["french", "frequencies"],
     "column_names":
     {
-        "phon": "phonème",
-        "lemme": "lemme",
-        "puorth": "orthographe"
+        "phon": "Phoneme",
+        "lemme": "Lemme",
+        "freqfilms2": "Frequency in movies"
     }
 }
