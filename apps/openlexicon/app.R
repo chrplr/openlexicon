@@ -12,6 +12,7 @@ library(rlist)
 library(stringr)
 library(RCurl) # To test if string is url
 library(tippy)
+library(comprehenr)
 
 #### Functions ####
 usePackage <- function(i){
@@ -48,8 +49,8 @@ get_mandatory_columns <- function(dataset_name, info) {
 #### Script begins ####
 
 # loads datasets
-source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
-#source('../../datasets-info/fetch_datasets.R')
+#source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+source('../../datasets-info/fetch_datasets.R')
 
 # Les datasets-id sont les noms des json
 # Pb avec anagrammes
@@ -72,8 +73,8 @@ ex_filenames_ds <- list('FrenchLexiconProject-words' = c('RT_FrenchLexiconProjec
                         'anagrammes' = c('anagrammes', 'Anagrammes')
                         )
 
-json_folder = 'http://www.lexique.org/databases/_json/'
-#json_folder = '../../../openlexicon/datasets-info/_json/'
+#json_folder = 'http://www.lexique.org/databases/_json/'
+json_folder = '../../../openlexicon/datasets-info/_json/'
 
 for (ds in dataset_ids)
 {
@@ -98,6 +99,7 @@ dsweb <- list()
 dsmandcol <- list()
 dslanguage <- list()
 colnames_dataset <- list()
+colnames_tooltips <- list()
 
 # We try to load the databases
 for (ds in names(datasets)) {
@@ -124,6 +126,7 @@ for (ds in names(datasets)) {
   dsreadme[[ds]] <- info$readme
   dsweb[[ds]] <- info$website
   dsmandcol[[ds]] <- get_mandatory_columns(ds, info)
+  colnames_tooltips[[ds]] <- info$column_names
   colnames(dstable[[ds]])[1] <- join_column
   colnames_dataset[[ds]] <- colnames(dstable[[ds]])
   if (is.null(dsmandcol[[ds]])) {
@@ -156,15 +159,29 @@ helper_alert <-
              #tags$p(tags$a(href="https://chrplr.github.io/openlexicon/datasets-info/", "More information about the datatasets"))
              )
 
+# To call tooltips for column names
+
+headerCallback <- function(col_tooltips) {c(
+  "function(thead, data, start, end, display){",
+  sprintf("  var tooltips = [%s];", toString(paste0("'", col_tooltips, "'"))),
+  "if (typeof(v$selected_columns) != 'undefined'){",
+  " console.log(v$selected_columns)}",
+  "console.log(tooltips)",
+  "  for(var i = 1; i <= tooltips.length; i++){",
+  "    $('th:eq('+i+')',thead).attr('title', tooltips[i-1]);",
+  "  }",
+  "}"
+)}
+
 
 #### UI ####
 ui <- fluidPage(
   tags$head(
     tags$style(HTML("
       .tippy-tooltip.tomato-theme {
-  background-color: tomato;
-  color: yellow;
-}
+      background-color: tomato;
+      color: yellow;
+    }
     "))
   ),
     titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
@@ -307,7 +324,8 @@ server <- function(input, output, session) {
                            server=TRUE, escape = FALSE, selection = 'none',
                            filter=list(position = 'top', clear = FALSE),
                            rownames= FALSE,
-                           options=list(pageLength=20,
+                           options=list(headerCallback = JS(headerCallback(to_list(for (x in v$selected_columns) x))),
+                                        pageLength=20,
                                         columnDefs = list(list(className = 'dt-center', targets = "_all")),
                                         sDom  = '<"top">lrt<"bottom">ip',
                                         lengthMenu = c(20,100, 500, 1000),
