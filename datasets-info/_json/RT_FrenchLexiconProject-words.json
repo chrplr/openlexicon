@@ -2,7 +2,7 @@
     "_comment": "# Time-stamp: <2019-04-30 17:48:41 christophe@pallier.org>",
     "name": "FrenchLexiconProject-words",
     "description": "The French Lexicon Project (FLP) provides lexical decision data for 38,840 French words and the same number of nonwords. The full data represents 1942000 reactions times from 975 participants.",
-    "website": "http://megalex.lexique.org",
+    "website": "https://sites.google.com/site/frenchlexicon/",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/FrenchLexiconProject/README-FrenchLexiconProject.html",
     "urls": [{
             "url": "http://www.lexique.org/databases/FrenchLexiconProject/FLP.words.csv",

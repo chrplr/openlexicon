@@ -10,6 +10,8 @@ library(plyr)
 library(data.table)
 library(rlist)
 library(stringr)
+library(RCurl) # To test if string is url
+library(tippy)
 
 #### Functions ####
 usePackage <- function(i){
@@ -42,23 +44,33 @@ get_mandatory_columns <- function(dataset_name, info) {
     return (colnames(dstable[[dataset_name]]))
   }
 }
-
+# Essai
 #### Script begins ####
 
 # loads datasets
 source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
 #source('../../datasets-info/fetch_datasets.R')
 
-dataset_ids <- c('Lexique383', 'FrenchLexiconProject-words', 'WorldLex-French','Megalex-visual', 'Megalex-auditory',
-                 'SUBTLEX-US','WorldLex-English', 'Voisins','anagrammes','Aoa32lang')
+# Les datasets-id sont les noms des json
+# Pb avec anagrammes
+dataset_ids <- c('Lexique383','AoA_FreqSub_1493','AoA_FamConcept_1225','Assoc_520','Assoc_366','Concr_ContextAv_ValEmo_Arous_1659','Concr_Imag_FreqSub_Valemo_866',
+                  'FrenchLexiconProject-words','FreqSub_Adulte_Senior_660','FreqSub_Imag_1916','FreqSub_Imag_3600','Img_AoA_..._400','Imag_1493','Manulex-Ortho','Manulex-Lemmes',
+                  'Megalex-visual','Megalex-auditory','SUBTLEX-US','Aoa32lang',
+                  'RT_LD_NMG_FLP_Mono_1482','SensoryExp_1659','SensoryExp_1659',
+                  'ValEmo_Arous_Imag_835','ValEmo_Arous_1286',
+                  'Valemo_Enfants_600','Valemo_Adultes_604', 'Voisins','WorldLex-English','FreqTwitter-WorldLex-French')
                  
 datasets <- list()
-ex_filenames_ds <- list('FrenchLexiconProject-words' = c('FrenchLexiconProject-words', 'flp-words'),
-                        'WorldLex-French' = c('WorldLex-French','WorldLex_FR'),
+# ex_filenames_ds dictionnaire associe dataset_ids et le nom du json puis du rds
+ex_filenames_ds <- list('FrenchLexiconProject-words' = c('RT_FrenchLexiconProject-words', 'flp-words'),
+                        'FreqTwitter-WorldLex-French' = c('WorldLex-French','WorldLex_FR'),
                         'WorldLex-English' = c('WorldLex-English', 'WorldLex_EN'),
+                        'Manulex-Ortho' = c('Manulex', 'Manulex-Ortho'),
+                        'Manulex-Lemmes' = c('Manulex', 'Manulex-Lemmes'),
                         'Aoa32lang' = c('AoA-32lang', 'AoA32lang'),
                         'SUBTLEX-US' = c('SUBTLEX-US', 'SUBTLEXus'),
-                        'anagrammes' = c('anagrammes', 'Anagrammes'))
+                        'anagrammes' = c('anagrammes', 'Anagrammes')
+                        )
 
 json_folder = 'http://www.lexique.org/databases/_json/'
 #json_folder = '../../../openlexicon/datasets-info/_json/'
@@ -131,11 +143,11 @@ helper_alert <-
              tags$p("Quick how-to:"),
              tags$ul(
                       tags$li("Choose a language to see the available datasets in this language below."),
-                      tags$li("Select desired datasets. If you want more informations about a specific dataset, you can click on its tooltip."),
+                      tags$li("Select desired datasets. If you want more informations about a specific dataset, you can hover over its tooltip."),
                       tags$li("Select columns to display for each dataset."),
                       tags$li("For each column in the table, you can:"),
                       tags$ul(
-                               tags$li("Filter using intervals (e.g. 40...500) or ", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes", target="_blank"), ".", sep =""),
+                               tags$li("Filter using ", tags$b("intervals (e.g. 40...500) "), "or ", tags$a(class="alert-link", href="http://www.lexique.org/?page_id=101", "regular expressions", target="_blank"), ".", sep =""),
                                tags$li("sort, ascending or descending")
                            ),
                       tags$li("Download the result of your manipulations by clicking on the button below the table")
@@ -147,17 +159,22 @@ helper_alert <-
 
 #### UI ####
 ui <- fluidPage(
-    titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "OpenLexicon")),
-
+  tags$head(
+    tags$style(HTML("
+      .tippy-tooltip.tomato-theme {
+  background-color: tomato;
+  color: yellow;
+}
+    "))
+  ),
+    titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
+    title = "Open Lexicon",
     sidebarLayout(
         sidebarPanel(
                         helper_alert,
-                        br(),
                         uiOutput("outlang"),
-                        br(),
-                        uiOutput("outdatabases"),
-                        br(),
                         uiOutput("outshow_vars"),
+                        uiOutput("outdatabases"),
                         br(),
            width=4
         ),
@@ -215,16 +232,16 @@ server <- function(input, output, session) {
     if (v$language_selected != "\n") {
       tooltips = list()
       for (i in 1:length(v$categories)) {
-        tooltips <- list.append(tooltips, popify(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), trigger = "click",
-                                                 title = "",
-                                                 content= paste("<div><p>",
-                                                                str_replace_all(dsdesc[[v$categories[i]]],"'","&#39"),
-                                                                "</p><p><a href=",
-                                                                dsreadme[[v$categories[i]]],
-                                                                ">More info</a></p><p><a href =",
-                                                                dsweb[[v$categories[i]]],
-                                                                ">Website</a></p></div>",sep = "")
-                                                 ))
+        info_tooltip = paste("<span style='font-size:14px;'>", "<div><p>",
+              str_replace_all(dsdesc[[v$categories[i]]],"'","&#39"), "<span>", sep = "")
+        if (!is.null(dsweb[[v$categories[i]]]) && RCurl::url.exists(dsweb[[v$categories[i]]])){
+          info_tooltip = paste(info_tooltip, "</p><p><a href=",
+          # dsreadme[[v$categories[i]]],
+          #">More info</a></p><p><a href =",
+          dsweb[[v$categories[i]]],
+          " >Website</a></p></div>",sep = "")
+        }
+        tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), interactive = TRUE, tooltip = info_tooltip))
       }
       extendedCheckboxGroup("databases", label = "Choose datasets", choiceNames  = v$categories, choiceValues = v$categories, selected = v$first_dataset_selected, 
                             extensions = tooltips
@@ -290,10 +307,10 @@ server <- function(input, output, session) {
                            server=TRUE, escape = FALSE, selection = 'none',
                            filter=list(position = 'top', clear = FALSE),
                            rownames= FALSE,
-                           options=list(pageLength=10,
+                           options=list(pageLength=20,
                                         columnDefs = list(list(className = 'dt-center', targets = "_all")),
                                         sDom  = '<"top">lrt<"bottom">ip',
-                                        lengthMenu = c(10, 25, 100, 500, 1000),
+                                        lengthMenu = c(20,100, 500, 1000),
                                         search=list(searching = TRUE,
                                                     regex=TRUE,
                                                     caseInsensitive = FALSE)
