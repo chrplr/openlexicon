@@ -305,9 +305,9 @@ server <- function(input, output, session) {
                   }
                   headerCallback <- c(
                     "function(thead, data, start, end, display){",
-                    sprintf("  var tooltips = [%s];", toString(paste0("'", col_tooltips, "'"))),
+                    sprintf("  var tooltips = [%s];", toString(paste0("\"", col_tooltips, "\""))),
                     "  for(var i = 1; i <= tooltips.length; i++){",
-                    "    $('th:eq('+i+')',thead).attr('title', tooltips[i-1]);",
+                    "    $('th:eq('+i+')',thead).attr('title', tooltips[i-1].replace(`'`,`\'`));",
                     "  }",
                     "}"
                   )
