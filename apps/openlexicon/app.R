@@ -118,22 +118,22 @@ for (ds in names(datasets)) {
   dictionary_databases[[ds]][["dsreadme"]] <- info$readme
   dictionary_databases[[ds]][["dsweb"]] <- info$website
   dictionary_databases[[ds]][["dsmandcol"]] <- get_mandatory_columns(ds, info)
-  dictionary_databases[[ds]][["colnames_dataset"]] <- colnames(dictionary_databases[[ds]][["dstable"]])
+  dictionary_databases[[ds]][["colnames_dataset"]] <- list()
   colnames(dictionary_databases[[ds]][["dstable"]])[1] <- join_column
   
   # Column names description
-  dictionary_databases[[ds]][["tooltips"]] <- info$column_names
-  if (is.null(dictionary_databases[[ds]][["tooltips"]])){
-    dictionary_databases[[ds]][["tooltips"]] <- list()
-  }
-  for (j in 2:length(dictionary_databases[[ds]][["colnames_dataset"]])) {
-    if (typeof(dictionary_databases[[ds]][["tooltips"]][[dictionary_databases[[ds]][["colnames_dataset"]][j]]]) == "NULL"){
-      dictionary_databases[[ds]][["tooltips"]][[dictionary_databases[[ds]][["colnames_dataset"]][j]]] = ""
+  for (j in 2:length(colnames(dictionary_databases[[ds]][["dstable"]]))) {
+    current_colname = colnames(dictionary_databases[[ds]][["dstable"]])[j]
+    if (typeof(info$column_names[[current_colname]]) == "NULL"){
+      dictionary_databases[[ds]][["colnames_dataset"]][[current_colname]] = ""
+    }
+    else{
+      dictionary_databases[[ds]][["colnames_dataset"]][[current_colname]] = info$column_names[[current_colname]]
     }
   }
   
   if (is.null(dictionary_databases[[ds]][["dsmandcol"]])) {
-    dictionary_databases[[ds]][["dsmandcol"]] <- dictionary_databases[[ds]][["colnames_dataset"]]
+    dictionary_databases[[ds]][["dsmandcol"]] <- names(dictionary_databases[[ds]][["colnames_dataset"]])
   }
 }
 
@@ -252,14 +252,15 @@ server <- function(input, output, session) {
       for (i in 1:length(input$databases)){
         dat <- dictionary_databases[[input$databases[i]]][["dstable"]]
         for (j in 2:ncol(dat)) {
+          original_name = colnames(dat)[j]
           if (length(input$databases) > 1){
-            colnames(dat)[j] <- paste(input$databases[i],"<br>", dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j], sep = "")
+            colnames(dat)[j] <- paste(input$databases[i],"<br>", original_name, sep = "")
           }
           else {
-            colnames(dat)[j] <- dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j]
+            colnames(dat)[j] <- original_name
           }
-          if (dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j] %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
-            selected_columns[[colnames(dat)[j]]] <- dictionary_databases[[input$databases[[i]]]][["tooltips"]][[dictionary_databases[[input$databases[i]]][["colnames_dataset"]][j]]]
+          if (original_name %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
+            selected_columns[[colnames(dat)[j]]] <- dictionary_databases[[input$databases[[i]]]][["colnames_dataset"]][[original_name]]
           }
         }
         list_df <- list.append(list_df,dat)
