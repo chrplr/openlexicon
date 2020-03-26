@@ -2,20 +2,6 @@
 # Time-stamp: <2019-06-04 21:51:05 christophe@pallier.org>
 # Afficher info deuxième database en haut
 
-library(shiny)
-library(shinyBS)
-library(shinyjs)
-library(DT)
-library(writexl)
-library(plyr)
-library(data.table)
-library(rlist)
-library(stringr)
-library(RCurl) # To test if string is url
-library(tippy) # Tooltip
-library(comprehenr) # Comprehension list
-library(shinyTree)
-
 #### Functions ####
 usePackage <- function(i){
   if(! i %in% installed.packages()){
@@ -23,7 +9,32 @@ usePackage <- function(i){
   }
   require(i, character.only = TRUE)
 }
+
+usePackageGit <- function(i, github_repo){
+  if(! i %in% installed.packages()){
+    library(devtools)
+    install_github(github_repo)
+  }
+  require(i, character.only = TRUE)
+}
+
+# Load packages
+
+usePackage("shiny")
+usePackage("shinyBS")
+usePackage("shinyjs")
+usePackage("DT")
+usePackage("stringr")
 usePackage("shinyWidgets")
+usePackage("writexl")
+usePackage("plyr")
+usePackage("data.table")
+usePackage("rlist")
+usePackage("RCurl") #To test if string is url
+usePackage("comprehenr") # Comprehension list
+usePackage("rjson")
+usePackageGit("tippy", "JohnCoene/tippy")
+usePackageGit("shinyTree", "shinyTree/shinyTree")
 
 extendedCheckboxGroup <- function(..., extensions = list()) {
   cbg <- checkboxGroupInput(...)
@@ -48,6 +59,7 @@ get_mandatory_columns <- function(dataset_name, info) {
   }
 }
 
+# Dropdown area : https://stackoverflow.com/questions/34530142/drop-down-checkbox-input-in-shiny
 dropdownButton2 <- function(label = "", status = c("default", "primary", "success", "info", "warning", "danger"), ..., width = NULL) {
   
   status <- match.arg(status)
@@ -56,11 +68,13 @@ dropdownButton2 <- function(label = "", status = c("default", "primary", "succes
     class = "dropdown-menu",
     style = if (!is.null(width)) 
       paste0("width: ", validateCssUnit(width), ";"),
-    lapply(X = list(...), FUN = tags$li, style = "margin-left: 10px; margin-right: 10px;")
+    lapply(X = list(...), FUN = tags$li, style = "margin-top: -10px; margin-left: 0px; margin-right: 0px;")
   )
   # dropdown button apparence
   html_button <- list(
     class = paste0("btn btn-", status," dropdown-toggle"),
+    style = if (!is.null(width)) 
+      paste0("width: ", validateCssUnit(width), ";"),
     type = "button", 
     `data-toggle` = "dropdown"
   )
@@ -198,12 +212,18 @@ helper_alert <-
 
 #### UI ####
 ui <- fluidPage(
+  tags$head(tags$style(HTML('
+  #tree-search-input{
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+    }'))),
     useShinyjs(),
     titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
     title = "Open Lexicon",
     sidebarLayout(
         sidebarPanel(
                         helper_alert,
+                        h5(strong("Choose columns to display")),
                         uiOutput("shinyTreeTest"),
                         br(),
                         uiOutput("outbtnlistsearch"),
@@ -249,14 +269,16 @@ server <- function(input, output, session) {
   
   output$shinyTreeTest <- renderUI({ 
     dropdownButton2(
-      shinyTree("tree", checkbox = TRUE, search = TRUE, themeIcons = FALSE, themeDots = FALSE),width ="100%", label = "Choose columns", status = "default"
+      textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
+      shinyTree("tree", checkbox = TRUE, search = "tree-search-input", themeIcons = FALSE, themeDots = FALSE, theme = "proton"),
+      width ="100%", label = "Nothing selected", status = "default"
     )
   })
   
   output$tree <- renderTree({ 
     list(  'I lorem impsum'= list( 
-      'I.1 lorem impsum'   =  structure(list('I.1.1 lorem impsum'='1', 'I.1.2 lorem impsum'='2'),stselected=TRUE),  
-      'I.2 lorem impsum'   =  structure(list('I.2.1 lorem impsum'='3'), stselected=TRUE)))
+      'I.1 lorem impsum'   =  structure(list('I.1.1 lorem impsum'='1', 'I.1.2 lorem impsum'='2'),stselected=FALSE),  
+      'I.2 lorem impsum'   =  structure(list('I.2.1 lorem impsum'='3'), stselected=FALSE)))
     
   })
   
