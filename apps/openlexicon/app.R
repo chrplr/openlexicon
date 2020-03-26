@@ -4,6 +4,7 @@
 
 library(shiny)
 library(shinyBS)
+library(shinyjs)
 library(DT)
 library(writexl)
 library(plyr)
@@ -13,6 +14,7 @@ library(stringr)
 library(RCurl) # To test if string is url
 library(tippy) # Tooltip
 library(comprehenr) # Comprehension list
+library(shinyTree)
 
 #### Functions ####
 usePackage <- function(i){
@@ -44,6 +46,36 @@ get_mandatory_columns <- function(dataset_name, info) {
   else {
     return (colnames(dictionary_databases[[dataset_name]][["dstable"]]))
   }
+}
+
+dropdownButton2 <- function(label = "", status = c("default", "primary", "success", "info", "warning", "danger"), ..., width = NULL) {
+  
+  status <- match.arg(status)
+  # dropdown button content
+  html_ul <- list(
+    class = "dropdown-menu",
+    style = if (!is.null(width)) 
+      paste0("width: ", validateCssUnit(width), ";"),
+    lapply(X = list(...), FUN = tags$li, style = "margin-left: 10px; margin-right: 10px;")
+  )
+  # dropdown button apparence
+  html_button <- list(
+    class = paste0("btn btn-", status," dropdown-toggle"),
+    type = "button", 
+    `data-toggle` = "dropdown"
+  )
+  html_button <- c(html_button, list(label))
+  html_button <- c(html_button, list(tags$span(class = "caret")))
+  # final result
+  tags$div(
+    class = "dropdown",
+    do.call(tags$button, html_button),
+    do.call(tags$ul, html_ul),
+    tags$script(
+      "$('.dropdown-menu').click(function(e) {
+      e.stopPropagation();
+});")
+  )
 }
 
 #### Script begins ####
@@ -90,6 +122,13 @@ for (ds in dataset_ids)
 }
 
 join_column = "Word"
+btn_show_name = "Show List Search"
+btn_hide_name = "Hide List Search"
+prefix_multiple = ""
+#prefix_multiple = "<span style='font-size:12px; color:grey;'>"
+suffix_multiple = "</span><br>"
+prefix_single = ""
+suffix_single = "<br>"
 
 dictionary_databases <- list()
 dslanguage <- list()
@@ -150,6 +189,7 @@ helper_alert <-
                                tags$li("Filter using ", tags$b("intervals (e.g. 40...500) "), "or ", tags$a(class="alert-link", href="http://www.lexique.org/?page_id=101", "regular expressions", target="_blank"), ".", sep =""),
                                tags$li("sort, ascending or descending")
                            ),
+                      tags$li(paste("Click on the button \"", btn_show_name, "\" to enter words that you want to search in the table.", sep = "")),
                       tags$li("Download the result of your manipulations by clicking on the button below the table")
                   )
              #tags$hr(),
@@ -158,11 +198,20 @@ helper_alert <-
 
 #### UI ####
 ui <- fluidPage(
+    useShinyjs(),
     titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
     title = "Open Lexicon",
     sidebarLayout(
         sidebarPanel(
                         helper_alert,
+                        uiOutput("shinyTreeTest"),
+                        br(),
+                        uiOutput("outbtnlistsearch"),
+                        br(),
+                        hidden(textAreaInput("mots",
+                                             label = h5(strong("Words to search")),
+                                             rows = 10,
+                                             resize = "none")),
                         uiOutput("outlang"),
                         uiOutput("outshow_vars"),
                         uiOutput("outdatabases"),
@@ -189,7 +238,41 @@ server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
                       first_dataset_selected = 'Lexique383',
-                      selected_columns = list())
+                      selected_columns = list(),
+                      button_listsearch = btn_show_name,
+                      prefix_col = prefix_single,
+                      suffix_col = suffix_single)
+  
+  output$outbtnlistsearch <- renderUI({
+    actionButton("btn", v$button_listsearch)
+  })
+  
+  output$shinyTreeTest <- renderUI({ 
+    dropdownButton2(
+      shinyTree("tree", checkbox = TRUE, search = TRUE, themeIcons = FALSE, themeDots = FALSE),width ="100%", label = "Choose columns", status = "default"
+    )
+  })
+  
+  output$tree <- renderTree({ 
+    list(  'I lorem impsum'= list( 
+      'I.1 lorem impsum'   =  structure(list('I.1.1 lorem impsum'='1', 'I.1.2 lorem impsum'='2'),stselected=TRUE),  
+      'I.2 lorem impsum'   =  structure(list('I.2.1 lorem impsum'='3'), stselected=TRUE)))
+    
+  })
+  
+  # Toggle list search
+  observeEvent(input$btn, {
+    # Change the following line for more examples
+    toggle("mots", anim = TRUE, animType = "slide")
+    if (v$button_listsearch == btn_show_name){
+      v$button_listsearch = btn_hide_name
+    }else{
+      v$button_listsearch = btn_show_name
+    }
+  })
+  
+  # Transform list search input
+  mots2 <- reactive( { strsplit(input$mots,"[ \n\t]")[[1]] } )
   
   # To select a language
   output$outlang <- renderUI({
@@ -249,12 +332,19 @@ server <- function(input, output, session) {
     selected_columns <- list()
     if (length(input$databases) > 0) {
       list_df <- list()
+      if (length(input$databases) == 1){
+        v$prefix_col = prefix_single
+        v$suffix_col = suffix_single
+      }else{
+        v$prefix_col = prefix_multiple
+        v$suffix_col = suffix_multiple
+      }
       for (i in 1:length(input$databases)){
         dat <- dictionary_databases[[input$databases[i]]][["dstable"]]
         for (j in 2:ncol(dat)) {
           original_name = colnames(dat)[j]
           if (length(input$databases) > 1){
-            colnames(dat)[j] <- paste(input$databases[i],"<br>", original_name, sep = "")
+            colnames(dat)[j] <- paste0(v$prefix_col, input$databases[i],v$suffix_col, original_name)
           }
           else {
             colnames(dat)[j] <- original_name
@@ -277,8 +367,14 @@ server <- function(input, output, session) {
       pickerInput(
         inputId = "show_vars", 
         label = "Choose columns to display", 
-        choices = lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}), 
-        selected = c(join_column,lapply(names(v$selected_columns),function(n){str_replace(n, "<br>","\n")})),#lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}),
+        choices = lapply(names(datasetInput()),
+                         function(n){str_replace(gsub(v$prefix_col, "", n),
+                                                 v$suffix_col,
+                                                 "\n")}), 
+        selected = c(join_column,lapply(names(v$selected_columns),
+                                        function(n){str_replace(gsub(v$prefix_col, "", n),
+                                                                v$suffix_col,
+                                                                "\n")})),
         options = list(
           `actions-box` = TRUE,
           size = 10,
@@ -291,13 +387,15 @@ server <- function(input, output, session) {
       checkboxGroupInput("show_vars",
                          label = "")
     }
-  })
+    })
   
   # Displaying table
-  retable <- eventReactive(input$show_vars, {datasetInput()[,str_replace_all(input$show_vars, "\n", "<br>"), drop=FALSE]})
+  retable <- eventReactive(input$show_vars, {datasetInput()[,str_replace_all(paste0(v$prefix_col, input$show_vars),"\n", v$suffix_col),
+                                                            drop=FALSE]})
+  
   output$table <- renderDT({
                   dat <- retable()
-                
+                  
                   # Adding tooltips for column names
                   col_tooltips <- c()
                   for (elt in colnames(retable())){
@@ -342,8 +440,8 @@ server <- function(input, output, session) {
     },
     content = function(fname){
       # write.csv(datasetInput(), fname)
-      dt = datasetInput()[input[["table_rows_all"]],str_replace_all(input$show_vars, "\n", "<br>")]
-      names(dt) = lapply(names(dt),function(n){str_replace(n, "<br>","\n")})
+      dt = datasetInput()[input[["table_rows_all"]],str_replace_all(paste0(v$prefix_col, input$show_vars), "\n", v$suffix_col)]
+      names(dt) = lapply(names(dt),function(n){str_replace(gsub(v$prefix_col, "", n), v$psuffix_col,"\n")})
       write_xlsx(dt, fname)
     })
   #url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
