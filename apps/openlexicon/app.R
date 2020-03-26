@@ -139,7 +139,7 @@ join_column = "Word"
 btn_show_name = "Show List Search"
 btn_hide_name = "Hide List Search"
 prefix_multiple = ""
-#prefix_multiple = "<span style='font-size:12px; color:grey;'>"
+prefix_multiple = "<span style='font-size:12px; color:grey;'>"
 suffix_multiple = "</span><br>"
 prefix_single = ""
 suffix_single = "<br>"
@@ -273,6 +273,32 @@ server <- function(input, output, session) {
   
   output$consigne <- renderUI({h5(strong("Choose columns to display"))})
   
+  output$shinyTreeTest <- renderUI({ 
+    dropdownButton2(
+      textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
+      shinyTree("tree", checkbox = TRUE, search = "tree-search-input", themeIcons = FALSE, themeDots = FALSE, theme = "proton"),
+      width ="100%", label = v$labeldropdown, status = "default"
+    )
+  })
+  
+  output$tree <- renderTree({
+    finaltree <- list()
+    starting = 1
+    for (database in names(v$selected_columns)){
+      finaltree[[database]] <- list()
+      for (col in names(dictionary_databases[[database]][["colnames_dataset"]])){
+        finaltree[[database]][[col]] = toString(starting)
+        starting = starting + 1
+        if (col %in% names(v$selected_columns[[database]])){
+          attr(finaltree[[database]][[col]],"stselected")=TRUE # <---
+        }
+      }
+    }
+    #attr(finaltree[['I.1 lorem impsum']],"stopened")=TRUE # Open the database
+    finaltree
+    
+  })
+  
   # Toggle list search
   observeEvent(input$btn, {
     # Change the following line for more examples
@@ -343,7 +369,6 @@ server <- function(input, output, session) {
   
   # Changes table content according to the number of datasets
   datasetInput <- reactive({
-    print('test')
     selected_columns <- list()
     col_tooltips <- list()
     if (length(input$databases) > 0) {
@@ -375,7 +400,6 @@ server <- function(input, output, session) {
         list_df <- list.append(list_df,dat)
       }
       v$selected_columns <- selected_columns
-      print(v$selected_columns)
       v$col_tooltips <- col_tooltips
       Reduce(function(x,y) merge(x,y, by=join_column), list_df)
     }
@@ -385,12 +409,15 @@ server <- function(input, output, session) {
   ########## A enlever ###########
   # Column filter
   output$outshow_vars <- renderUI({
+    datasetInput()
+    choices = to_vec(for (x in names(v$selected_columns)) for (y in names(dictionary_databases[[x]][["colnames_dataset"]])) y)
+    selected = c(join_column, to_vec(for (x in names(v$selected_columns)) for (y in names(v$selected_columns[[x]])) y))
     if (length(input$databases) >= 1) {
       pickerInput(
         inputId = "show_vars", 
         label = "Choose columns to display", 
-        choices = to_list(for (x in names(v$selected_columns)) for (y in names(dictionary_databases[[x]][["colnames_dataset"]])) y),
-        selected = to_list(for (x in names(v$selected_columns)) for (y in names(v$selected_columns[[x]])) y),
+        choices = choices,
+        selected = selected,
         #choices = lapply(names(datasetInput()),
         #                 function(n){str_replace(gsub(v$prefix_col, "", n),
         #                                         v$suffix_col,
@@ -414,7 +441,7 @@ server <- function(input, output, session) {
     })
   
   # Displaying table
-  retable <- eventReactive(input$show_vars, {datasetInput()[,to_list(for (x in (input$show_vars)) v$selected_columns[1][[x]]),
+  retable <- eventReactive(input$show_vars, {datasetInput()[,c(join_column, to_vec(for (x in (input$show_vars[1:length(input$show_vars)])) v$selected_columns[['Lexique383']][[x]])),
                                                             drop=FALSE]})
   
   output$table <- renderDT({
@@ -465,7 +492,7 @@ server <- function(input, output, session) {
     content = function(fname){
       # write.csv(datasetInput(), fname)
       dt = datasetInput()[input[["table_rows_all"]],
-                          to_list(for (x in (names(v$selected_columns))) for (y in (dictionary_databases[[x]][['colnames_dataset']])) y)]
+                          c(join_column, to_vec(for (x in (names(v$selected_columns))) for (y in (dictionary_databases[[x]][['colnames_dataset']])) y))]
       #names(dt) = lapply(names(dt),function(n){str_replace(gsub(v$prefix_col, "", n), v$psuffix_col,"\n")})
       write_xlsx(dt, fname)
     })
