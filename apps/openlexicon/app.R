@@ -223,7 +223,7 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
                         helper_alert,
-                        h5(strong("Choose columns to display")),
+                        uiOutput("consigne"),
                         uiOutput("shinyTreeTest"),
                         br(),
                         uiOutput("outbtnlistsearch"),
@@ -259,28 +259,19 @@ server <- function(input, output, session) {
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
                       first_dataset_selected = 'Lexique383',
                       selected_columns = list(),
+                      col_tooltips = list(),
                       button_listsearch = btn_show_name,
                       prefix_col = prefix_single,
-                      suffix_col = suffix_single)
+                      suffix_col = suffix_single,
+                      labeldropdown = "Nothing selected")
   
   output$outbtnlistsearch <- renderUI({
     actionButton("btn", v$button_listsearch)
   })
   
-  output$shinyTreeTest <- renderUI({ 
-    dropdownButton2(
-      textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
-      shinyTree("tree", checkbox = TRUE, search = "tree-search-input", themeIcons = FALSE, themeDots = FALSE, theme = "proton"),
-      width ="100%", label = "Nothing selected", status = "default"
-    )
-  })
+  # Render column filter
   
-  output$tree <- renderTree({ 
-    list(  'I lorem impsum'= list( 
-      'I.1 lorem impsum'   =  structure(list('I.1.1 lorem impsum'='1', 'I.1.2 lorem impsum'='2'),stselected=FALSE),  
-      'I.2 lorem impsum'   =  structure(list('I.2.1 lorem impsum'='3'), stselected=FALSE)))
-    
-  })
+  output$consigne <- renderUI({h5(strong("Choose columns to display"))})
   
   # Toggle list search
   observeEvent(input$btn, {
@@ -324,6 +315,7 @@ server <- function(input, output, session) {
     }
   })
   
+  # Show databases filter
   output$outdatabases <- renderUI({
     if (v$language_selected != "\n") {
       tooltips = list()
@@ -351,7 +343,9 @@ server <- function(input, output, session) {
   
   # Changes table content according to the number of datasets
   datasetInput <- reactive({
+    print('test')
     selected_columns <- list()
+    col_tooltips <- list()
     if (length(input$databases) > 0) {
       list_df <- list()
       if (length(input$databases) == 1){
@@ -362,41 +356,49 @@ server <- function(input, output, session) {
         v$suffix_col = suffix_multiple
       }
       for (i in 1:length(input$databases)){
+        selected_columns[[input$databases[i]]] <- list()
         dat <- dictionary_databases[[input$databases[i]]][["dstable"]]
         for (j in 2:ncol(dat)) {
           original_name = colnames(dat)[j]
-          if (length(input$databases) > 1){
-            colnames(dat)[j] <- paste0(v$prefix_col, input$databases[i],v$suffix_col, original_name)
-          }
-          else {
-            colnames(dat)[j] <- original_name
-          }
+          
           if (original_name %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
-            selected_columns[[colnames(dat)[j]]] <- dictionary_databases[[input$databases[[i]]]][["colnames_dataset"]][[original_name]]
+            if (length(input$databases) > 1){
+              colnames(dat)[j] <- paste0(v$prefix_col, input$databases[i],v$suffix_col, original_name)
+            }
+            else {
+              colnames(dat)[j] <- original_name
+            }
+            selected_columns[[input$databases[i]]][[original_name]] <- colnames(dat)[j]
+            col_tooltips[[colnames(dat)[j]]] <- dictionary_databases[[input$databases[[i]]]][["colnames_dataset"]][[original_name]]
           }
         }
         list_df <- list.append(list_df,dat)
       }
       v$selected_columns <- selected_columns
+      print(v$selected_columns)
+      v$col_tooltips <- col_tooltips
       Reduce(function(x,y) merge(x,y, by=join_column), list_df)
     }
   }
   )
   
+  ########## A enlever ###########
   # Column filter
   output$outshow_vars <- renderUI({
     if (length(input$databases) >= 1) {
       pickerInput(
         inputId = "show_vars", 
         label = "Choose columns to display", 
-        choices = lapply(names(datasetInput()),
-                         function(n){str_replace(gsub(v$prefix_col, "", n),
-                                                 v$suffix_col,
-                                                 "\n")}), 
-        selected = c(join_column,lapply(names(v$selected_columns),
-                                        function(n){str_replace(gsub(v$prefix_col, "", n),
-                                                                v$suffix_col,
-                                                                "\n")})),
+        choices = to_list(for (x in names(v$selected_columns)) for (y in names(dictionary_databases[[x]][["colnames_dataset"]])) y),
+        selected = to_list(for (x in names(v$selected_columns)) for (y in names(v$selected_columns[[x]])) y),
+        #choices = lapply(names(datasetInput()),
+        #                 function(n){str_replace(gsub(v$prefix_col, "", n),
+        #                                         v$suffix_col,
+        #                                         "\n")}), 
+        #selected = c(join_column,lapply(names(v$selected_columns),
+        #                                function(n){str_replace(gsub(v$prefix_col, "", n),
+        #                                                        v$suffix_col,
+        #                                                        "\n")})),
         options = list(
           `actions-box` = TRUE,
           size = 10,
@@ -412,7 +414,7 @@ server <- function(input, output, session) {
     })
   
   # Displaying table
-  retable <- eventReactive(input$show_vars, {datasetInput()[,str_replace_all(paste0(v$prefix_col, input$show_vars),"\n", v$suffix_col),
+  retable <- eventReactive(input$show_vars, {datasetInput()[,to_list(for (x in (input$show_vars)) v$selected_columns[1][[x]]),
                                                             drop=FALSE]})
   
   output$table <- renderDT({
@@ -421,7 +423,7 @@ server <- function(input, output, session) {
                   # Adding tooltips for column names
                   col_tooltips <- c()
                   for (elt in colnames(retable())){
-                    col_tooltips <- c(col_tooltips, v$selected_columns[[elt]])
+                    col_tooltips <- c(col_tooltips, v$col_tooltips[[elt]])
                   }
                   headerCallback <- c(
                     "function(thead, data, start, end, display){",
@@ -462,8 +464,9 @@ server <- function(input, output, session) {
     },
     content = function(fname){
       # write.csv(datasetInput(), fname)
-      dt = datasetInput()[input[["table_rows_all"]],str_replace_all(paste0(v$prefix_col, input$show_vars), "\n", v$suffix_col)]
-      names(dt) = lapply(names(dt),function(n){str_replace(gsub(v$prefix_col, "", n), v$psuffix_col,"\n")})
+      dt = datasetInput()[input[["table_rows_all"]],
+                          to_list(for (x in (names(v$selected_columns))) for (y in (dictionary_databases[[x]][['colnames_dataset']])) y)]
+      #names(dt) = lapply(names(dt),function(n){str_replace(gsub(v$prefix_col, "", n), v$psuffix_col,"\n")})
       write_xlsx(dt, fname)
     })
   #url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
