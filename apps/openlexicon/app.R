@@ -272,15 +272,27 @@ server <- function(input, output, session) {
       }
       list_df <- list.append(list_df,dat)
     }
-    Reduce(function(x,y) merge(x,y, by=join_column), list_df)
+    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+      Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
+    }else{
+      Reduce(function(x,y) merge(x, y, by=join_column), list_df)
+    }
+    
   })
   
   # Update table
-  retable <- reactive({datasetInput()[,c(join_column,
-                                                    to_vec(for (database in (names(v$selected_columns)))
-                                                      for (col in names(v$selected_columns[[database]]))
-                                                        v$selected_columns[[database]][[col]])),
-                                                      drop=FALSE]})
+  retable <- reactive({
+    to_return <- datasetInput()[,c(join_column,
+                                      to_vec(for (database in (names(v$selected_columns)))
+                                        for (col in names(v$selected_columns[[database]]))
+                                          v$selected_columns[[database]][[col]])),
+                                        drop=FALSE]
+    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+      to_return[datasetInput()[[join_column]] %in% mots2(), ]
+    }else{
+      to_return
+    }
+  })
   
   # Render table
   output$table <- renderDT({
