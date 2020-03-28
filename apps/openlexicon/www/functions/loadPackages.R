@@ -30,3 +30,4 @@ usePackage("comprehenr") # Comprehension list
 usePackage("rjson")
 usePackageGit("tippy", "JohnCoene/tippy")
 usePackageGit("shinyTree", "shinyTree/shinyTree")
+usePackage("rvest") # To repair encoding

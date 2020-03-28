@@ -24,7 +24,31 @@ ex_filenames_ds <- list('FrenchLexiconProject-words' = c('RT_FrenchLexiconProjec
                         'anagrammes' = c('anagrammes', 'Anagrammes')
 )
 
-
+# Fix encoding to UTF-8
+fix.encoding <- function(df, ds) {
+  numCols <- ncol(df)
+  numRows <- nrow(df)
+  highProbaEncoding = guess_encoding(paste(df[ ,1], sep = " "))[[1]][1]
+  if (grepl("ISO-8859", highProbaEncoding)){
+    encoding = "latin1"
+  }
+  else{
+    encoding = "UTF-8"
+  }
+  print(ds)
+  print(encoding)
+  print(highProbaEncoding)
+  for (col in 1:numCols){
+    df[, col] <- as.character(df[, col])
+    df[, col] <- iconv(df[, col], from = encoding, to = "UTF-8")
+    #Encoding(df[, col]) <- "UTF-8"
+    if ((ds == "AoA_FreqSub_1493" || ds == "FreqSub_Imag_3600") && col == 1){
+      print(df[, col])
+    }
+  }
+    
+  return(df)
+}
 
 for (ds in dataset_ids)
 {
@@ -47,7 +71,7 @@ for (ds in names(datasets)) {
   tryCatch({
     json_url <- datasets[[ds]][1]
     rds_file <- datasets[[ds]][2]
-    dictionary_databases[[ds]][["dstable"]] <- readRDS(get_dataset_from_json(json_url, rds_file))
+    dictionary_databases[[ds]][["dstable"]] <- fix.encoding(readRDS(get_dataset_from_json(json_url, rds_file)), ds)
   },
   error = function(e) {
     message(paste("Couldn't load database ", ds, ". Check json and rds files.", sep = ""))

@@ -1,6 +1,5 @@
 # shiny R code for lexique.org
 # Time-stamp: <2019-06-04 21:51:05 christophe@pallier.org>
-# Afficher info deuxième database en haut
 
 #### Functions ####
 source('www/functions/loadPackages.R')
