@@ -79,7 +79,12 @@ server <- function(input, output, session) {
   output$shinyTreeTest <- renderUI({ 
     dropdownButton2(
       textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
-      shinyTree("tree", checkbox = TRUE, search = "tree-search-input", themeIcons = FALSE, themeDots = FALSE, theme = "proton"),
+      shinyTree("tree",
+                checkbox = TRUE,
+                search = "tree-search-input",
+                themeIcons = FALSE,
+                themeDots = FALSE,
+                theme = "proton"),
       width ="100%", label = v$labeldropdown, status = "default"
     )
   })
@@ -160,14 +165,20 @@ server <- function(input, output, session) {
       for (i in 1:length(v$categories)) {
         info_tooltip = paste("<span style='font-size:14px;'>", "<div><p>",
               str_replace_all(dictionary_databases[[v$categories[i]]][["dsdesc"]],"'","&#39"), "<span>", sep = "")
-        if (!is.null(dictionary_databases[[v$categories[i]]][["dsweb"]]) && RCurl::url.exists(dictionary_databases[[v$categories[i]]][["dsweb"]])){
+        if (!is.null(dictionary_databases[[v$categories[i]]][["dsweb"]])
+            && RCurl::url.exists(dictionary_databases[[v$categories[i]]][["dsweb"]])){
           info_tooltip = paste(info_tooltip, "</p><p><a href=",
           dictionary_databases[[v$categories[i]]][["dsweb"]],
           " >Website</a></p></div>",sep = "")
         }
-        tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), interactive = TRUE, tooltip = info_tooltip))
+        tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
+                                                interactive = TRUE,
+                                                tooltip = info_tooltip))
       }
-      extendedCheckboxGroup("databases", label = "Choose datasets", choiceNames  = v$categories, choiceValues = v$categories, selected = v$first_dataset_selected, 
+      extendedCheckboxGroup("databases", label = "Choose datasets",
+                            choiceNames  = v$categories,
+                            choiceValues = v$categories,
+                            selected = v$first_dataset_selected, 
                             extensions = tooltips
                             )
     }
@@ -316,11 +327,17 @@ server <- function(input, output, session) {
   
   output$download.xlsx <- downloadHandler(
     filename = function() {
-      paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
+      paste("Lexique-query-",
+            format(Sys.time(), "%Y-%m-%d"), ' ',
+            paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
+            ".xlsx", sep="")
     },
     content = function(fname){
-      dt = datasetInput()[input[["table_rows_all"]],
-                          c(join_column, to_vec(for (x in (names(v$selected_columns))) for (y in (dictionary_databases[[x]][['colnames_dataset']])) y))]
+      dt = retable()[input[["table_rows_all"]], ]
+      names(dt) = c(join_column,
+                    to_vec(for (database in (names(v$selected_columns)))
+                      for (col in names(v$selected_columns[[database]]))
+                        paste(database, col, sep = " \n")))
       write_xlsx(dt, fname)
     })
 }
