@@ -1,5 +1,6 @@
 btn_show_name = "Show List Search"
 btn_hide_name = "Hide List Search"
+btn_select_deselect = "Select/Deselect all"
 prefix_multiple = ""
 prefix_multiple = "<span style='font-size:12px; color:grey;'>"
 suffix_multiple = "</span><br>"

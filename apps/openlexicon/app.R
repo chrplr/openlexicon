@@ -62,25 +62,29 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
-                      first_dataset_selected = 'Lexique383',
+                      dataset_selected = 'Lexique383',
+                      last_dataset_selection = 'Lexique383',
                       selected_columns = list(),
                       col_tooltips = list(),
                       button_listsearch = btn_show_name,
                       prefix_col = prefix_single,
                       suffix_col = suffix_single,
                       labeldropdown = "",
-                      needTreeRender = TRUE)
+                      needTreeRender = TRUE,
+                      buttonselectall = FALSE,
+                      firstdb_index = 1,
+                      change_language = FALSE)
   
   #### Render column filter ####
 
   output$consigne <- renderUI({
-    if (length(input$databases) > 0){
+    if (length(input$databases) >= v$firstdb_index){
       h5(strong("Choose columns to display"))
     }
   })
   
   output$shinyTreeTest <- renderUI({
-    if (length(input$databases) > 0){
+    if (length(input$databases) >= v$firstdb_index){
       dropdownButton2(
         textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
         shinyTree("tree",
@@ -145,21 +149,22 @@ server <- function(input, output, session) {
   # Update categories
   observeEvent(input$language, {
     v$language_selected <- input$language
+    v$change_language <- TRUE
     if (input$language == "French") {
       v$categories <- names(list.filter(dslanguage, 'french' %in% tolower(name)))
-      v$first_dataset_selected <- 'Lexique383'
+      v$dataset_selected <- 'Lexique383'
     }
     else if (input$language == "English") {
       v$categories <- names(list.filter(dslanguage, 'english' %in% tolower(name)))
-      v$first_dataset_selected <- 'SUBTLEX-US'
+      v$dataset_selected <- 'SUBTLEX-US'
     }
     else if (input$language == "Multiple languages") {
       v$categories <- names(list.filter(dslanguage, 'multiple_languages' %in% tolower(name)))
-      v$first_dataset_selected <- 'Aoa32lang'
+      v$dataset_selected <- 'Aoa32lang'
     }
     else {
       v$categories <- c()
-      v$first_dataset_selected <- ""
+      v$dataset_selected <- ""
     }
   })
 
@@ -181,10 +186,10 @@ server <- function(input, output, session) {
                                                 tooltip = info_tooltip))
       }
       extendedCheckboxGroup("databases", label = "Choose datasets",
-                            choiceNames  = v$categories,
-                            choiceValues = v$categories,
-                            selected = v$first_dataset_selected, 
-                            extensions = tooltips
+                            choiceNames  = c(paste0('<b>', btn_select_deselect, '</b>'), v$categories),
+                            choiceValues = c(btn_select_deselect, v$categories),
+                            selected = v$dataset_selected, 
+                            extensions = c("", tooltips)
                             )
     }
     else {
@@ -201,8 +206,19 @@ server <- function(input, output, session) {
     selected_columns <- list()
     col_tooltips <- list()
     v$needTreeRender <- TRUE
-    if (length(input$databases) > 0) {
-      if (length(input$databases) == 1){
+    if ((btn_select_deselect %in% input$databases || length(input$databases) == length(v$categories)) && v$buttonselectall == FALSE){
+      v$dataset_selected = c(btn_select_deselect, v$categories)
+      v$buttonselectall = TRUE
+      v$firstdb_index = 2
+    }else if((!(btn_select_deselect %in% input$databases) && btn_select_deselect %in% v$last_dataset_selection) || (length(input$databases) == 1 && btn_select_deselect %in% input$databases)){
+      if (v$change_language == FALSE){
+        v$dataset_selected = c()
+      }
+      v$buttonselectall = FALSE
+      v$firstdb_index = 1
+    }
+    if (length(input$databases) >= v$firstdb_index) {
+      if (length(input$databases) == v$firstdb_index){
         v$prefix_col = prefix_single
         v$suffix_col = suffix_single
       }else{
@@ -210,7 +226,7 @@ server <- function(input, output, session) {
         v$suffix_col = suffix_multiple
       }
     }
-    for (i in 1:length(input$databases)){
+    for (i in v$firstdb_index:length(input$databases)){
       if (input$databases[i] %in% v$selected_columns){
         selected_columns[[input$databases[i]]] <- v$selected_columns[[input$databases[i]]]
         for (elt in names(selected_columns[[input$databases[i]]])){
@@ -222,7 +238,7 @@ server <- function(input, output, session) {
         for (j in names(dictionary_databases[[input$databases[i]]][['colnames_dataset']])) {
           original_name = j
           if (original_name %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
-            if (length(input$databases) > 1){
+            if (length(input$databases) > v$firstdb_index){
               new_name <- paste0(v$prefix_col, input$databases[i],v$suffix_col, original_name)
             }
             else {
@@ -236,6 +252,8 @@ server <- function(input, output, session) {
     }
     v$selected_columns <- selected_columns
     v$col_tooltips <- col_tooltips
+    v$last_dataset_selection <- input$databases
+    v$change_language <- FALSE
   })
   
   # Update selected_columns when input tree is changed
@@ -248,7 +266,7 @@ server <- function(input, output, session) {
         if (!(attr(x, "ancestry") %in% names(selected_columns))){
          selected_columns[[attr(x, "ancestry")]] <- list()
         }
-        if (length(input$databases) > 1){
+        if (length(input$databases) > v$firstdb_index){
           new_name <- paste0(v$prefix_col, attr(x, "ancestry"),v$suffix_col, x)
         }
         else {
@@ -301,7 +319,7 @@ server <- function(input, output, session) {
   
   # Render table
   output$table <- renderDT({
-                  if (length(input$databases) > 0
+                  if (length(input$databases) >= v$firstdb_index
                       && length(names(v$selected_columns)) > 0){
                     dat <- retable()
                   
@@ -337,7 +355,7 @@ server <- function(input, output, session) {
   #### Download options ####
   
   output$outdownload <- renderUI({
-    if (length(input$databases) > 0
+    if (length(input$databases) >= v$firstdb_index
         && length(names(v$selected_columns)) > 0)
     {
       downloadButton('download.xlsx', label="Download filtered data")
