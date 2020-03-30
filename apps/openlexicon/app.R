@@ -51,7 +51,7 @@ ui <- fluidPage(
                       font-weight: bold;
                   }
               ")), 
-                       DTOutput(outputId="table")),
+                       DTOutput(outputId="table") %>% withSpinner(type=3, color.background="#ffffff")),
               uiOutput("outdownload")
               #h3(textOutput("caption", container = span)),
             )
