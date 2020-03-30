@@ -186,7 +186,8 @@ server <- function(input, output, session) {
                                                 tooltip = info_tooltip))
       }
       extendedCheckboxGroup("databases", label = "Choose datasets",
-                            choiceNames  = c(paste0('<b>', btn_select_deselect, '</b>'), v$categories),
+                            choiceNames  = c(list(tags$span(btn_select_deselect, style = "font-weight: bold;")),
+                                             to_list(for (x in v$categories) tags$span(x, style = "color: black;"))),
                             choiceValues = c(btn_select_deselect, v$categories),
                             selected = v$dataset_selected, 
                             extensions = c("", tooltips)
