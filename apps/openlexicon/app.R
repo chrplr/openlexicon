@@ -2,10 +2,12 @@
 # Time-stamp: <2019-06-04 21:51:05 christophe@pallier.org>
 
 #### Functions ####
+rm(list = ls())
 source('www/functions/loadPackages.R')
 source('www/functions/customCheckboxGroup.R')
 source('www/functions/getMandatory.R')
 source('www/functions/customDropdownButton.R')
+source('www/functions/qTips.R')
 
 #### Script begins ####
 
@@ -18,6 +20,8 @@ source('www/data/uiElements.R')
 
 #### UI ####
 ui <- fluidPage(
+  tags$link(rel = "stylesheet", type = "text/css", href = "https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.css"), 
+  tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.js"),
   tags$head(tags$style(HTML('
   #tree-search-input{
     border-bottom-left-radius:0px;
@@ -331,9 +335,11 @@ server <- function(input, output, session) {
                     }
                     headerCallback <- c(
                       "function(thead, data, start, end, display){",
-                      sprintf("  var tooltips = [%s];", toString(paste0("\"", col_tooltips, "\""))),
+                      qTips(col_tooltips),
                       "  for(var i = 1; i <= tooltips.length; i++){",
-                      "    $('th:eq('+i+')',thead).attr('title', tooltips[i-1].replace(`'`,`\'`));",
+                      "if(tooltips[i-1]['content']['text'].length > 0){",
+                      "      $('th:eq('+i+')',thead).qtip(tooltips[i-1]);",
+                      "    }",
                       "  }",
                       "}"
                     )

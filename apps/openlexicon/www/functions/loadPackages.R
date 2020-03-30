@@ -30,5 +30,9 @@ usePackage("comprehenr") # Comprehension list
 usePackage("rjson")
 usePackageGit("tippy", "JohnCoene/tippy")
 usePackageGit("shinyTree", "shinyTree/shinyTree")
-usePackageGit("shinycssloaders", "daattali/shinycssloaders")
+usePackageGit("shinycssloaders", "jbourgin/shinycssloaders")
+#detach(package:shinycssloaders, unload=TRUE)
+#remove.packages("shinycssloaders")
+#install.packages("X://shinycssloaders",repos=NULL, type="source")
+#library("shinycssloaders")
 usePackage("rvest") # To repair encoding
