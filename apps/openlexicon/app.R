@@ -64,16 +64,16 @@ ui <- fluidPage(
 
 #### Server ####
 server <- function(input, output, session) {
-  v <- reactiveValues(language_selected = 'French',
-                      categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
-                      dataset_selected = 'Lexique383',
-                      last_dataset_selection = 'Lexique383',
+  v <- reactiveValues(language_selected = 'English',
+                      categories = names(list.filter(dslanguage, 'english' %in% tolower(name))),
+                      dataset_selected = 'SUBTLEX-US',
+                      last_dataset_selection = 'SUBTLEX-US',
                       selected_columns = list(),
                       col_tooltips = list(),
                       button_listsearch = btn_show_name,
                       prefix_col = prefix_single,
                       suffix_col = suffix_single,
-                      labeldropdown = "",
+                      labeldropdown = "test",
                       needTreeRender = TRUE,
                       buttonselectall = FALSE,
                       firstdb_index = 1,
@@ -97,7 +97,7 @@ server <- function(input, output, session) {
                   themeIcons = FALSE,
                   themeDots = FALSE,
                   theme = "proton"),
-        width ="100%", label = v$labeldropdown, status = "default"
+        width ="100%", label = textOutput("dropdownlabel"), status = "default"
       )
     }
   })
@@ -120,6 +120,13 @@ server <- function(input, output, session) {
       finaltree
     }
   })
+  
+  output$dropdownlabel <- renderText({
+    if (!(length(input$databases) >= v$firstdb_index)
+        || !(length(names(v$selected_columns)) > 0)){
+      v$labeldropdown <- "Nothing selected"
+    }
+    v$labeldropdown })
   
   #### Toggle list search ####
   
@@ -327,10 +334,16 @@ server <- function(input, output, session) {
                   if (length(input$databases) >= v$firstdb_index
                       && length(names(v$selected_columns)) > 0){
                     dat <- retable()
+                    if (length(v$col_tooltips) <= 3){
+                      v$labeldropdown <- paste(colnames(dat)[2:length(colnames(dat))], collapse = ", ")
+                    }
+                    else{
+                      v$labeldropdown <- paste(length(v$col_tooltips), "columns selected")
+                    }
                   
                     # Adding tooltips for column names
                     col_tooltips <- c()
-                    for (elt in colnames(retable())){
+                    for (elt in colnames(dat)){
                       col_tooltips <- c(col_tooltips, v$col_tooltips[[elt]])
                     }
                     headerCallback <- c(
@@ -356,7 +369,7 @@ server <- function(input, output, session) {
                                           search=list(searching = TRUE,
                                                       regex=TRUE,
                                                       caseInsensitive = FALSE)
-                           ))}
+                             ))}
   }, server = TRUE)
   
   #### Download options ####
