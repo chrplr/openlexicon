@@ -17,7 +17,7 @@ dropdownButton2 <- function(label = "", status = c("default", "primary", "succes
     type = "button", 
     `data-toggle` = "dropdown"
   )
-  html_button <- c(html_button, list(tags$span(label, style = "float: left;")))
+  html_button <- c(html_button, list(tags$span(label, style = "float: left; text-overflow: '.'; white-space: nowrap; overflow: hidden; max-width: 90%; ")))
   html_button <- c(html_button, list(tags$span(class = "pull-right", tags$span(class = "caret"))))
   # final result
   tags$div(

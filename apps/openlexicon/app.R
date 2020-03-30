@@ -68,42 +68,48 @@ server <- function(input, output, session) {
                       button_listsearch = btn_show_name,
                       prefix_col = prefix_single,
                       suffix_col = suffix_single,
-                      labeldropdown = "Nothing selected Nothing selected Nothing selected",
+                      labeldropdown = "",
                       needTreeRender = TRUE)
   
   #### Render column filter ####
 
-  output$consigne <- renderUI({h5(strong("Choose columns to display"))})
+  output$consigne <- renderUI({
+    if (length(input$databases) > 0){
+      h5(strong("Choose columns to display"))
+    }
+  })
   
-  output$shinyTreeTest <- renderUI({ 
-    dropdownButton2(
-      textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
-      shinyTree("tree",
-                checkbox = TRUE,
-                search = "tree-search-input",
-                themeIcons = FALSE,
-                themeDots = FALSE,
-                theme = "proton"),
-      width ="100%", label = v$labeldropdown, status = "default"
-    )
+  output$shinyTreeTest <- renderUI({
+    if (length(input$databases) > 0){
+      dropdownButton2(
+        textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
+        shinyTree("tree",
+                  checkbox = TRUE,
+                  search = "tree-search-input",
+                  themeIcons = FALSE,
+                  themeDots = FALSE,
+                  theme = "proton"),
+        width ="100%", label = v$labeldropdown, status = "default"
+      )
+    }
   })
   
   output$tree <- renderTree({
     if (v$needTreeRender == TRUE){
-    finaltree <- list()
-    starting = 1
-    for (database in names(v$selected_columns)){
-      finaltree[[database]] <- list()
-      for (col in names(dictionary_databases[[database]][["colnames_dataset"]])){
-        finaltree[[database]][[col]] = toString(starting)
-        starting = starting + 1
-        if (col %in% names(v$selected_columns[[database]])){
-          attr(finaltree[[database]][[col]],"stselected")=TRUE # <---
+      finaltree <- list()
+      starting = 1
+      for (database in names(v$selected_columns)){
+        finaltree[[database]] <- list()
+        for (col in names(dictionary_databases[[database]][["colnames_dataset"]])){
+          finaltree[[database]][[col]] = toString(starting)
+          starting = starting + 1
+          if (col %in% names(v$selected_columns[[database]])){
+            attr(finaltree[[database]][[col]],"stselected")=TRUE # <---
+          }
         }
       }
-    }
-    v$needTreeRender <- FALSE
-    finaltree
+      v$needTreeRender <- FALSE
+      finaltree
     }
   })
   
@@ -295,7 +301,8 @@ server <- function(input, output, session) {
   
   # Render table
   output$table <- renderDT({
-                  if (length(input$databases) > 0){
+                  if (length(input$databases) > 0
+                      && length(names(v$selected_columns)) > 0){
                     dat <- retable()
                   
                     # Adding tooltips for column names
@@ -330,7 +337,8 @@ server <- function(input, output, session) {
   #### Download options ####
   
   output$outdownload <- renderUI({
-    if (length(input$databases) >= 1)
+    if (length(input$databases) > 0
+        && length(names(v$selected_columns)) > 0)
     {
       downloadButton('download.xlsx', label="Download filtered data")
     }
