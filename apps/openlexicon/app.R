@@ -43,9 +43,10 @@ ui <- fluidPage(
                         uiOutput("consigne"),
                         uiOutput("shinyTreeTest"),
                         br(),
+                        uiOutput("selectdeselect_checkbox"),
                         uiOutput("outdatabases"),
                         br(),
-           width=4
+           width=4#, style = "position:fixed;width:inherit;"
         ),
             mainPanel(
               fluidRow(tags$style(HTML("
@@ -76,22 +77,21 @@ server <- function(input, output, session) {
                       button_listsearch = btn_show_name,
                       prefix_col = prefix_single,
                       suffix_col = suffix_single,
-                      labeldropdown = "test",
+                      labeldropdown = "",
                       needTreeRender = TRUE,
-                      buttonselectall = FALSE,
-                      firstdb_index = 1,
+                      selectall_checked = c(),
                       change_language = FALSE)
   
   #### Render column filter ####
 
   output$consigne <- renderUI({
-    if (length(input$databases) >= v$firstdb_index){
+    if (length(input$databases) >= 1){
       h5(strong("Choose columns to display"))
     }
   })
   
   output$shinyTreeTest <- renderUI({
-    if (length(input$databases) >= v$firstdb_index){
+    if (length(input$databases) >= 1){
       dropdownButton2(
         textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
         shinyTree("tree",
@@ -125,9 +125,16 @@ server <- function(input, output, session) {
   })
   
   output$dropdownlabel <- renderText({
-    if (!(length(input$databases) >= v$firstdb_index)
+    if (!(length(input$databases) >= 1)
         || !(length(names(v$selected_columns)) > 0)){
       v$labeldropdown <- "Nothing selected"
+    }else{
+      if (length(v$col_tooltips) <= 3){
+        v$labeldropdown <- paste(colnames(retable())[2:length(colnames(retable()))], collapse = ", ")
+      }
+      else{
+        v$labeldropdown <- paste(length(v$col_tooltips), "columns selected")
+      }
     }
     v$labeldropdown })
   
@@ -160,10 +167,36 @@ server <- function(input, output, session) {
   
   #### Show databases filter ####
   
+  # Select deselect all databases
+  
+  output$selectdeselect_checkbox <- renderUI({
+    extendedCheckboxGroup("select_deselect", label = "Choose datasets",
+                          choiceNames  = list(tags$span(btn_select_deselect, style = "font-weight: bold;")),
+                          choiceValues = c(btn_select_deselect),
+                          selected = c(v$selectall_checked))
+                          
+  })
+  
+  # Update databases selected based on select/deselect
+  
+  observeEvent(input$select_deselect, ignoreNULL = FALSE, {
+    if (v$change_language == FALSE){
+      if (btn_select_deselect %in% input$select_deselect){
+        v$dataset_selected = v$categories
+        v$selectall_checked = btn_select_deselect
+      }else{
+        v$dataset_selected = c()
+        v$selectall_checked = c()
+      }
+    }
+    v$change_language <- FALSE
+  })
+  
   # Update categories
   observeEvent(input$language, {
     v$language_selected <- input$language
     v$change_language <- TRUE
+    v$selectall_checked = c()
     if (input$language == "French") {
       v$categories <- names(list.filter(dslanguage, 'french' %in% tolower(name)))
       v$dataset_selected <- 'Lexique383'
@@ -199,12 +232,11 @@ server <- function(input, output, session) {
                                                 interactive = TRUE,
                                                 tooltip = info_tooltip))
       }
-      extendedCheckboxGroup("databases", label = "Choose datasets",
-                            choiceNames  = c(list(tags$span(btn_select_deselect, style = "font-weight: bold;")),
-                                             to_list(for (x in v$categories) tags$span(x, style = "color: black;"))),
-                            choiceValues = c(btn_select_deselect, v$categories),
+      extendedCheckboxGroup("databases", label = "",
+                            choiceNames  = to_list(for (x in v$categories) tags$span(x, style = "color: black;")),
+                            choiceValues = v$categories,
                             selected = v$dataset_selected, 
-                            extensions = c("", tooltips)
+                            extensions = tooltips
                             )
     }
     else {
@@ -217,58 +249,54 @@ server <- function(input, output, session) {
   
   # Update selected_columns when input databases is changed
   
-  observeEvent(input$databases, {
+  observeEvent(input$databases, ignoreNULL = FALSE,{
     selected_columns <- list()
     col_tooltips <- list()
-    v$needTreeRender <- TRUE
-    if ((btn_select_deselect %in% input$databases || length(input$databases) == length(v$categories)) && v$buttonselectall == FALSE){
-      v$dataset_selected = c(btn_select_deselect, v$categories)
-      v$buttonselectall = TRUE
-      v$firstdb_index = 2
-    }else if((!(btn_select_deselect %in% input$databases) && btn_select_deselect %in% v$last_dataset_selection) || (length(input$databases) == 1 && btn_select_deselect %in% input$databases)){
-      if (v$change_language == FALSE){
-        v$dataset_selected = c()
-      }
-      v$buttonselectall = FALSE
-      v$firstdb_index = 1
-    }
-    if (length(input$databases) >= v$firstdb_index) {
-      if (length(input$databases) == v$firstdb_index){
+    
+    if (length(input$databases) == length(v$categories)){
+      v$selectall_checked = btn_select_deselect
+    }else if(length(input$databases) == 0){
+      v$selectall_checked = c()
+   } 
+    
+    if (length(input$databases) >= 1) {
+      if (length(input$databases) == 1){
         v$prefix_col = prefix_single
         v$suffix_col = suffix_single
       }else{
         v$prefix_col = prefix_multiple
         v$suffix_col = suffix_multiple
       }
-    }
-    for (i in v$firstdb_index:length(input$databases)){
-      if (input$databases[i] %in% v$selected_columns){
-        selected_columns[[input$databases[i]]] <- v$selected_columns[[input$databases[i]]]
-        for (elt in names(selected_columns[[input$databases[i]]])){
-          col_tooltips[[selected_columns[[input$databases[i]]][[elt]]]] <- dictionary_databases[[input$databases[[i]]]][["colnames_dataset"]][[elt]]
+      
+      for (i in 1:length(input$databases)){
+        if (input$databases[i] %in% v$selected_columns){
+          selected_columns[[input$databases[i]]] <- v$selected_columns[[input$databases[i]]]
+          for (elt in names(selected_columns[[input$databases[i]]])){
+            col_tooltips[[selected_columns[[input$databases[i]]][[elt]]]] <- dictionary_databases[[input$databases[[i]]]][["colnames_dataset"]][[elt]]
+          }
         }
-      }
-      else{
-        selected_columns[[input$databases[i]]] <- list()
-        for (j in names(dictionary_databases[[input$databases[i]]][['colnames_dataset']])) {
-          original_name = j
-          if (original_name %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
-            if (length(input$databases) > v$firstdb_index){
-              new_name <- paste0(v$prefix_col, input$databases[i],v$suffix_col, original_name)
+        else{
+          selected_columns[[input$databases[i]]] <- list()
+          for (j in names(dictionary_databases[[input$databases[i]]][['colnames_dataset']])) {
+            original_name = j
+            if (original_name %in% dictionary_databases[[input$databases[i]]][["dsmandcol"]]){
+              if (length(input$databases) > 1){
+                new_name <- paste0(v$prefix_col, input$databases[i],v$suffix_col, original_name)
+              }
+              else {
+                new_name <- original_name
+              }
+              selected_columns[[input$databases[i]]][[original_name]] <- new_name
+              col_tooltips[[new_name]] <- dictionary_databases[[input$databases[[i]]]][["colnames_dataset"]][[original_name]]
             }
-            else {
-              new_name <- original_name
-            }
-            selected_columns[[input$databases[i]]][[original_name]] <- new_name
-            col_tooltips[[new_name]] <- dictionary_databases[[input$databases[[i]]]][["colnames_dataset"]][[original_name]]
           }
         }
       }
     }
+    v$needTreeRender <- TRUE
     v$selected_columns <- selected_columns
     v$col_tooltips <- col_tooltips
-    v$last_dataset_selection <- input$databases
-    v$change_language <- FALSE
+    #v$change_language <- FALSE
   })
   
   # Update selected_columns when input tree is changed
@@ -281,7 +309,7 @@ server <- function(input, output, session) {
         if (!(attr(x, "ancestry") %in% names(selected_columns))){
          selected_columns[[attr(x, "ancestry")]] <- list()
         }
-        if (length(input$databases) > v$firstdb_index){
+        if (length(input$databases) > 1){
           new_name <- paste0(v$prefix_col, attr(x, "ancestry"),v$suffix_col, x)
         }
         else {
@@ -334,15 +362,9 @@ server <- function(input, output, session) {
   
   # Render table
   output$table <- renderDT({
-                  if (length(input$databases) >= v$firstdb_index
+                  if (length(input$databases) >= 1
                       && length(names(v$selected_columns)) > 0){
                     dat <- retable()
-                    if (length(v$col_tooltips) <= 3){
-                      v$labeldropdown <- paste(colnames(dat)[2:length(colnames(dat))], collapse = ", ")
-                    }
-                    else{
-                      v$labeldropdown <- paste(length(v$col_tooltips), "columns selected")
-                    }
                   
                     # Adding tooltips for column names
                     col_tooltips <- c()
@@ -378,7 +400,7 @@ server <- function(input, output, session) {
   #### Download options ####
   
   output$outdownload <- renderUI({
-    if (length(input$databases) >= v$firstdb_index
+    if (length(input$databases) >= 1
         && length(names(v$selected_columns)) > 0)
     {
       downloadButton('download.xlsx', label="Download filtered data")
