@@ -1,14 +1,19 @@
 btn_show_name = "Show List Search"
 btn_hide_name = "Hide List Search"
-btn_select_deselect = "Select/Deselect all"
+btn_show_helper = "Show Quick How-To"
+btn_hide_helper = "Hide Quick How-To"
+btn_hide_name = "Hide List Search"
 prefix_multiple = ""
 prefix_multiple = "<span style='font-size:12px; color:grey;'>"
 suffix_multiple = "</span><br>"
 prefix_single = ""
 suffix_single = "<br>"
+btn_select_all = "Select all"
+btn_deselect_all = "Deselect all"
 
 helper_alert <-
-  tags$div(class="alert alert-info",
+  tags$div(id = "helper_box",
+           class="alert alert-info",
            tags$p("Quick how-to:"),
            tags$ul(
              tags$li("Choose a language to see the available datasets in this language below."),
