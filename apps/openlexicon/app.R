@@ -413,10 +413,12 @@ server <- function(input, output, session) {
     },
     content = function(fname){
       dt = retable()[input[["table_rows_all"]], ]
-      names(dt) = c(join_column,
-                    to_vec(for (database in (names(v$selected_columns)))
-                      for (col in names(v$selected_columns[[database]]))
-                        paste(database, col, sep = " \n")))
+      if (length(input$databases) > 1){
+        names(dt) = c(join_column,
+                      to_vec(for (database in (names(v$selected_columns)))
+                        for (col in names(v$selected_columns[[database]]))
+                          paste(database, col, sep = " ")))
+      }
       write_xlsx(dt, fname)
     })
 }
