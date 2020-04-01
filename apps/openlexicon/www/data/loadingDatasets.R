@@ -1,5 +1,5 @@
 #json_folder = 'http://www.lexique.org/databases/_json/'
-json_folder = '../../../openlexicon/datasets-info/_json/'
+json_folder = '../../datasets-info/_json/'
 
 join_column = "Word"
 

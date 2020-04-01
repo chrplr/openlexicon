@@ -41,13 +41,13 @@ ui <- fluidPage(
                         uiOutput("helper_alert"),
                         br(),
                         helper_alert,
+                        uiOutput("outlang"),
                         uiOutput("outbtnlistsearch"),
                         br(),
                         hidden(textAreaInput("mots",
                                              label = h5(strong("Words to search")),
                                              rows = 10,
                                              resize = "none")),
-                        uiOutput("outlang"),
                         uiOutput("consigne"),
                         uiOutput("shinyTreeTest"),
                         br(),
@@ -81,7 +81,6 @@ server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
                       dataset_selected = 'Lexique383',
-                      last_dataset_selection = 'Lexique383',
                       selected_columns = list(),
                       col_tooltips = list(),
                       button_listsearch = btn_show_name,
@@ -171,7 +170,9 @@ server <- function(input, output, session) {
   #### Toggle list search ####
   
   output$outbtnlistsearch <- renderUI({
-    actionButton("btn_listsearch", v$button_listsearch)
+    if (v$language_selected != "\n") {
+      actionButton("btn_listsearch", v$button_listsearch)
+    }
   })
   
   observeEvent(input$btn_listsearch, {
@@ -200,11 +201,13 @@ server <- function(input, output, session) {
   # Update databases selected based on select/deselect
   
   output$select_deselect_all <- renderUI({
-    div(
-      h5(strong("Choose datasets")),
-      actionButton("select_all", btn_select_all),
-      actionButton("deselect_all", btn_deselect_all),
-    )
+    if (v$language_selected != "\n") {
+      div(
+        h5(strong("Choose datasets")),
+        actionButton("select_all", btn_select_all),
+        actionButton("deselect_all", btn_deselect_all),
+      )
+    }
   })
   
   observeEvent(input$select_all, {
@@ -213,6 +216,10 @@ server <- function(input, output, session) {
   
   observeEvent(input$deselect_all, {
     v$dataset_selected = c()
+  })
+  
+  observeEvent(input$databases, {
+    v$dataset_selected = input$databases
   })
   
   # Update categories based on language selection
@@ -242,6 +249,7 @@ server <- function(input, output, session) {
   # Show databases checkbox group
   
   output$outdatabases <- renderUI({
+    print('test')
     if (v$language_selected != "\n") {
       tooltips = list()
       
