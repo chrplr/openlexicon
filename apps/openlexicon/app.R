@@ -172,6 +172,9 @@ server <- function(input, output, session) {
   output$outbtnlistsearch <- renderUI({
     if (v$language_selected != "\n") {
       actionButton("btn_listsearch", v$button_listsearch)
+    }else if (v$button_listsearch == btn_hide_name){
+      toggle("mots", anim = TRUE, animType = "slide")
+      v$button_listsearch = btn_show_name
     }
   })
   
@@ -249,7 +252,6 @@ server <- function(input, output, session) {
   # Show databases checkbox group
   
   output$outdatabases <- renderUI({
-    print('test')
     if (v$language_selected != "\n") {
       tooltips = list()
       
