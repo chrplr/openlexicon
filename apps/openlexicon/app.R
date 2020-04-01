@@ -22,8 +22,8 @@ source('www/data/uiElements.R')
 
 #### UI ####
 ui <- fluidPage(
-  tags$link(rel = "stylesheet", type = "text/css", href = "https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.css"), 
-  tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.js"),
+  tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"), 
+  tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
   
   tags$head(tags$style(HTML('
   #tree-search-input{
@@ -78,10 +78,10 @@ ui <- fluidPage(
 
 #### Server ####
 server <- function(input, output, session) {
-  v <- reactiveValues(language_selected = 'English',
-                      categories = names(list.filter(dslanguage, 'english' %in% tolower(name))),
-                      dataset_selected = 'SUBTLEX-US',
-                      last_dataset_selection = 'SUBTLEX-US',
+  v <- reactiveValues(language_selected = 'French',
+                      categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
+                      dataset_selected = 'Lexique383',
+                      last_dataset_selection = 'Lexique383',
                       selected_columns = list(),
                       col_tooltips = list(),
                       button_listsearch = btn_show_name,
