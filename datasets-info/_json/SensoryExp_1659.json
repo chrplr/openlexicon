@@ -4,16 +4,15 @@
       "name": "SensoryExp_1659",
       "description": "Sensory experience ratings (SERs) for 1,659 French words",
       "website": "XXXXXX",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/SensoryExp_1659.md",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Bonin_2014_SensoryExp_1659/SensoryExp_1659.md",
       "urls" : [
          {
             "url": "http://www.lexique.org/databases/Bonin_2014_SensoryExp_1659/SensoryExp_1659.rds",
-            "bytes": 38149,
-            "md5sum": "8721ea3379b1f1e2e5a7a76ab1348d59"
+            "bytes": 17296,
+            "md5sum": "b7dffb3e4f7540844aeedb9b9f8a3202"
          }
-      ], 
+      ],
        "type": "tsv",
-       "mandatory_columns": [],
+       "mandatory_columns": ["SER.Moy", "SER.ET"],
        "tags": ["french", "frequencies"]
 }
-

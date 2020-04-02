@@ -1,7 +1,7 @@
 {
     "_comment": "# Time-stamp: <2019-11-23 12:12:59 christophe@pallier.org>",
     "name": "Megalex-auditory",
-    "description": "<b>Megalex-auditory</b> provides auditory lexical decision times and accuracy rates for 17878 French words",
+    "description": "Megalex-auditory fournit les <b>temps de décision lexicale auditive</b> et les pourcentages de bonne réponse pour 17878 mots français",
     "website": "http://megalex.lexique.org",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Megalex/README-Megalex.html",
     "urls" : [

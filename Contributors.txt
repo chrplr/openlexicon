@@ -9,7 +9,7 @@ List of contributors to the git repo:
 
 Christophe Pallier
 Boris New
-Jessica Bourgeois
+Jessica Bourgin
 Mathias Sablé-Meyer
 
 (TODO: automatize this from github)

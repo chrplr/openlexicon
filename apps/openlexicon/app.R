@@ -1,165 +1,63 @@
 # shiny R code for lexique.org
 # Time-stamp: <2019-06-04 21:51:05 christophe@pallier.org>
-# Afficher info deuxième database en haut
-
-library(shiny)
-library(shinyBS)
-library(DT)
-library(writexl)
-library(plyr)
-library(data.table)
-library(rlist)
-library(stringr)
 
 #### Functions ####
-usePackage <- function(i){
-  if(! i %in% installed.packages()){
-    install.packages(i, dependencies = TRUE)
-  }
-  require(i, character.only = TRUE)
-}
-usePackage("shinyWidgets")
-
-extendedCheckboxGroup <- function(..., extensions = list()) {
-  cbg <- checkboxGroupInput(...)
-  nExtensions <- length(extensions)
-  nChoices <- length(cbg$children[[2]]$children[[1]])
-  
-  if (nExtensions > 0 && nChoices > 0) {
-    lapply(1:min(nExtensions, nChoices), function(i) {
-      # For each Extension, add the element as a child (to one of the checkboxes)
-      cbg$children[[2]]$children[[1]][[i]]$children[[2]] <<- extensions[[i]]
-    })
-  }
-  cbg
-}
-
-get_mandatory_columns <- function(dataset_name, info) {
-  if (!is.null(info$mandatory_columns)) {
-    return(info$mandatory_columns)
-  }
-  else {
-    return (colnames(dstable[[dataset_name]]))
-  }
-}
+rm(list = ls())
+source('www/functions/loadPackages.R')
+source('www/functions/customCheckboxGroup.R')
+source('www/functions/getMandatory.R')
+source('www/functions/customDropdownButton.R')
+source('www/functions/qTips.R')
+source('www/functions/updateFromTree.R')
+source('www/functions/updateFromDB.R')
 
 #### Script begins ####
 
 # loads datasets
-source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
-#source('../../datasets-info/fetch_datasets.R')
+#source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+source('../../datasets-info/fetch_datasets.R')
 
-dataset_ids <- c('Lexique383', 'FrenchLexiconProject-words', 'WorldLex-French','Megalex-visual', 'Megalex-auditory',
-                 'SUBTLEX-US','WorldLex-English', 'Voisins','anagrammes','Aoa32lang')
-                 
-datasets <- list()
-ex_filenames_ds <- list('FrenchLexiconProject-words' = c('FrenchLexiconProject-words', 'flp-words'),
-                        'WorldLex-French' = c('WorldLex-French','WorldLex_FR'),
-                        'WorldLex-English' = c('WorldLex-English', 'WorldLex_EN'),
-                        'Aoa32lang' = c('AoA-32lang', 'AoA32lang'),
-                        'SUBTLEX-US' = c('SUBTLEX-US', 'SUBTLEXus'),
-                        'anagrammes' = c('anagrammes', 'Anagrammes'))
-
-json_folder = 'http://www.lexique.org/databases/_json/'
-#json_folder = '../../../openlexicon/datasets-info/_json/'
-
-for (ds in dataset_ids)
-{
-    #datasets[[ds]] <- fetch_dataset(ds, format='rds')
-    rds_file <- ds
-    json_file <- ds
-    if (!is.null(ex_filenames_ds[[ds]])) {
-      json_file <- ex_filenames_ds[[ds]][1]
-      rds_file <- ex_filenames_ds[[ds]][2]
-    }
-    datasets[[ds]] = c(paste(json_folder,json_file,'.json', sep = ""),
-                       paste(rds_file,'.rds', sep = ""))
-}
-
-join_column = "Word"
-
-dsnames <- list()
-dsdesc <- list()
-dsreadme <- list()
-dstable <- list()
-dsweb <- list()
-dsmandcol <- list()
-dslanguage <- list()
-colnames_dataset <- list()
-
-# We try to load the databases
-for (ds in names(datasets)) {
-  tryCatch({
-    json_url <- datasets[[ds]][1]
-    rds_file <- datasets[[ds]][2]
-    dstable[[ds]] <- readRDS(get_dataset_from_json(json_url, rds_file))
-  },
-  error = function(e) {
-    message(paste("Couldn't load database ", ds, ". Check json and rds files.", sep = ""))
-  } 
-  )
-}
-
-# Removes not loaded datasets from the list
-for (ds in names(datasets)) { if (is.null(dstable[[ds]])) { datasets[[ds]] <- NULL}}
-       
-for (ds in names(datasets)) {
-  json_url <- datasets[[ds]][1]
-  info = get_info_from_json(json_url)
-  dsnames[[ds]] <- ds
-  dslanguage[[ds]]['name'] <- info$language
-  dsdesc[[ds]] <- info$description
-  dsreadme[[ds]] <- info$readme
-  dsweb[[ds]] <- info$website
-  dsmandcol[[ds]] <- get_mandatory_columns(ds, info)
-  colnames(dstable[[ds]])[1] <- join_column
-  colnames_dataset[[ds]] <- colnames(dstable[[ds]])
-  if (is.null(dsmandcol[[ds]])) {
-    dsmandcol[[ds]] <- colnames_dataset[[ds]]
-  }
-}
-
-dataset_info <-
-  tags$div(class="alert-info",
-     #tags$h3(dsnames[[1]]),
-     tags$p(dsdesc[[1]]),
-     tags$p(tags$a(href=dsreadme[[1]], "More info"))
-  )
-
-helper_alert <-
-    tags$div(class="alert alert-info",
-             tags$p("Quick how-to:"),
-             tags$ul(
-                      tags$li("Choose a language to see the available datasets in this language below."),
-                      tags$li("Select desired datasets. If you want more informations about a specific dataset, you can click on its tooltip."),
-                      tags$li("Select columns to display for each dataset."),
-                      tags$li("For each column in the table, you can:"),
-                      tags$ul(
-                               tags$li("Filter using intervals (e.g. 40...500) or ", tags$a(class="alert-link", href="http://regextutorials.com/index.html", "regexes", target="_blank"), ".", sep =""),
-                               tags$li("sort, ascending or descending")
-                           ),
-                      tags$li("Download the result of your manipulations by clicking on the button below the table")
-                  )
-             #tags$hr(),
-             #tags$p(tags$a(href="https://chrplr.github.io/openlexicon/datasets-info/", "More information about the datatasets"))
-             )
-
+source('www/data/loadingDatasets.R')
+source('www/data/uiElements.R')
 
 #### UI ####
 ui <- fluidPage(
-    titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "OpenLexicon")),
-
+  tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"), 
+  tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
+  
+  tags$head(tags$style(HTML('
+  #tree-search-input{
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+    }'))),
+  
+    useShinyjs(),
+  
+    titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
+    title = "Open Lexicon",
+  
     sidebarLayout(
         sidebarPanel(
+                        uiOutput("helper_alert"),
+                        br(),
                         helper_alert,
-                        br(),
                         uiOutput("outlang"),
+                        uiOutput("outbtnlistsearch"),
                         br(),
-                        uiOutput("outdatabases"),
+                        hidden(textAreaInput("mots",
+                                             label = h5(strong("Words to search")),
+                                             rows = 10,
+                                             resize = "none")),
+                        uiOutput("consigne"),
+                        uiOutput("shinyTreeTest"),
                         br(),
-                        uiOutput("outshow_vars"),
+                        uiOutput("select_deselect_all"),
+                        uiOutput("outdatabases")%>% withSpinner(type=3,
+                                                                color.background="#ffffff",
+                                                                hide.element.when.recalculating = FALSE,
+                                                                proxy.height = 0),
                         br(),
-           width=4
+           width=4#, style = "position:fixed;width:inherit;"
         ),
             mainPanel(
               fluidRow(tags$style(HTML("
@@ -169,9 +67,11 @@ ui <- fluidPage(
                       font-weight: bold;
                   }
               ")), 
-                       DTOutput(outputId="table")),
+                 DTOutput(outputId="table") %>% withSpinner(type=3,
+                                                            color.background="#ffffff",
+                                                            hide.element.when.recalculating = FALSE,
+                                                            proxy.height = 0)),
               uiOutput("outdownload")
-              #h3(textOutput("caption", container = span)),
             )
         )
     )
@@ -180,124 +80,335 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
-                      first_dataset_selected = 'Lexique383',
-                      selected_columns = c())
+                      dataset_selected = 'Lexique383',
+                      selected_columns = list(),
+                      col_tooltips = list(),
+                      button_listsearch = btn_show_name,
+                      button_helperalert = btn_hide_helper,
+                      prefix_col = prefix_single,
+                      suffix_col = suffix_single,
+                      labeldropdown = "",
+                      needTreeRender = TRUE,
+                      change_language = FALSE)
   
-  # To select a language
+  #### Toggle helper_alert ####
+  
+  output$helper_alert <- renderUI({
+    actionButton("btn", v$button_helperalert)
+  })
+  
+  observeEvent(input$btn, {
+    toggle("helper_box", anim = TRUE, animType = "slide")
+    
+    if (v$button_helperalert == btn_show_helper){
+      v$button_helperalert = btn_hide_helper
+    }else{
+      v$button_helperalert = btn_show_helper
+    }
+  })
+  
+  #### Render column filter ####
+
+  output$consigne <- renderUI({
+    if (length(input$databases) >= 1){
+      h5(strong("Choose columns to display"))
+    }
+  })
+  
+  output$shinyTreeTest <- renderUI({
+    if (length(input$databases) >= 1){
+      dropdownButton2(
+        textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
+        shinyTree("tree",
+                  checkbox = TRUE,
+                  search = "tree-search-input",
+                  themeIcons = FALSE,
+                  themeDots = FALSE,
+                  theme = "proton"),
+        width ="100%", label = textOutput("dropdownlabel"), status = "default"
+      )
+    }
+  })
+  
+  output$tree <- renderTree({
+    if (v$needTreeRender == TRUE){
+      finaltree <- list()
+      starting = 1
+      
+      for (database in names(v$selected_columns)){
+        finaltree[[database]] <- list()
+        
+        for (col in names(dictionary_databases[[database]][["colnames_dataset"]])){
+          finaltree[[database]][[col]] = toString(starting)
+          starting = starting + 1
+          
+          if (col %in% names(v$selected_columns[[database]])){
+            attr(finaltree[[database]][[col]],"stselected")=TRUE # <---
+          }
+        }
+      }
+      
+      v$needTreeRender <- FALSE
+      finaltree
+    }
+  })
+  
+  output$dropdownlabel <- renderText({
+    if (!(length(input$databases) >= 1)
+        || !(length(names(v$selected_columns)) > 0)){
+      v$labeldropdown <- "Nothing selected"
+    }else{
+      if (length(v$col_tooltips) <= 3){
+        v$labeldropdown <- paste(colnames(retable())[2:length(colnames(retable()))], collapse = ", ")
+      }
+      else{
+        v$labeldropdown <- paste(length(v$col_tooltips), "columns selected")
+      }
+    }
+    v$labeldropdown })
+  
+  #### Toggle list search ####
+  
+  output$outbtnlistsearch <- renderUI({
+    if (v$language_selected != "\n") {
+      actionButton("btn_listsearch", v$button_listsearch)
+    }else if (v$button_listsearch == btn_hide_name){
+      toggle("mots", anim = TRUE, animType = "slide")
+      v$button_listsearch = btn_show_name
+    }
+  })
+  
+  observeEvent(input$btn_listsearch, {
+    toggle("mots", anim = TRUE, animType = "slide")
+    
+    if (v$button_listsearch == btn_show_name){
+      v$button_listsearch = btn_hide_name
+    }else{
+      v$button_listsearch = btn_show_name
+    }
+  })
+  
+  # Transform list search input
+  mots2 <- reactive( { strsplit(input$mots,"[ \n\t]")[[1]] } )
+  
+  #### Select a language ####
+  
   output$outlang <- renderUI({
     selectInput("language", "Choose a language",
-                choices = c('\n','French', 'English'),
+                choices = c('\n','French', 'English', 'Multiple languages'),
                 selected = v$language_selected)
   })
   
-  # Updating second dataset categories
+  #### Show databases filter ####
+  
+  # Update databases selected based on select/deselect
+  
+  output$select_deselect_all <- renderUI({
+    if (v$language_selected != "\n") {
+      div(
+        h5(strong("Choose datasets")),
+        actionButton("select_all", btn_select_all),
+        actionButton("deselect_all", btn_deselect_all),
+      )
+    }
+  })
+  
+  observeEvent(input$select_all, {
+    v$dataset_selected = v$categories
+  })
+  
+  observeEvent(input$deselect_all, {
+    v$dataset_selected = c()
+  })
+  
+  observeEvent(input$databases, {
+    v$dataset_selected = input$databases
+  })
+  
+  # Update categories based on language selection
+  
   observeEvent(input$language, {
     v$language_selected <- input$language
+    v$change_language <- TRUE
+    
     if (input$language == "French") {
       v$categories <- names(list.filter(dslanguage, 'french' %in% tolower(name)))
-      v$first_dataset_selected <- 'Lexique383'
+      v$dataset_selected <- 'Lexique383'
     }
     else if (input$language == "English") {
       v$categories <- names(list.filter(dslanguage, 'english' %in% tolower(name)))
-      v$first_dataset_selected <- 'SUBTLEX-US'
+      v$dataset_selected <- 'SUBTLEX-US'
+    }
+    else if (input$language == "Multiple languages") {
+      v$categories <- names(list.filter(dslanguage, 'multiple_languages' %in% tolower(name)))
+      v$dataset_selected <- 'Aoa32lang'
     }
     else {
       v$categories <- c()
-      v$first_dataset_selected <- ""
+      v$dataset_selected <- ""
     }
   })
+
+  # Show databases checkbox group
   
   output$outdatabases <- renderUI({
     if (v$language_selected != "\n") {
       tooltips = list()
+      
       for (i in 1:length(v$categories)) {
-        tooltips <- list.append(tooltips, popify(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"), trigger = "click",
-                                                 title = "",
-                                                 content= paste("<div><p>",
-                                                                str_replace_all(dsdesc[[v$categories[i]]],"'","&#39"),
-                                                                "</p><p><a href=",
-                                                                dsreadme[[v$categories[i]]],
-                                                                ">More info</a></p><p><a href =",
-                                                                dsweb[[v$categories[i]]],
-                                                                ">Website</a></p></div>",sep = "")
-                                                 ))
+        info_tooltip = paste("<span style='font-size:14px;'>", "<div><p>",
+              str_replace_all(dictionary_databases[[v$categories[i]]][["dsdesc"]],"'","&#39"), "<span>", sep = "")
+        
+        if (!is.null(dictionary_databases[[v$categories[i]]][["dsweb"]])
+            && RCurl::url.exists(dictionary_databases[[v$categories[i]]][["dsweb"]])){
+          info_tooltip = paste(info_tooltip, "</p><p><a href=",
+          dictionary_databases[[v$categories[i]]][["dsweb"]],
+          " >Website</a></p></div>",sep = "")
+        }
+        
+        tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
+                                                interactive = TRUE,
+                                                tooltip = info_tooltip))
       }
-      extendedCheckboxGroup("databases", label = "Choose datasets", choiceNames  = v$categories, choiceValues = v$categories, selected = v$first_dataset_selected, 
+      
+      extendedCheckboxGroup("databases", label = "",
+                            choiceNames  = to_list(for (x in v$categories) tags$span(x, style = "color: black;")),
+                            choiceValues = v$categories,
+                            selected = v$dataset_selected, 
                             extensions = tooltips
                             )
     }
+    
     else {
       checkboxGroupInput("databases", "",
                          choices = c())
     }
   })
   
-  # Changes table content according to the number of datasets
-  datasetInput <- reactive({
-    selected_columns<- c()
-    if (length(input$databases) > 0) {
-      list_df <- list()
-      for (i in 1:length(input$databases)){
-        dat <- dstable[[input$databases[i]]]
-        for (j in 2:ncol(dat)) {
-          if (length(input$databases) > 1){
-            colnames(dat)[j] <- paste(input$databases[i],"<br>", colnames_dataset[[input$databases[i]]][j], sep = "")
-          }
-          else {
-            colnames(dat)[j] <- colnames_dataset[[input$databases[i]]][j]
-          }
-          if (colnames_dataset[[input$databases[i]]][j] %in% dsmandcol[[input$databases[i]]]){
-            selected_columns <- c(selected_columns, colnames(dat)[j])
-          }
-        }
-        list_df <- list.append(list_df,dat)
-      }
-      v$selected_columns <- selected_columns
-      Reduce(function(x,y) merge(x,y, by=join_column), list_df)
-    }
-  }
-  )
+  #### Update column selection ####
   
-  # Column filter
-  output$outshow_vars <- renderUI({
-    if (length(input$databases) >= 1) {
-      pickerInput(
-        inputId = "show_vars", 
-        label = "Choose columns to display", 
-        choices = lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}), 
-        selected = c(join_column,lapply(v$selected_columns,function(n){str_replace(n, "<br>","\n")})),#lapply(names(datasetInput()),function(n){str_replace(n, "<br>","\n")}),
-        options = list(
-          `actions-box` = TRUE,
-          size = 10,
-          `dropup-auto` = FALSE,
-          `selected-text-format`= "count > 3"
-        ), 
-        multiple = TRUE
-      )
-    } else {
-      checkboxGroupInput("show_vars",
-                         label = "")
+  # Update selected_columns when input databases is changed
+  
+  observeEvent(input$databases, ignoreNULL = FALSE, {
+    v$needTreeRender <- TRUE
+    
+    if (length(input$databases) == 1){
+      v$prefix_col = prefix_single
+      v$suffix_col = suffix_single
+    }else if(length(input$databases) > 1){
+      v$prefix_col = prefix_multiple
+      v$suffix_col = suffix_multiple
+    }
+    
+    output <- updateFromDB(input$databases,
+                           v$selected_columns,
+                           dictionary_databases,
+                           v$prefix_col,
+                           v$suffix_col)
+    
+    v$selected_columns <- output[[1]]
+    v$col_tooltips <- output[[2]]
+  })
+  
+  # Update selected_columns when input tree is changed
+  
+  observeEvent(input$tree, {
+    output <- updateColFromTree(input$tree,
+                                input$databases,
+                                v$prefix_col,
+                                v$suffix_col, 
+                                dictionary_databases)
+    
+    v$selected_columns <- output[[1]]
+    v$col_tooltips <- output[[2]]
+  })
+  
+  #### Create table ####
+  
+  # Update column names and rows selected
+  
+  datasetInput <- reactive({
+    list_df <- list()
+    
+    for (database in names(v$selected_columns)){
+      dat <- dictionary_databases[[database]][["dstable"]]
+      
+      for (col in names(v$selected_columns[[database]])){
+        colnames(dat)[colnames(dat)==col] <- v$selected_columns[[database]][[col]]
+        
+      }
+      
+      list_df <- list.append(list_df,dat)
+    }
+    
+    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+      Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
+    }else{
+      Reduce(function(x,y) merge(x, y, by=join_column), list_df)
     }
   })
   
-  # Displaying table
-  retable <- eventReactive(input$show_vars, {datasetInput()[,str_replace_all(input$show_vars, "\n", "<br>"), drop=FALSE]})
-  output$table <- renderDT(retable(),
-                           server=TRUE, escape = FALSE, selection = 'none',
-                           filter=list(position = 'top', clear = FALSE),
-                           rownames= FALSE,
-                           options=list(pageLength=10,
-                                        columnDefs = list(list(className = 'dt-center', targets = "_all")),
-                                        sDom  = '<"top">lrt<"bottom">ip',
-                                        lengthMenu = c(10, 25, 100, 500, 1000),
-                                        search=list(searching = TRUE,
-                                                    regex=TRUE,
-                                                    caseInsensitive = FALSE)
-                           )
-  )
+  # Update table
+  
+  retable <- reactive({
+    to_return <- datasetInput()[,c(join_column,
+                                      to_vec(for (database in (names(v$selected_columns)))
+                                        for (col in names(v$selected_columns[[database]]))
+                                          v$selected_columns[[database]][[col]])),
+                                        drop=FALSE]
+    
+    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+      to_return[datasetInput()[[join_column]] %in% mots2(), ]
+    }else{
+      to_return
+    }
+  })
+  
+  # Render table
+  
+  output$table <- renderDT({
+    if (length(input$databases) >= 1 && length(names(v$selected_columns)) > 0){
+      dat <- retable()
+    
+      # Adding tooltips for column names
+      col_tooltips <- c()
+      
+      for (elt in colnames(dat)){
+        col_tooltips <- c(col_tooltips, v$col_tooltips[[elt]])
+      }
+      
+      headerCallback <- c(
+        "function(thead, data, start, end, display){",
+        qTips(col_tooltips),
+        "  for(var i = 1; i <= tooltips.length; i++){",
+        "if(tooltips[i-1]['content']['text'].length > 0){",
+        "      $('th:eq('+i+')',thead).qtip(tooltips[i-1]);",
+        "    }",
+        "  }",
+        "}"
+      )
+      
+      datatable(dat,
+               escape = FALSE, selection = 'none',
+               filter=list(position = 'top', clear = FALSE),
+               rownames= FALSE,
+               options=list(headerCallback = JS(headerCallback),
+                            pageLength=20,
+                            columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                            sDom  = '<"top">lrt<"bottom">ip',
+                            lengthMenu = c(20,100, 500, 1000),
+                            search=list(searching = TRUE,
+                                        regex=TRUE,
+                                        caseInsensitive = FALSE)
+               ))
+    }
+  }, server = TRUE)
+  
+  #### Download options ####
   
   output$outdownload <- renderUI({
-    if (length(input$databases) >= 1)
+    if (length(input$databases) >= 1
+        && length(names(v$selected_columns)) > 0)
     {
       downloadButton('download.xlsx', label="Download filtered data")
     }
@@ -305,16 +416,21 @@ server <- function(input, output, session) {
   
   output$download.xlsx <- downloadHandler(
     filename = function() {
-      paste("Lexique-query-", Sys.time(), ".xlsx", sep="")
+      paste("Lexique-query-",
+            format(Sys.time(), "%Y-%m-%d"), ' ',
+            paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
+            ".xlsx", sep="")
     },
     content = function(fname){
-      # write.csv(datasetInput(), fname)
-      dt = datasetInput()[input[["table_rows_all"]],str_replace_all(input$show_vars, "\n", "<br>")]
-      names(dt) = lapply(names(dt),function(n){str_replace(n, "<br>","\n")})
+      dt = retable()[input[["table_rows_all"]], ]
+      if (length(input$databases) > 1){
+        names(dt) = c(join_column,
+                      to_vec(for (database in (names(v$selected_columns)))
+                        for (col in names(v$selected_columns[[database]]))
+                          paste(database, col, sep = " ")))
+      }
       write_xlsx(dt, fname)
     })
-  #url  <- a("Help!", href="http://www.lexique.org/?page_id=166")
-  #output$help = renderUI({ tagList("", url) })
 }
   
 #options(warn = 2, shiny.error = recover)
