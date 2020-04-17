@@ -8,8 +8,8 @@ prefix_multiple = "<span style='font-size:12px; color:grey;'>"
 suffix_multiple = "</span><br>"
 prefix_single = ""
 suffix_single = "<br>"
-btn_select_all = "Select all"
-btn_deselect_all = "Deselect all"
+#btn_select_all = "Select all"
+#btn_deselect_all = "Deselect all"
 
 helper_alert <-
   tags$div(id = "helper_box",

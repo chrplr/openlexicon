@@ -263,7 +263,7 @@ server <- function(input, output, session) {
             && RCurl::url.exists(dictionary_databases[[v$categories[i]]][["dsweb"]])){
           info_tooltip = paste(info_tooltip, "</p><p><a href=",
           dictionary_databases[[v$categories[i]]][["dsweb"]],
-          " >Website</a></p></div>",sep = "")
+          " target='_blank'>Website</a></p></div>",sep = "")
         }
         
         tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
