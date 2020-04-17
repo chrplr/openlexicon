@@ -188,7 +188,22 @@ server <- function(input, output, session) {
   })
   
   # Transform list search input
-  mots2 <- reactive( { strsplit(input$mots,"[ \n\t]")[[1]] } )
+  mots2 <- reactive( {
+    current_words <- input$mots
+    expressions <- stri_extract_all_regex(current_words, "'[^']*'")[[1]]
+    expressions <- c(expressions, stri_extract_all_regex(current_words, '"[^"]*"')[[1]])
+    expressions <- expressions[!is.na(expressions)]
+    if (length(expressions) > 0){
+      for (expression_num in 1:length(expressions)){
+        expression <- expressions[expression_num]
+        current_words <- str_remove_all(current_words, expression)
+        expressions[expression_num] <- str_remove_all(expression, "\'|\"")
+      }
+      c(expressions, strsplit(current_words,"[' \n\t]")[[1]])
+    }else{
+      strsplit(current_words,"[ \n\t]")[[1]]
+    }
+    } )
   
   #### Select a language ####
   
@@ -335,6 +350,7 @@ server <- function(input, output, session) {
     
     if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
       to_return[datasetInput()[[join_column]] %in% mots2(), ]
+      # to_return[grep(paste(mots2(), collapse = "|"), datasetInput()[[join_column]]), ] # Substring option
     }else{
       to_return
     }

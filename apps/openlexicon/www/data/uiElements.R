@@ -22,7 +22,7 @@ helper_alert <-
                tags$li("Filter using ", tags$b("intervals (e.g. 40...500) "), "or ", tags$a(class="alert-link", href="http://www.lexique.org/?page_id=101", "regular expressions", target="_blank"), ".", sep =""),
                tags$li("sort, ascending or descending")
              ),
-             tags$li("Click on the button ", btn_show_name, " to enter words that you want to search in the table."),
+             tags$li("Click on the button ", btn_show_name, " to enter words that you want to search in the table. If you want to search for expressions, put them in quotes (e.g., \"a contrario\")."),
              tags$li("Download the result of your manipulations by clicking on the button below the table")
            )
            #tags$hr(),
