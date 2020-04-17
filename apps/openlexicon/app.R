@@ -51,7 +51,6 @@ ui <- fluidPage(
                         uiOutput("consigne"),
                         uiOutput("shinyTreeTest"),
                         br(),
-                        uiOutput("select_deselect_all"),
                         uiOutput("outdatabases")%>% withSpinner(type=3,
                                                                 color.background="#ffffff",
                                                                 hide.element.when.recalculating = FALSE,
@@ -200,30 +199,6 @@ server <- function(input, output, session) {
   })
   
   #### Show databases filter ####
-  
-  # Update databases selected based on select/deselect
-  
-  output$select_deselect_all <- renderUI({
-    if (v$language_selected != "\n") {
-      div(
-        h5(strong("Choose datasets")),
-        actionButton("select_all", btn_select_all),
-        actionButton("deselect_all", btn_deselect_all),
-      )
-    }
-  })
-  
-  observeEvent(input$select_all, {
-    v$dataset_selected = v$categories
-  })
-  
-  observeEvent(input$deselect_all, {
-    v$dataset_selected = c()
-  })
-  
-  observeEvent(input$databases, {
-    v$dataset_selected = input$databases
-  })
   
   # Update categories based on language selection
   
