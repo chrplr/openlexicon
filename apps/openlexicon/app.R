@@ -82,7 +82,7 @@ server <- function(input, output, session) {
                       dataset_selected = 'Lexique383',
                       selected_columns = list(),
                       col_tooltips = list(),
-                      button_listsearch = tags$b(btn_show_name),
+                      button_listsearch = btn_show_name,
                       button_helperalert = btn_hide_helper,
                       prefix_col = prefix_single,
                       suffix_col = suffix_single,
@@ -173,7 +173,7 @@ server <- function(input, output, session) {
       actionButton("btn_listsearch", v$button_listsearch)
     }else if (grepl(btn_hide_name, v$button_listsearch)){
       toggle("mots", anim = TRUE, animType = "slide")
-      v$button_listsearch = tags$b(btn_show_name)
+      v$button_listsearch = btn_show_name
     }
   })
   
@@ -181,9 +181,9 @@ server <- function(input, output, session) {
     toggle("mots", anim = TRUE, animType = "slide")
     
     if (grepl(btn_show_name, v$button_listsearch)){
-      v$button_listsearch = tags$b(btn_hide_name)
+      v$button_listsearch = btn_hide_name
     }else{
-      v$button_listsearch = tags$b(btn_show_name)
+      v$button_listsearch = btn_show_name
     }
   })
   
