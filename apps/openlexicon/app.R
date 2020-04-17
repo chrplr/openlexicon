@@ -190,14 +190,13 @@ server <- function(input, output, session) {
   # Transform list search input
   mots2 <- reactive( {
     current_words <- input$mots
-    expressions <- stri_extract_all_regex(current_words, "'[^']*'")[[1]]
-    expressions <- c(expressions, stri_extract_all_regex(current_words, '"[^"]*"')[[1]])
+    expressions <- stri_extract_all_regex(current_words, '"[^"]*"')[[1]]
     expressions <- expressions[!is.na(expressions)]
     if (length(expressions) > 0){
       for (expression_num in 1:length(expressions)){
         expression <- expressions[expression_num]
         current_words <- str_remove_all(current_words, expression)
-        expressions[expression_num] <- str_remove_all(expression, "\'|\"")
+        expressions[expression_num] <- str_remove_all(expression, "\"")
       }
       c(expressions, strsplit(current_words,"[' \n\t]")[[1]])
     }else{
