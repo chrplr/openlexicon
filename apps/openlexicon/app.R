@@ -243,6 +243,7 @@ server <- function(input, output, session) {
         
         tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
                                                 interactive = TRUE,
+                                                theme = 'light',
                                                 tooltip = info_tooltip))
       }
       
