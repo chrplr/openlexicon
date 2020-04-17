@@ -198,7 +198,7 @@ server <- function(input, output, session) {
         current_words <- str_remove_all(current_words, expression)
         expressions[expression_num] <- str_remove_all(expression, "\"")
       }
-      c(expressions, strsplit(current_words,"[' \n\t]")[[1]])
+      c(expressions, strsplit(current_words,"[ \n\t]")[[1]])
     }else{
       strsplit(current_words,"[ \n\t]")[[1]]
     }
