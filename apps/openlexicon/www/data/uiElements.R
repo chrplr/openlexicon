@@ -1,8 +1,7 @@
-btn_show_name = "Show List Search"
-btn_hide_name = "Hide List Search"
+btn_show_name = tags$b("Show Word List Search")
+btn_hide_name = tags$b("Hide Word List Search")
 btn_show_helper = "Show Quick How-To"
 btn_hide_helper = "Hide Quick How-To"
-btn_hide_name = "Hide List Search"
 prefix_multiple = ""
 prefix_multiple = "<span style='font-size:12px; color:grey;'>"
 suffix_multiple = "</span><br>"
@@ -23,7 +22,7 @@ helper_alert <-
                tags$li("Filter using ", tags$b("intervals (e.g. 40...500) "), "or ", tags$a(class="alert-link", href="http://www.lexique.org/?page_id=101", "regular expressions", target="_blank"), ".", sep =""),
                tags$li("sort, ascending or descending")
              ),
-             tags$li(paste("Click on the button \"", btn_show_name, "\" to enter words that you want to search in the table.", sep = "")),
+             tags$li("Click on the button ", btn_show_name, " to enter words that you want to search in the table."),
              tags$li("Download the result of your manipulations by clicking on the button below the table")
            )
            #tags$hr(),

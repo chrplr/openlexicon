@@ -82,7 +82,7 @@ server <- function(input, output, session) {
                       dataset_selected = 'Lexique383',
                       selected_columns = list(),
                       col_tooltips = list(),
-                      button_listsearch = btn_show_name,
+                      button_listsearch = tags$b(btn_show_name),
                       button_helperalert = btn_hide_helper,
                       prefix_col = prefix_single,
                       suffix_col = suffix_single,
@@ -171,19 +171,19 @@ server <- function(input, output, session) {
   output$outbtnlistsearch <- renderUI({
     if (v$language_selected != "\n") {
       actionButton("btn_listsearch", v$button_listsearch)
-    }else if (v$button_listsearch == btn_hide_name){
+    }else if (grepl(btn_hide_name, v$button_listsearch)){
       toggle("mots", anim = TRUE, animType = "slide")
-      v$button_listsearch = btn_show_name
+      v$button_listsearch = tags$b(btn_show_name)
     }
   })
   
   observeEvent(input$btn_listsearch, {
     toggle("mots", anim = TRUE, animType = "slide")
     
-    if (v$button_listsearch == btn_show_name){
-      v$button_listsearch = btn_hide_name
+    if (grepl(btn_show_name, v$button_listsearch)){
+      v$button_listsearch = tags$b(btn_hide_name)
     }else{
-      v$button_listsearch = btn_show_name
+      v$button_listsearch = tags$b(btn_show_name)
     }
   })
   
@@ -316,7 +316,7 @@ server <- function(input, output, session) {
       list_df <- list.append(list_df,dat)
     }
     
-    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
       Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
     }else{
       Reduce(function(x,y) merge(x, y, by=join_column), list_df)
@@ -332,7 +332,7 @@ server <- function(input, output, session) {
                                           v$selected_columns[[database]][[col]])),
                                         drop=FALSE]
     
-    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
       to_return[datasetInput()[[join_column]] %in% mots2(), ]
     }else{
       to_return
