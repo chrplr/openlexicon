@@ -15,6 +15,7 @@ usePackageGit <- function(i, github_repo){
 
 # Load packages
 
+usePackage("stringi")
 usePackage("shiny")
 usePackage("shinyBS")
 usePackage("shinyjs")

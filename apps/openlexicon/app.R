@@ -51,7 +51,6 @@ ui <- fluidPage(
                         uiOutput("consigne"),
                         uiOutput("shinyTreeTest"),
                         br(),
-                        uiOutput("select_deselect_all"),
                         uiOutput("outdatabases")%>% withSpinner(type=3,
                                                                 color.background="#ffffff",
                                                                 hide.element.when.recalculating = FALSE,
@@ -172,7 +171,7 @@ server <- function(input, output, session) {
   output$outbtnlistsearch <- renderUI({
     if (v$language_selected != "\n") {
       actionButton("btn_listsearch", v$button_listsearch)
-    }else if (v$button_listsearch == btn_hide_name){
+    }else if (grepl(btn_hide_name, v$button_listsearch)){
       toggle("mots", anim = TRUE, animType = "slide")
       v$button_listsearch = btn_show_name
     }
@@ -181,7 +180,7 @@ server <- function(input, output, session) {
   observeEvent(input$btn_listsearch, {
     toggle("mots", anim = TRUE, animType = "slide")
     
-    if (v$button_listsearch == btn_show_name){
+    if (grepl(btn_show_name, v$button_listsearch)){
       v$button_listsearch = btn_hide_name
     }else{
       v$button_listsearch = btn_show_name
@@ -189,7 +188,21 @@ server <- function(input, output, session) {
   })
   
   # Transform list search input
-  mots2 <- reactive( { strsplit(input$mots,"[ \n\t]")[[1]] } )
+  mots2 <- reactive( {
+    current_words <- input$mots
+    expressions <- stri_extract_all_regex(current_words, '"[^"]*"')[[1]]
+    expressions <- expressions[!is.na(expressions)]
+    if (length(expressions) > 0){
+      for (expression_num in 1:length(expressions)){
+        expression <- expressions[expression_num]
+        current_words <- str_remove_all(current_words, expression)
+        expressions[expression_num] <- str_remove_all(expression, "\"")
+      }
+      c(expressions, strsplit(current_words,"[ \n\t]")[[1]])
+    }else{
+      strsplit(current_words,"[ \n\t]")[[1]]
+    }
+    } )
   
   #### Select a language ####
   
@@ -200,30 +213,6 @@ server <- function(input, output, session) {
   })
   
   #### Show databases filter ####
-  
-  # Update databases selected based on select/deselect
-  
-  output$select_deselect_all <- renderUI({
-    if (v$language_selected != "\n") {
-      div(
-        h5(strong("Choose datasets")),
-        actionButton("select_all", btn_select_all),
-        actionButton("deselect_all", btn_deselect_all),
-      )
-    }
-  })
-  
-  observeEvent(input$select_all, {
-    v$dataset_selected = v$categories
-  })
-  
-  observeEvent(input$deselect_all, {
-    v$dataset_selected = c()
-  })
-  
-  observeEvent(input$databases, {
-    v$dataset_selected = input$databases
-  })
   
   # Update categories based on language selection
   
@@ -263,11 +252,12 @@ server <- function(input, output, session) {
             && RCurl::url.exists(dictionary_databases[[v$categories[i]]][["dsweb"]])){
           info_tooltip = paste(info_tooltip, "</p><p><a href=",
           dictionary_databases[[v$categories[i]]][["dsweb"]],
-          " >Website</a></p></div>",sep = "")
+          " target='_blank'>Website</a></p></div>",sep = "")
         }
         
         tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
                                                 interactive = TRUE,
+                                                theme = 'light',
                                                 tooltip = info_tooltip))
       }
       
@@ -341,7 +331,7 @@ server <- function(input, output, session) {
       list_df <- list.append(list_df,dat)
     }
     
-    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
       Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
     }else{
       Reduce(function(x,y) merge(x, y, by=join_column), list_df)
@@ -357,8 +347,9 @@ server <- function(input, output, session) {
                                           v$selected_columns[[database]][[col]])),
                                         drop=FALSE]
     
-    if (v$button_listsearch == btn_hide_name && length(mots2()) > 0){
+    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
       to_return[datasetInput()[[join_column]] %in% mots2(), ]
+      # to_return[grep(paste(mots2(), collapse = "|"), datasetInput()[[join_column]]), ] # Substring option
     }else{
       to_return
     }
