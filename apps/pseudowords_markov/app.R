@@ -2,26 +2,34 @@
 # Authors: Boris New & C. Pallier
 # Time-stamp: <2019-07-22 10:41:54 christophe@pallier.org>
 
+#### Functions ####
 rm(list = ls())
 source('www/functions/generatePseudo.R')
 source('www/functions/loadPackages.R')
 
+#### Script begins ####
+source('www/data/uiElements.R')
+source('../../../test.R')
+
 ui <- fluidPage(
+  useShinyjs(),
+  
   titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "Pseudoword Generator")),
   title = "Pseudoword Generator",
   
   sidebarLayout(
     sidebarPanel(
       uiOutput("helper_alert"),
-      #br(),
-      #helper_alert,
+      br(),
+      helper_alert,
       textAreaInput("mots",
-                                     label = h4("Paste here a list of words from which pseudowords will be generated"),
-                                     rows = 10),
+                     label = h4("Paste here a list of words from which pseudowords will be generated"),
+                     rows = 10, value = testwords),
       tags$div(selectInput("nbpseudos",
                            "Select number of pseudowords to create",
                            c(1,5,20,50,100),
-                           width = "100%"),
+                           width = "100%",
+                           selected=20)),
       tags$div(selectInput("longueur",
                            "Select length of pseudowords to create",
                            4:15,
@@ -29,10 +37,11 @@ ui <- fluidPage(
       tags$div(selectInput("timeout",
                            "Maximum time to run (in seconds)",
                            c(1, 5, 10, 30, 60, 120, 300, 600),
-                           width = "100%")),
-      actionButton("go", "Press here to generate pseudowords!")),
+                           width = "100%",
+                           selected=5)),
+      actionButton("go", "Generate pseudowords"),
       br(),
-      width=4#, style = "position:fixed;width:inherit;"
+      width=4
     ),
   mainPanel(
   fluidRow(column(8, 
@@ -44,6 +53,27 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
+  v <- reactiveValues(
+    button_helperalert = btn_hide_helper)
+  
+    #### Toggle helper_alert ####
+    
+    output$helper_alert <- renderUI({
+      actionButton("btn", v$button_helperalert)
+    })
+    
+    observeEvent(input$btn, {
+      shinyjs::toggle("helper_box", anim = TRUE, animType = "slide")
+      
+      if (v$button_helperalert == btn_show_helper){
+        v$button_helperalert = btn_hide_helper
+      }else{
+        v$button_helperalert = btn_show_helper
+      }
+    })  
+    
+    #### show pseudowords ####
+  
     pseudowords <- eventReactive(input$go,
     {
        nbpseudos = as.numeric(input$nbpseudos)
