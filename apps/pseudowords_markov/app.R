@@ -6,6 +6,7 @@ library(shiny)
 library(DT)
 library(dplyr)
 library(writexl)
+library(lubridate)
 
 
 generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
@@ -17,32 +18,32 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
   # time.out = a time in seconds to stop
 {
   if (length(models) == 0) { return (NULL) }
-
+  
   trigs = list()  #  store lists of trigrams by starting position
   for (cpos in 1:(len - 1))
     trigs[[cpos]] <- substring(models, cpos, cpos + 2)
-
+  
   pseudos <- character(n)  # will contain the generated pseudowords
-
+  
   start.time <- Sys.time()
-
+  
   np = 1
   while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
     # sample a random beginning trigram
     item <- sample(trigs[[1]], 1)
-
+    
     # Build the item letter by letter by adding compatible trigrams
     for(pos in 2:(len - 1)) {
       # get the last 2 letters of the current item
       lastbigram <- substr(item, pos, pos + 1)
-
+      
       # Select trigrams staring in position 'pos' and which are compatibles with 'lastbigram'
       compat <- trigs[[pos]][grep(paste(sep="" , "^", lastbigram), trigs[[pos]])]
       if (length(compat) == 0) break  # must start again
-
+      
       item <- paste(item, substr(sample(compat, 1), 3, 3), sep="")  # add the last letter of the trigram
     }
-
+    
     # keep item only if not in the 'models', 'exclude' or 'pseudos' list
     if (!(item %in% c(models, exclude, pseudos))) {
       pseudos[np] = item
@@ -58,40 +59,40 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
 
 
 ui <- fluidPage(
+  titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "Pseudoword Generator")),
   title = "Pseudoword Generator",
-  fluidRow(
-      column(5,
-             textarea_demo <- textAreaInput("mots",
-                                            label = h4("Paste here a list of words from which pseudowords will be generated"),
-                                            rows = 10)
-             ),
-      column(3,
-             tags$div(selectInput("nbpseudos",
-                                  "Select number of pseudowords to create",
-                                  c(1,5,20,50,100),
-                                  width = "100%"))
-             ),
-      column(3,
-             tags$div(selectInput("longueur",
-                                  "Select length of pseudowords to create",
-                                  4:15,
-                                  width = "100%"))
-             ),
-      column(3,
-             tags$div(selectInput("timeout",
-                                  "Maximum time to run (in seconds)",
-                                  c(1, 5, 10, 30, 60, 120, 300, 600),
-                                  width = "100%"))
-      ),
-      column(3, 
-             actionButton("go", "Press here to generate pseudowords!"))
-            ),
+  
+  sidebarLayout(
+    sidebarPanel(
+      uiOutput("helper_alert"),
+      #br(),
+      #helper_alert,
+      textAreaInput("mots",
+                                     label = h4("Paste here a list of words from which pseudowords will be generated"),
+                                     rows = 10),
+      tags$div(selectInput("nbpseudos",
+                           "Select number of pseudowords to create",
+                           c(1,5,20,50,100),
+                           width = "100%"),
+      tags$div(selectInput("longueur",
+                           "Select length of pseudowords to create",
+                           4:15,
+                           width = "100%")),
+      tags$div(selectInput("timeout",
+                           "Maximum time to run (in seconds)",
+                           c(1, 5, 10, 30, 60, 120, 300, 600),
+                           width = "100%")),
+      actionButton("go", "Press here to generate pseudowords!")),
+      br(),
+      width=4#, style = "position:fixed;width:inherit;"
+    ),
+  mainPanel(
   fluidRow(column(8, 
                   offset = 3,
                   textarea_output <- textOutput("pseudomots"))
-           ),
+  ),
   downloadButton(outputId='download', label="Download pseudowords")
-)
+)))
 
 
 server <- function(input, output) {
@@ -109,11 +110,14 @@ server <- function(input, output) {
     output$pseudomots = renderText(pseudowords())
 
     output$download <- downloadHandler(
-        filename = function() {
-            paste("pseudos-query-", Sys.time(), ".xlsx", sep="")
-        },
+      filename = function() {
+        paste("pseudos-query-",
+              format(Sys.time(), "%Y-%m-%d"), ' ',
+              paste(hour(Sys.time()), minute(Sys.time()), round(second(Sys.time()),0), sep = "-"),
+              ".xlsx", sep="")
+      },
         content = function(fname) {
-            dt = pseudomots()
+            dt = data.frame(as.list(pseudowords()))
             write_xlsx(dt, fname)
         }
     )
