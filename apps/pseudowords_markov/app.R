@@ -13,6 +13,7 @@ source('../../../test.R')
 
 ui <- fluidPage(
   useShinyjs(),
+  useShinyalert(),
   
   titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "Pseudoword Generator")),
   title = "Pseudoword Generator",
@@ -23,8 +24,8 @@ ui <- fluidPage(
       br(),
       helper_alert,
       textAreaInput("mots",
-                     label = h4("Paste here a list of words from which pseudowords will be generated"),
-                     rows = 10, value = testwords),
+                     label = tags$b(paste_words),
+                     rows = 10, value = testwords, resize = "none"),
       tags$div(selectInput("nbpseudos",
                            "Select number of pseudowords to create",
                            c(1,5,20,50,100),
@@ -34,11 +35,11 @@ ui <- fluidPage(
                            "Select length of pseudowords to create",
                            4:15,
                            width = "100%")),
-      tags$div(selectInput("timeout",
-                           "Maximum time to run (in seconds)",
-                           c(1, 5, 10, 30, 60, 120, 300, 600),
-                           width = "100%",
-                           selected=5)),
+      # tags$div(selectInput("timeout",
+      #                      "Maximum time to run (in seconds)",
+      #                      c(1, 5, 10, 30, 60, 120, 300, 600),
+      #                      width = "100%",
+      #                      selected=5)),
       actionButton("go", "Generate pseudowords"),
       br(),
       width=4
@@ -80,8 +81,7 @@ server <- function(input, output) {
        longueur = as.numeric(input$longueur)
        words <- strsplit(input$mots,"[ \n\t]")[[1]]
        wordsok <- words[nchar(words) == longueur]
-       timeout <- as.numeric(input$timeout)
-       generate_pseudowords(nbpseudos, longueur, wordsok, exclude=NULL, timeout)
+       generate_pseudowords(nbpseudos, longueur, wordsok, exclude=NULL)
     }
     )
 

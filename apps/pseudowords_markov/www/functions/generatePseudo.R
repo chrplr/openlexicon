@@ -1,4 +1,4 @@
-generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
+generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=1)
   # generate pseudowords by chaining trigrams
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudowords
@@ -6,6 +6,7 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
   # exclude: vector of items to exclude
   # time.out = a time in seconds to stop
 {
+  print(models)
   if (length(models) == 0) { return (NULL) }
   
   trigs = list()  #  store lists of trigrams by starting position
@@ -39,9 +40,13 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
       np = np + 1
     }
   }
-  if (length(pseudos) == n) {
-    return (pseudos)
+  if (np > n) {
+    return(pseudos)
   } else {
-    return (paste("could no find", n, "pseudowords"))
+    shinyalert("Error", paste(
+      'Failed to generate the requested number of words. Please enter a larger number of words in the \"',
+      paste_words, '\" section.'),
+      type = "error")
+    return()
   }
 }

@@ -19,6 +19,7 @@ usePackage("dplyr")
 usePackage("DT")
 usePackage("shiny")
 usePackage("shinyjs")
+usePackage("shinyalert")
 
 # usePackage("stringi")
 # usePackage("shinyBS")
