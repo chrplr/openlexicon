@@ -1,4 +1,4 @@
-generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=1)
+generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
   # generate pseudowords by chaining trigrams
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudowords
@@ -6,7 +6,7 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=1)
   # exclude: vector of items to exclude
   # time.out = a time in seconds to stop
 {
-  print(models)
+  exclude=strsplit(french_list,"[ \n\t]")[[1]]
   if (length(models) == 0) { return (NULL) }
   
   trigs = list()  #  store lists of trigrams by starting position

@@ -10,6 +10,7 @@ source('www/functions/loadPackages.R')
 #### Script begins ####
 source('www/data/uiElements.R')
 source('../../../test.R')
+source('www/data//listedemotsfrancais.R')
 
 ui <- fluidPage(
   useShinyjs(),
