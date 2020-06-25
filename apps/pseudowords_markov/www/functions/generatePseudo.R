@@ -7,13 +7,13 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
   # time.out = a time in seconds to stop
 {
   exclude=strsplit(french_list,"[ \n\t]")[[1]] # exclude french words
-  if (length(models) == 0) { return (NULL) }
-  
-  # create list to store words used to compose pseudowords
-  # for (word_used in 1:len){
-  #   assign(paste("word", str(word_used), sep=""),character(len))
-  # }
-  
+  if (length(models) == 0) {
+    shinyalert("Error", paste(
+      'Failed to generate the pseudowords. Please enter words of the desired length in the \"',
+      paste_words, '\" section.'),
+      type = "error")
+    return ()
+    }
   
   # create data frame of trigrams
   trigs = data.frame(matrix(ncol = 0, nrow = length(models)))  #  store lists of trigrams by starting position
@@ -64,7 +64,7 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
     return(final_list)
   } else {
     shinyalert("Error", paste(
-      'Failed to generate the requested number of words. Please enter a larger number of words in the \"',
+      'Failed to generate the requested number of pseudowords. Please enter a larger number of words in the \"',
       paste_words, '\" section.'),
       type = "error")
     return()

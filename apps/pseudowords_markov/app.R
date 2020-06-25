@@ -96,8 +96,8 @@ server <- function(input, output) {
 
     output$pseudomots = renderDT({
       dt <- pseudowords()
-      v$nb_pseudowords <- nrow(dt)
-      print(v$nb_pseudowords)
+      v$nb_pseudowords <- length(dt)
+
       datatable(dt,
                 escape = FALSE, selection = 'none',
                 filter=list(position = 'top', clear = FALSE),
