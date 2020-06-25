@@ -41,7 +41,7 @@ ui <- fluidPage(
       #                      c(1, 5, 10, 30, 60, 120, 300, 600),
       #                      width = "100%",
       #                      selected=5)),
-      actionButton("go", "Generate pseudowords"),
+      actionButton("go", go_btn),
       br(),
       width=4
     ),
