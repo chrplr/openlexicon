@@ -20,6 +20,7 @@ usePackage("DT")
 usePackage("shiny")
 usePackage("shinyjs")
 usePackage("shinyalert")
+usePackageGit("shinycssloaders", "jbourgin/shinycssloaders") #https://github.com/daattali/shinycssloaders/issues/22
 
 # usePackage("stringi")
 # usePackage("shinyBS")

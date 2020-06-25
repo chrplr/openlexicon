@@ -53,7 +53,10 @@ ui <- fluidPage(
                       font-weight: bold;
                   }
               ")), 
-             DTOutput(outputId="pseudomots")),
+             DTOutput(outputId="pseudomots") %>% withSpinner(type=3,
+                                                              color.background="#ffffff",
+                                                              hide.element.when.recalculating = FALSE,
+                                                              proxy.height = 0)),
     uiOutput("outdownload")
 )))
 
