@@ -1,4 +1,4 @@
-generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
+generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
   # generate pseudowords by chaining trigrams
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudowords
@@ -6,42 +6,62 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
   # exclude: vector of items to exclude
   # time.out = a time in seconds to stop
 {
-  exclude=strsplit(french_list,"[ \n\t]")[[1]]
+  exclude=strsplit(french_list,"[ \n\t]")[[1]] # exclude french words
   if (length(models) == 0) { return (NULL) }
   
-  trigs = list()  #  store lists of trigrams by starting position
+  # create list to store words used to compose pseudowords
+  # for (word_used in 1:len){
+  #   assign(paste("word", str(word_used), sep=""),character(len))
+  # }
+  
+  
+  # create data frame of trigrams
+  trigs = data.frame(matrix(ncol = 0, nrow = length(models)))  #  store lists of trigrams by starting position
   for (cpos in 1:(len - 1))
     trigs[[cpos]] <- substring(models, cpos, cpos + 2)
+  trigs$models <- models
   
-  pseudos <- character(n)  # will contain the generated pseudowords
+  # create dataframe for final list of pseudowords
+  final_list <- data.frame(matrix(ncol = length(trigs), nrow = n))
+  new_colnames <- c()
+  for (num_word in 1:(ncol(trigs)-1)){
+    new_colnames <- c(new_colnames, paste("Word", num_word, sep="."))
+  }
+  new_colnames <- c(new_colnames, "Pseudoword")
+  colnames(final_list) <- new_colnames
   
   start.time <- Sys.time()
   
   np = 1
   while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
     # sample a random beginning trigram
-    item <- sample(trigs[[1]], 1)
+    random_item <- trigs[sample(nrow(trigs), 1),]
+    final_list[["Word.1"]][np] <- random_item[['models']]
+    item <- random_item[[1]]
     
     # Build the item letter by letter by adding compatible trigrams
     for(pos in 2:(len - 1)) {
       # get the last 2 letters of the current item
       lastbigram <- substr(item, pos, pos + 1)
       
+      
       # Select trigrams staring in position 'pos' and which are compatibles with 'lastbigram'
-      compat <- trigs[[pos]][grep(paste(sep="" , "^", lastbigram), trigs[[pos]])]
+      compat <- trigs[grep(paste(sep="" , "^", lastbigram), trigs[[pos]]), ]
       if (length(compat) == 0) break  # must start again
       
-      item <- paste(item, substr(sample(compat, 1), 3, 3), sep="")  # add the last letter of the trigram
+      random_compat <- compat[sample(nrow(compat), 1),]
+      final_list[[paste("Word", pos, sep=".")]][np] <- random_compat[['models']]
+      item <- paste(item, substr(random_compat[[pos]], 3, 3), sep="")  # add the last letter of the trigram
     }
     
     # keep item only if not in the 'models', 'exclude' or 'pseudos' list
-    if (!(item %in% c(models, exclude, pseudos))) {
-      pseudos[np] = item
+    if (!(item %in% c(models, exclude, final_list$Pseudoword[np]))) {
+      final_list$Pseudoword[np] = item
       np = np + 1
     }
   }
   if (np > n) {
-    return(pseudos)
+    return(final_list)
   } else {
     shinyalert("Error", paste(
       'Failed to generate the requested number of words. Please enter a larger number of words in the \"',

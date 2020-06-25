@@ -46,10 +46,14 @@ ui <- fluidPage(
       width=4
     ),
   mainPanel(
-  fluidRow(column(8, 
-                  offset = 3,
-                  textarea_output <- textOutput("pseudomots"))
-  ),
+    fluidRow(tags$style(HTML("
+                  thead:first-child > tr:first-child > th {
+                      border-top: 0;
+                      font-size: normal;
+                      font-weight: bold;
+                  }
+              ")), 
+             DTOutput(outputId="pseudomots")),
   downloadButton(outputId='download', label="Download pseudowords")
 )))
 
@@ -86,7 +90,20 @@ server <- function(input, output) {
     }
     )
 
-    output$pseudomots = renderText(pseudowords())
+    output$pseudomots = renderDT(
+      datatable(pseudowords(),
+                escape = FALSE, selection = 'none',
+                filter=list(position = 'top', clear = FALSE),
+                rownames= FALSE,
+                options=list(pageLength=20,
+                             columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                             sDom  = '<"top">lrt<"bottom">ip',
+                             lengthMenu = c(20,100, 500, 1000),
+                             search=list(searching = TRUE,
+                                         regex=TRUE,
+                                         caseInsensitive = FALSE)
+                ))
+      )
 
     output$download <- downloadHandler(
       filename = function() {
@@ -96,8 +113,8 @@ server <- function(input, output) {
               ".xlsx", sep="")
       },
         content = function(fname) {
-            dt = data.frame(as.list(pseudowords()))
-            write_xlsx(dt, fname)
+            #dt = data.frame(as.list(pseudowords()))
+            write_xlsx(input$pseudomots, fname)
         }
     )
 }
