@@ -54,13 +54,14 @@ ui <- fluidPage(
                   }
               ")), 
              DTOutput(outputId="pseudomots")),
-  downloadButton(outputId='download', label="Download pseudowords")
+    uiOutput("outdownload")
 )))
 
 
 server <- function(input, output) {
   v <- reactiveValues(
-    button_helperalert = btn_hide_helper)
+    button_helperalert = btn_hide_helper,
+    nb_pseudowords = 0)
   
     #### Toggle helper_alert ####
     
@@ -90,8 +91,11 @@ server <- function(input, output) {
     }
     )
 
-    output$pseudomots = renderDT(
-      datatable(pseudowords(),
+    output$pseudomots = renderDT({
+      dt <- pseudowords()
+      v$nb_pseudowords <- nrow(dt)
+      print(v$nb_pseudowords)
+      datatable(dt,
                 escape = FALSE, selection = 'none',
                 filter=list(position = 'top', clear = FALSE),
                 rownames= FALSE,
@@ -103,20 +107,28 @@ server <- function(input, output) {
                                          regex=TRUE,
                                          caseInsensitive = FALSE)
                 ))
-      )
+    }, server = TRUE)
 
-    output$download <- downloadHandler(
+    #### Download options ####
+    
+    output$outdownload <- renderUI({
+      if (v$nb_pseudowords > 0)
+      {
+        downloadButton('download.xlsx', label="Download pseudowords")
+      }
+    })
+    
+    output$download.xlsx <- downloadHandler(
       filename = function() {
-        paste("pseudos-query-",
+        paste("Pseudowords-query-",
               format(Sys.time(), "%Y-%m-%d"), ' ',
-              paste(hour(Sys.time()), minute(Sys.time()), round(second(Sys.time()),0), sep = "-"),
+              paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
               ".xlsx", sep="")
       },
-        content = function(fname) {
-            #dt = data.frame(as.list(pseudowords()))
-            write_xlsx(input$pseudomots, fname)
-        }
-    )
+      content = function(fname) {
+        write_xlsx(pseudowords(), fname)
+      })
 }
+
 
 shinyApp(ui, server)
