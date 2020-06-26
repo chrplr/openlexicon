@@ -4,6 +4,10 @@ go_btn = tags$b("Go!")
 anim_btn = tags$b("See animation")
 lexique_btn = tags$b("Select words")
 paste_words = "Words to use"
+font_first_element = "<font color='red'><b>"
+font_second_element = "</b></font>"
+font_fade = "<font color ='grey'>"
+font_fade_end = "</font>"
 
 helper_alert <-
   tags$div(id = "helper_box",

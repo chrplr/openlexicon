@@ -129,7 +129,14 @@ server <- function(input, output) {
               ".xlsx", sep="")
       },
       content = function(fname) {
-        write_xlsx(pseudowords(), fname)
+        dt <- pseudowords()
+        for (col in 1:ncol(dt)){
+          dt[, col] <- gsub(font_first_element, "", dt[, col])
+          dt[, col] <- gsub(font_second_element, "", dt[, col])
+          dt[, col] <- gsub(font_fade, "", dt[, col])
+          dt[, col] <- gsub(font_fade_end, "", dt[, col])
+        }
+        write_xlsx(dt, fname)
       })
 }
 
