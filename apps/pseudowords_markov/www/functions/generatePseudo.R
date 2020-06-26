@@ -6,6 +6,7 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
   # exclude: vector of items to exclude
   # time.out = a time in seconds to stop
 {
+  time.out = n*0.3
   exclude=strsplit(french_list,"[ \n\t]")[[1]] # exclude french words
   if (length(models) == 0) {
     shinyalert("Error", paste0(
