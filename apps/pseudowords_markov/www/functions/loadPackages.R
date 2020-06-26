@@ -15,20 +15,24 @@ usePackageGit <- function(i, github_repo){
 
 usePackage("lubridate")
 usePackage("writexl")
-usePackage("dplyr")
+usePackage("plyr")
+#usePackage("dplyr")
 usePackage("DT")
 usePackage("shiny")
 usePackage("shinyjs")
 usePackage("shinyalert")
 usePackageGit("shinycssloaders", "jbourgin/shinycssloaders") #https://github.com/daattali/shinycssloaders/issues/22
+usePackage("rvest") # To repair encoding
+usePackage("shinyalert")
 
 # usePackage("stringi")
 # usePackage("shinyBS")
+# usePackage("DT")
 # usePackage("stringr")
 # usePackage("shinyWidgets")
-# usePackage("plyr")
 # usePackage("data.table")
 # usePackage("rlist")
 # usePackage("RCurl") #To test if string is url
 # usePackage("comprehenr") # Comprehension list
-# usePackage("rjson")
+# usePackageGit("tippy", "JohnCoene/tippy")
+# usePackageGit("shinyTree", "shinyTree/shinyTree")

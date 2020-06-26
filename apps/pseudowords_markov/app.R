@@ -7,11 +7,14 @@ rm(list = ls())
 source('www/functions/generatePseudo.R')
 source('www/functions/loadPackages.R')
 
-#### Script begins ####
-source('www/data/uiElements.R')
-source('../../../test.R')
-source('www/data//listedemotsfrancais.R')
+# Loading datasets and UI
+source('../../datasets-info/fetch_datasets.R')
+source('www/data/loadingDatasets.R')
 
+source('www/data/uiElements.R')
+source('www/data/listedemotsfrancais.R')
+
+#### Script begins ####
 ui <- fluidPage(
   useShinyjs(),
   useShinyalert(),
@@ -24,23 +27,19 @@ ui <- fluidPage(
       uiOutput("helper_alert"),
       br(),
       helper_alert,
-      textAreaInput("mots",
-                     label = tags$b(paste_words),
-                     rows = 10, value = testwords, resize = "none"),
+      tags$div(selectInput("longueur",
+                           length_choice,
+                           4:15,
+                           width = "100%")),
+      actionButton("generateDB", generateDB_btn),
+      br(),
+      br(),
+      uiOutput("oMots"),
       tags$div(selectInput("nbpseudos",
-                           "Select number of pseudowords to create",
+                           number_choice,
                            c(1,5,20,50,100),
                            width = "100%",
                            selected=20)),
-      tags$div(selectInput("longueur",
-                           "Select length of pseudowords to create",
-                           4:15,
-                           width = "100%")),
-      # tags$div(selectInput("timeout",
-      #                      "Maximum time to run (in seconds)",
-      #                      c(1, 5, 10, 30, 60, 120, 300, 600),
-      #                      width = "100%",
-      #                      selected=5)),
       actionButton("go", go_btn),
       br(),
       width=4
@@ -64,7 +63,8 @@ ui <- fluidPage(
 server <- function(input, output) {
   v <- reactiveValues(
     button_helperalert = btn_hide_helper,
-    nb_pseudowords = 0)
+    nb_pseudowords = 0,
+    words_to_search = c())
   
     #### Toggle helper_alert ####
     
@@ -81,6 +81,22 @@ server <- function(input, output) {
         v$button_helperalert = btn_show_helper
       }
     })  
+    
+    #### Generate words from Lexique ####
+    
+    observeEvent(input$generateDB, {
+      longueur = as.numeric(input$longueur)
+      words <- dictionary_databases[['Lexique383']][['dstable']][['Word']]
+      wordsok <- words[nchar(words) == longueur]
+      wordsok <- as.character(wordsok)
+      v$words_to_search <- paste(wordsok, collapse="\n")
+    }) 
+    
+    output$oMots <- renderUI({
+      textAreaInput("mots",
+                  label = tags$b(paste_words),
+                  rows = 10, value = v$words_to_search, resize = "none")
+    })
     
     #### show pseudowords ####
   

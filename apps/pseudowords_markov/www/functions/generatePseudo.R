@@ -36,7 +36,6 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
   while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
     # sample a random beginning trigram
     random_item <- trigs[sample(nrow(trigs), 1),]
-    #final_list[["Word.1"]][np] <- gsub(substr(random_item[["models"]], 1, 2), paste0(font_first_element, substr(random_item[["models"]], 1, 2), font_second_element), random_item[["models"]])
     final_list[["Word.1"]][np] <- paste0(font_first_element, substr(random_item[["models"]], 1, 2), font_second_element,substr(random_item[["models"]], 3, nchar(random_item[["models"]]))) 
     final_list[["Word.1"]][np] <- paste0(font_fade, final_list[["Word.1"]][np], font_fade_end)
     item <- random_item[[1]]
@@ -51,7 +50,6 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
       if (length(compat) == 0) break  # must start again
       
       random_compat <- compat[sample(nrow(compat), 1),]
-      #final_list[[paste("Word", pos, sep=".")]][np] <- gsub(substr(random_compat[["models"]], pos, pos+1), paste0(font_first_element, substr(random_compat[["models"]], pos, pos+1), font_second_element), random_compat[["models"]])
       final_list[[paste("Word", pos, sep=".")]][np] <- paste0(substr(random_compat[["models"]], 1, pos), font_first_element, substr(random_compat[["models"]], pos+1, pos+1), font_second_element,substr(random_compat[["models"]], pos+2, nchar(random_compat[["models"]]))) 
       final_list[[paste("Word", pos, sep=".")]][np] <- paste0(font_fade, final_list[[paste("Word", pos, sep=".")]][np], font_fade_end)
       item <- paste(item, substr(random_compat[[pos]], 3, 3), sep="")  # add the last letter of the trigram
