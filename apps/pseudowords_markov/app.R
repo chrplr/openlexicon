@@ -89,6 +89,7 @@ server <- function(input, output) {
       words <- dictionary_databases[['Lexique383']][['dstable']][['Word']]
       wordsok <- words[nchar(words) == longueur]
       wordsok <- as.character(wordsok)
+      wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)]
       v$words_to_search <- paste(wordsok, collapse="\n")
     }) 
     
@@ -106,6 +107,7 @@ server <- function(input, output) {
        longueur = as.numeric(input$longueur)
        words <- strsplit(input$mots,"[ \n\t]")[[1]]
        wordsok <- words[nchar(words) == longueur]
+       wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
        generate_pseudowords(nbpseudos, longueur, wordsok, exclude=NULL)
     }
     )
