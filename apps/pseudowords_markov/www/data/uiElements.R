@@ -10,6 +10,8 @@ font_fade_end = "</font>"
 generateDB_btn = tags$b("Use words from Lexique")
 length_choice = tags$b("Pseudowords length")
 number_choice = tags$b("Number of pseudowords")
+punctuation = c('!', '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+                ':', ';', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~')
 
 
 helper_alert <-
