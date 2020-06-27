@@ -12,7 +12,7 @@ source('../../datasets-info/fetch_datasets.R')
 source('www/data/loadingDatasets.R')
 
 source('www/data/uiElements.R')
-source('www/data/listedemotsfrancais.R')
+source('www/data/listedemotsfrancais.R', encoding='latin1')
 
 #### Script begins ####
 ui <- fluidPage(
