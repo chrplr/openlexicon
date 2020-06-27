@@ -33,7 +33,7 @@ fix.encoding <- function(df) {
     highProbaEncoding = "latin1"
   }
   for (col in 1:numCols){
-    if (!(is.numeric(df[, col]))){ 
+    if (!(is.numeric(df[, col]))){
       df[, col] <- as.character(df[, col])
       df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
       Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
@@ -68,7 +68,7 @@ for (ds in names(datasets)) {
   },
   error = function(e) {
     message(paste("Couldn't load database ", ds, ". Check json and rds files.", sep = ""))
-  } 
+  }
   )
 }
 
@@ -85,7 +85,7 @@ for (ds in names(datasets)) {
   dictionary_databases[[ds]][["dsmandcol"]] <- get_mandatory_columns(ds, info, dictionary_databases)
   dictionary_databases[[ds]][["colnames_dataset"]] <- list()
   colnames(dictionary_databases[[ds]][["dstable"]])[1] <- join_column
-  
+
   # Column names description
   for (j in 2:length(colnames(dictionary_databases[[ds]][["dstable"]]))) {
     current_colname = colnames(dictionary_databases[[ds]][["dstable"]])[j]
@@ -96,7 +96,7 @@ for (ds in names(datasets)) {
       dictionary_databases[[ds]][["colnames_dataset"]][[current_colname]] = info$column_names[[current_colname]]
     }
   }
-  
+
   if (is.null(dictionary_databases[[ds]][["dsmandcol"]])) {
     dictionary_databases[[ds]][["dsmandcol"]] <- names(dictionary_databases[[ds]][["colnames_dataset"]])
   }

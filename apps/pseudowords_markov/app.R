@@ -2,121 +2,162 @@
 # Authors: Boris New & C. Pallier
 # Time-stamp: <2019-07-22 10:41:54 christophe@pallier.org>
 
-library(shiny)
-library(DT)
-library(dplyr)
-library(writexl)
+#### Functions ####
+rm(list = ls())
+source('www/functions/generatePseudo.R')
+source('www/functions/loadPackages.R')
 
+# Loading datasets and UI
+source('../../datasets-info/fetch_datasets.R')
+source('www/data/loadingDatasets.R')
 
-generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=5)
-  # generate pseudowords by chaining trigrams
-  # n: number of pseudowords to return
-  # len: length (nchar) of these pseudowords
-  # models: vector of items to get trigrams from (all of the same length!)
-  # exclude: vector of items to exclude
-  # time.out = a time in seconds to stop
-{
-  if (length(models) == 0) { return (NULL) }
+source('www/data/uiElements.R')
+source('www/data/listedemotsfrancais.R', encoding='latin1')
 
-  trigs = list()  #  store lists of trigrams by starting position
-  for (cpos in 1:(len - 1))
-    trigs[[cpos]] <- substring(models, cpos, cpos + 2)
-
-  pseudos <- character(n)  # will contain the generated pseudowords
-
-  start.time <- Sys.time()
-
-  np = 1
-  while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
-    # sample a random beginning trigram
-    item <- sample(trigs[[1]], 1)
-
-    # Build the item letter by letter by adding compatible trigrams
-    for(pos in 2:(len - 1)) {
-      # get the last 2 letters of the current item
-      lastbigram <- substr(item, pos, pos + 1)
-
-      # Select trigrams staring in position 'pos' and which are compatibles with 'lastbigram'
-      compat <- trigs[[pos]][grep(paste(sep="" , "^", lastbigram), trigs[[pos]])]
-      if (length(compat) == 0) break  # must start again
-
-      item <- paste(item, substr(sample(compat, 1), 3, 3), sep="")  # add the last letter of the trigram
-    }
-
-    # keep item only if not in the 'models', 'exclude' or 'pseudos' list
-    if (!(item %in% c(models, exclude, pseudos))) {
-      pseudos[np] = item
-      np = np + 1
-    }
-  }
-  if (length(pseudos) == n) {
-    return (pseudos)
-  } else {
-    return (paste("could no find", n, "pseudowords"))
-  }
-}
-
-
+#### Script begins ####
 ui <- fluidPage(
+  useShinyjs(),
+  useShinyalert(),
+  
+  titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "Pseudoword Generator")),
   title = "Pseudoword Generator",
-  fluidRow(
-      column(5,
-             textarea_demo <- textAreaInput("mots",
-                                            label = h4("Paste here a list of words from which pseudowords will be generated"),
-                                            rows = 10)
-             ),
-      column(3,
-             tags$div(selectInput("nbpseudos",
-                                  "Select number of pseudowords to create",
-                                  c(1,5,20,50,100),
-                                  width = "100%"))
-             ),
-      column(3,
-             tags$div(selectInput("longueur",
-                                  "Select length of pseudowords to create",
-                                  4:15,
-                                  width = "100%"))
-             ),
-      column(3,
-             tags$div(selectInput("timeout",
-                                  "Maximum time to run (in seconds)",
-                                  c(1, 5, 10, 30, 60, 120, 300, 600),
-                                  width = "100%"))
-      ),
-      column(3, 
-             actionButton("go", "Press here to generate pseudowords!"))
-            ),
-  fluidRow(column(8, 
-                  offset = 3,
-                  textarea_output <- textOutput("pseudomots"))
-           ),
-  downloadButton(outputId='download', label="Download pseudowords")
-)
+  
+  sidebarLayout(
+    sidebarPanel(
+      uiOutput("helper_alert"),
+      br(),
+      helper_alert,
+      tags$div(selectInput("longueur",
+                           length_choice,
+                           4:15,
+                           width = "100%")),
+      actionButton("generateDB", generateDB_btn),
+      br(),
+      br(),
+      uiOutput("oMots"),
+      tags$div(numericInput("nbpseudos",
+                           number_choice,
+                           value = 20,
+                           min = 1,
+                           max = 1000,
+                           width = "100%")),
+      actionButton("go", go_btn),
+      br(),
+      width=4
+    ),
+  mainPanel(
+    fluidRow(tags$style(HTML("
+                  thead:first-child > tr:first-child > th {
+                      border-top: 0;
+                      font-size: normal;
+                      font-weight: bold;
+                  }
+              ")), 
+             DTOutput(outputId="pseudomots") %>% withSpinner(type=3,
+                                                              color.background="#ffffff",
+                                                              hide.element.when.recalculating = FALSE,
+                                                              proxy.height = 0)),
+    uiOutput("outdownload")
+)))
 
 
 server <- function(input, output) {
+  v <- reactiveValues(
+    button_helperalert = btn_hide_helper,
+    nb_pseudowords = 0,
+    words_to_search = c())
+  
+    #### Toggle helper_alert ####
+    
+    output$helper_alert <- renderUI({
+      actionButton("btn", v$button_helperalert)
+    })
+    
+    observeEvent(input$btn, {
+      shinyjs::toggle("helper_box", anim = TRUE, animType = "slide")
+      
+      if (v$button_helperalert == btn_show_helper){
+        v$button_helperalert = btn_hide_helper
+      }else{
+        v$button_helperalert = btn_show_helper
+      }
+    })  
+    
+    #### Generate words from Lexique ####
+    
+    observeEvent(input$generateDB, {
+      longueur = as.numeric(input$longueur)
+      words <- dictionary_databases[['Lexique383']][['dstable']][['Word']]
+      wordsok <- words[nchar(words) == longueur]
+      wordsok <- as.character(wordsok)
+      wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)]
+      v$words_to_search <- paste(wordsok, collapse="\n")
+    }) 
+    
+    output$oMots <- renderUI({
+      textAreaInput("mots",
+                  label = tags$b(paste_words),
+                  rows = 10, value = v$words_to_search, resize = "none")
+    })
+    
+    #### show pseudowords ####
+  
     pseudowords <- eventReactive(input$go,
     {
        nbpseudos = as.numeric(input$nbpseudos)
        longueur = as.numeric(input$longueur)
        words <- strsplit(input$mots,"[ \n\t]")[[1]]
        wordsok <- words[nchar(words) == longueur]
-       timeout <- as.numeric(input$timeout)
-       generate_pseudowords(nbpseudos, longueur, wordsok, exclude=NULL, timeout)
+       wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
+       generate_pseudowords(nbpseudos, longueur, wordsok, exclude=NULL)
     }
     )
 
-    output$pseudomots = renderText(pseudowords())
+    output$pseudomots = renderDT({
+      dt <- pseudowords()
+      v$nb_pseudowords <- length(dt)
 
-    output$download <- downloadHandler(
-        filename = function() {
-            paste("pseudos-query-", Sys.time(), ".xlsx", sep="")
-        },
-        content = function(fname) {
-            dt = pseudomots()
-            write_xlsx(dt, fname)
+      datatable(dt,
+                escape = FALSE, selection = 'none',
+                filter=list(position = 'top', clear = FALSE),
+                rownames= FALSE,
+                options=list(pageLength=20,
+                             columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                             sDom  = '<"top">lrt<"bottom">ip',
+                             lengthMenu = c(20,100, 500, 1000),
+                             search=list(searching = TRUE,
+                                         regex=TRUE,
+                                         caseInsensitive = FALSE)
+                ))
+    }, server = TRUE)
+
+    #### Download options ####
+    
+    output$outdownload <- renderUI({
+      if (v$nb_pseudowords > 0)
+      {
+        downloadButton('download.xlsx', label="Download pseudowords")
+      }
+    })
+    
+    output$download.xlsx <- downloadHandler(
+      filename = function() {
+        paste("Pseudowords-query-",
+              format(Sys.time(), "%Y-%m-%d"), ' ',
+              paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
+              ".xlsx", sep="")
+      },
+      content = function(fname) {
+        dt <- pseudowords()
+        for (col in 1:ncol(dt)){
+          dt[, col] <- gsub(font_first_element, "", dt[, col])
+          dt[, col] <- gsub(font_second_element, "", dt[, col])
+          dt[, col] <- gsub(font_fade, "", dt[, col])
+          dt[, col] <- gsub(font_fade_end, "", dt[, col])
         }
-    )
+        write_xlsx(dt, fname)
+      })
 }
+
 
 shinyApp(ui, server)
