@@ -87,8 +87,9 @@ server <- function(input, output) {
     
     observeEvent(input$generateDB, {
       longueur = as.numeric(input$longueur)
-      words <- dictionary_databases[['Lexique383']][['dstable']][['Word']]
+      words <- dictionary_databases[['Lexique383']][['dstable']][['lemme']]
       wordsok <- words[nchar(words) == longueur]
+      wordsok <- wordsok[!duplicated(wordsok)]
       wordsok <- as.character(wordsok)
       wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)]
       v$words_to_search <- paste(wordsok, collapse="\n")
