@@ -333,8 +333,12 @@ server <- function(input, output, session) {
       list_df <- list.append(list_df,dat)
     }
 
-    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
-      Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
+    if (length(mots2()) > 0){
+      if (grepl(btn_hide_name, v$button_listsearch)){
+        Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
+      }else{
+        Reduce(function(x,y) merge(x, y, by=join_column), list_df)
+      }
     }else{
       Reduce(function(x,y) merge(x, y, by=join_column), list_df)
     }
@@ -349,8 +353,12 @@ server <- function(input, output, session) {
                                           v$selected_columns[[database]][[col]])),
                                         drop=FALSE]
 
-    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
-      to_return[datasetInput()[[join_column]] %in% mots2(), ]
+    if (length(mots2()) > 0){
+      if (grepl(btn_hide_name, v$button_listsearch)){
+        to_return[datasetInput()[[join_column]] %in% mots2(), ]
+      }else{
+        to_return
+      }
       # to_return[grep(paste(mots2(), collapse = "|"), datasetInput()[[join_column]]), ] # Substring option
     }else{
       to_return
