@@ -28,7 +28,7 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
   for (num_word in 1:(ncol(trigs)-1)){
     new_colnames <- c(new_colnames, paste("Word", num_word, sep="."))
   }
-  new_colnames <- c(new_colnames, "Pseudoword")
+  new_colnames <- c("Pseudoword", new_colnames)
   colnames(final_list) <- new_colnames
   
   start.time <- Sys.time()
