@@ -88,7 +88,8 @@ server <- function(input, output, session) {
                       suffix_col = suffix_single,
                       labeldropdown = "",
                       needTreeRender = TRUE,
-                      change_language = FALSE)
+                      change_language = FALSE,
+                      total_col = length(names(dictionary_databases[['Lexique383']][["colnames_dataset"]])))
 
   #### Toggle helper_alert ####
 
@@ -161,7 +162,7 @@ server <- function(input, output, session) {
         v$labeldropdown <- paste(colnames(retable())[2:length(colnames(retable()))], collapse = ", ")
       }
       else{
-        v$labeldropdown <- paste(length(v$col_tooltips), "columns selected")
+        v$labeldropdown <- paste(length(v$col_tooltips), "columns out of ", v$total_col, " selected")
       }
     }
     v$labeldropdown })
@@ -298,6 +299,7 @@ server <- function(input, output, session) {
 
     v$selected_columns <- output[[1]]
     v$col_tooltips <- output[[2]]
+    v$total_col <- output[[3]]
   })
 
   # Update selected_columns when input tree is changed

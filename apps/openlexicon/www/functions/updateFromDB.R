@@ -7,9 +7,12 @@ updateFromDB <- function(current_databases,
   selected_columns <- list()
   col_tooltips <- list()
   
+  total_col = 0
+  
   if (length(current_databases) >= 1) {
     
     for (i in 1:length(current_databases)){
+      total_col = total_col + length(names(dictionary_databases[[current_databases[[i]]]][["colnames_dataset"]]))
       if (current_databases[i] %in% previous_selected_columns){
         selected_columns[[current_databases[i]]] <- previous_selected_columns[[current_databases[i]]]
         for (elt in names(selected_columns[[current_databases[i]]])){
@@ -34,6 +37,6 @@ updateFromDB <- function(current_databases,
       }
     }
   }
-  out <- list(selected_columns, col_tooltips)
+  out <- list(selected_columns, col_tooltips, total_col)
   return(out)
 }
