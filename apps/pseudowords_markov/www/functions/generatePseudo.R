@@ -1,4 +1,4 @@
-generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
+generate_pseudowords <- function (n, len, models, len_grams="bigram", exclude=NULL, time.out=15)
   # generate pseudowords by chaining trigrams
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudowords
@@ -15,11 +15,26 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
       type = "error")
     return ()
     }
+  if (len_grams == "bigram"){
+    len_substring = 2
+  }else if (len_grams == "trigram"){
+    len_substring = 3
+  }else{
+    shinyalert("Error", paste0(
+      'Wrong substring type selected.'),
+      type = "error")
+    return ()
+  }
   
-  # create data frame of trigrams
+  # create data frame of trigrams or bigrams
   trigs = data.frame(matrix(ncol = 0, nrow = length(models)))  #  store lists of trigrams by starting position
-  for (cpos in 1:(len - 2))
-    trigs[[cpos]] <- substring(models, cpos, cpos + 2)
+  for (cpos in 1:(len - 2)){
+    if (cpos == 1 && len_grams == "bigram"){
+      trigs[[cpos]] <- substring(models, cpos, cpos + 1) # this is a bigram
+    }else{
+      trigs[[cpos]] <- substring(models, cpos, cpos + 2)
+    }
+  }
   trigs$models <- models
   
   # create dataframe for final list of pseudowords
@@ -37,14 +52,14 @@ generate_pseudowords <- function (n, len, models, exclude=NULL, time.out=15)
   while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
     # sample a random beginning trigram
     random_item <- trigs[sample(nrow(trigs), 1),]
-    final_list[["Word.1"]][np] <- paste0(font_first_element, substr(random_item[["models"]], 1, 3), font_second_element,substr(random_item[["models"]], 4, nchar(random_item[["models"]]))) 
+    final_list[["Word.1"]][np] <- paste0(font_first_element, substr(random_item[["models"]], 1, len_substring), font_second_element,substr(random_item[["models"]], len_substring+1, nchar(random_item[["models"]]))) 
     final_list[["Word.1"]][np] <- paste0(font_fade, final_list[["Word.1"]][np], font_fade_end)
     item <- random_item[[1]]
     
     # Build the item letter by letter by adding compatible trigrams
-    for(pos in 2:(len - 2)) {
+    for(pos in 2:(len - (len_substring-1))) {
       # get the last 2 letters of the current item
-      lastbigram <- substr(item, pos, pos + 1)
+      lastbigram <- substr(item, nchar(item)-1, nchar(item))
       
       # Select trigrams staring in position 'pos' and which are compatibles with 'lastbigram'
       compat <- trigs[grep(paste(sep="" , "^", lastbigram), trigs[[pos]]), ]
