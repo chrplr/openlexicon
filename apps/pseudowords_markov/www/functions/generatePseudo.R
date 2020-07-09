@@ -1,4 +1,4 @@
-generate_pseudowords <- function (n, len, models, len_grams="bigram", exclude=NULL, time.out=15)
+generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.out=15)
   # generate pseudowords by chaining trigrams
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudowords

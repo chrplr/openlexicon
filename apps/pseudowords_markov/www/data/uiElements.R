@@ -9,6 +9,7 @@ font_fade = "<font color ='grey'>"
 font_fade_end = "</font>"
 generateDB_btn = tags$b("Use words from Lexique")
 length_choice = tags$b("Pseudowords length")
+lenGram_choice = tags$b("Algorithm")
 number_choice = tags$b("Number of pseudowords")
 
 helper_alert <-
@@ -17,6 +18,7 @@ helper_alert <-
            tags$p("Quick how-to:"),
            tags$ul(
              tags$li("First, select the desired length of pseudowords with the", length_choice, "option."),
+             tags$li("The", lenGram_choice, "option is set automatically, depending on the", length_choice, "option. In brief, the generation of pseudowords of length >= 5 is based on the random selection of an initial trigram (the", tags$b("trigram"), "algorithm). Then, compatible trigrams are selected until the generation of the pseudoword is complete. For shorter pseudowords (length < 5), we obtain better performance when replacing trigrams with bigrams (the", tags$b("bigram"), "algorithm). If you want to try both algorithms with different pseudoword lengths, you can change the", lenGram_choice, "option."),
              tags$li("Then, paste a custom list in the", tags$b(paste_words), "section, or click the", generateDB_btn, "button to generate a list from", tags$a(class="alert-link", href="http://www.lexique.org/", "Lexique", target="_blank"), "words (only available in French)."),
              tags$li("Enter the number of pseudowords you want to create with the", number_choice, "option."),
              tags$li("Finally, click on the", go_btn, "button to generate pseudowords."),

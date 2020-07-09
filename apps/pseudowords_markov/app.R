@@ -32,6 +32,7 @@ ui <- fluidPage(
                            3:15,
                            selected = 4,
                            width = "100%")),
+      uiOutput("olenGram"),
       actionButton("generateDB", generateDB_btn),
       br(),
       br(),
@@ -66,7 +67,8 @@ server <- function(input, output) {
   v <- reactiveValues(
     button_helperalert = btn_hide_helper,
     nb_pseudowords = 0,
-    words_to_search = c())
+    words_to_search = c(),
+    len_gram = "bigram")
 
     #### Toggle helper_alert ####
 
@@ -102,16 +104,35 @@ server <- function(input, output) {
                   rows = 10, value = v$words_to_search, resize = "none")
     })
 
+    #### len grams ####
+
+    observeEvent(input$longueur, {
+      if (input$longueur <= 4){
+        v$len_gram = "bigram"
+      }else{
+        v$len_gram = "trigram"
+      }
+      })
+
+    output$olenGram <- renderUI({
+      selectInput("lenGram",
+                           lenGram_choice,
+                           c("bigram", "trigram"),
+                           selected = v$len_gram,
+                           width = "100%")
+    })
+
     #### show pseudowords ####
 
     pseudowords <- eventReactive(input$go,
     {
        nbpseudos = as.numeric(input$nbpseudos)
        longueur = as.numeric(input$longueur)
+       algo = input$lenGram
        words <- strsplit(input$mots,"[ \n\t]")[[1]]
        wordsok <- words[nchar(words) == longueur]
        wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
-       generate_pseudowords(nbpseudos, longueur, wordsok, exclude=NULL)
+       generate_pseudowords(nbpseudos, longueur, wordsok, algo)
     }
     )
 
