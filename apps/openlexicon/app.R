@@ -79,7 +79,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
-                      dataset_selected = 'Lexique383',
+                      dataset_selected = c('Lexique383', 'Megalex-visual'),
                       selected_columns = list(),
                       col_tooltips = list(),
                       button_listsearch = btn_show_name,
@@ -89,7 +89,7 @@ server <- function(input, output, session) {
                       labeldropdown = "",
                       needTreeRender = TRUE,
                       change_language = FALSE,
-                      total_col = length(names(dictionary_databases[['Lexique383']][["colnames_dataset"]])))
+                      total_col = length(names(dictionary_databases[['Lexique383']][["colnames_dataset"]]))+length(names(dictionary_databases[['Megalex-visual']][["colnames_dataset"]])))
 
   #### Toggle helper_alert ####
 
@@ -223,7 +223,7 @@ server <- function(input, output, session) {
 
     if (input$language == "French") {
       v$categories <- names(list.filter(dslanguage, 'french' %in% tolower(name)))
-      v$dataset_selected <- 'Lexique383'
+      v$dataset_selected <- c('Lexique383', 'Megalex-visual')
     }
     else if (input$language == "English") {
       v$categories <- names(list.filter(dslanguage, 'english' %in% tolower(name)))
