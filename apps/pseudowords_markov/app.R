@@ -16,6 +16,9 @@ source('www/data/listedemotsfrancais.R', encoding='latin1')
 
 #### Script begins ####
 ui <- fluidPage(
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "data/tooltips.css")
+  ),
   useShinyjs(),
   useShinyalert(),
 
