@@ -16,6 +16,7 @@ usePackageGit <- function(i, github_repo){
 usePackage("lubridate")
 usePackage("writexl")
 usePackage("plyr")
+usePackage("stringr")
 #usePackage("dplyr")
 usePackage("DT")
 usePackage("shiny")

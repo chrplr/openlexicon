@@ -18,10 +18,10 @@ source('www/data/listedemotsfrancais.R', encoding='latin1')
 ui <- fluidPage(
   useShinyjs(),
   useShinyalert(),
-  
+
   titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "Pseudoword Generator")),
   title = "Pseudoword Generator",
-  
+
   sidebarLayout(
     sidebarPanel(
       uiOutput("helper_alert"),
@@ -29,7 +29,8 @@ ui <- fluidPage(
       helper_alert,
       tags$div(selectInput("longueur",
                            length_choice,
-                           4:15,
+                           3:15,
+                           selected = 4,
                            width = "100%")),
       actionButton("generateDB", generateDB_btn),
       br(),
@@ -52,7 +53,7 @@ ui <- fluidPage(
                       font-size: normal;
                       font-weight: bold;
                   }
-              ")), 
+              ")),
              DTOutput(outputId="pseudomots") %>% withSpinner(type=3,
                                                               color.background="#ffffff",
                                                               hide.element.when.recalculating = FALSE,
@@ -66,25 +67,25 @@ server <- function(input, output) {
     button_helperalert = btn_hide_helper,
     nb_pseudowords = 0,
     words_to_search = c())
-  
+
     #### Toggle helper_alert ####
-    
+
     output$helper_alert <- renderUI({
       actionButton("btn", v$button_helperalert)
     })
-    
+
     observeEvent(input$btn, {
       shinyjs::toggle("helper_box", anim = TRUE, animType = "slide")
-      
+
       if (v$button_helperalert == btn_show_helper){
         v$button_helperalert = btn_hide_helper
       }else{
         v$button_helperalert = btn_show_helper
       }
-    })  
-    
+    })
+
     #### Generate words from Lexique ####
-    
+
     observeEvent(input$generateDB, {
       longueur = as.numeric(input$longueur)
       words <- dictionary_databases[['Lexique383']][['dstable']][['lemme']]
@@ -93,16 +94,16 @@ server <- function(input, output) {
       wordsok <- as.character(wordsok)
       wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)]
       v$words_to_search <- paste(wordsok, collapse="\n")
-    }) 
-    
+    })
+
     output$oMots <- renderUI({
       textAreaInput("mots",
                   label = tags$b(paste_words),
                   rows = 10, value = v$words_to_search, resize = "none")
     })
-    
+
     #### show pseudowords ####
-  
+
     pseudowords <- eventReactive(input$go,
     {
        nbpseudos = as.numeric(input$nbpseudos)
@@ -133,14 +134,14 @@ server <- function(input, output) {
     }, server = TRUE)
 
     #### Download options ####
-    
+
     output$outdownload <- renderUI({
       if (v$nb_pseudowords > 0)
       {
         downloadButton('download.xlsx', label="Download pseudowords")
       }
     })
-    
+
     output$download.xlsx <- downloadHandler(
       filename = function() {
         paste("Pseudowords-query-",

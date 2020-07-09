@@ -15,6 +15,7 @@ generate_pseudowords <- function (n, len, models, len_grams="bigram", exclude=NU
       type = "error")
     return ()
     }
+
   if (len_grams == "bigram"){
     len_substring = 2
   }else if (len_grams == "trigram"){
@@ -25,54 +26,60 @@ generate_pseudowords <- function (n, len, models, len_grams="bigram", exclude=NU
       type = "error")
     return ()
   }
-  
-  # create data frame of trigrams or bigrams
-  trigs = data.frame(matrix(ncol = 0, nrow = length(models)))  #  store lists of trigrams by starting position
-  for (cpos in 1:(len - 2)){
-    if (cpos == 1 && len_grams == "bigram"){
-      trigs[[cpos]] <- substring(models, cpos, cpos + 1) # this is a bigram
-    }else{
-      trigs[[cpos]] <- substring(models, cpos, cpos + 2)
-    }
+
+  # create data frame of substrings (trigrams or bigrams)
+  substrings = data.frame(matrix(ncol = 0, nrow = length(models)))  #  store lists of substrings by starting position
+  for (cpos in 1:(len - (len_substring-1))){
+    substrings[[cpos]] <- substring(models, cpos, cpos + (len_substring-1))
   }
-  trigs$models <- models
-  
+  substrings$models <- models
+
   # create dataframe for final list of pseudowords
-  final_list <- data.frame(matrix(ncol = length(trigs), nrow = n))
+  final_list <- data.frame(matrix(ncol = length(substrings), nrow = n))
   new_colnames <- c()
-  for (num_word in 1:(ncol(trigs)-1)){
+  for (num_word in 1:(ncol(substrings)-1)){
     new_colnames <- c(new_colnames, paste("Word", num_word, sep="."))
   }
   new_colnames <- c("Pseudoword", new_colnames)
   colnames(final_list) <- new_colnames
-  
+
   start.time <- Sys.time()
-  
+
   np = 1
   while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
-    # sample a random beginning trigram
-    random_item <- trigs[sample(nrow(trigs), 1),]
-    final_list[["Word.1"]][np] <- paste0(font_first_element, substr(random_item[["models"]], 1, len_substring), font_second_element,substr(random_item[["models"]], len_substring+1, nchar(random_item[["models"]]))) 
+    validWord=TRUE
+    # sample a random beginning substring
+    random_item <- substrings[sample(nrow(substrings), 1),]
+    final_list[["Word.1"]][np] <- paste0(font_first_element, substr(random_item[["models"]], 1, len_substring), font_second_element,substr(random_item[["models"]], len_substring+1, nchar(random_item[["models"]])))
     final_list[["Word.1"]][np] <- paste0(font_fade, final_list[["Word.1"]][np], font_fade_end)
     item <- random_item[[1]]
-    
-    # Build the item letter by letter by adding compatible trigrams
+
+    # Build the item letter by letter by adding compatible substrings
     for(pos in 2:(len - (len_substring-1))) {
-      # get the last 2 letters of the current item
-      lastbigram <- substr(item, nchar(item)-1, nchar(item))
-      
-      # Select trigrams staring in position 'pos' and which are compatibles with 'lastbigram'
-      compat <- trigs[grep(paste(sep="" , "^", lastbigram), trigs[[pos]]), ]
+      # get the last letters (1 or 2) of the current item
+      lastpart <- substr(item, pos, pos+(len_substring-2))
+
+      # Select substrings starting in position 'pos' and which are compatibles with 'lastpart'
+      compat <- substrings[grep(paste(sep="" , "^", lastpart), substrings[[pos]]), ]
       if (length(compat) == 0) break  # must start again
-      
+
       random_compat <- compat[sample(nrow(compat), 1),]
-      final_list[[paste("Word", pos, sep=".")]][np] <- paste0(substr(random_compat[["models"]], 1, pos+1), font_first_element, substr(random_compat[["models"]], pos+2, pos+2), font_second_element,substr(random_compat[["models"]], pos+3, nchar(random_compat[["models"]]))) 
+      # Check for triple consonants or vowels in short words
+      if (len_grams == "bigram" && nchar(item) >= 2){
+        b <- gsub("[^aeiouyAEIOUY]","C",iconv(paste0(item,substr(random_compat[[pos]], len_substring, len_substring)), from="UTF-8",to="ASCII//TRANSLIT"))
+        if (substr(b, nchar(b)-2,nchar(b)) == "CCC" || !(str_detect(substr(b, nchar(b)-2,nchar(b)), "C"))){
+          print(paste0(item,substr(random_compat[[pos]], len_substring, len_substring)))
+          validWord=FALSE
+          break
+        }
+      }
+      final_list[[paste("Word", pos, sep=".")]][np] <- paste0(substr(random_compat[["models"]], 1, pos+(len_substring-2)), font_first_element, substr(random_compat[["models"]], pos+(len_substring-1), pos+(len_substring-1)), font_second_element,substr(random_compat[["models"]], pos+len_substring, nchar(random_compat[["models"]])))
       final_list[[paste("Word", pos, sep=".")]][np] <- paste0(font_fade, final_list[[paste("Word", pos, sep=".")]][np], font_fade_end)
-      item <- paste(item, substr(random_compat[[pos]], 3, 3), sep="")  # add the last letter of the trigram
+      item <- paste(item, substr(random_compat[[pos]], len_substring, len_substring), sep="")  # add the last letter of the substring
     }
-    
+
     # keep item only if not in the 'models', 'exclude' or 'pseudos' list
-    if (!(item %in% c(models, exclude, final_list$Pseudoword[np]))) {
+    if (nchar(item) == len && isTRUE(validWord) && !(item %in% c(models, exclude, final_list$Pseudoword[np]))) {
       final_list$Pseudoword[np] = paste0(font_first_element, item, font_second_element)
       np = np + 1
     }
