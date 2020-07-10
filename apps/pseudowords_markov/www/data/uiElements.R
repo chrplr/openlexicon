@@ -11,6 +11,8 @@ generateDB_btn = tags$b("Use words from Lexique")
 length_choice = tags$b("Pseudowords length")
 lenGram_choice = tags$b("Algorithm")
 number_choice = tags$b("Number of pseudowords")
+tab1 = tags$b("Pseudowords")
+tab2 = tags$b("Pseudowords with details")
 
 helper_alert <-
   tags$div(id = "helper_box",
@@ -23,6 +25,6 @@ helper_alert <-
              tags$li("Enter the number of pseudowords you want to create with the", number_choice, "option."),
              tags$li("Finally, click on the", go_btn, "button to generate pseudowords."),
              #tags$li("If you want an overview of how pseudowords are generated from real words, check the", anim_btn, "button."),
-             tags$li("Download the result by clicking on the button below the table. The table contains the pseudowords (first column) and all words used to generate them. For each word, parts used to compose the final pseudoword are written in bold and red-colored.")
+             tags$li("Download the result by clicking on the button below the table. The table in the", tab1,"tab contains the generated pseudowords. If you want more details about the way pseudowords are created, click on the", tab2, "tab. This second table contains the pseudowords (first column) and all words used to generate them. For each word, parts used to compose the final pseudoword are written in bold and red-colored.")
            )
             )

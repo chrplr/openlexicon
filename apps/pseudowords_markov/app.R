@@ -30,43 +30,61 @@ ui <- fluidPage(
       uiOutput("helper_alert"),
       br(),
       helper_alert,
-      tags$div(selectInput("longueur",
+      div(tags$div(selectInput("longueur",
                            length_choice,
                            3:15,
-                           selected = 4,
-                           width = "100%")),
-      uiOutput("olenGram"),
-      actionButton("generateDB", generateDB_btn),
+                           selected = 6,
+                           width = "100%"))),
+      div(uiOutput("olenGram")),
+      div(actionButton("generateDB", generateDB_btn)),
       br(),
-      br(),
-      uiOutput("oMots"),
-      tags$div(numericInput("nbpseudos",
+      div(uiOutput("oMots")),
+      div(tags$div(numericInput("nbpseudos",
                            number_choice,
                            value = 20,
                            min = 1,
                            max = 1000,
-                           width = "100%")),
-      actionButton("go", go_btn),
-      br(),
+                           width = "100%"))),
+      div(style="text-align:center;",actionButton("go", go_btn)),
       width=4
     ),
   mainPanel(
-    fluidRow(tags$style(HTML("
-                  thead:first-child > tr:first-child > th {
-                      border-top: 0;
-                      font-size: normal;
-                      font-weight: bold;
-                  }
-              ")),
-             DTOutput(outputId="pseudomots") %>% withSpinner(type=3,
-                                                              color.background="#ffffff",
-                                                              hide.element.when.recalculating = FALSE,
-                                                              proxy.height = 0)),
-    uiOutput("outdownload")
+    tabsetPanel(type = "tabs",
+      tabPanel(tab1,
+        (fluidRow(tags$style(HTML("
+                      thead:first-child > tr:first-child > th {
+                          border-top: 0;
+                          font-size: normal;
+                          font-weight: bold;
+                      }
+                  ")),
+                 br(),
+                 DTOutput(outputId="pseudomots") %>% withSpinner(type=3,
+                            color.background="#ffffff",
+                            hide.element.when.recalculating = FALSE,
+                            proxy.height = 0),
+        uiOutput("outdownload")
+      )), class = "col-sm-4"),
+      tabPanel(tab2,
+        (fluidRow(tags$style(HTML("
+                      thead:first-child > tr:first-child > th {
+                          border-top: 0;
+                          font-size: normal;
+                          font-weight: bold;
+                      }
+                  ")),
+                 br(),
+                 DTOutput(outputId="pseudomotsFull") %>% withSpinner(type=3,
+                            color.background="#ffffff",
+                            hide.element.when.recalculating = FALSE,
+                            proxy.height = 0),
+        uiOutput("outdownloadFull")
+      )))
+    )
 )))
 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   v <- reactiveValues(
     button_helperalert = btn_hide_helper,
     nb_pseudowords = 0,
@@ -99,18 +117,19 @@ server <- function(input, output) {
       wordsok <- as.character(wordsok)
       wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)]
       v$words_to_search <- paste(wordsok, collapse="\n")
+      updateTextAreaInput(session, "mots", value = v$words_to_search)
     })
 
     output$oMots <- renderUI({
       textAreaInput("mots",
                   label = tags$b(paste_words),
-                  rows = 10, value = v$words_to_search, resize = "none")
+                  rows = 10, value = "", resize = "none")
     })
 
     #### len grams ####
 
     observeEvent(input$longueur, {
-      if (input$longueur <= 4){
+      if (input$longueur == 3 || input$longueur == 4){
         v$len_gram = "bigram"
       }else{
         v$len_gram = "trigram"
@@ -139,30 +158,76 @@ server <- function(input, output) {
     }
     )
 
-    output$pseudomots = renderDT({
-      dt <- pseudowords()
-      v$nb_pseudowords <- length(dt)
+    #### Tables ####
 
-      datatable(dt,
-                escape = FALSE, selection = 'none',
-                filter=list(position = 'top', clear = FALSE),
-                rownames= FALSE,
-                options=list(pageLength=20,
-                             columnDefs = list(list(className = 'dt-center', targets = "_all")),
-                             sDom  = '<"top">lrt<"bottom">ip',
-                             lengthMenu = c(20,100, 500, 1000),
-                             search=list(searching = TRUE,
-                                         regex=TRUE,
-                                         caseInsensitive = FALSE)
-                ))
+    output$pseudomots = renderDT({
+      if (!is.null(pseudowords())){
+        dt <- pseudowords()
+        v$nb_pseudowords <- length(dt)
+
+        datatable(dt,
+                  escape = FALSE, selection = 'none',
+                  filter=list(position = 'top', clear = FALSE),
+                  rownames= FALSE, #extensions = 'Buttons',
+                  width = 200,
+                  options=list(pageLength=20,
+                               stateSave = TRUE,
+                               stateLoadParams = DT::JS("function (settings, data) {return false;}"),
+                               columnDefs = list(list(className = 'dt-center', targets = "_all"),
+                               list(visible=FALSE, targets=c(1:(ncol(dt)-1)))
+                               ),
+                               sDom  = '<"top">lrt<"bottom">ip',
+                               #sDom  = '<"top">Brt<"bottom">ip',
+                               #buttons = list(list(extend = 'colvis', columns = c(1:(ncol(dt)-1)), text = "Words used")),
+
+                               lengthMenu = c(20,100, 500, 1000),
+                               search=list(searching = TRUE,
+                                           regex=TRUE,
+                                           caseInsensitive = FALSE)
+                   ))#%>%
+        # formatStyle(
+        #   'Word.1',
+        #   color = 'grey', backgroundColor = 'white', fontWeight = 'bold'
+        # )
+      }
+    }, server = TRUE)
+
+    output$pseudomotsFull = renderDT({
+      if (!is.null(pseudowords())){
+        dt <- pseudowords()
+        v$nb_pseudowords <- length(dt)
+
+        datatable(dt,
+                  escape = FALSE, selection = 'none',
+                  filter=list(position = 'top', clear = FALSE),
+                  rownames= FALSE,
+                  width = 200,
+                  options=list(pageLength=20,
+                               stateSave = TRUE,
+                               stateLoadParams = DT::JS("function (settings, data) {return false;}"),
+                               columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                               sDom  = '<"top">lrt<"bottom">ip',
+                               lengthMenu = c(20,100, 500, 1000),
+                               search=list(searching = TRUE,
+                                           regex=TRUE,
+                                           caseInsensitive = FALSE)
+                   ))
+      }
     }, server = TRUE)
 
     #### Download options ####
 
     output$outdownload <- renderUI({
-      if (v$nb_pseudowords > 0)
+      if (v$nb_pseudowords > 0 && !is.null(pseudowords()))
       {
         downloadButton('download.xlsx', label="Download pseudowords")
+      }
+    })
+
+    output$outdownloadFull <- renderUI({
+      if (v$nb_pseudowords > 0 && !is.null(pseudowords()))
+      {
+        downloadButton('download2.xlsx', label="Download pseudowords")
       }
     })
 
@@ -174,16 +239,39 @@ server <- function(input, output) {
               ".xlsx", sep="")
       },
       content = function(fname) {
-        dt <- pseudowords()
+        dt <- pseudowords()[input[["pseudomots_rows_all"]], ]
+        to_drop <- c()
         for (col in 1:ncol(dt)){
-          dt[, col] <- gsub(font_first_element, "", dt[, col])
-          dt[, col] <- gsub(font_second_element, "", dt[, col])
-          dt[, col] <- gsub(font_fade, "", dt[, col])
-          dt[, col] <- gsub(font_fade_end, "", dt[, col])
+          if (isFALSE(input$pseudomots_state$columns[[col]]$visible)){
+            to_drop <- c(to_drop, col)
+          }else{
+            dt[, col] <- gsub(font_first_element, "", dt[, col])
+            dt[, col] <- gsub(font_second_element, "", dt[, col])
+            dt[, col] <- gsub(font_fade, "", dt[, col])
+            dt[, col] <- gsub(font_fade_end, "", dt[, col])
+          }
         }
+        dt <- dt[-to_drop]
         write_xlsx(dt, fname)
       })
-}
 
+      output$download2.xlsx <- downloadHandler(
+        filename = function() {
+          paste("Pseudowords-query-",
+                format(Sys.time(), "%Y-%m-%d"), ' ',
+                paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
+                ".xlsx", sep="")
+        },
+        content = function(fname) {
+          dt <- pseudowords()
+          for (col in 1:ncol(dt)){
+            dt[, col] <- gsub(font_first_element, "", dt[, col])
+            dt[, col] <- gsub(font_second_element, "", dt[, col])
+            dt[, col] <- gsub(font_fade, "", dt[, col])
+            dt[, col] <- gsub(font_fade_end, "", dt[, col])
+          }
+          write_xlsx(dt, fname)
+        })
+}
 
 shinyApp(ui, server)
