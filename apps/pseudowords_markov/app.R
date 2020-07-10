@@ -123,7 +123,7 @@ server <- function(input, output, session) {
     output$oMots <- renderUI({
       textAreaInput("mots",
                   label = tags$b(paste_words),
-                  rows = 10, value = "", resize = "none")
+                  rows = 10, value = v$words_to_search, resize = "none")
     })
 
     #### len grams ####
@@ -134,6 +134,7 @@ server <- function(input, output, session) {
       }else{
         v$len_gram = "trigram"
       }
+      updateSelectInput(session, "lenGram", selected = v$len_gram)
       })
 
     output$olenGram <- renderUI({
