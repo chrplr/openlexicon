@@ -26,7 +26,9 @@ ui <- fluidPage(
       br(),
       helper_alert,
       br(),
-      div(uiOutput("oMots")),
+      div(textAreaInput("mots",
+                  label = tags$b(paste_words),
+                  rows = 10, resize = "none")),
       div(style="text-align:center;",actionButton("go", go_btn)),
       width=4
     ),
@@ -68,16 +70,12 @@ server <- function(input, output, session) {
       }
     })
 
-    output$oMots <- renderUI({
-      textAreaInput("mots",
-                  label = tags$b(paste_words),
-                  rows = 10, resize = "none")
-    })
-
 
     #### Tables ####
 
     output$infra = renderDT({
+        if (length(input$mots) > 1){
+            print(length(input$mots))
         dt <- dictionary_databases[['Lexique-Infra-bigrammes']][['dstable']]
 
         datatable(dt,
@@ -93,7 +91,7 @@ server <- function(input, output, session) {
                                search=list(searching = TRUE,
                                            regex=TRUE,
                                            caseInsensitive = FALSE)
-                   ))
+                   ))}
     }, server = TRUE)
 
     #### Download options ####
