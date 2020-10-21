@@ -5,7 +5,7 @@ join_column = "Word"
 
 # Les datasets-id sont les noms des json
 # Pb avec anagrammes
-dataset_ids <- c('Lexique383')
+dataset_ids <- c('Lexique-Infra-bigrammes','Lexique-Infra-trigrammes','Lexique-Infra-lettres','Lexique-Infra-word_frequency')
 
 datasets <- list()
 
