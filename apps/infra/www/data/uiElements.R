@@ -2,6 +2,7 @@ btn_show_helper = "Show Quick How-To"
 btn_hide_helper = "Hide Quick How-To"
 go_btn = tags$b("Go!")
 paste_words = "Words to search"
+join_column = "Word"
 
 helper_alert <-
   tags$div(id = "helper_box",

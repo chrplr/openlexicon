@@ -70,34 +70,50 @@ server <- function(input, output, session) {
       }
     })
 
+    #### Generate word list ####
 
-    #### Tables ####
+    words_list <- eventReactive(input$go,
+    {
+        words <- strsplit(input$mots,"[ \n\t]")[[1]]
+        wordsok <- words[!grepl("[[:punct:][:space:]]", words)] # remove words with punctuation or space
+        })
+
+    #### Table ####
+
+    retable <- reactive({
+        if (!is.null(words_list())){
+            whole_dt <- dictionary_databases[['Lexique-Infra-word_frequency']][['dstable']]
+            whole_dt[whole_dt[[join_column]] %in% words_list(),]
+        }
+        })
 
     output$infra = renderDT({
-        if (length(input$mots) > 1){
-            print(length(input$mots))
-        dt <- dictionary_databases[['Lexique-Infra-bigrammes']][['dstable']]
+        if (!is.null(words_list())){
+            retable()
 
-        datatable(dt,
-                  escape = FALSE, selection = 'none',
-                  filter=list(position = 'top', clear = FALSE),
-                  rownames= FALSE, #extensions = 'Buttons',
-                  width = 200,
-                  options=list(pageLength=20,
-                               columnDefs = list(list(className = 'dt-center', targets = "_all")),
-                               sDom  = '<"top">lrt<"bottom">ip',
 
-                               lengthMenu = c(20,100, 500, 1000),
-                               search=list(searching = TRUE,
-                                           regex=TRUE,
-                                           caseInsensitive = FALSE)
-                   ))}
+            datatable(retable(),
+                      escape = FALSE, selection = 'none',
+                      filter=list(position = 'top', clear = FALSE),
+                      rownames= FALSE, #extensions = 'Buttons',
+                      width = 200,
+                      options=list(pageLength=20,
+                                   columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                                   sDom  = '<"top">lrt<"bottom">ip',
+
+                                   lengthMenu = c(20,100, 500, 1000),
+                                   search=list(searching = TRUE,
+                                               regex=TRUE,
+                                               caseInsensitive = FALSE)
+                       ))}
     }, server = TRUE)
 
     #### Download options ####
 
     output$outdownload <- renderUI({
-        downloadButton('download.xlsx', label="Download infra query")
+        if (!is.null(words_list())){
+            downloadButton('download.xlsx', label="Download infra query")
+        }
     })
 
     output$download.xlsx <- downloadHandler(
@@ -108,7 +124,7 @@ server <- function(input, output, session) {
               ".xlsx", sep="")
       },
       content = function(fname) {
-        dt = dictionary_databases[['Lexique-Infra-bigrammes']][['dstable']]
+        dt = retable()
         write_xlsx(dt, fname)
       })
 }
