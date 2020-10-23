@@ -110,7 +110,7 @@ server <- function(input, output, session) {
                         dic_info[[type]] <- list()
                         for (subtype in subtypes_list){
                             dic_info[[type]][[subtype]] <- list()
-                            dic_info[[type]][[subtype]][["sum"]] <- 0
+                            dic_info[[type]][[subtype]][["sum"]] <- 0.0
                             dic_info[[type]][[subtype]][["decomp"]] <- ""
                         }
                     }
@@ -135,7 +135,7 @@ server <- function(input, output, session) {
                                     separator = "-"
                                 }
                                 for (subtype in subtypes_list){
-
+                                    print(typeof(dic_info[[type]][[subtype]][["sum"]]))
                                     dic_info[[type]][[subtype]][["sum"]] <- dic_info[[type]][[subtype]][["sum"]] + as.double(current_line[[paste(type,subtype,spec,sep="")]])
 
                                     dic_info[[type]][[subtype]][["decomp"]] <- paste(dic_info[[type]][[subtype]][["decomp"]], as.character(current_line[[paste(type,subtype,spec,sep="")]]), sep=separator)
@@ -145,26 +145,30 @@ server <- function(input, output, session) {
                         count = count+1
                     }
                     if (ok_pseudoword == TRUE){
-                        elements_to_add <-
-                        new_line <- c(word,
-                            "Pseudoword",
-                            rep("", 4))
+                        new_line <- data.frame()
+                        new_line[1,1] <- word
+                        new_line[1,2] <- "Pseudoword"
+                        for (i in 3:6){
+                            new_line[1,i] <- ""
+                        }
                         count <- 0
+                        count_col <- 7
                         for (type in types_list){
                             for (subtype in subtypes_list){
-                                new_line <- append(new_line,
-                                    dic_info[[type]][[subtype]][["decomp"]])
-                                new_line <- append(new_line,
-                                    dic_info[[type]][[subtype]][["sum"]]/(nchar(word)-count) )
+                                new_line[1,count_col] <- dic_info[[type]][[subtype]][["decomp"]]
+                                new_line[1,count_col+1] <-dic_info[[type]][[subtype]][["sum"]]/(nchar(word)-count)
+                                count_col <- count_col +2
                             }
                             count <- count +1
                         }
-                        new_line <- append(new_line, rep("", 16))
-                        new_line <- as.data.frame(t(new_line))
-                        colnames(new_line) <- colnames(whole_dt)
-                        for(i in 1:ncol(new_line)) {
-                            new_line[i] <- as.character(new_line[[i]])
+                        for (i in 19:34){
+                            new_line[1,i] <- ""
                         }
+                        # new_line <- as.data.frame(t(new_line))
+                        colnames(new_line) <- colnames(whole_dt)
+                        # for(i in 1:ncol(new_line)) {
+                        #     new_line[[i]] <- as.character(new_line[[i]])
+                        # }
                     }
                 }
                 if (is_word == TRUE || ok_pseudoword == TRUE){
