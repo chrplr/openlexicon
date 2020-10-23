@@ -45,14 +45,17 @@ ui <- fluidPage(
                             color.background="#ffffff",
                             hide.element.when.recalculating = FALSE,
                             proxy.height = 0),
-        uiOutput("outdownload")
+        uiOutput("outdownload"),
+        br(),
+        htmlOutput("notokpseudowords")
       ))
     )
 )
 
 server <- function(input, output, session) {
   v <- reactiveValues(
-    button_helperalert = btn_hide_helper)
+    button_helperalert = btn_hide_helper,
+    notokpseudowords = c())
 
     #### Toggle helper_alert ####
 
@@ -83,6 +86,7 @@ server <- function(input, output, session) {
     retable <- reactive({
         words_list <- words_list()
         if (!is.null(words_list)){
+            notokpseudowords <- c()
             types_list <- c("let", "bigr", "trigr")
             subtypes_list <- c("Ty", "To")
             final_dt <- data.frame()
@@ -98,6 +102,7 @@ server <- function(input, output, session) {
 
             # Get words
             for (word in words_list){
+                word <- tolower(word)
                 if (is.element(word,unlist(whole_dt[[join_column]]))){
                     new_line <- subset(whole_dt, Word == word)
                     new_line[[type_column]] <- "Word"
@@ -122,7 +127,6 @@ server <- function(input, output, session) {
                                 current_line <- subset(dt_info[[type]], Word == substring(word, num_elt, num_elt+count))
                                 if (NROW(current_line) == 0){
                                     ok_pseudoword <- FALSE
-                                    break
                                 }
                                 if (num_elt == 1){
                                     spec = "I"
@@ -135,7 +139,6 @@ server <- function(input, output, session) {
                                     separator = "-"
                                 }
                                 for (subtype in subtypes_list){
-                                    print(typeof(dic_info[[type]][[subtype]][["sum"]]))
                                     dic_info[[type]][[subtype]][["sum"]] <- dic_info[[type]][[subtype]][["sum"]] + as.double(current_line[[paste(type,subtype,spec,sep="")]])
 
                                     dic_info[[type]][[subtype]][["decomp"]] <- paste(dic_info[[type]][[subtype]][["decomp"]], as.character(current_line[[paste(type,subtype,spec,sep="")]]), sep=separator)
@@ -174,6 +177,9 @@ server <- function(input, output, session) {
                 if (is_word == TRUE || ok_pseudoword == TRUE){
                     final_dt <- rbind(final_dt, new_line)
                 }
+                else if (ok_pseudoword == FALSE){
+                    notokpseudowords <- append(notokpseudowords, word)
+                }
             }
 
             # Rename word column
@@ -182,32 +188,49 @@ server <- function(input, output, session) {
                 colnames(final_dt)[colnames(final_dt) == join_column] <- "Item"
             }
 
+            v$notokpseudowords <- notokpseudowords
+
             final_dt
         }
         })
 
     output$infra = renderDT({
-        if (!is.null(words_list())){
+        if (!is.null(words_list()) & nrow(retable() > 0)){
             retable()
 
-            if (nrow(retable() > 0)){
+            datatable(retable(),
+                      escape = FALSE, selection = 'none',
+                      filter=list(position = 'top', clear = FALSE),
+                      rownames= FALSE, #extensions = 'Buttons',
+                      width = 200,
+                      options=list(pageLength=20,
+                                   columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                                   sDom  = '<"top">lrt<"bottom">ip',
 
-                datatable(retable(),
-                          escape = FALSE, selection = 'none',
-                          filter=list(position = 'top', clear = FALSE),
-                          rownames= FALSE, #extensions = 'Buttons',
-                          width = 200,
-                          options=list(pageLength=20,
-                                       columnDefs = list(list(className = 'dt-center', targets = "_all")),
-                                       sDom  = '<"top">lrt<"bottom">ip',
-
-                                       lengthMenu = c(20,100, 500, 1000),
-                                       search=list(searching = TRUE,
-                                                   regex=TRUE,
-                                                   caseInsensitive = FALSE)
-                           ))}
-                       }
+                                   lengthMenu = c(20,100, 500, 1000),
+                                   search=list(searching = TRUE,
+                                               regex=TRUE,
+                                               caseInsensitive = FALSE)
+                       ))}
     }, server = TRUE)
+
+    #### Render not ok pseudowords ####
+
+    output$notokpseudowords <- renderUI({
+        if (length(v$notokpseudowords) > 0){
+            # final_list <- tags$ul(paste(v$notokpseudowords, collapse = ', '))
+            tags$div(id = "notok",
+                     class="alert alert-warning",
+                     tags$p("Sorry, we did not find information for the following pseudowords:"),
+                     tags$br(),
+                     tags$ul(tagList(
+                         lapply(seq_along(v$notokpseudowords), function(s) {
+                            tags$li(v$notokpseudowords[s])
+                          })
+                     )
+                      )
+        )}
+    })
 
     #### Download options ####
 
