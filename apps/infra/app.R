@@ -81,9 +81,104 @@ server <- function(input, output, session) {
     #### Table ####
 
     retable <- reactive({
-        if (!is.null(words_list())){
+        words_list <- words_list()
+        if (!is.null(words_list)){
+            types_list <- c("let", "bigr", "trigr")
+            subtypes_list <- c("Ty", "To")
+            final_dt <- data.frame()
+            # Get whole databases
+            dt_info <- list()
+            dt_info[[types_list[[1]]]] <- dictionary_databases[['Lexique-Infra-lettres']][['dstable']]
+            dt_info[[types_list[[2]]]] <- dictionary_databases[['Lexique-Infra-bigrammes']][['dstable']]
+            dt_info[[types_list[[3]]]] <- dictionary_databases[['Lexique-Infra-trigrammes']][['dstable']]
             whole_dt <- dictionary_databases[['Lexique-Infra-word_frequency']][['dstable']]
-            whole_dt[whole_dt[[join_column]] %in% words_list(),]
+            # Add TypItem column in second position
+            whole_dt[[type_column]] <- NA
+            whole_dt<-whole_dt[,c(1,ncol(whole_dt), 3:ncol(whole_dt)-1)]
+
+            # Get words
+            for (word in words_list){
+                if (is.element(word,unlist(whole_dt[[join_column]]))){
+                    new_line <- subset(whole_dt, Word == word)
+                    new_line[[type_column]] <- "Word"
+                    is_word <- TRUE
+                }else{
+                    is_word <- FALSE
+                    ok_pseudoword <- TRUE
+                    dic_info <- list()
+                    for (type in types_list){
+                        dic_info[[type]] <- list()
+                        for (subtype in subtypes_list){
+                            dic_info[[type]][[subtype]] <- list()
+                            dic_info[[type]][[subtype]][["sum"]] <- 0
+                            dic_info[[type]][[subtype]][["decomp"]] <- ""
+                        }
+                    }
+
+                    count <- 0
+                    for (type in types_list){
+                        if (ok_pseudoword == TRUE){
+                            for (num_elt in 1:(nchar(word) -count)){
+                                current_line <- subset(dt_info[[type]], Word == substring(word, num_elt, num_elt+count))
+                                if (NROW(current_line) == 0){
+                                    ok_pseudoword <- FALSE
+                                    break
+                                }
+                                if (num_elt == 1){
+                                    spec = "I"
+                                    separator = ""
+                                }else if(num_elt==(nchar(word)-count)){
+                                    spec="F"
+                                    separator = "-"
+                                }else{
+                                    spec="M"
+                                    separator = "-"
+                                }
+                                for (subtype in subtypes_list){
+
+                                    dic_info[[type]][[subtype]][["sum"]] <- dic_info[[type]][[subtype]][["sum"]] + as.double(current_line[[paste(type,subtype,spec,sep="")]])
+
+                                    dic_info[[type]][[subtype]][["decomp"]] <- paste(dic_info[[type]][[subtype]][["decomp"]], as.character(current_line[[paste(type,subtype,spec,sep="")]]), sep=separator)
+                                }
+                            }
+                        }
+                        count = count+1
+                    }
+                    if (ok_pseudoword == TRUE){
+                        elements_to_add <-
+                        new_line <- c(word,
+                            "Pseudoword",
+                            rep("", 4))
+                        count <- 0
+                        for (type in types_list){
+                            for (subtype in subtypes_list){
+                                new_line <- append(new_line,
+                                    dic_info[[type]][[subtype]][["decomp"]])
+                                new_line <- append(new_line,
+                                    dic_info[[type]][[subtype]][["sum"]]/(nchar(word)-count) )
+                            }
+                            count <- count +1
+                        }
+                        new_line <- append(new_line, rep("", 16))
+                        new_line <- as.data.frame(t(new_line))
+                        colnames(new_line) <- colnames(whole_dt)
+                        for(i in 1:ncol(new_line)) {
+                            new_line[i] <- as.character(new_line[[i]])
+                        }
+                    }
+                }
+                if (is_word == TRUE || ok_pseudoword == TRUE){
+                    final_dt <- rbind(final_dt, new_line)
+                }
+            }
+
+            # Rename word column
+            if (nrow(final_dt) > 0){
+                # colnames(final_dt) <- colnames(whole_dt)
+                colnames(final_dt)[colnames(final_dt) == join_column] <- "Item"
+            }
+
+            final_dt
         }
         })
 
@@ -91,27 +186,29 @@ server <- function(input, output, session) {
         if (!is.null(words_list())){
             retable()
 
+            if (nrow(retable() > 0)){
 
-            datatable(retable(),
-                      escape = FALSE, selection = 'none',
-                      filter=list(position = 'top', clear = FALSE),
-                      rownames= FALSE, #extensions = 'Buttons',
-                      width = 200,
-                      options=list(pageLength=20,
-                                   columnDefs = list(list(className = 'dt-center', targets = "_all")),
-                                   sDom  = '<"top">lrt<"bottom">ip',
+                datatable(retable(),
+                          escape = FALSE, selection = 'none',
+                          filter=list(position = 'top', clear = FALSE),
+                          rownames= FALSE, #extensions = 'Buttons',
+                          width = 200,
+                          options=list(pageLength=20,
+                                       columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                                       sDom  = '<"top">lrt<"bottom">ip',
 
-                                   lengthMenu = c(20,100, 500, 1000),
-                                   search=list(searching = TRUE,
-                                               regex=TRUE,
-                                               caseInsensitive = FALSE)
-                       ))}
+                                       lengthMenu = c(20,100, 500, 1000),
+                                       search=list(searching = TRUE,
+                                                   regex=TRUE,
+                                                   caseInsensitive = FALSE)
+                           ))}
+                       }
     }, server = TRUE)
 
     #### Download options ####
 
     output$outdownload <- renderUI({
-        if (!is.null(words_list())){
+        if (!is.null(words_list()) & nrow(retable() > 0)){
             downloadButton('download.xlsx', label="Download infra query")
         }
     })
