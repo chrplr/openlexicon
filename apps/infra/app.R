@@ -15,6 +15,7 @@ source('www/data/uiElements.R')
 
 #### Script begins ####
 ui <- fluidPage(
+    # Qtips
     tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
     tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
 
@@ -107,14 +108,17 @@ server <- function(input, output, session) {
             # Get words
             for (word in words_list){
                 word <- tolower(word)
+                # If elt is word, we get it in the word_frequency dt
                 if (is.element(word,unlist(whole_dt[[join_column]]))){
                     new_line <- subset(whole_dt, Word == word)
                     new_line[[type_column]] <- "Word"
                     is_word <- TRUE
+                # else we calculate its values
                 }else{
                     is_word <- FALSE
                     ok_pseudoword <- TRUE
                     dic_info <- list()
+                    # Dic values
                     for (type in types_list){
                         dic_info[[type]] <- list()
                         for (subtype in subtypes_list){
@@ -126,12 +130,15 @@ server <- function(input, output, session) {
 
                     count <- 0
                     for (type in types_list){
+                        # While the pseudoword is ok (we find info for it)
                         if (ok_pseudoword == TRUE){
                             for (num_elt in 1:(nchar(word) -count)){
                                 current_line <- subset(dt_info[[type]], Word == substring(word, num_elt, num_elt+count))
+                                # If part of the pseudoword is not found in the table, we decide it's not a valid pseudoword
                                 if (NROW(current_line) == 0){
                                     ok_pseudoword <- FALSE
                                 }
+                                # Initial, middle or final position
                                 if (num_elt == 1){
                                     spec = "I"
                                     separator = ""
@@ -142,6 +149,7 @@ server <- function(input, output, session) {
                                     spec="M"
                                     separator = "-"
                                 }
+                                # Get info in dictionary
                                 for (subtype in subtypes_list){
                                     dic_info[[type]][[subtype]][["sum"]] <- dic_info[[type]][[subtype]][["sum"]] + as.double(current_line[[paste(type,subtype,spec,sep="")]])
 
@@ -151,6 +159,7 @@ server <- function(input, output, session) {
                         }
                         count = count+1
                     }
+                    # Line creation
                     if (ok_pseudoword == TRUE){
                         new_line <- data.frame()
                         new_line[1,1] <- word
@@ -171,16 +180,14 @@ server <- function(input, output, session) {
                         for (i in 19:34){
                             new_line[1,i] <- ""
                         }
-                        # new_line <- as.data.frame(t(new_line))
                         colnames(new_line) <- colnames(whole_dt)
-                        # for(i in 1:ncol(new_line)) {
-                        #     new_line[[i]] <- as.character(new_line[[i]])
-                        # }
                     }
                 }
+                # If the item is ok, we add it in the table
                 if (is_word == TRUE || ok_pseudoword == TRUE){
                     final_dt <- rbind(final_dt, new_line)
                 }
+                # Else we show it in the text output
                 else if (ok_pseudoword == FALSE){
                     notokpseudowords <- append(notokpseudowords, word)
                 }
@@ -188,12 +195,13 @@ server <- function(input, output, session) {
 
             # Rename word column
             if (nrow(final_dt) > 0){
-                # colnames(final_dt) <- colnames(whole_dt)
                 colnames(final_dt)[colnames(final_dt) == join_column] <- "Item"
             }
 
+            # Update not ok items list
             v$notokpseudowords <- notokpseudowords
 
+            # return datatable
             final_dt
         }
         })
@@ -202,8 +210,7 @@ server <- function(input, output, session) {
         if (!is.null(words_list()) & nrow(retable() > 0)){
             retable()
 
-            print(dictionary_databases[['Lexique-Infra-word_frequency']][['colnames_dataset']])
-
+            # for tooltips
             headerCallback <- c(
               "function(thead, data, start, end, display){",
               qTips(dictionary_databases[['Lexique-Infra-word_frequency']][['colnames_dataset']]),
@@ -266,7 +273,7 @@ server <- function(input, output, session) {
               ".xlsx", sep="")
       },
       content = function(fname) {
-        dt = retable()
+        dt = retable()[input[["infra_rows_all"]], ]
         write_xlsx(dt, fname)
       })
 }
