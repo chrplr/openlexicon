@@ -78,7 +78,7 @@ server <- function(input, output, session) {
     words_list <- eventReactive(input$go,
     {
         words <- strsplit(input$mots,"[ \n\t]")[[1]]
-        wordsok <- words[!grepl("[[:punct:][:space:]]", words)] # remove words with punctuation or space
+        wordsok <- unique(words[!grepl("[[:punct:][:space:]]", words)]) # remove words with punctuation or space, and duplicates
         })
 
     #### Table ####
