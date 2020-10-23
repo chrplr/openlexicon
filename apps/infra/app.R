@@ -5,6 +5,7 @@
 #### Functions ####
 rm(list = ls())
 source('www/functions/loadPackages.R')
+source('www/functions/qTips.R')
 
 # Loading datasets and UI
 source('../../datasets-info/fetch_datasets.R')
@@ -14,6 +15,9 @@ source('www/data/uiElements.R')
 
 #### Script begins ####
 ui <- fluidPage(
+    tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
+    tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
+
   useShinyjs(),
   useShinyalert(),
 
@@ -198,12 +202,26 @@ server <- function(input, output, session) {
         if (!is.null(words_list()) & nrow(retable() > 0)){
             retable()
 
+            print(dictionary_databases[['Lexique-Infra-word_frequency']][['colnames_dataset']])
+
+            headerCallback <- c(
+              "function(thead, data, start, end, display){",
+              qTips(dictionary_databases[['Lexique-Infra-word_frequency']][['colnames_dataset']]),
+              "  for(var i = 1; i <= tooltips.length; i++){",
+              "if(tooltips[i-1]['content']['text'].length > 0){",
+              "      $('th:eq('+i+')',thead).qtip(tooltips[i-1]);",
+              "    }",
+              "  }",
+              "}"
+            )
+
             datatable(retable(),
                       escape = FALSE, selection = 'none',
                       filter=list(position = 'top', clear = FALSE),
                       rownames= FALSE, #extensions = 'Buttons',
                       width = 200,
-                      options=list(pageLength=20,
+                      options=list(headerCallback = JS(headerCallback),
+                                   pageLength=20,
                                    columnDefs = list(list(className = 'dt-center', targets = "_all")),
                                    sDom  = '<"top">lrt<"bottom">ip',
 
@@ -220,7 +238,7 @@ server <- function(input, output, session) {
         if (length(v$notokpseudowords) > 0){
             # final_list <- tags$ul(paste(v$notokpseudowords, collapse = ', '))
             tags$div(id = "notok",
-                     class="alert alert-warning",
+                     class="alert alert-danger",
                      tags$p("Sorry, we did not find information for the following pseudowords:"),
                      tags$br(),
                      tags$ul(tagList(

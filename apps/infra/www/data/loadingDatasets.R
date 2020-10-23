@@ -58,5 +58,19 @@ for (ds in names(datasets)) { if (is.null(dictionary_databases[[ds]][["dstable"]
 for (ds in names(datasets)) {
   json_url <- datasets[[ds]][1]
   info = get_info_from_json(json_url)
+  dictionary_databases[[ds]][["colnames_dataset"]] <- list()
   colnames(dictionary_databases[[ds]][["dstable"]])[1] <- join_column
+  if (ds == 'Lexique-Infra-word_frequency'){
+      dictionary_databases[[ds]][["colnames_dataset"]][["TypeItem"]] = "Type Item"
+  }
+  # Column names description
+  for (j in 2:length(colnames(dictionary_databases[[ds]][["dstable"]]))) {
+    current_colname = colnames(dictionary_databases[[ds]][["dstable"]])[j]
+    if (typeof(info$column_names[[current_colname]]) == "NULL"){
+      dictionary_databases[[ds]][["colnames_dataset"]][[current_colname]] = ""
+    }
+    else{
+      dictionary_databases[[ds]][["colnames_dataset"]][[current_colname]] = info$column_names[[current_colname]]
+    }
+  }
 }
