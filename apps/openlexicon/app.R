@@ -79,7 +79,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   v <- reactiveValues(language_selected = 'French',
                       categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
-                      dataset_selected = 'Lexique383',
+                      dataset_selected = c('Lexique383', 'Megalex-visual'),
                       selected_columns = list(),
                       col_tooltips = list(),
                       button_listsearch = btn_show_name,
@@ -88,7 +88,8 @@ server <- function(input, output, session) {
                       suffix_col = suffix_single,
                       labeldropdown = "",
                       needTreeRender = TRUE,
-                      change_language = FALSE)
+                      change_language = FALSE,
+                      total_col = length(names(dictionary_databases[['Lexique383']][["colnames_dataset"]]))+length(names(dictionary_databases[['Megalex-visual']][["colnames_dataset"]])))
 
   #### Toggle helper_alert ####
 
@@ -161,7 +162,7 @@ server <- function(input, output, session) {
         v$labeldropdown <- paste(colnames(retable())[2:length(colnames(retable()))], collapse = ", ")
       }
       else{
-        v$labeldropdown <- paste(length(v$col_tooltips), "columns selected")
+        v$labeldropdown <- paste(length(v$col_tooltips), "columns out of ", v$total_col, " selected")
       }
     }
     v$labeldropdown })
@@ -222,7 +223,7 @@ server <- function(input, output, session) {
 
     if (input$language == "French") {
       v$categories <- names(list.filter(dslanguage, 'french' %in% tolower(name)))
-      v$dataset_selected <- 'Lexique383'
+      v$dataset_selected <- c('Lexique383', 'Megalex-visual')
     }
     else if (input$language == "English") {
       v$categories <- names(list.filter(dslanguage, 'english' %in% tolower(name)))
@@ -298,6 +299,7 @@ server <- function(input, output, session) {
 
     v$selected_columns <- output[[1]]
     v$col_tooltips <- output[[2]]
+    v$total_col <- output[[3]]
   })
 
   # Update selected_columns when input tree is changed
@@ -331,8 +333,12 @@ server <- function(input, output, session) {
       list_df <- list.append(list_df,dat)
     }
 
-    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
-      Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
+    if (length(mots2()) > 0){
+      if (grepl(btn_hide_name, v$button_listsearch)){
+        Reduce(function(x,y) merge(x, y, by=join_column, all.x = TRUE), list_df)
+      }else{
+        Reduce(function(x,y) merge(x, y, by=join_column), list_df)
+      }
     }else{
       Reduce(function(x,y) merge(x, y, by=join_column), list_df)
     }
@@ -347,8 +353,12 @@ server <- function(input, output, session) {
                                           v$selected_columns[[database]][[col]])),
                                         drop=FALSE]
 
-    if (grepl(btn_hide_name, v$button_listsearch) && length(mots2()) > 0){
-      to_return[datasetInput()[[join_column]] %in% mots2(), ]
+    if (length(mots2()) > 0){
+      if (grepl(btn_hide_name, v$button_listsearch)){
+        to_return[datasetInput()[[join_column]] %in% mots2(), ]
+      }else{
+        to_return
+      }
       # to_return[grep(paste(mots2(), collapse = "|"), datasetInput()[[join_column]]), ] # Substring option
     }else{
       to_return
