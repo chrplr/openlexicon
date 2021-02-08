@@ -96,7 +96,7 @@ locations <- list(
     #XX=c("http://www.lexique.org/databases/_json/Lexique382.json", "Lexique382.rds"),
     Lexique3=c("http://www.lexique.org/databases/_json/Lexique383.json", "Lexique383.rds"),
 #   LexiqueInfraGP=c("http://www.lexique.org/databases/_json/LexiqueInfra-Graphèmes-Phonèmes.json", "Lexique.Infra.Corresp.Graphème.Phonème.rds"),
-#    XX=c("http://www.lexique.org/databases/_json/Lexique-Infra-Stats-Infra.json", ""),  
+#    XX=c("http://www.lexique.org/databases/_json/Lexique-Infra-Stats-Infra.json", ""),
 #    XX=c("http://www.lexique.org/databases/_json/Manulex.json", ""),
     Megalex_auditory=c("http://www.lexique.org/databases/_json/Megalex-auditory.json", "Megalex-auditory.rds"),
     Megalex_visual=c("http://www.lexique.org/databases/_json/Megalex-visual.json", "Megalex-visual.rds"),
@@ -135,7 +135,7 @@ get_all_datasets <- function(locations)
 
 
 load_rds <- function(list_rds)
-  # load in memory the rds files listed in list_rds, in variables with the names matching names(list_rds) 
+  # load in memory the rds files listed in list_rds, in variables with the names matching names(list_rds)
 {
     for (n in names(list_rds))
     {
@@ -295,4 +295,3 @@ get_aoa32_rds <- function()
 ##       mandatory_columns=mandatory_columns
 ##     )
 ##   }
-
