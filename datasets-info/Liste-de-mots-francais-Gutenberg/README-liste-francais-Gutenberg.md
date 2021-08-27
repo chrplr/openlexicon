@@ -18,8 +18,8 @@ Pour cela j'ai appliqué la procédure suivante, sur une machine sur laquelle é
 2.  Génération de la liste de mots:
 
         cd dicos
-        cat nonverbes.dico series.dico verbes-gp*.dico verbes-varia.dico | ispell -d francais -e >~/liste1.txt
-        perl -pe 's/ /\n/g' ~/liste1.txt | grep -v "'" | sort | uniq | awk 'NF>0' >~/liste.de.mots.francais.frgut.txt
+        cat nonverbes.dico series.dico verbes-gp*.dico verbes-varia.dico | ispell -d francais -e |  iconv -f iso8859-1 -t utf-8 > /tmp/liste.txt
+        perl -pe 's/ /\n/g' /tmp/liste.txt | grep -v "'" | sort | uniq | awk 'NF>0' > liste.de.mots.francais.frgut.txt
 
 
 
