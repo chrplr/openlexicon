@@ -49,13 +49,19 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
   while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
     validWord=TRUE
     # sample a random beginning substring
+    # first part (trigram or bigram) of the pseudoword
     random_item <- substrings[sample(nrow(substrings), 1),]
-    final_list[["Word.1"]][np] <- paste0(font_first_element, substr(random_item[["models"]], 1, len_substring), font_second_element,substr(random_item[["models"]], len_substring+1, nchar(random_item[["models"]])))
+    final_list[["Word.1"]][np] <- paste0(
+        font_first_element,
+        substr(random_item[["models"]], 1, len_substring),
+        font_second_element,
+        substr(random_item[["models"]], len_substring+1, nchar(random_item[["models"]])))
     final_list[["Word.1"]][np] <- paste0(font_fade, final_list[["Word.1"]][np], font_fade_end)
     item <- random_item[[1]]
 
     # Build the item letter by letter by adding compatible substrings
     for(pos in 2:(len - (len_substring-1))) {
+      # following bigrams or trigrams of the pseudoword
       # get the last letters (1 or 2) of the current item
       lastpart <- substr(item, pos, pos+(len_substring-2))
 
@@ -73,12 +79,22 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
           break
         }
       }
-      final_list[[paste("Word", pos, sep=".")]][np] <- paste0(substr(random_compat[["models"]], 1, pos+(len_substring-2)), font_first_element, substr(random_compat[["models"]], pos+(len_substring-1), pos+(len_substring-1)), font_second_element,substr(random_compat[["models"]], pos+len_substring, nchar(random_compat[["models"]])))
+      final_list[[paste("Word", pos, sep=".")]][np] <- paste0(
+        substr(random_compat[["models"]], 1, pos-1),
+        font_previous_letters,
+        substr(random_compat[["models"]], pos, pos+(len_substring-2)),
+        font_second_element,
+        font_first_element,
+        substr(random_compat[["models"]], pos+(len_substring-1), pos+(len_substring-1)),
+        font_second_element,
+        substr(random_compat[["models"]], pos+len_substring, nchar(random_compat[["models"]]))
+      )
       final_list[[paste("Word", pos, sep=".")]][np] <- paste0(font_fade, final_list[[paste("Word", pos, sep=".")]][np], font_fade_end)
       item <- paste(item, substr(random_compat[[pos]], len_substring, len_substring), sep="")  # add the last letter of the substring
     }
 
     # keep item only if not in the 'models', 'exclude' or 'pseudos' list
+    # Column for whole item (whole in red)
     if (nchar(item) == len && isTRUE(validWord) && !(item %in% c(models, exclude, final_list$Pseudoword[np]))) {
       final_list$Pseudoword[np] = paste0(font_first_element, item, font_second_element)
       np = np + 1

@@ -5,6 +5,7 @@ anim_btn = tags$b("See animation")
 paste_words = "Words to use"
 font_first_element = "<font color='red'><b>"
 font_second_element = "</b></font>"
+font_previous_letters = "<font color='orange'><b>"
 font_fade = "<font color ='grey'>"
 font_fade_end = "</font>"
 generateDB_btn = tags$b("Use words from Lexique")

@@ -248,6 +248,7 @@ server <- function(input, output, session) {
           }else{
             dt[, col] <- gsub(font_first_element, "", dt[, col])
             dt[, col] <- gsub(font_second_element, "", dt[, col])
+            dt[, col] <- gsub(font_previous_letters, "", dt[, col])
             dt[, col] <- gsub(font_fade, "", dt[, col])
             dt[, col] <- gsub(font_fade_end, "", dt[, col])
           }
@@ -268,6 +269,7 @@ server <- function(input, output, session) {
           for (col in 1:ncol(dt)){
             dt[, col] <- gsub(font_first_element, "", dt[, col])
             dt[, col] <- gsub(font_second_element, "", dt[, col])
+            dt[, col] <- gsub(font_previous_letters, "", dt[, col])
             dt[, col] <- gsub(font_fade, "", dt[, col])
             dt[, col] <- gsub(font_fade_end, "", dt[, col])
           }
