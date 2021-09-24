@@ -22,8 +22,8 @@ ui <- fluidPage(
   useShinyjs(),
   useShinyalert(),
 
-  titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "Pseudoword Generator")),
-  title = "Pseudoword Generator",
+  titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "UniPseudo")),
+  title = "UniPseudo",
 
   sidebarLayout(
     sidebarPanel(
