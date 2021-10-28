@@ -6,8 +6,8 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
     "urls": [{
         "url": "http://www.lexique.org/databases/WorldLex/WorldLex-Afrikaans.rds",
-        "bytes": 2817529,
-        "md5sum": "33c6d36449c1ced5970585b1d838c4ec"
+        "bytes": 1359621,
+        "md5sum": "5bbd87b311af7aa63a16693f8aaa0fdd"
     } ],
     "type": "rds",
     "tags": ["afrikaans", "frequencies"]

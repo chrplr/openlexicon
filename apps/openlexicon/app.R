@@ -209,7 +209,7 @@ server <- function(input, output, session) {
 
   output$outlang <- renderUI({
     selectInput("language", "Choose a language",
-                choices = c('\n','French', 'English', 'Multiple languages'),
+                choices = language_choices,
                 selected = v$language_selected)
   })
 
@@ -221,22 +221,16 @@ server <- function(input, output, session) {
     v$language_selected <- input$language
     v$change_language <- TRUE
 
-    if (input$language == "French") {
-      v$categories <- names(list.filter(dslanguage, 'french' %in% tolower(name)))
-      v$dataset_selected <- c('Lexique383', 'Megalex-visual')
-    }
-    else if (input$language == "English") {
-      v$categories <- names(list.filter(dslanguage, 'english' %in% tolower(name)))
-      v$dataset_selected <- 'SUBTLEX-US'
-    }
-    else if (input$language == "Multiple languages") {
-      v$categories <- names(list.filter(dslanguage, 'multiple_languages' %in% tolower(name)))
-      v$dataset_selected <- 'Aoa32lang'
-    }
-    else {
+    load_language(input$language)
+    if (input$language == "\n") {
       v$categories <- c()
       v$dataset_selected <- ""
     }
+    else {
+      v$categories <- names(list.filter(dslanguage, tolower(input$language) %in% tolower(name)))
+      v$dataset_selected <- v$categories[[1]]
+    }
+
   })
 
   # Show databases checkbox group
