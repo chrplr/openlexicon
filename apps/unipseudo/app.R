@@ -149,7 +149,7 @@ server <- function(input, output, session) {
     output$outgenerateDB <- renderUI({
       div(
         actionButton("generateDB", generateDB_neutral),
-        tippy(bsButton("generateTooltip", "?", style = "info", size = "extra-small"), interactive = TRUE, theme = 'light', content = v$info_tooltip)
+        tippy(bsButton("generateTooltip", "?", style = "info", size = "extra-small"), interactive = TRUE, theme = 'light', tooltip = v$info_tooltip)
       )
     })
 
