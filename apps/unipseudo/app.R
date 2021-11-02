@@ -36,8 +36,14 @@ ui <- fluidPage(
                            selected = 6,
                            width = "100%"))),
       div(uiOutput("olenGram")),
-      div(actionButton("generateDB", generateDB_btn)),
+      uiOutput("outbtngenerator"),
       br(),
+      hidden(div(id="divGenerator", style = "background-color:#E0E0E0;padding:1em;border-radius: 1em;",
+          uiOutput("outlang"),
+          hidden(uiOutput("outgram_class")),
+          uiOutput("outgenerateDB"),
+          br()
+      )),
       div(uiOutput("oMots")),
       div(tags$div(numericInput("nbpseudos",
                            number_choice,
@@ -86,8 +92,15 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   v <- reactiveValues(
+    language_selected = '\n',
+    gram_class_is_shown = FALSE,
+    info_tooltip = "",
+    datasets = c(),
+    grammatical_choices = c("\n"),
+    gram_selected = "\n",
     button_helperalert = btn_hide_helper,
     nb_pseudowords = 0,
+    button_generator = btn_show_generator_name,
     words_to_search = c(),
     len_gram = "bigram")
 
@@ -107,11 +120,108 @@ server <- function(input, output, session) {
       }
     })
 
-    #### Generate words from Lexique ####
+    #### Toggle list search ####
+
+    output$outbtngenerator <- renderUI({
+      actionButton("btn_generator", v$button_generator)
+    })
+
+    observeEvent(input$btn_generator, {
+      toggle("divGenerator", anim = TRUE, animType = "slide")
+
+      if (grepl(btn_show_generator_name, v$button_generator)){
+        v$button_generator = btn_hide_generator_name
+      }else{
+        v$button_generator = btn_show_generator_name
+      }
+    })
+
+    #### Select a language ####
+
+    output$outlang <- renderUI({
+      selectInput("language", "Choose a language",
+                  choices = language_choices,
+                  selected = v$language_selected)
+    })
+
+    # Update dataset based on language selection
+
+    output$outgenerateDB <- renderUI({
+      div(
+        actionButton("generateDB", generateDB_neutral),
+        tippy(bsButton("generateTooltip", "?", style = "info", size = "extra-small"), interactive = TRUE, theme = 'light', content = v$info_tooltip)
+      )
+    })
+
+    observeEvent(input$language, {
+      v$language_selected <- input$language
+      v$words_to_search <- c() # Reset words to search on language change
+      v$grammatical_choices <- c("\n")
+      v$gram_selected = "\n" # Reset gram class on language change
+
+      load_language(input$language)
+      if (input$language == "\n") {
+        v$datasets <- ""
+        # Hide grammatical class selection if previously shown
+        if (v$gram_class_is_shown){
+          toggle("outgram_class", anim = TRUE, animType = "slide")
+          v$gram_class_is_shown=FALSE
+        }
+        # Disable generate words button and hide tooltip with database information
+        disable("generateDB")
+        hide("generateTooltip")
+      }
+      else {
+        v$datasets <- names(list.filter(dslanguage, tolower(input$language) %in% tolower(name)))
+        if (input$language == "French"){
+          # Show grammatical class selection if was hidden
+          if (!v$gram_class_is_shown){
+            toggle("outgram_class", anim = TRUE, animType = "slide")
+            v$gram_class_is_shown=TRUE
+          }
+          # Pick grammatical classes in Lexique
+          v$grammatical_choices <- c("\n", unique(dictionary_databases[["Lexique383"]][['dstable']][['cgram']]))
+        }else {
+          # Hide grammatical class selection if previously shown
+          if (v$gram_class_is_shown){
+            toggle("outgram_class", anim = TRUE, animType = "slide")
+            v$gram_class_is_shown=FALSE
+          }
+        }
+        # Create database information tooltip
+        info_tooltip = paste("<span style='font-size:14px;'>Words will be selected from the <b>", v$datasets[1], "</b> database.")
+        info_tooltip = paste(info_tooltip, "<div><p>",
+              str_replace_all(dictionary_databases[[v$datasets[1]]][["dsdesc"]],"'","&#39"), "<span>", sep = "")
+        if (!is.null(dictionary_databases[[v$datasets[1]]][["dsweb"]])
+            && RCurl::url.exists(dictionary_databases[[v$datasets[1]]][["dsweb"]])){
+          info_tooltip = paste(info_tooltip, "</p><p><a href=",
+          dictionary_databases[[v$datasets[1]]][["dsweb"]],
+          " target='_blank'>Website</a></p></div>",sep = "")
+        }
+        # Update tooltip in reactive values and enable generation
+        v$info_tooltip = info_tooltip
+        enable("generateDB")
+        show("generateTooltip")
+      }
+    })
+
+    # Select grammatical class (french only)
+
+    output$outgram_class <- renderUI({
+      selectInput("gram_class", grammatical_class_label,
+                  choices = v$grammatical_choices,
+                  selected = v$gram_selected)
+    })
+
+    #### Generate words from database ####
 
     observeEvent(input$generateDB, {
       longueur = as.numeric(input$longueur)
-      words <- dictionary_databases[['Lexique383']][['dstable']][['lemme']]
+      if (v$language_selected != "\n"){
+        words <- get_dataset_words(v$datasets, dictionary_databases, input$gram_class)
+      }else {
+        words <- c()
+      }
       wordsok <- words[nchar(words) == longueur]
       wordsok <- wordsok[!duplicated(wordsok)]
       wordsok <- as.character(wordsok)
@@ -155,7 +265,12 @@ server <- function(input, output, session) {
        words <- strsplit(input$mots,"[ \n\t]")[[1]]
        wordsok <- words[nchar(words) == longueur]
        wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
-       generate_pseudowords(nbpseudos, longueur, wordsok, algo)
+       if (v$language_selected != "\n"){
+         exclude <- get_dataset_words(v$datasets, dictionary_databases)
+       }else{
+         exclude <- NULL
+       }
+       generate_pseudowords(nbpseudos, longueur, wordsok, algo, exclude = exclude)
     }
     )
 

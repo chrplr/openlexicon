@@ -21,20 +21,19 @@ usePackage("stringr")
 usePackage("DT")
 usePackage("shiny")
 usePackage("shinyjs")
+usePackage("shinyBS")
 usePackage("shinyalert")
 usePackageGit("shinycssloaders", "jbourgin/shinycssloaders") #https://github.com/daattali/shinycssloaders/issues/22
 usePackage("rvest") # To repair encoding
+usePackage("rlist") # For list.filter
 usePackage("shinyalert")
-usePackage("tippy")
+usePackageGit("tippy", "JohnCoene/tippy")
+usePackage("RCurl") #To test if string is url
+usePackage("stringr") # str_replace_all
 
 # usePackage("stringi")
-# usePackage("shinyBS")
 # usePackage("DT")
-# usePackage("stringr")
 # usePackage("shinyWidgets")
 # usePackage("data.table")
-# usePackage("rlist")
-# usePackage("RCurl") #To test if string is url
 # usePackage("comprehenr") # Comprehension list
-# usePackageGit("tippy", "JohnCoene/tippy")
 # usePackageGit("shinyTree", "shinyTree/shinyTree")

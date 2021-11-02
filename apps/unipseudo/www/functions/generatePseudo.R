@@ -1,3 +1,21 @@
+get_dataset_words <- function(datasets, dictionary_databases, gram_class=NULL){
+  words <- c()
+  for (dataset in datasets){
+    if (dataset == "Lexique383"){
+      # Select words for a specific grammatical class in Lexique
+      if (gram_class != "\n" && !(is.null(gram_class))){
+        subset <- dictionary_databases[[dataset]][['dstable']][dictionary_databases[[dataset]][['dstable']][['cgram']] == gram_class, ]
+        words <- c(words, subset[["lemme"]])
+      }else {
+        words <- c(words, dictionary_databases[[dataset]][['dstable']][['lemme']])
+      }
+    }else {
+      words <- c(words, dictionary_databases[[dataset]][['dstable']][['Word']])
+    }
+  }
+  return(words)
+}
+
 generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.out=15)
   # generate pseudowords by chaining trigrams
   # n: number of pseudowords to return
@@ -7,7 +25,7 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
   # time.out = a time in seconds to stop
 {
   time.out = n*0.5
-  exclude=strsplit(french_list,"[ \n\t]")[[1]] # exclude french words
+  # exclude=strsplit(french_list,"[ \n\t]")[[1]] # exclude french words
   if (length(models) == 0) {
     shinyalert("Error", paste0(
       'Failed to generate the pseudowords. Please enter words of the desired length in the \"',
