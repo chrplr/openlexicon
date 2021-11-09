@@ -1,6 +1,6 @@
 btn_show_helper = "Show Quick How-To"
 btn_hide_helper = "Hide Quick How-To"
-generator_name = "Word Generation Tool"
+generator_name = "Word Import Tool"
 btn_show_generator_name = tags$b(paste("Show", generator_name, sep= " "))
 btn_hide_generator_name = tags$b(paste("Hide", generator_name, sep= " "))
 go_btn = tags$b("Go!")
