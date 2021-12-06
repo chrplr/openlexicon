@@ -2,15 +2,18 @@
 title: "Interroger Lexique avec R"
 author: "Christophe Pallier"
 output:
-  html_notebook:
-    toc: yes
   pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook:
     toc: yes
 ---
 
 ## Introduction
 
-Ce document montre comment interroger et manipuler la base [Lexique](http://www.lexique.org) en [R](https://fr.wikipedia.org/wiki/R_(langage)) 
+Ce document montre comment interroger et manipuler la base [Lexique](http://www.lexique.org) avec le logiciel [R](https://fr.wikipedia.org/wiki/R_(langage)) 
 
 Il fait parti du cours [Programmation pour les Sciences Cognitives](https://chrplr.github.io/PCBS/). Merci de signaler d'éventuelles erreurs à <christophe@pallier.org>
 
@@ -31,9 +34,9 @@ Il fait parti du cours [Programmation pour les Sciences Cognitives](https://chrp
 
 5. Dans la fenêtre en bas à gauche de Rstudio, dans l'onglet *Console*, copier la ligne suivante puis appuyez sur 'Entrée'
 
-```
+   ```{r, message=FALSE, warning=FALSE}
     install.packages('tidyverse')
-```
+   ```
 
 Laissez rstudio se débrouiller (mais vous devrez peut-être sélectionner un serveur). Quand il a fini, vous êtes prêt ! Vous n'aurez plus jamais à refaire ces étapes.
 
@@ -48,7 +51,7 @@ Tout se déroule dans Rstudio. Assurez vous de bien travailler dans le projet "l
   
   Copiez les trois lignes suivantes dans le bloc de code qui vient d'être créé. 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
     require(tidyverse)  # you must have ran "install.packages('tidyverse')" earlier
     lexique = read_delim("Lexique382.tsv", delim="\t")
     head(lexique, 25)
@@ -78,7 +81,7 @@ Vous pouvez inspecter le contenu de la table `selection` en cliquant sur son nom
 
 Vous pouvez également sauvegarder les résultats obtenus dans un fichier,  avec la commande suivante:
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 write_tsv(selection, 'selection.tsv')
 ```
 
@@ -157,7 +160,7 @@ head(selection3)
 ```
 
 
-* L'opérateur `filter`peut être appeler plusieurs fois pour affiner progressivement la recherche. 
+* L'opérateur `filter` peut être appelé plusieurs fois pour affiner progressivement la recherche. 
 
   Par exemple, pour obtenir tous les mots de 8 lettres qui ne finissent pas `ent`:
   
