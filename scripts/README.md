@@ -5,14 +5,15 @@ Most lexical databases consist of plain text files in `.tsv`  or `.csv` formats 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
- - [Example 1: extraction d'une liste de mots avec R](#example-1-extraction-dune-liste-de-mots-avec-r)
- - [Example 2: sélection d'items avec Python](#example-2-sélection-ditems-avec-python)
- - [French syllabation](#french-syllabation)
+  - [Selecting lexical items using R](#selecting-lexical-items-using-r)
+  - [Selecting lexical items with Python](#selecting-lexical-items-with-python)
+  - [Pseudoword creations](#pseudoword-creations)
+  - [French syllabation](#french-syllabation)
 
 <!-- markdown-toc end -->
 
 
-## Example 1: extraction d'une liste de mots avec R ##
+## Selecting lexical items using R ##
 
 To extract the rows of Lexique382.tsv corresponding to a list of words:
 
@@ -58,7 +59,7 @@ In this case, you should first download [Lexique382.tsv](http://wwww.lexique.org
 
 More generally, you can download the source tables of a number of databases from [our list of open databases](../databases/README.md).
 
-## Example 2: sélection d'items avec Python ##
+## Selecting lexical items with Python ##
 
 This example shows how to select four random sets of twenty nouns and verbs of low and high frequencies from Lexique382, using Python. (If you have not already, install Python: Go to <https://www.anaconda.com/distribution/> ; Select your OS (Windows, MacOS or Linux) and download the Python 3.7 installer.)
 
@@ -97,16 +98,17 @@ verbs_hi.sample(N).ortho.to_csv('verlo.txt', index=False)
 Download [select-words-from-lexique.py](select-words-from-lexique.py) 
 
 
+
+## Pseudoword creations 
+
+Several methods to generate pseudowords are implemented. Check the folder.
+
+For example: [pseudoword-generation-by-markov-on-trigrams](pseudoword-generation-by-markov-on-trigrams/pseudoword-generation-by-markov-on-trigrams.R)
+
 ## French syllabation ##
 
 [french-syllabation](french-syllabation/README.md) provides the scripts that were used to syllabify the phonological representations in Brulex and Lexique.
 
-
-## pseudoword creations 
-
-Several methods to generate pseudowords are implemented. Check the folder.
-
-For example: [pseudoword-generation-by-markov-on-trigrams]([pseudoword-generation-by-markov-on-trigrams/[pseudoword-generation-by-markov-on-trigrams.R)
 
 ----
 
