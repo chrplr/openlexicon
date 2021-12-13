@@ -1,12 +1,12 @@
 #! /usr/bin/env Rscript
-# Time-stamp: <2020-02-08 17:50:34 christophe@pallier.org>
+# Time-stamp: <2021-12-13 14:04:09 christophe@pallier.org>
 
 require(stringi)
 
 generate_pseudowords <- function (n, len, models, exclude=NULL)
 # generate pseudowords by chaining trigrams.
 # n: number of pseudowords to return
-# len: lenght (nchar) of this pseudowords
+# len: length (nchar) of the pseudowords
 # models: list of items to get trigrams from
 # exclude: list of items to exclude
 {
