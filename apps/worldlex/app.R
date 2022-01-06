@@ -13,8 +13,8 @@ library(DT)
 
 
 source(file.path('..', '..', 'datasets-info/fetch_datasets.R'))
-worldlexfr <- get_worldlex.french()
-worldlexen <- get_worldlex.english()
+worldlexfr <- get_worldlex.french_rds()
+worldlexen <- get_worldlex.english_rds()
 
 
 
