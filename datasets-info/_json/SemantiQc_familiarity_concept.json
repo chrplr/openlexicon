@@ -1,0 +1,22 @@
+{
+    "_comment": "2022-03-30 christophe.bedetti@umontreal.ca",
+    "name": "SemantiQc_familiarity_concept",
+    "description": "SemantiQc_familiarity_concept présente la familiarité conceptuelle de 3596 mots de la langue française auprès de 304 adultes francophones québécois",
+    "website": "https://lingualab.ca/fr/project/norms-familiarity-perceptual-strength/",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SemantiQc.md",
+    "urls": [
+        {
+            "url": "https://lingualab.ca/dataset/SemantiQc_familiarity_concept.tsv",
+            "bytes": 156606,
+            "md5sum": "b2fd792dff25afcd4337ccd5f6488f88"
+        },
+        {
+            "url": "https://lingualab.ca/dataset/SemantiQc_familiarity_concept.rds",
+            "bytes": 70095,
+            "md5sum": "f55bceee444797e861452cb82759186a"
+        }
+    ],
+    "type": "tsv",
+    "tags": ["french", "familiarity-concept"]
+}
+
