@@ -11,7 +11,7 @@ dataset_ids <- c('Lexique383','AoA_FreqSub_1493','AoA_FamConcept_1225','Assoc_52
                  'RT_LD_NMG_FLP_Mono_1482','SensoryExp_1659','SensoryExp_1659',
                  'ValEmo_Arous_Imag_835','ValEmo_Arous_1286',
                  'Valemo_Enfants_600','Valemo_Adultes_604', 'Voisins','WorldLex-English','FreqTwitter-WorldLex-French',
-		 'SemanticQc_auditory', 'SemanticQc_familiarity_concept', 'SemanticQc_visual',
+		 'SemantiQc_auditory', 'SemantiQc_familiarity_concept', 'SemantiQc_visual',
                  'WorldLex-Afrikaans',
                    'WorldLex-Albanian',
                    'WorldLex-Amharic',
