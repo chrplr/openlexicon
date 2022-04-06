@@ -1,6 +1,6 @@
 # OpenLexicon: Easy access to lexical databases
 
-** Click [here](http://www.lexique.org/shiny/openlexicon) if you want to use the “Openlexicon App” **  
+**Click [here](http://www.lexique.org/shiny/openlexicon) if you want to use the “Openlexicon App”**  
 
 The page you are reading now is accessible from <http://chrplr.github.io/openlexicon> 
 
