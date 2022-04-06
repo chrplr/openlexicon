@@ -1,19 +1,24 @@
+<center>**Click [here](http://www.lexique.org/shiny/opelexicon) for the “Openlexicon App”**  
+</center>
+
 # OpenLexicon: Easy access to lexical databases
 
+This is the home of the [Openlexicon project](http://chrplr.github.io/openlexicon) where you will find:
 
-[Openlexicon](http://chrplr.github.io/openlexicon) is an opensource project that provides:
 
 1. a [directory of lexical databases](datasets-info/README.md)
 2. [scripts](https://github.com/chrplr/openlexicon/tree/master/scripts) to query, manipulate or create lexical databases.
 3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases, e.g. <http://www.lexique.org/shiny/openlexicon>. 
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
 
-The source code is available at <http://github.com/chrplr/openlexicon>. 
+The Openlexicon project is hosted at <http://github.com/chrplr/openlexicon>. 
+
+
 
 
 ## Downloading a database to work locally (on your computer)
 
-You can download datasets directly from the links provided in the README files. Then you would open them with Python, R, or Excel:
+You can download datasets directly from the links provided in the README file associated to each database. For example:
 
 * in Python:
 
@@ -39,15 +44,15 @@ However, in R, there is a better way. You should use the [R dataset fetcher](htt
 For example, to download the table of Lexique383:
 
 ```{r}
+
     require(tidyverse)
     require(rjson)
     source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
     lexique383 <- get_lexique383()
+
 ```
 
-### For maintainers ###
-
-
+### For maintainers only ###
 
 
 - [How-to-install-a-new-dataset](datasets-info/README-how-to-install-a-new-database.md)

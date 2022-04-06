@@ -18,6 +18,7 @@ Most lexical databases consist of plain text files in `.tsv`  or `.csv` formats 
 To extract the rows of Lexique382.tsv corresponding to a list of words:
 
 
+```{R}
     items <- c('bateau', 'avion', 'maison', 'arbre')
 
     require(readr)
@@ -32,21 +33,21 @@ To extract the rows of Lexique382.tsv corresponding to a list of words:
     write_tsv(selection, 'selection.tsv')
 
     ### Using regular expressions
-   require(tidyverse)
-   require(stringr)
+    require(tidyverse)
+    require(stringr)
 
-   # liste les mots qui finissent par "ion"
-   lex$ortho %>% str_subset("ion$")
+    # liste les mots qui finissent par "ion"
+    lex$ortho %>% str_subset("ion$")
 
-   # liste les mots qui contiennent trois voyelles successives
-   lex$ortho %>% str_subset('[aeiouy][aeiouy][aeiouy]')
+    # liste les mots qui contiennent trois voyelles successives
+    lex$ortho %>% str_subset('[aeiouy][aeiouy][aeiouy]')
 
-   # trouve les mots qui contiennent des groupes de 3 lettres répétés
-   lex$ortho %>% str_subset("(...)\\1")
+    # trouve les mots qui contiennent des groupes de 3 lettres répétés
+    lex$ortho %>% str_subset("(...)\\1")
 
-   # see https://stringr.tidyverse.org/articles/regular-expressions.html
+    # see https://stringr.tidyverse.org/articles/regular-expressions.html
 
-
+```
 
 Download [select-words-from-lexique.R](select-words-from-lexique.R). (If you have not already, to install [_R_](https://cran.r-project.org/) and [_Rstudio Desktop_](https://www.rstudio.com))
 
@@ -62,35 +63,37 @@ More generally, you can download the source tables of a number of databases from
 
 This example shows how to select four random sets of twenty nouns and verbs of low and high frequencies from Lexique382, using Python. (If you have not already, install Python: Go to <https://www.anaconda.com/distribution/> ; Select your OS (Windows, MacOS or Linux) and download the Python 3.7 installer.)
 
+```{python}
 
-    """ Exemple de sélection d'items dans la base Lexique382 """
+""" Exemple de sélection d'items dans la base Lexique382 """
 
-    import pandas as pd
+import pandas as pd
 
-    lex = pd.read_csv("http://www.lexique.org/databases/Lexique382/Lexique382.tsv", sep='\t')
+lex = pd.read_csv("http://www.lexique.org/databases/Lexique382/Lexique382.tsv", sep='\t')
 
-    lex.head()
+lex.head()
 
-    # restreint la recherche à des mots de longueur comprises entre 5 et 8 lettres
-    subset = lex.loc[(lex.nblettres >= 5) & (lex.nblettres <=8)]
+# restreint la recherche à des mots de longueur comprises entre 5 et 8 lettres
+subset = lex.loc[(lex.nblettres >= 5) & (lex.nblettres <=8)]
 
-    # separe les noms et les verbes dans deux dataframes:
-    noms = subset.loc[subset.cgram == 'NOM']
-    verbs = subset.loc[subset.cgram == 'VER']
+# separe les noms et les verbes dans deux dataframes:
+noms = subset.loc[subset.cgram == 'NOM']
+verbs = subset.loc[subset.cgram == 'VER']
 
-    # selectionne sur la base de la fréquence lexicale
-    noms_hi = noms.loc[noms.freqlivres > 50.0]
-    noms_low = noms.loc[(noms.freqlivres < 10.0) & (noms.freqlivres > 1.0)]
+# sectionne sur la bases de la fréquence lexicale
+noms_hi = noms.loc[noms.freqlivres > 50.0]
+noms_low = noms.loc[(noms.freqlivres < 10.0) & (noms.freqlivres > 1.0)]
 
-    verbs_hi = verbs.loc[verbs.freqlivres > 50.0]
-    verbs_low = verbs.loc[(verbs.freqlivres < 10.0) & (verbs.freqlivres > 1.0)]
+verbs_hi = verbs.loc[verbs.freqlivres > 50.0]
+verbs_low = verbs.loc[(verbs.freqlivres < 10.0) & (verbs.freqlivres > 1.0)]
 
-    # choisi des items tirés au hasard dans chacun des 4 sous-ensembles:
-    N = 20
-    noms_hi.sample(N).ortho.to_csv('nomhi.txt', index=False)
-    noms_low.sample(N).ortho.to_csv('nomlo.txt', index=False)
-    verbs_hi.sample(N).ortho.to_csv('verhi.txt', index=False)
-    verbs_hi.sample(N).ortho.to_csv('verlo.txt', index=False)
+# choisi des items tirés au hasard dans chacun des 4 sous-ensembles:
+N = 20
+noms_hi.sample(N).ortho.to_csv('nomhi.txt', index=False)
+noms_low.sample(N).ortho.to_csv('nomlo.txt', index=False)
+verbs_hi.sample(N).ortho.to_csv('verhi.txt', index=False)
+verbs_hi.sample(N).ortho.to_csv('verlo.txt', index=False)
+```
 
 Download [select-words-from-lexique.py](select-words-from-lexique.py) 
 
