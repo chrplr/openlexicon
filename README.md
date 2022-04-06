@@ -1,9 +1,10 @@
-<center>**Click [here](http://www.lexique.org/shiny/opelexicon) for the “Openlexicon App”**  
-</center>
-
 # OpenLexicon: Easy access to lexical databases
 
-This is the home of the [Openlexicon project](http://chrplr.github.io/openlexicon) where you will find:
+** Click [here](http://www.lexique.org/shiny/openlexicon) if you want to use the “Openlexicon App” **  
+
+The page you are reading now is accessible from <http://chrplr.github.io/openlexicon> 
+
+On this site, you will find:
 
 
 1. a [directory of lexical databases](datasets-info/README.md)
@@ -11,9 +12,8 @@ This is the home of the [Openlexicon project](http://chrplr.github.io/openlexico
 3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases, e.g. <http://www.lexique.org/shiny/openlexicon>. 
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
 
-The Openlexicon project is hosted at <http://github.com/chrplr/openlexicon>. 
 
-
+Source code is available at <http://github.com/chrplr/openlexicon>.
 
 
 ## Downloading a database to work locally (on your computer)
@@ -43,14 +43,12 @@ However, in R, there is a better way. You should use the [R dataset fetcher](htt
 
 For example, to download the table of Lexique383:
 
-```{r}
 
     require(tidyverse)
     require(rjson)
     source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
     lexique383 <- get_lexique383()
 
-```
 
 ### For maintainers only ###
 
@@ -76,7 +74,10 @@ Most databases have associated publications listed in their respective `README`
 files. They must be cited in any derivative work! The same goes for some of the
 scripts (read their documentation for instructions).
 
-If needed, you can cite this repository as:
+The main contributors to the openlexicon project are [Christophe Pallier](http://www.pallier.org), [Boris New](https://psycho-usmb.fr/boris.new/) and Jessica Bourdini (TODO: add link to your page, Jessica).
+
+
+To cite this repository, use the following reference:
 
 * Pallier, Christophe & New, Boris &  Jessica Bourdin (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
