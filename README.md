@@ -22,16 +22,16 @@ You can download datasets directly from the links provided in the README file as
 
 * in Python:
 
-    import pandas as pd
-    lex = pd.read_csv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv', sep='\t')
-    lex.head()
+        import pandas as pd
+        lex = pd.read_csv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv', sep='\t')
+        lex.head()
 
 
 * in R:
 
-    library(readr)
-    lex = read_tsv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv')
-    head(lex)
+        library(readr)
+        lex = read_tsv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv')
+        head(lex)
     
 
     
