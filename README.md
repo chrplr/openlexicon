@@ -1,20 +1,14 @@
-
-
-
-
-
-
-
 # OpenLexicon: Easy access to lexical databases
 
 
-At OpenLexicon, you will find:
+[Openlexicon](http://chrplr.github.io/openlexicon) is an opensource project that provides:
 
 1. a [directory of lexical databases](datasets-info/README.md)
 2. [scripts](https://github.com/chrplr/openlexicon/tree/master/scripts) to query, manipulate or create lexical databases.
-3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. Some of the apps provide the infrastructure of <http://www.lexique.org> where many of lexical databases are hosted and can be queried on-line --- check out, for example, <http://www.lexique.org/shiny/openlexicon>.
+3. [apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases, e.g. <http://www.lexique.org/shiny/openlexicon>. 
 4. [documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
 
+The source code is available at <http://github.com/chrplr/openlexicon>. 
 
 
 ## Downloading a database to work locally (on your computer)
@@ -79,7 +73,7 @@ scripts (read their documentation for instructions).
 
 If needed, you can cite this repository as:
 
-* Pallier, Christophe & New, Boris (2019** Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
+* Pallier, Christophe & New, Boris &  Jessica Bourdin (2019) Openlexicon, GitHub repository, <https://github.com/chrplr/openlexicon>
 
 
 
