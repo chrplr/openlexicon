@@ -1,19 +1,22 @@
 # OpenLexicon: Easy access to lexical databases
 
+
 <http://chrplr.github.io/openlexicon> 
   
 
-**Click [here](http://www.lexique.org/shiny/openlexicon) if you want to use the *Openlexicon App***
+**Click [here](http://www.lexique.org/shiny/openlexicon) or on the image below if you want to access the *Openlexicon App***
 
-![](openlexicon-app-1000.png)
+[![](openlexicon-app-1000.png)](http://www.lexique.org/shiny/openlexicon)
 
 
 You will find here:
 
 1. A [directory of lexical databases](datasets-info/README.md)
-2. [Scripts](https://github.com/chrplr/openlexicon/tree/master/scripts) to query, manipulate or create lexical databases.
-3. [Apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases, e.g. <http://www.lexique.org/shiny/openlexicon>. 
+2. [Scripts](https://github.com/chrplr/openlexicon/tree/master/scripts) to download and query lexical databases.
+3. [Apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. Some of these apps are running at <http://www.lexique.org>
 4. [Documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of interest related to the processing of lexical resources. 
+
+
 
 
 Source codes are available at <http://github.com/chrplr/openlexicon>.
