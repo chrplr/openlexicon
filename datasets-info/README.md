@@ -1,8 +1,36 @@
 # Open lexical databases #
 
+You will find below a directory of open lexical databases. Click on the name of any database to access their README file and obtain more information and links to datasets.
+
+To work locally on your computer, you can download each datasets' tables directly from the links provided in the README file. For example:
+
+* in R:
+
+        library(readr)
+        lex = read_tsv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv')
+        head(lex)
 
 
-You will find below a directory of open lexical databases. Click on the name of any database to obtain more information and links to datasets.
+* in Python:
+
+        import pandas as pd
+        lex = pd.read_csv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv', sep='\t')
+        lex.head()
+
+Yet, in R, we recommend you to use the [R dataset fetcher](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R) as:
+- it avoids having to specify the location of the dataset on the web
+- it will always point to the latest version of a dataset if it has been updated
+- it provides a caching mechanism: the dataset will be downloaded only if necessary, otherwise a local copy will be used.
+- it checks the sumfile of the dataset to make sure that you have the correct version.
+
+For example, to download the table of Lexique383:
+
+    require(tidyverse)
+    require(rjson)
+    source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
+    lexique383 <- get_lexique383()
+
+
 
 ## Français ##
 
