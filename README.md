@@ -1,12 +1,11 @@
 # OpenLexicon: Easy access to lexical databases
 
-<p align="center"> <http://chrplr.github.io/openlexicon> </p>
+<http://chrplr.github.io/openlexicon> 
   
-<center>
-**Click [here](http://www.lexique.org/shiny/openlexicon) if you want to use the *Openlexicon App*  **
+
+**Click [here](http://www.lexique.org/shiny/openlexicon) if you want to use the *Openlexicon App***
 
 ![](openlexicon-app-1000.png)
-</center>
 
 
 You will find here:
