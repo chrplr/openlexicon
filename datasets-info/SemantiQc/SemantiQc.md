@@ -1,6 +1,6 @@
 # SemantiQc
 
-Ces bases de données représente la familiarité conceptuelle, la force perceptuelle auditive et visuelle de 3596 mots de la langue française auprès de 304 adultes francophones québécois.
+Ces bases de données représentent la familiarité conceptuelle, la force perceptuelle auditive et visuelle de 3596 mots de la langue française auprès de 304 adultes francophones québécois.
 
 - familiarité conceptuelle: Dans quelle mesure vous sentez-vous familier avec le concept de CE MOT ?
 
@@ -26,7 +26,7 @@ Ces bases de données représente la familiarité conceptuelle, la force percept
 
 ## Publications
 
-- [Norms of conceptual familiarity for 3,596 French nouns and their contribution in lexical decision](https://lingualab.ca/en/publication/chedid-norms-2018/), [DOI](https://doi.org/10.3758/s13428-018-1106-8)
+- [Norms of conceptual familiarity for 3,596 French nouns and their contribution in lexical decision](https://lingualab.ca/en/publication/chedid-norms-2018/) [[DOI]](https://doi.org/10.3758/s13428-018-1106-8)
 
-- [Visual and auditory perceptual strength norms for 3,596 French nouns and their relationship with other psycholinguistic variables](https://lingualab.ca/en/publication/chedid-visual-2019/), [DOI](https://doi.org/10.3758/s13428-019-01254-w)
+- [Visual and auditory perceptual strength norms for 3,596 French nouns and their relationship with other psycholinguistic variables](https://lingualab.ca/en/publication/chedid-visual-2019/) [[DOI]](https://doi.org/10.3758/s13428-019-01254-w)
 
