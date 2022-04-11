@@ -3,7 +3,7 @@
 
 Homepage: <http://chrplr.github.io/openlexicon> 
   
-**Click on the screenshot below if all you want to access the *Openlexicon App***
+**Click on the screenshot below if all you want is to access the *Openlexicon App***
 
 [![](openlexicon-app-1000.png)](http://www.lexique.org/shiny/openlexicon)
 
