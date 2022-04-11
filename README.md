@@ -3,7 +3,7 @@
 
 Homepage: <http://chrplr.github.io/openlexicon> 
   
-**Click on the screenshot if you want to access the *Openlexicon App***
+**Click on the screenshot below if all you want to access the *Openlexicon App***
 
 [![](openlexicon-app-1000.png)](http://www.lexique.org/shiny/openlexicon)
 
@@ -15,11 +15,16 @@ You will find here:
 3. [Apps](https://github.com/chrplr/openlexicon/tree/master/apps/) to create dynamic graphical interfaces to the lexical databases. Some of these apps are running at <http://www.lexique.org>
 4. [Documents](https://github.com/chrplr/openlexicon/tree/master/documents/) of related to the processing of lexical resources. 
 
-Source codes are available at <http://github.com/chrplr/openlexicon>, under a [CC BY-SA 4.0 LICENSE](https://creativecommons.org/licenses/by-sa/4.0/).
+The source is available at <http://github.com/chrplr/openlexicon>.
+
+Unless otherwise explained by a individual readme or license file in a directory, it distributed under a [CC BY-SA 4.0 LICENSE](https://creativecommons.org/licenses/by-sa/4.0/).
+
 
 ### Crediting ###
 
 The main contributors to the openlexicon project are [Christophe Pallier](http://www.pallier.org), [Boris New](https://psycho-usmb.fr/boris.new/) and Jessica Bourdin (TODO: add link to your page, Jessica).
+
+
 
 To cite this repository, use the following reference:
 
