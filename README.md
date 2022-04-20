@@ -3,9 +3,9 @@
 
 Homepage: <http://chrplr.github.io/openlexicon> 
   
-**Click on the screenshot below if all you want is to access the *Openlexicon App***
+**If all you want is to access the *Openlexicon App* or the *UniPseudo App*, click on one of the screenshots below**
 
-[![](openlexicon-app-1000.png)](http://www.lexique.org/shiny/openlexicon)
+| [![](images/openlexicon-app-500.png)](http://www.lexique.org/shiny/openlexicon) | [![](images/unipseudo-app-500.png)](http://www.lexique.org/shiny/unipseudo) |
 
 
 You will find here:
