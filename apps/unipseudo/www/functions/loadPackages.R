@@ -27,7 +27,8 @@ usePackageGit("shinycssloaders", "jbourgin/shinycssloaders") #https://github.com
 usePackage("rvest") # To repair encoding
 usePackage("rlist") # For list.filter
 usePackage("shinyalert")
-usePackageGit("tippy", "JohnCoene/tippy")
+usePackage("tippy")
+# usePackageGit("tippy", "JohnCoene/tippy")
 usePackage("RCurl") #To test if string is url
 usePackage("stringr") # str_replace_all
 
