@@ -14,10 +14,22 @@ source('www/data/loadingDatasets.R')
 source('www/data/uiElements.R')
 source('www/data/listedemotsfrancais.R', encoding='latin1')
 
+js <- "
+$(document).ready(function() {
+  $('#pseudomots').on('shiny:recalculating', function() {
+    $('#go').prop('disabled', true);
+  });
+  $('#pseudomots').on('shiny:recalculated', function() {
+    $('#go').prop('disabled', false);
+  });
+});
+"
+
 #### Script begins ####
 ui <- fluidPage(
   tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "data/tooltips.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "data/tooltips.css"),
+    tags$script(HTML(js))
   ),
   useShinyjs(),
   useShinyalert(),
@@ -111,13 +123,15 @@ server <- function(input, output, session) {
     })
 
     observeEvent(input$btn, {
-      shinyjs::toggle("helper_box", anim = TRUE, animType = "slide")
-
       if (v$button_helperalert == btn_show_helper){
         v$button_helperalert = btn_hide_helper
       }else{
         v$button_helperalert = btn_show_helper
       }
+    })
+
+    observe({
+      shinyjs::toggle("helper_box", anim = TRUE, animType = "slide", condition = v$button_helperalert == btn_hide_helper)
     })
 
     #### Toggle list search ####
@@ -127,13 +141,15 @@ server <- function(input, output, session) {
     })
 
     observeEvent(input$btn_generator, {
-      toggle("divGenerator", anim = TRUE, animType = "slide")
-
       if (grepl(btn_show_generator_name, v$button_generator)){
         v$button_generator = btn_hide_generator_name
       }else{
         v$button_generator = btn_show_generator_name
       }
+    })
+
+    observe({
+      shinyjs::toggle("divGenerator", anim = TRUE, animType = "slide", condition = grepl(btn_hide_generator_name, v$button_generator))
     })
 
     #### Select a language ####
