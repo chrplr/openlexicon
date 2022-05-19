@@ -113,7 +113,7 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
 
     # keep item only if not in the 'models', 'exclude' or 'pseudos' list
     # Column for whole item (whole in red)
-    if (nchar(item) == len && isTRUE(validWord) && !(item %in% c(models, exclude, final_list$Pseudoword[np]))) {
+    if (nchar(item) == len && isTRUE(validWord) && !(item %in% c(models, exclude)) && !(paste0(font_first_element, item, font_second_element) %in% final_list$Pseudoword)) {
       final_list$Pseudoword[np] = paste0(font_first_element, item, font_second_element)
       np = np + 1
     }
