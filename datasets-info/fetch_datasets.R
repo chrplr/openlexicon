@@ -26,6 +26,24 @@ get_data.home <- function()
   data.home
 }
 
+get_log.home <- function(app_name)
+# return the path of the folder where to put logs
+{
+    is_local <- Sys.getenv('SHINY_PORT') == ""
+    # True if used in local, else false if in production
+
+    log.home = Sys.getenv("SHINY_LOG")
+    if (log.home == "") {
+        if (is_local){
+            log.home <- file.path(path.expand('~'), 'shiny_log', app_name)
+        }else{
+            log.home <- file.path('/var', 'shiny_log', app_name)
+        }
+    }
+
+    dir.create(log.home, showWarnings = FALSE, recursive = TRUE)
+    log.home
+}
 
 get_info_from_json <- function(json_url)
   # extract information fields from a json file
