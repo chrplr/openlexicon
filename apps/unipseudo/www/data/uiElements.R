@@ -18,6 +18,7 @@ lenGram_choice = tags$b("Algorithm")
 number_choice = tags$b("Number of pseudowords")
 tab1 = tags$b("Pseudowords")
 tab2 = tags$b("Pseudowords with details")
+app_name = "UniPseudo"
 
 helper_alert <-
   tags$div(id = "helper_box",

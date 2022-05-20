@@ -34,8 +34,8 @@ ui <- fluidPage(
   useShinyjs(),
   useShinyalert(),
 
-  titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", "UniPseudo")),
-  title = "UniPseudo",
+  titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", app_name)),
+  title = app_name,
 
   sidebarLayout(
     sidebarPanel(
@@ -103,6 +103,8 @@ ui <- fluidPage(
 
 
 server <- function(input, output, session) {
+  track_usage(storage_mode = store_json(path = get_log.home(app_name))) # initialize logs
+
   v <- reactiveValues(
     language_selected = '\n',
     gram_class_is_shown = FALSE,

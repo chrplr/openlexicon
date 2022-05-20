@@ -31,6 +31,7 @@ usePackage("tippy")
 # usePackageGit("tippy", "JohnCoene/tippy")
 usePackage("RCurl") #To test if string is url
 usePackage("stringr") # str_replace_all
+usePackage("shinylogs") # logs
 
 # usePackage("stringi")
 # usePackage("DT")
