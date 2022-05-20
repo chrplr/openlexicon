@@ -28,8 +28,10 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
   # exclude=strsplit(french_list,"[ \n\t]")[[1]] # exclude french words
   if (length(models) == 0) {
     shinyalert("Error", paste0(
-      'Failed to generate the pseudowords. Please enter words of the desired length in the \"',
-      paste_words, '\" section.'),
+      'Failed to generate the pseudowords.\nPlease enter words of the desired length in the \"',
+      paste_words, '\" section.\nThe more pseudowords you need, the more words you need to provide in the \"',
+      paste_words, '\" section.\nA minimum of 100 words for 20 pseudowords is a good basis, unfortunately there is no fixed minimal number of words. You need to proceed with trial-and-error or use the \"',
+      generator_name, '\" for easier pseudowords generation.'),
       type = "error")
     return ()
     }
