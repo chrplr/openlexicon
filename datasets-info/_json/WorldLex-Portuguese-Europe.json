@@ -10,5 +10,6 @@
         "md5sum": "4e49bb5387e5411326a93edc2898726a"
     } ],
     "type": "rds",
-    "tags": ["portuguese", "frequencies"]
+    "tags": ["portuguese", "frequencies"],
+    "id_lang": "Portuguese Europe"
 }

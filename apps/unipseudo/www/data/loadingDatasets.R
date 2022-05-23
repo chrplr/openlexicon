@@ -145,14 +145,18 @@ dslanguage <- list()
 language_choices <- c("\n")
 
 # We load datasets info
+duplicate_ds <- c()
 for (ds in names(datasets)) {
     json_url <- datasets[[ds]][1]
     info = get_info_from_json(json_url)
-    dslanguage[[ds]]['name'] <- info$language
-    if (!(dslanguage[[ds]]['name'] %in% language_choices)){
+    # ID needs to be unique, otherwise databases with id already in use will not be loaded. ID may be tag 1 (language) or id_lang in .json file.
+    dslanguage[[ds]]['name'] <- if (is.null(info$id_lang)) info$language else info$id_lang
+    if (!(capFirst(dslanguage[[ds]]['name']) %in% language_choices)){
       language_choices <- c(language_choices, capFirst(dslanguage[[ds]]['name']))
+      dictionary_databases[[ds]] <- list()
+      dictionary_databases[[ds]][["dsdesc"]] <- info$description
+      dictionary_databases[[ds]][["dsweb"]] <- info$website
+    }else{
+        duplicate_ds <- c(duplicate_ds, ds)
     }
-    dictionary_databases[[ds]] <- list()
-    dictionary_databases[[ds]][["dsdesc"]] <- info$description
-    dictionary_databases[[ds]][["dsweb"]] <- info$website
 }

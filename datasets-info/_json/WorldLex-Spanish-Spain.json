@@ -10,5 +10,6 @@
         "md5sum": "d53b3de89278923dcd9804f50c3cc907"
     } ],
     "type": "rds",
-    "tags": ["spanish", "frequencies"]
+    "tags": ["spanish", "frequencies"],
+    "id_lang": "Spanish Spain"
 }

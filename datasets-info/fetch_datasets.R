@@ -55,6 +55,7 @@ get_info_from_json <- function(json_url)
       readme = json_data$readme,
       website = json_data$website,
       language = json_data$tags[1],
+      id_lang = json_data$id_lang,
       mandatory_columns = json_data$mandatory_columns,
       column_names = json_data$column_names
     )

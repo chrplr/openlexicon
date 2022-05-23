@@ -105,6 +105,11 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   track_usage(storage_mode = store_json(path = get_log.home(app_name))) # initialize logs
 
+  # duplicate_ds will not be empty if some databases have the same id (language or id_lang, see loading_datasets). So if an id is already in use, subsequent databases with same id will not be loaded
+  if (length(duplicate_ds) > 0){
+      shinyalert("Warning", paste("Databases", paste(duplicate_ds, collapse = ', '), "could not be loaded because they do not have a unique id_lang or language in their json file."))
+  }
+
   v <- reactiveValues(
     language_selected = '\n',
     gram_class_is_shown = FALSE,
