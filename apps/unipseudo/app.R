@@ -57,12 +57,8 @@ ui <- fluidPage(
           br()
       )),
       div(uiOutput("oMots")),
-      div(tags$div(numericInput("nbpseudos",
-                           number_choice,
-                           value = 20,
-                           min = 1,
-                           max = 1000,
-                           width = "100%"))),
+      div(uiOutput("oNbpseudos"),
+      helpText(paste0("Please enter a number between ", min_nbpseudos, " and ", max_nbpseudos, "."))),
       div(style="text-align:center;",actionButton("go", go_btn)),
       width=4
     ),
@@ -259,6 +255,16 @@ server <- function(input, output, session) {
                   rows = 10, value = v$words_to_search, resize = "none")
     })
 
+    #### Handle number of pseudowords ####
+    output$oNbpseudos <- renderUI({
+        numericInput("nbpseudos",
+            number_choice,
+            value = default_nbpseudos,
+            min = min_nbpseudos,
+            max = max_nbpseudos,
+            width = "100%")
+    })
+
     #### len grams ####
 
     observeEvent(input$longueur, {
@@ -282,18 +288,22 @@ server <- function(input, output, session) {
 
     pseudowords <- eventReactive(input$go,
     {
-       nbpseudos = as.numeric(input$nbpseudos)
-       longueur = as.numeric(input$longueur)
-       algo = input$lenGram
-       words <- strsplit(input$mots,"[ \n\t]")[[1]]
-       wordsok <- words[nchar(words) == longueur]
-       wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
-       if (v$language_selected != "\n"){
-         exclude <- get_dataset_words(v$datasets, dictionary_databases)
+       if(input$nbpseudos < min_nbpseudos || input$nbpseudos > max_nbpseudos){
+           shinyalert("Error", paste0("Please enter a ", number_choice_raw, " between ", min_nbpseudos, " and ", max_nbpseudos, "."))
        }else{
-         exclude <- NULL
+           nbpseudos = as.numeric(input$nbpseudos)
+           longueur = as.numeric(input$longueur)
+           algo = input$lenGram
+           words <- strsplit(input$mots,"[ \n\t]")[[1]]
+           wordsok <- words[nchar(words) == longueur]
+           wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
+           if (v$language_selected != "\n"){
+             exclude <- get_dataset_words(v$datasets, dictionary_databases)
+           }else{
+             exclude <- NULL
+           }
+           generate_pseudowords(nbpseudos, longueur, wordsok, algo, exclude = exclude)
        }
-       generate_pseudowords(nbpseudos, longueur, wordsok, algo, exclude = exclude)
     }
     )
 

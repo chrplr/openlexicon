@@ -15,10 +15,14 @@ generateDB_neutral = tags$b("Use words from database")
 grammatical_class_label = "Select grammatical class"
 length_choice = tags$b("Pseudowords length")
 lenGram_choice = tags$b("Algorithm")
-number_choice = tags$b("Number of pseudowords")
+number_choice_raw = "Number of pseudowords"
+number_choice = tags$b(number_choice_raw)
 tab1 = tags$b("Pseudowords")
 tab2 = tags$b("Pseudowords with details")
 app_name = "UniPseudo"
+min_nbpseudos = 1
+max_nbpseudos = 2000
+default_nbpseudos = 20
 
 helper_alert <-
   tags$div(id = "helper_box",
