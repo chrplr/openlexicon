@@ -34,7 +34,7 @@ ui <- fluidPage(
   useShinyjs(),
   useShinyalert(),
 
-  titlePanel(tags$a(href="http://chrplr.github.io/pseudowords_markov/", app_name)),
+  titlePanel(tags$a(href="http://www.lexique.org/?page_id=582", app_name)),
   title = app_name,
 
   sidebarLayout(
