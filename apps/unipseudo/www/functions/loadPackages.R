@@ -23,6 +23,7 @@ usePackage("shiny")
 usePackage("shinyjs")
 usePackage("shinyBS")
 usePackage("shinyalert")
+usePackage("shinyWidgets")
 usePackageGit("shinycssloaders", "jbourgin/shinycssloaders") #https://github.com/daattali/shinycssloaders/issues/22
 usePackage("rvest") # To repair encoding
 usePackage("rlist") # For list.filter

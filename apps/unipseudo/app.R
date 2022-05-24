@@ -6,12 +6,12 @@
 rm(list = ls())
 source('www/functions/generatePseudo.R')
 source('www/functions/loadPackages.R')
+source('www/data/uiElements.R')
 
 # Loading datasets and UI
 source('../../datasets-info/fetch_datasets.R')
 source('www/data/loadingDatasets.R')
 
-source('www/data/uiElements.R')
 source('www/data/listedemotsfrancais.R', encoding='latin1')
 
 js <- "
@@ -42,11 +42,16 @@ ui <- fluidPage(
       uiOutput("helper_alert"),
       br(),
       helper_alert,
-      div(tags$div(selectInput("longueur",
-                           length_choice,
-                           3:15,
+      div(tags$div(pickerInput(
+                           inputId = "longueur",
+                           label = length_choice,
+                           choices = 3:15,
                            selected = 6,
-                           width = "100%"))),
+                           width = "100%",
+                           options = pickerOptions(
+                             dropupAuto = FALSE
+                           )
+                           ))),
       div(uiOutput("olenGram")),
       uiOutput("outbtngenerator"),
       br(),
@@ -107,12 +112,12 @@ server <- function(input, output, session) {
   }
 
   v <- reactiveValues(
-    language_selected = '\n',
+    language_selected = default_none,
     gram_class_is_shown = FALSE,
     info_tooltip = "",
     datasets = c(),
-    grammatical_choices = c("\n"),
-    gram_selected = "\n",
+    grammatical_choices = c(default_none),
+    gram_selected = default_none,
     button_helperalert = btn_hide_helper,
     nb_pseudowords = 0,
     button_generator = btn_show_generator_name,
@@ -158,9 +163,14 @@ server <- function(input, output, session) {
     #### Select a language ####
 
     output$outlang <- renderUI({
-      selectInput("language", "Choose a language",
+      pickerInput(inputId = "language",
+                  label = "Choose a language",
                   choices = language_choices,
-                  selected = v$language_selected)
+                  selected = v$language_selected,
+                  options = pickerOptions(
+                    dropupAuto = FALSE
+                  )
+                )
     })
 
     # Update dataset based on language selection
@@ -175,11 +185,11 @@ server <- function(input, output, session) {
     observeEvent(input$language, {
       v$language_selected <- input$language
       v$words_to_search <- c() # Reset words to search on language change
-      v$grammatical_choices <- c("\n")
-      v$gram_selected = "\n" # Reset gram class on language change
+      v$grammatical_choices <- c(default_none)
+      v$gram_selected = default_none # Reset gram class on language change
 
       load_language(input$language)
-      if (input$language == "\n") {
+      if (input$language == default_none) {
         v$datasets <- ""
         # Hide grammatical class selection if previously shown
         if (v$gram_class_is_shown){
@@ -199,7 +209,7 @@ server <- function(input, output, session) {
             v$gram_class_is_shown=TRUE
           }
           # Pick grammatical classes in Lexique
-          v$grammatical_choices <- c("\n", unique(dictionary_databases[["Lexique383"]][['dstable']][['cgram']]))
+          v$grammatical_choices <- c(default_none, unique(dictionary_databases[["Lexique383"]][['dstable']][['cgram']]))
         }else {
           # Hide grammatical class selection if previously shown
           if (v$gram_class_is_shown){
@@ -227,16 +237,21 @@ server <- function(input, output, session) {
     # Select grammatical class (french only)
 
     output$outgram_class <- renderUI({
-      selectInput("gram_class", grammatical_class_label,
+      pickerInput(inputId = "gram_class",
+                  label = grammatical_class_label,
                   choices = v$grammatical_choices,
-                  selected = v$gram_selected)
+                  selected = v$gram_selected,
+                  multiple = FALSE,
+                  options = pickerOptions(
+                    dropupAuto = FALSE
+                  ))
     })
 
     #### Generate words from database ####
 
     observeEvent(input$generateDB, {
       longueur = as.numeric(input$longueur)
-      if (v$language_selected != "\n"){
+      if (v$language_selected != default_none){
         words <- get_dataset_words(v$datasets, dictionary_databases, input$gram_class)
       }else {
         words <- c()
@@ -273,23 +288,29 @@ server <- function(input, output, session) {
       }else{
         v$len_gram = "trigram"
       }
-      updateSelectInput(session, "lenGram", selected = v$len_gram)
+      updatePickerInput(session, "lenGram", selected = v$len_gram)
       })
 
     output$olenGram <- renderUI({
-      selectInput("lenGram",
-                           lenGram_choice,
-                           c("bigram", "trigram"),
-                           selected = v$len_gram,
-                           width = "100%")
+      pickerInput(inputId = "lenGram",
+                  label = lenGram_choice,
+                  choices = c("bigram", "trigram"),
+                  selected = v$len_gram,
+                  width = "100%",
+                  options = pickerOptions(
+                    dropupAuto = FALSE
+                  )
+                )
     })
 
     #### show pseudowords ####
 
     pseudowords <- eventReactive(input$go,
     {
+       # Handle number of pseudowords lower than min_nbpseudos or higher than max_nbpseudos (numericInput does not fully handle it by itself : entering unallowed value directly by hand is... allowed)
        if(input$nbpseudos < min_nbpseudos || input$nbpseudos > max_nbpseudos){
            shinyalert("Error", paste0("Please enter a ", number_choice_raw, " between ", min_nbpseudos, " and ", max_nbpseudos, "."))
+           NULL # return NULL for observeEvent pseudowords, to avoid null datatable
        }else{
            nbpseudos = as.numeric(input$nbpseudos)
            longueur = as.numeric(input$longueur)
@@ -297,7 +318,7 @@ server <- function(input, output, session) {
            words <- strsplit(input$mots,"[ \n\t]")[[1]]
            wordsok <- words[nchar(words) == longueur]
            wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
-           if (v$language_selected != "\n"){
+           if (v$language_selected != default_none){
              exclude <- get_dataset_words(v$datasets, dictionary_databases)
            }else{
              exclude <- NULL

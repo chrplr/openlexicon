@@ -142,7 +142,7 @@ for (ds in dataset_ids)
 
 dictionary_databases <- list()
 dslanguage <- list()
-language_choices <- c("\n")
+language_choices <- c(default_none)
 
 # We load datasets info
 duplicate_ds <- c()
