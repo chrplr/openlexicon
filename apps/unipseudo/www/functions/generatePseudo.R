@@ -1,14 +1,10 @@
 get_dataset_words <- function(datasets, dictionary_databases, gram_class=NULL){
   words <- c()
   for (dataset in datasets){
-    if (dataset == "Lexique383"){
+    if (dataset == "Lexique383" && (gram_class != default_none && !(is.null(gram_class)))){
       # Select words for a specific grammatical class in Lexique
-      if (gram_class != "\n" && !(is.null(gram_class))){
-        subset <- dictionary_databases[[dataset]][['dstable']][dictionary_databases[[dataset]][['dstable']][['cgram']] == gram_class, ]
-        words <- c(words, subset[["lemme"]])
-      }else {
-        words <- c(words, dictionary_databases[[dataset]][['dstable']][['lemme']])
-      }
+      subset <- dictionary_databases[[dataset]][['dstable']][dictionary_databases[[dataset]][['dstable']][['cgram']] == gram_class, ]
+      words <- c(words, subset[["Word"]])
     }else {
       words <- c(words, dictionary_databases[[dataset]][['dstable']][['Word']])
     }
@@ -94,7 +90,7 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
       if (len_grams == "bigram" && nchar(item) >= 2){
         b <- gsub("[^aeiouyAEIOUY]","C",iconv(paste0(item,substr(random_compat[[pos]], len_substring, len_substring)), from="UTF-8",to="ASCII//TRANSLIT"))
         if (substr(b, nchar(b)-2,nchar(b)) == "CCC" || !(str_detect(substr(b, nchar(b)-2,nchar(b)), "C"))){
-          print(paste0(item,substr(random_compat[[pos]], len_substring, len_substring)))
+          # print(paste0(item,substr(random_compat[[pos]], len_substring, len_substring)))
           validWord=FALSE
           break
         }
