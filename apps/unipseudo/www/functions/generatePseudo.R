@@ -1,12 +1,14 @@
-get_dataset_words <- function(datasets, dictionary_databases, gram_class=NULL){
-  words <- c()
+get_dataset_words <- function(datasets, dictionary_databases, nbchar, gram_class=NULL){
   for (dataset in datasets){
-    if (dataset == "Lexique383" && (gram_class != default_none && !(is.null(gram_class)))){
-      # Select words for a specific grammatical class in Lexique
-      subset <- dictionary_databases[[dataset]][['dstable']][dictionary_databases[[dataset]][['dstable']][['cgram']] == gram_class, ]
-      words <- c(words, subset[["Word"]])
+    if (dataset == "Lexique383"){
+      if (gram_class != default_none && !(is.null(gram_class))){
+        # Select words for a specific grammatical class in Lexique
+        words <- subset(dictionary_databases[[dataset]][['dstable']], cgram == gram_class & nblettres == nbchar)[["Word"]]
+      }else{
+        words <- subset(dictionary_databases[[dataset]][['dstable']], nblettres == nbchar)[["Word"]]
+      }
     }else {
-      words <- c(words, dictionary_databases[[dataset]][['dstable']][['Word']])
+      words <- subset(dictionary_databases[[dataset]][['dstable']], nbcar == nbchar)[["Word"]]
     }
   }
   return(words)
