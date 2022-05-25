@@ -23,10 +23,32 @@ $(document).ready(function() {
     $('#go').prop('disabled', false);
   });
 });
+
+$(document).on('shiny:busy', function() {
+  var $inputs = $('button,input,textarea');
+console.log($inputs);
+$inputs.prop('disabled', true);
+});
+
+$(document).on('shiny:idle', function() {
+var $inputs = $('button,input,textarea');
+console.log($inputs);
+$inputs.prop('disabled', false);
+})
 "
 
 #### Script begins ####
 ui <- fluidPage(
+  add_busy_spinner(
+    spin = "double-bounce",
+    color = "#112446",
+    timeout = 100,
+    position = "bottom-right",
+    onstart = TRUE,
+    margins = c(10, 10),
+    height = "50px",
+    width = "50px"
+    ),
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "data/tooltips.css"),
     tags$script(HTML(js))
@@ -78,10 +100,11 @@ ui <- fluidPage(
                       }
                   ")),
                  br(),
-                 DTOutput(outputId="pseudomots") %>% withSpinner(type=3,
-                            color.background="#ffffff",
-                            hide.element.when.recalculating = FALSE,
-                            proxy.height = 0),
+                 DTOutput(outputId="pseudomots"),
+                 # %>% withSpinner(type=3,
+                            # color.background="#ffffff",
+                            # hide.element.when.recalculating = FALSE,
+                            # proxy.height = 0),
         uiOutput("outdownload")
       )), class = "col-sm-4"),
       tabPanel(tab2,
@@ -93,10 +116,11 @@ ui <- fluidPage(
                       }
                   ")),
                  br(),
-                 DTOutput(outputId="pseudomotsFull") %>% withSpinner(type=3,
-                            color.background="#ffffff",
-                            hide.element.when.recalculating = FALSE,
-                            proxy.height = 0),
+                 DTOutput(outputId="pseudomotsFull"),
+                 # %>% withSpinner(type=3,
+                            # color.background="#ffffff",
+                            # hide.element.when.recalculating = FALSE,
+                            # proxy.height = 0),
         uiOutput("outdownloadFull")
       )))
     )

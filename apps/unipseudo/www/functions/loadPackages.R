@@ -33,6 +33,7 @@ usePackage("tippy")
 usePackage("RCurl") #To test if string is url
 usePackage("stringr") # str_replace_all
 usePackage("shinylogs") # logs
+usePackage("shinybusy") # load icon on full page
 
 # usePackage("stringi")
 # usePackage("DT")
