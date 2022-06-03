@@ -1,29 +1,49 @@
-get_dataset_words <- function(datasets, dictionary_databases, nbchar, gram_class=NULL){
+get_dataset_words <- function(datasets, dictionary_databases, nbchar=NULL, gram_class=NULL){
   for (dataset in datasets){
-    if (dataset == "Lexique383"){
-      if (gram_class != default_none && !(is.null(gram_class))){
-        # Select words for a specific grammatical class in Lexique
-        words <- subset(dictionary_databases[[dataset]][['dstable']], cgram == gram_class & nblettres == nbchar)[["Word"]]
-      }else{
-        words <- subset(dictionary_databases[[dataset]][['dstable']], nblettres == nbchar)[["Word"]]
+      freqCol = "BlogFreq"
+      nbcharCol = "nbcar"
+      freqThreshold = 1
+
+      if (dataset == "Lexique383"){
+        freqCol = "freqfilms2"
+        nbcharCol = "nblettres"
+        freqThreshold = 0.01
       }
-    }else {
-      words <- subset(dictionary_databases[[dataset]][['dstable']], nbcar == nbchar)[["Word"]]
+
+      # No blog freq value (all zeros) for these languages so we need to "remove" threshold
+      if (dataset == "WorldLex-Greenlandic" || dataset == "WorldLex-Uzbek"){
+        freqThreshold = -1
+      }
+
+      words <- dictionary_databases[[dataset]][['dstable']]
+      # for testing purposes
+      if (is.null(nbchar)){
+        words <- words[words[[freqCol]] > freqThreshold,]
+      }
+      # Special case for Lexique383, when a grammatical class is selected
+      else if (gram_class != default_none && !(is.null(gram_class)) && dataset == "Lexique383"){
+        # Select words for a specific grammatical class in Lexique
+        words <- words[words[["cgram"]] == gram_class & words[[nbcharCol]] == nbchar & words[[freqCol]] > freqThreshold,]
+      # Default case : frequency and number of characters filters
+      }else{
+        words <- words[words[[freqCol]] > freqThreshold & words[[nbcharCol]] == nbchar,]
+      }
     }
-  }
-  return(words)
+  return(words[["Word"]])
 }
 
-generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.out=15)
-  # generate pseudowords by chaining trigrams
+generate_pseudowords <- function (n, len, models, len_grams, language, exclude=NULL, time.out=15, testing=FALSE)
+  # generate pseudowords by chaining trigrams or bigrams
   # n: number of pseudowords to return
-  # len: length (nchar) of these pseudowords
-  # models: vector of items to get trigrams from (all of the same length!)
+  # len: length (nchar) of these pseudoword
+  # models: vector of items to get grams from (all of the same length!)
+  # len_grams : bigram or trigram string (algorithm)
+  # language : string language (for constraints purposes)
   # exclude: vector of items to exclude
   # time.out = a time in seconds to stop
+  # testing boolean to set to TRUE when performing QA tests
 {
   time.out = n*0.5
-  # exclude=strsplit(french_list,"[ \n\t]")[[1]] # exclude french words
   if (length(models) == 0) {
     shinyalert("Error", paste0(
       'Failed to generate the pseudowords.\nPlease enter words of the desired length in the \"',
@@ -83,20 +103,52 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
       # get the last letters (1 or 2) of the current item
       lastpart <- substr(item, pos, pos+(len_substring-2))
 
-      # Select substrings starting in position 'pos' and which are compatibles with 'lastpart'
-      compat <- substrings[grep(paste(sep="" , "^", lastpart), substrings[[pos]]), ]
-      if (length(compat) == 0) break  # must start again
-
-      random_compat <- compat[sample(nrow(compat), 1),]
-      # Check for triple consonants or vowels in short words
-      if (len_grams == "bigram" && nchar(item) >= 2){
-        b <- gsub("[^aeiouyAEIOUY]","C",iconv(paste0(item,substr(random_compat[[pos]], len_substring, len_substring)), from="UTF-8",to="ASCII//TRANSLIT"))
-        if (substr(b, nchar(b)-2,nchar(b)) == "CCC" || !(str_detect(substr(b, nchar(b)-2,nchar(b)), "C"))){
-          # print(paste0(item,substr(random_compat[[pos]], len_substring, len_substring)))
-          validWord=FALSE
+      # Select random substring starting in position 'pos' and compatible with 'lastpart'
+      shuffled_substrings <- substrings[sample(1:nrow(substrings)), ]
+      random_compat <- NULL
+      for (row in 1:nrow(shuffled_substrings)){
+        if (!is.na(shuffled_substrings[row, pos]) && startsWith(shuffled_substrings[row, pos], lastpart)) {
+          random_compat <- shuffled_substrings[row,]
           break
         }
       }
+      if (is.null(random_compat)){
+        validWord = FALSE
+        break
+      }
+
+      future_item <- paste0(item,substr(random_compat[[pos]], len_substring, len_substring))
+      # Check for triple consonants with bigram algo
+      if (len_grams == "bigram" && nchar(future_item) >= 3 && language %in% latin_languages){
+        # Exclude "nordic" languages, for they love consonants
+        if (!(language %in% c("Danish", "Dutch", "German", "Norwegian", "Swedish", "Welsh"))){
+          # Concatenates current item (pseudoword in formation) and selected compat, and transform all consonants to uppercase character C
+          b <- gsub("[^ɯαÅaáάαăàąǎâäāåãeéėèēεęêëiíίıİīïoóόòơôöºőόõøūuúûůüyýœɔɛə\\'\\.[:space:]-]","C",iconv(tolower(future_item), from="UTF-8", to="ASCII//TRANSLIT"))
+          # Remove pseudowords with 4 following consonants
+          if (grepl("CCCC", b, fixed=TRUE)){
+            print(paste("four consonants", future_item))
+            validWord=FALSE
+            break
+          }
+        }
+
+        # Check we do not have more than 2 times the same consecutive letter
+        wordChars <- strsplit(future_item, "")[[1]]
+        if (length(wordChars) >= 3){
+          for (charCount in 1:(length(wordChars)-2)){
+            char <- tolower(wordChars[charCount])
+            if (char == wordChars[charCount+1] && char == wordChars[charCount+2]){
+              validWord=FALSE
+              break
+            }
+          }
+          if (!(validWord)){
+            print(paste("same letter", future_item))
+            break
+          }
+        }
+      }
+
       final_list[[paste("Word", pos, sep=".")]][np] <- paste0(
         substr(random_compat[["models"]], 1, pos-1),
         font_previous_letters,
@@ -113,6 +165,7 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
 
     # keep item only if not in the 'models', 'exclude' or 'pseudos' list
     # Column for whole item (whole in red)
+    # We keep the length test for cases when we break : we need to not to include these items in the final_list. validWord boolean should be enough though.
     if (nchar(item) == len && isTRUE(validWord) && !(item %in% c(models, exclude)) && !(paste0(font_first_element, item, font_second_element) %in% final_list$Pseudoword)) {
       final_list$Pseudoword[np] = paste0(font_first_element, item, font_second_element)
       np = np + 1
@@ -121,10 +174,12 @@ generate_pseudowords <- function (n, len, models, len_grams, exclude=NULL, time.
   if (np > n) {
     return(final_list)
   } else {
-    shinyalert("Error", paste0(
-      'Failed to generate the requested number of pseudowords. Please enter a larger number of words in the \"',
-      paste_words, '\" section.'),
-      type = "error")
+    if (!testing){
+      shinyalert("Error", paste0(
+        'Failed to generate the requested number of pseudowords. Please enter a larger number of words in the \"',
+        paste_words, '\" section.'),
+        type = "error")
+    }
     return()
   }
 }
