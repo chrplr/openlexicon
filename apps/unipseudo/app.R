@@ -12,7 +12,8 @@ source('www/data/uiElements.R')
 source('../../datasets-info/fetch_datasets.R')
 source('www/data/loadingDatasets.R')
 
-source('www/data/listedemotsfrancais.R', encoding='latin1')
+# For bug test
+# source('www/functions/test.R')
 
 js <- "
 $(document).ready(function() {
@@ -26,19 +27,18 @@ $(document).ready(function() {
 
 $(document).on('shiny:busy', function() {
   var $inputs = $('button,input,textarea');
-console.log($inputs);
 $inputs.prop('disabled', true);
 });
 
 $(document).on('shiny:idle', function() {
 var $inputs = $('button,input,textarea');
-console.log($inputs);
 $inputs.prop('disabled', false);
 })
 "
 
 #### Script begins ####
 ui <- fluidPage(
+  # Spinner showing during computing time
   add_busy_spinner(
     spin = "double-bounce",
     color = "#112446",
@@ -50,20 +50,20 @@ ui <- fluidPage(
     width = "50px"
     ),
   tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "data/tooltips.css"),
+    tags$link(rel = "stylesheet", type = "text/css", href = "styles/tooltips.css"),
     tags$script(HTML(js))
   ),
   useShinyjs(),
-  useShinyalert(),
+  useShinyalert(force=TRUE),
 
   titlePanel(tags$a(href="http://www.lexique.org/?page_id=582", app_name)),
   title = app_name,
 
   sidebarLayout(
     sidebarPanel(
-      uiOutput("helper_alert"),
-      br(),
-      helper_alert,
+      # uiOutput("helper_alert"),
+      # br(),
+      # helper_alert,
       div(tags$div(pickerInput(
                            inputId = "longueur",
                            label = length_choice,
@@ -75,17 +75,16 @@ ui <- fluidPage(
                            )
                            ))),
       div(uiOutput("olenGram")),
+      uiOutput("outlang"),
       uiOutput("outbtngenerator"),
       br(),
-      hidden(div(id="divGenerator", style = "background-color:#E0E0E0;padding:1em;border-radius: 1em;",
-          uiOutput("outlang"),
+      hidden(
+        div(id="divGenerator", style = "padding-top:1.5em;padding-bottom:1.5em;margin-bottom:1em;background-color:#E0E0E0;padding-left:1em;padding-right:1em;border-radius: 1em;",
           hidden(uiOutput("outgram_class")),
-          uiOutput("outgenerateDB"),
-          br()
+          uiOutput("outgenerateDB")
       )),
       div(uiOutput("oMots")),
-      div(uiOutput("oNbpseudos"),
-      helpText(paste0("Please enter a number between ", min_nbpseudos, " and ", max_nbpseudos, "."))),
+      div(uiOutput("oNbpseudos")),
       div(style="text-align:center;",actionButton("go", go_btn)),
       width=4
     ),
@@ -101,10 +100,6 @@ ui <- fluidPage(
                   ")),
                  br(),
                  DTOutput(outputId="pseudomots"),
-                 # %>% withSpinner(type=3,
-                            # color.background="#ffffff",
-                            # hide.element.when.recalculating = FALSE,
-                            # proxy.height = 0),
         uiOutput("outdownload")
       )), class = "col-sm-4"),
       tabPanel(tab2,
@@ -116,11 +111,8 @@ ui <- fluidPage(
                       }
                   ")),
                  br(),
+                 helpText("This table contains the pseudowords (first column) and all words used to generate them.",br()," For each word, parts used to compose the final pseudoword are", tags$span("red-colored", style='color:red;font-weight:bold'), "while the letters used at each step as a basis to find next bigram or trigram are", tags$span("orange-colored", style='color:orange;font-weight:bold'), style="margin:2em;margin-top:0.5em;font-size:12px"),
                  DTOutput(outputId="pseudomotsFull"),
-                 # %>% withSpinner(type=3,
-                            # color.background="#ffffff",
-                            # hide.element.when.recalculating = FALSE,
-                            # proxy.height = 0),
         uiOutput("outdownloadFull")
       )))
     )
@@ -129,47 +121,50 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   track_usage(storage_mode = store_json(path = get_log.home(app_name))) # initialize logs
+  # QA_test(QA_check=TRUE)
 
-  # duplicate_ds will not be empty if some databases have the same id (language or id_lang, see loading_datasets). So if an id is already in use, subsequent databases with same id will not be loaded
+  # duplicate_ds will not be empty if some databases have the same id (language or id_lang, see loading_datasets). So if an id is already in use, subsequent databases with same id will not be loaded and user will be warned
   if (length(duplicate_ds) > 0){
       shinyalert("Warning", paste("Databases", paste(duplicate_ds, collapse = ', '), "could not be loaded because they do not have a unique id_lang or language in their json file."))
   }
 
   v <- reactiveValues(
-    language_selected = default_none,
+    language_selected = "English",
     gram_class_is_shown = FALSE,
     info_tooltip = "",
     datasets = c(),
     grammatical_choices = c(default_none),
     gram_selected = default_none,
-    button_helperalert = btn_hide_helper,
+    # button_helperalert = btn_hide_helper,
     nb_pseudowords = 0,
     button_generator = btn_show_generator_name,
     words_to_search = c(),
-    len_gram = "bigram")
+    len_gram = algo_choices[1])
 
     #### Toggle helper_alert ####
 
-    output$helper_alert <- renderUI({
-      actionButton("btn", v$button_helperalert)
-    })
-
-    observeEvent(input$btn, {
-      if (v$button_helperalert == btn_show_helper){
-        v$button_helperalert = btn_hide_helper
-      }else{
-        v$button_helperalert = btn_show_helper
-      }
-    })
-
-    observe({
-      shinyjs::toggle("helper_box", anim = TRUE, animType = "slide", condition = v$button_helperalert == btn_hide_helper)
-    })
+    # output$helper_alert <- renderUI({
+    #   actionButton("btn", v$button_helperalert)
+    # })
+    #
+    # observeEvent(input$btn, {
+    #   if (v$button_helperalert == btn_show_helper){
+    #     v$button_helperalert = btn_hide_helper
+    #   }else{
+    #     v$button_helperalert = btn_show_helper
+    #   }
+    # })
+    #
+    # observe({
+    #   shinyjs::toggle("helper_box", anim = TRUE, animType = "slide", condition = v$button_helperalert == btn_hide_helper)
+    # })
 
     #### Toggle list search ####
 
     output$outbtngenerator <- renderUI({
-      actionButton("btn_generator", v$button_generator)
+      div(
+      actionButton("btn_generator", v$button_generator),
+      tippy(circleButton("btn_generatorTooltip", "?", status = "info", size = "xs"), trigger="click", interactive = TRUE, theme = 'light left-align', tooltip = btn_generator_tooltip))
     })
 
     observeEvent(input$btn_generator, {
@@ -187,14 +182,16 @@ server <- function(input, output, session) {
     #### Select a language ####
 
     output$outlang <- renderUI({
-      pickerInput(inputId = "language",
-                  label = "Choose a language",
-                  choices = language_choices,
-                  selected = v$language_selected,
-                  options = pickerOptions(
-                    dropupAuto = FALSE
+      div(
+        h5(tags$b("Choose a language"), tippy(circleButton("langTooltip", "?", status = "info", size = "xs"), interactive = TRUE, trigger="click", theme = 'light left-align', tooltip = lang_tooltip)),
+        pickerInput(inputId = "language",
+                    choices = language_choices,
+                    selected = v$language_selected,
+                    options = pickerOptions(
+                      dropupAuto = FALSE
+                    )
                   )
-                )
+      )
     })
 
     # Update dataset based on language selection
@@ -202,7 +199,7 @@ server <- function(input, output, session) {
     output$outgenerateDB <- renderUI({
       div(
         actionButton("generateDB", generateDB_neutral),
-        tippy(bsButton("generateTooltip", "?", style = "info", size = "extra-small"), interactive = TRUE, theme = 'light', tooltip = v$info_tooltip)
+        tippy(circleButton("generateTooltip", "?", status = "info", size = "xs"), interactive = TRUE, trigger="click", theme = 'light', tooltip = v$info_tooltip)
       )
     })
 
@@ -213,7 +210,7 @@ server <- function(input, output, session) {
       v$gram_selected = default_none # Reset gram class on language change
 
       load_language(input$language)
-      if (input$language == default_none) {
+      if (input$language == default_other) {
         v$datasets <- ""
         # Hide grammatical class selection if previously shown
         if (v$gram_class_is_shown){
@@ -242,14 +239,14 @@ server <- function(input, output, session) {
           }
         }
         # Create database information tooltip
-        info_tooltip = paste("<span style='font-size:14px;'>Words will be selected from the <b>", v$datasets[1], "</b> database.")
+        info_tooltip = paste("<span",tooltip_style,">Words will be selected from the <b>", v$datasets[1], "</b> database.")
         info_tooltip = paste(info_tooltip, "<div><p>",
-              str_replace_all(dictionary_databases[[v$datasets[1]]][["dsdesc"]],"'","&#39"), "<span>", sep = "")
+              str_replace_all(dictionary_databases[[v$datasets[1]]][["dsdesc"]],"'","&#39"), "", sep = "")
         if (!is.null(dictionary_databases[[v$datasets[1]]][["dsweb"]])
             && RCurl::url.exists(dictionary_databases[[v$datasets[1]]][["dsweb"]])){
           info_tooltip = paste(info_tooltip, "</p><p><a href=",
           dictionary_databases[[v$datasets[1]]][["dsweb"]],
-          " target='_blank'>Website</a></p></div>",sep = "")
+          " target='_blank'>Website</a></p></div></span>",sep = "")
         }
         # Update tooltip in reactive values and enable generation
         v$info_tooltip = info_tooltip
@@ -275,56 +272,77 @@ server <- function(input, output, session) {
 
     observeEvent(input$generateDB, {
       longueur = as.numeric(input$longueur)
-      if (v$language_selected != default_none){
-        words <- get_dataset_words(v$datasets, dictionary_databases, input$gram_class)
+      if (v$language_selected != default_other){
+        words <- get_dataset_words(
+          datasets=v$datasets,
+          dictionary_databases=dictionary_databases,
+          nbchar=longueur,
+          gram_class=input$gram_class
+        )
       }else {
         words <- c()
       }
       wordsok <- words[nchar(words) == longueur]
       wordsok <- wordsok[!duplicated(wordsok)]
       wordsok <- as.character(wordsok)
-      wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)]
       v$words_to_search <- paste(wordsok, collapse="\n")
       updateTextAreaInput(session, "mots", value = v$words_to_search)
     })
 
     output$oMots <- renderUI({
+      div(
+      h5(tags$b(paste_words), tippy(circleButton("oMotsTooltip", "?", status = "info", size = "xs"), interactive = TRUE, trigger="click", theme = 'light', tooltip = input_mots_tooltip)),
+      helpText(paste0("Please separate your words with a line break.")),
       textAreaInput("mots",
-                  label = tags$b(paste_words),
+                  label = NULL,
                   rows = 10, value = v$words_to_search, resize = "none")
+                )
     })
 
     #### Handle number of pseudowords ####
     output$oNbpseudos <- renderUI({
+      div(
+        h5(number_choice, tippy(circleButton("oNbPseudosTooltip", "?", status = "info", size = "xs"), interactive = TRUE, trigger="click", theme = 'light', tooltip = nb_pseudos_tooltip
+      )),
+      helpText(paste0("Please enter a number between ", min_nbpseudos, " and ", max_nbpseudos, ".")),
         numericInput("nbpseudos",
-            number_choice,
+            label = NULL,
             value = default_nbpseudos,
             min = min_nbpseudos,
             max = max_nbpseudos,
             width = "100%")
+      )
     })
 
     #### len grams ####
 
     observeEvent(input$longueur, {
-      if (input$longueur == 3 || input$longueur == 4){
-        v$len_gram = "bigram"
-      }else{
-        v$len_gram = "trigram"
+      if (input$longueur == 3){
+        v$len_gram = algo_choices[1]
+        updatePickerInput(session, "lenGram", selected = v$len_gram, choices = algo_choices[1])
       }
-      updatePickerInput(session, "lenGram", selected = v$len_gram)
-      })
+      else{
+        if (input$longueur == 4 || input$longueur == 5){
+          v$len_gram = algo_choices[1]
+        }else{
+          v$len_gram = algo_choices[2]
+        }
+        updatePickerInput(session, "lenGram", selected = v$len_gram, choices = algo_choices)
+      }
+    })
 
     output$olenGram <- renderUI({
-      pickerInput(inputId = "lenGram",
-                  label = lenGram_choice,
-                  choices = c("bigram", "trigram"),
-                  selected = v$len_gram,
-                  width = "100%",
-                  options = pickerOptions(
-                    dropupAuto = FALSE
+      div(
+        h5(lenGram_choice, tippy(circleButton("lenGramTooltip", "?", status = "info", size = "xs"), interactive = TRUE, trigger="click", theme = 'light', tooltip = lenGram_tooltip)),
+        pickerInput(inputId = "lenGram",
+                    choices = algo_choices,
+                    selected = v$len_gram,
+                    width = "100%",
+                    options = pickerOptions(
+                      dropupAuto = FALSE
+                    )
                   )
-                )
+      )
     })
 
     #### show pseudowords ####
@@ -339,15 +357,26 @@ server <- function(input, output, session) {
            nbpseudos = as.numeric(input$nbpseudos)
            longueur = as.numeric(input$longueur)
            algo = input$lenGram
-           words <- strsplit(input$mots,"[ \n\t]")[[1]]
+           words <- strsplit(input$mots,"[\n]")[[1]]
            wordsok <- words[nchar(words) == longueur]
-           wordsok <- wordsok[!grepl("[[:punct:][:space:]]", wordsok)] # remove words with punctuation or space
-           if (v$language_selected != default_none){
-             exclude <- get_dataset_words(v$datasets, dictionary_databases)
+           wordsok <- wordsok[!duplicated(wordsok)]
+           wordsok <- as.character(wordsok)
+           if (v$language_selected != default_other){
+             exclude <- get_dataset_words(
+               datasets=v$datasets,
+               dictionary_databases=dictionary_databases,
+               nbchar=longueur
+             )
            }else{
              exclude <- NULL
            }
-           generate_pseudowords(nbpseudos, longueur, wordsok, algo, exclude = exclude)
+           generate_pseudowords(
+             n=nbpseudos,
+             len=longueur,
+             models=wordsok,
+             len_grams=algo,
+             language=v$language_selected,
+             exclude = exclude)
        }
     }
     )
@@ -452,7 +481,7 @@ server <- function(input, output, session) {
 
       output$download2.xlsx <- downloadHandler(
         filename = function() {
-          paste("Pseudowords-query-",
+          paste("Pseudowords-details-query-",
                 format(Sys.time(), "%Y-%m-%d"), ' ',
                 paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
                 ".xlsx", sep="")

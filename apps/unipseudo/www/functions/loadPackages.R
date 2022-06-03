@@ -17,7 +17,6 @@ usePackage("lubridate")
 usePackage("writexl")
 usePackage("plyr")
 usePackage("stringr")
-#usePackage("dplyr")
 usePackage("DT")
 usePackage("shiny")
 usePackage("shinyjs")
@@ -29,15 +28,13 @@ usePackage("rvest") # To repair encoding
 usePackage("rlist") # For list.filter
 usePackage("shinyalert")
 usePackage("tippy")
-# usePackageGit("tippy", "JohnCoene/tippy")
 usePackage("RCurl") #To test if string is url
 usePackage("stringr") # str_replace_all
 usePackage("shinylogs") # logs
 usePackage("shinybusy") # load icon on full page
 
+# usePackage("dplyr")
 # usePackage("stringi")
-# usePackage("DT")
-# usePackage("shinyWidgets")
 # usePackage("data.table")
 # usePackage("comprehenr") # Comprehension list
 # usePackageGit("shinyTree", "shinyTree/shinyTree")

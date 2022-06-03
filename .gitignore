@@ -1,5 +1,6 @@
 #databases/
 databases.zip
+apps/unipseudo/tests/*
 *.tsv
 *.csv
 *.zip

@@ -3,11 +3,81 @@ json_folder = '../../datasets-info/_json/'
 
 join_column = "Word"
 
+non_latin_languages = c(
+  "Amharic",
+  "Arabic",
+  "Armenian",
+  "Azeri",
+  "Bengali", # high number of speakers
+  "Bosnian",
+  "Georgian",
+  "Greek",
+  "Gujarati",
+  "Hebrew",
+  "Hindi", # high number of speakers
+  "Japanese", # high number of speakers
+  "Kannada",
+  "Kazakh",
+  "Khmer",
+  "Macedonian",
+  "Malayalam",
+  "Malaysian",
+  "Mongolian",
+  "Nepali",
+  "Persian",
+  "Punjabi",
+  "Russian", # high number of speakers
+  "Sinhala",
+  "Tamil",
+  "Telugu",
+  "Ukrainian",
+  "Urdu",
+  "Uzbek",
+  "Vietnamese"
+)
+
+latin_languages = c(
+  "Afrikaans",
+  "Albanian",
+  "Catalan",
+  "Croatian",
+  "Czech",
+  "Danish",
+  "Dutch",
+  "English",
+  "Estonian",
+  "Finnish",
+  "French",
+  "German",
+  "Greenlandic",
+  "Hungarian",
+  "Icelandic",
+  "Indonesian",
+  "Italian",
+  "Latvian",
+  "Lithuanian",
+  "Norwegian",
+  "Polish",
+  "Portuguese Brazil",
+  "Portuguese Europe",
+  "Romanian",
+  "Serbian",
+  "Slovak",
+  "Slovenian",
+  "Spanish South America",
+  "Spanish Spain",
+  "Swahili",
+  "Swedish",
+  "Tagalog",
+  "Turkish",
+  "Welsh"
+)
+
 # Les datasets-id sont les noms des json
 dataset_ids <- c(
-    'Lexique383',
-    'WorldLex-English',
-    'WorldLex-Afrikaans',
+      'Lexique383',
+      'WorldLex-English',
+      'WorldLex-Afrikaans',
       'WorldLex-Albanian',
       'WorldLex-Amharic',
       'WorldLex-Arabic',
@@ -75,6 +145,7 @@ dataset_ids <- c(
 
 datasets <- list()
 
+# Exception for WordLex : json and rds names are different
 ex_filenames_ds <- list('WorldLex-English' = c('WorldLex-English', 'WorldLex_EN'))
 
 # Capitalize word
@@ -82,7 +153,7 @@ capFirst <- function(s) {
     paste(toupper(substring(s, 1, 1)), substring(s, 2), sep = "")
 }
 
-# Fix encoding to UTF-8
+# Fix encoding to UTF-8 for all languages
 fix.encoding <- function(df) {
   numCols <- ncol(df)
   numRows <- nrow(df)
@@ -97,6 +168,7 @@ fix.encoding <- function(df) {
       Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
     }
   }
+  # Remove leading and/or trailing whitespace from character strings.
   colnames(df) <-  trimws(colnames(df))
   return(df)
 }
@@ -118,7 +190,9 @@ load_dataset_table <- function(ds){
 }
 
 load_language <- function(language){
+  # Call garbage collector
   gc()
+  # Load only required datasets and unload others
   for (ds in names(datasets)){
     if (tolower(language) %in% tolower(dslanguage[[ds]][["name"]])){
       load_dataset_table(ds)
@@ -132,6 +206,7 @@ for (ds in dataset_ids)
 {
   rds_file <- ds
   json_file <- ds
+  # If no exception, rds and json file have the same name
   if (!is.null(ex_filenames_ds[[ds]])) {
     json_file <- ex_filenames_ds[[ds]][1]
     rds_file <- ex_filenames_ds[[ds]][2]
@@ -142,9 +217,11 @@ for (ds in dataset_ids)
 
 dictionary_databases <- list()
 dslanguage <- list()
-language_choices <- c(default_none)
+# Initialize language list with default_other (choice Other)
+language_choices <- c(default_other)
 
 # We load datasets info
+# Initialize list to check for duplicate databases (databases with same lang_id or tag 1)
 duplicate_ds <- c()
 for (ds in names(datasets)) {
     json_url <- datasets[[ds]][1]
