@@ -44,7 +44,7 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
   # testing boolean to set to TRUE when performing QA tests
 {
   time.out = n*0.5
-  if (length(models) == 0) {
+  if (length(models) == 0 || length(models) < (n*5)) {
     shinyalert("Error", paste0(
       'Failed to generate the pseudowords.\nPlease enter words of the desired length in the \"',
       paste_words, '\" section.\nThe more pseudowords you need, the more words you need to provide in the \"',

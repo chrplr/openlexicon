@@ -237,3 +237,6 @@ for (ds in names(datasets)) {
         duplicate_ds <- c(duplicate_ds, ds)
     }
 }
+
+# Language tooltip is here to resolve dependencies
+lang_tooltip = paste("<span",tooltip_style,">Choose a language amongst the", length(dataset_ids), "available. Choosing a language allows:<ul><li>the algorithm to apply constraints during the pseudowords generation (such as avoiding words with more than 3 consecutive consonants in latin languages).</li><li>to use the<b>", generator_name, "</b>(see",generator_name,"button tooltip for more details).</ul>If you don't want to use the above features, choose the first option, \"Other\".</span>")

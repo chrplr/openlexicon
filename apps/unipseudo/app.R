@@ -4,8 +4,8 @@
 
 #### Functions ####
 rm(list = ls())
-source('www/functions/generatePseudo.R')
 source('www/functions/loadPackages.R')
+source('www/functions/generatePseudo.R')
 source('www/data/uiElements.R')
 
 # Loading datasets and UI
@@ -50,7 +50,7 @@ ui <- fluidPage(
     width = "50px"
     ),
   tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "styles/tooltips.css"),
+    tags$link(rel = "stylesheet", type = "text/css", href = "styles/main.css"),
     tags$script(HTML(js))
   ),
   useShinyjs(),
@@ -86,6 +86,7 @@ ui <- fluidPage(
       div(uiOutput("oMots")),
       div(uiOutput("oNbpseudos")),
       div(style="text-align:center;",actionButton("go", go_btn)),
+      uiOutput("oInfoGeneration"),
       width=4
     ),
   mainPanel(
@@ -139,7 +140,9 @@ server <- function(input, output, session) {
     nb_pseudowords = 0,
     button_generator = btn_show_generator_name,
     words_to_search = c(),
-    len_gram = algo_choices[1])
+    len_gram = algo_choices[1],
+    len_wordsok = 0
+  )
 
     #### Toggle helper_alert ####
 
@@ -361,6 +364,8 @@ server <- function(input, output, session) {
            wordsok <- words[nchar(words) == longueur]
            wordsok <- wordsok[!duplicated(wordsok)]
            wordsok <- as.character(wordsok)
+           v$len_wordsok <- length(wordsok)
+           shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Generating from", v$len_wordsok, "source words...</div>"))
            if (v$language_selected != default_other){
              exclude <- get_dataset_words(
                datasets=v$datasets,
@@ -388,6 +393,8 @@ server <- function(input, output, session) {
         dt <- pseudowords()
         v$nb_pseudowords <- length(dt)
 
+        shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">", input$nbpseudos, "pseudowords generated from", v$len_wordsok, "source words !</div>"))
+
         datatable(dt,
                   escape = FALSE, selection = 'none',
                   filter=list(position = 'top', clear = FALSE),
@@ -412,6 +419,8 @@ server <- function(input, output, session) {
         #   'Word.1',
         #   color = 'grey', backgroundColor = 'white', fontWeight = 'bold'
         # )
+      }else{
+        shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Failed to generate pseudowords from", v$len_wordsok, "source words...</div>"))
       }
     }, server = TRUE)
 
