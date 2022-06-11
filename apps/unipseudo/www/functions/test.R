@@ -8,7 +8,7 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
   init = TRUE
 
   # Assign nb_pseudos value
-  nb_pseudos = 20
+  nb_pseudos = 5000
 
   # Loop through languages
   for (lang_test in language_choices){
@@ -20,7 +20,10 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
       NbPseudowords <- c()
       Success <- c()
       Pseudowords <- c()
+      NbSourcePseudowords <- c()
       NbWords <- c()
+      RunTime <- c()
+      RealNbPseudoword <- c()
       print(paste("Language:", lang_test))
 
       # Load dataset for this language
@@ -106,14 +109,16 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
           print(paste("Length:", longueur))
           words <- get_dataset_words(datasets, dictionary_databases, longueur)
           NbWords <- c(NbWords, length(words))
-          for (algo in c("bigram", "trigram")){
+          for (algo in algo_choices){
             # Does not perform check for trigram algo and length 3 because it can't work ! (we would only get a word of 3 letters, and not a pseudoword)
-            if (algo == "bigram" || (algo == "trigram" && longueur > 3)){
+            if (algo == big_choice || (algo == trig_choice && longueur > 3)){
               print(paste("Algorithm:", algo))
               Length <- c(Length, longueur)
               Algorithm <- c(Algorithm, algo)
               Language <- c(Language, lang_test)
               NbPseudowords <- c(NbPseudowords, nb_pseudos)
+              NbSourcePseudowords <- c(NbSourcePseudowords, length(words))
+              start_time <- as.numeric(Sys.time())*1000
               pseudowords <- generate_pseudowords(
                 n=nb_pseudos,
                 len=longueur,
@@ -122,13 +127,25 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
                 exclude=words,
                 language=lang_test,
                 testing=TRUE)
+              RunTime <- c(RunTime, as.numeric(Sys.time())*1000 - start_time)
+              RealNbPseudoword <- c(RealNbPseudoword, nrow(pseudowords))
               # If no pseudowords generated for a given condition
               if(is.null(pseudowords)){
                 Success <- c(Success, 0)
                 Pseudowords <- c(Pseudowords, c(""))
-                print(paste0("Failed to generate ", nb_pseudos, " pseudowords for language ", lang_test, ", algo ", algo, ", length ", longueur))
-              }else{
-                Success <- c(Success, 1)
+                fwrite(as.list(paste0("Failed to generate ", nb_pseudos, " pseudowords for language ", lang_test, ", algo ", algo, ", length ", longueur)),
+                  file.path(testdir, paste0("fail_generate.txt")), sep="\n", append=!(init))
+              }else{ # We found pseudowords
+                if(nrow(pseudowords) < nb_pseudos){
+                  Success <- c(Success, 0)
+                  fwrite(as.list(paste0("Not enough source words: ", length(words), ". Got only ", nrow(pseudowords), " instead of ", nb_pseudos, " pseudowords for language ", lang_test, ", algo ", algo, ", length ", longueur)),
+                    file.path(testdir, paste0("fail_generate.txt")), sep="\n", append=!(init))
+                }else{
+                  Success <- c(Success, 1)
+                } # Write pseudowords in both cases
+                if (nrow(pseudowords) > 20){
+                  pseudowords <- pseudowords[c(1:20), ]
+                }
                 Pseudowords <- c(Pseudowords, paste(stringr::str_replace_all(stringr::str_replace_all(
                   pseudowords$Pseudoword,
                   font_first_element,
@@ -139,7 +156,7 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
           }
         }
         # Assign df and write to csv
-        df <- data.frame(Length, Algorithm, Language, NbPseudowords, Success,
+        df <- data.frame(Length, Algorithm, Language, NbPseudowords, RealNbPseudoword, Success, NbSourcePseudowords, RunTime,
           Pseudowords)
         write.csv(df,file.path(testdir, paste0("pseudogen_",lang_test,".csv")), row.names = FALSE)
       }
