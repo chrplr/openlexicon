@@ -32,7 +32,7 @@ get_dataset_words <- function(datasets, dictionary_databases, nbchar=NULL, gram_
   return(words[["Word"]])
 }
 
-generate_pseudowords <- function (n, len, models, len_grams, language, exclude=NULL, time.out=15, testing=FALSE)
+generate_pseudowords <- function (n, len, models, len_grams, language, exclude=NULL, time.out=500, testing=FALSE)
   # generate pseudowords by chaining trigrams or bigrams
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudoword
@@ -43,21 +43,29 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
   # time.out = a time in seconds to stop
   # testing boolean to set to TRUE when performing QA tests
 {
-  time.out = n*0.5
-  # Check if number of models is sufficient
-  if (length(models) == 0 || length(models) < (n*5)) {
-    shinyalert("Error", paste0(
-      'Failed to generate the pseudowords.\nPlease enter words of the desired length in the \"',
-      paste_words, '\" section.\nThe more pseudowords you need, the more words you need to provide in the \"',
-      paste_words, '\" section.\nA minimum of 100 words for 20 pseudowords is a good basis, unfortunately there is no fixed minimal number of words. You need to proceed with trial-and-error or use the \"',
-      generator_name, '\" for easier pseudowords generation.'),
-      type = "error")
-    return ()
+  len_models <- length(models)
+  if (len_models == 0) {
+    shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Failed to generate pseudowords from", len_models, "source words...</div>"))
+    if(!testing){
+      shinyalert("Error", paste0(
+        'Please provide words in the Words to use section !'),
+        type = "error")
+        return ()
+      }else{
+        return("Not enough words")
+      }
     }
 
-  if (len_grams == "bigram"){
+  shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Generating from", len_models, "source words...</div>"))
+
+  # Limit number of source words for non latin languages due to performance issues
+  if((language == default_other || language %in% non_latin_languages) && len_models > 2000){
+    models <- sample(models, 2000)
+  }
+
+  if (len_grams == big_choice){
     len_substring = 2
-  }else if (len_grams == "trigram"){
+  }else if (len_grams == trig_choice){
     len_substring = 3
   }else{
     shinyalert("Error", paste0(
@@ -66,121 +74,183 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
     return ()
   }
 
-  # create data frame of substrings (trigrams or bigrams)
-  substrings = data.frame(matrix(ncol = 0, nrow = length(models)))  #  store lists of substrings by starting position
-  for (cpos in 1:(len - (len_substring-1))){
-    substrings[[cpos]] <- substring(models, cpos, cpos + (len_substring-1))
+  count_key = 0
+  count_char = 0
+  # Create dictionaries of substrings (trigrams or bigrams) and of wordsindex (to get models from which we select characters when building pseudowords)
+  substrings <- list()
+  wordsindex <- list()
+  for (step in 1:(len-len_substring)){
+    substrings[[step]] <- list()
+    wordsindex[[step]] <- list()
   }
-  substrings$models <- models
+  for (model_num in 1:length(models)){
+    model <- models[[model_num]]
+    modelChars <- strsplit(model, "")[[1]]
+    for (char_num in 2:(len - len_substring + 1)){
+      dict_index <- char_num-1 # Pseudoword build step (new version of cpos)
+      curSubstr <- substr(model, char_num, char_num+len_substring-2)
+      nextChar <- modelChars[[char_num+len_substring-1]]
+      # Initialize new vector if found new substring at a given dict_index
+      if (!(curSubstr %in% names(substrings[[dict_index]]))){
+        substrings[[dict_index]][[curSubstr]] <- c()
+        wordsindex[[dict_index]][[curSubstr]] <- c()
+        count_key = count_key+1
+      }
+      # Add char to vector if not already assigned to this substring at this step (dict_index). Also assign model index to wordsindex.
+      if (!(nextChar %in% substrings[[dict_index]][[curSubstr]])){
+        substrings[[dict_index]][[curSubstr]] <- c(substrings[[dict_index]][[curSubstr]], nextChar)
+        wordsindex[[dict_index]][[curSubstr]] <- c(wordsindex[[dict_index]][[curSubstr]], model_num)
+        count_char = count_char+1
+      }
+    }
+  }
 
   # create dataframe for final list of pseudowords
-  final_list <- data.frame(matrix(ncol = length(substrings), nrow = n))
+  final_list <- data.frame(matrix(ncol = len-len_substring+2, nrow = n))
   new_colnames <- c()
-  for (num_word in 1:(ncol(substrings)-1)){
+  for (num_word in 1:(len-len_substring+1)){
     new_colnames <- c(new_colnames, paste("Word", num_word, sep="."))
   }
   new_colnames <- c("Pseudoword", new_colnames)
   colnames(final_list) <- new_colnames
 
-  start.time <- Sys.time()
+  # Recursive function to build pseudoword
+  build_pseudoword_rec <- function(pseudoword_vec, source_vec, step){
+    # Return finished pseudoword
+    if (step == len-len_substring+1){
+      return(c(paste(pseudoword_vec, collapse=""), source_vec))
+    }
+    # First step : we select a random word and take its two or third first characters
+    if (step == 0){
+      model <- sample(models, 1)
+      return(build_pseudoword_rec(
+        c(strsplit(substr(model,1,len_substring), "")[[1]]),
+        c(model),
+        step+1
+      ))
+    }
+    # Set last_letters, which is the last letters of the current pseudoword we must take to determine where to look in substrings dictionary to find next character
+    last_letters <- pseudoword_vec[length(pseudoword_vec)]
+    if (len_substring == 3){
+      last_letters <- paste(pseudoword_vec[length(pseudoword_vec)-1], last_letters, sep="")
+    }
+    # Vector from which to choose next characters
+    current_vec <- substrings[[step]][[last_letters]]
+    random_int <- sample(1:length(current_vec), 1)
+    # Recursive call
+    return(build_pseudoword_rec(
+      c(pseudoword_vec, current_vec[[random_int]]),
+      c(source_vec, models[wordsindex[[step]][[last_letters]][[random_int]]]),
+      step+1
+    ))
+  }
 
-  np = 1
-  while ((np <= n) && ((Sys.time() - start.time) < time.out)) {
-    validWord=TRUE
-    # sample a random beginning substring
-    # first part (trigram or bigram) of the pseudoword
-    random_item <- substrings[sample(nrow(substrings), 1),]
-    final_list[["Word.1"]][np] <- paste0(
-        font_first_element,
-        substr(random_item[["models"]], 1, len_substring),
-        font_second_element,
-        substr(random_item[["models"]], len_substring+1, nchar(random_item[["models"]])))
-    final_list[["Word.1"]][np] <- paste0(font_fade, final_list[["Word.1"]][np], font_fade_end)
-    item <- random_item[[1]]
+  # Function that calls recursive function to build pseudowords with initial parameters (empty vectors and step 0)
+  build_pseudoword <- function(){
+    return(build_pseudoword_rec(c(), c(), 0))
+  }
 
-    # Build the item letter by letter by adding compatible substrings
-    for(pos in 2:(len - (len_substring-1))) {
-      # following bigrams or trigrams of the pseudoword
-      # get the last letters (1 or 2) of the current item
-      lastpart <- substr(item, pos, pos+(len_substring-2))
+  # Build pseudowords
+  np = 0
+  time.out = 500
+  start_time <- as.numeric(Sys.time())*1000
+  while (np < n && (as.numeric(Sys.time())*1000 - start_time) < time.out){
+    validWord <- TRUE
+    line <- build_pseudoword()
+    pseudoword <- line[[1]]
 
-      # Select random substring starting in position 'pos' and compatible with 'lastpart'
-      shuffled_substrings <- substrings[sample(1:nrow(substrings)), ]
-      random_compat <- NULL
-      for (row in 1:nrow(shuffled_substrings)){
-        if (!is.na(shuffled_substrings[row, pos]) && startsWith(shuffled_substrings[row, pos], lastpart)) {
-          random_compat <- shuffled_substrings[row,]
-          break
+    ##########################
+    ###### BEGIN CHECKS ######
+    ##########################
+
+    # Check for triple consonants with bigram algo
+    if (len_grams == big_choice && nchar(pseudoword) >= 4 && language %in% latin_languages){
+      # Exclude "nordic" languages, for they love consonants
+      if (!(language %in% c("Danish", "Dutch", "German", "Norwegian", "Swedish", "Welsh"))){
+        # Concatenates current item (pseudoword in formation) and selected compat, and transform all consonants to uppercase character C
+        b <- gsub("[^ɯαÅaáάαăàąǎâäāåãeéėèēεęêëiíίıİīïoóόòơôöºőόõøūuúûůüyýœɔɛə\\'\\.[:space:]-]","C",iconv(tolower(pseudoword), from="UTF-8", to="ASCII//TRANSLIT"))
+        # Remove pseudowords with 4 following consonants
+        if (grepl("CCCC", b, fixed=TRUE)){
+          # print(paste("four consonants", pseudoword))
+          validWord=FALSE
+          next
         }
-      }
-      if (is.null(random_compat)){
-        validWord = FALSE
-        break
+       }
       }
 
-      future_item <- paste0(item,substr(random_compat[[pos]], len_substring, len_substring))
-      # Check for triple consonants with bigram algo
-      if (len_grams == "bigram" && nchar(future_item) >= 3 && language %in% latin_languages){
-        # Exclude "nordic" languages, for they love consonants
-        if (!(language %in% c("Danish", "Dutch", "German", "Norwegian", "Swedish", "Welsh"))){
-          # Concatenates current item (pseudoword in formation) and selected compat, and transform all consonants to uppercase character C
-          b <- gsub("[^ɯαÅaáάαăàąǎâäāåãeéėèēεęêëiíίıİīïoóόòơôöºőόõøūuúûůüyýœɔɛə\\'\\.[:space:]-]","C",iconv(tolower(future_item), from="UTF-8", to="ASCII//TRANSLIT"))
-          # Remove pseudowords with 4 following consonants
-          if (grepl("CCCC", b, fixed=TRUE)){
-            print(paste("four consonants", future_item))
+      # Check we do not have more than 2 times the same consecutive letter
+      wordChars <- strsplit(pseudoword, "")[[1]]
+      if (length(wordChars) >= 3){
+        for (charCount in 1:(length(wordChars)-2)){
+          char <- tolower(wordChars[charCount])
+          if (char == wordChars[charCount+1] && char == wordChars[charCount+2]){
             validWord=FALSE
             break
           }
         }
-
-        # Check we do not have more than 2 times the same consecutive letter
-        wordChars <- strsplit(future_item, "")[[1]]
-        if (length(wordChars) >= 3){
-          for (charCount in 1:(length(wordChars)-2)){
-            char <- tolower(wordChars[charCount])
-            if (char == wordChars[charCount+1] && char == wordChars[charCount+2]){
-              validWord=FALSE
-              break
-            }
-          }
-          if (!(validWord)){
-            print(paste("same letter", future_item))
-            break
-          }
+        if (!(validWord)){
+          # print(paste("same letter", pseudoword))
+          next
         }
       }
 
-      final_list[[paste("Word", pos, sep=".")]][np] <- paste0(
-        substr(random_compat[["models"]], 1, pos-1),
+      # Check not duplicate word (validWord check should not be useful)
+      if (isTRUE(validWord) && !(pseudoword %in% c(models, exclude)) && !(paste0(font_first_element, pseudoword, font_second_element) %in% final_list$Pseudoword)) {
+        np = np + 1
+        final_list$Pseudoword[np] = paste0(font_first_element, pseudoword, font_second_element)
+      }else{
+        next
+      }
+
+    ########################
+    ###### END CHECKS ######
+    ########################
+
+    # Color word selected for pseudoword beginning
+    final_list[["Word.1"]][np] <- paste0(
+        font_first_element,
+        substr(line[[2]], 1, len_substring),
+        font_second_element,
+        substr(line[[2]], len_substring+1, nchar(line[[2]])))
+    final_list[["Word.1"]][np] <- paste0(font_fade, final_list[["Word.1"]][np], font_fade_end)
+
+    # Color each word selected for further steps of pseudoword build
+    for (word_num in 2:(len - len_substring + 1)){
+      final_list[[paste("Word", word_num, sep=".")]][np] <- paste0(
+        substr(line[[word_num+1]], 1, word_num-1),
         font_previous_letters,
-        substr(random_compat[["models"]], pos, pos+(len_substring-2)),
+        substr(line[[word_num+1]], word_num, word_num+(len_substring-2)),
         font_second_element,
         font_first_element,
-        substr(random_compat[["models"]], pos+(len_substring-1), pos+(len_substring-1)),
+        substr(line[[word_num+1]], word_num+(len_substring-1), word_num+(len_substring-1)),
         font_second_element,
-        substr(random_compat[["models"]], pos+len_substring, nchar(random_compat[["models"]]))
+        substr(line[[word_num+1]], word_num+len_substring, nchar(line[[word_num+1]]))
       )
-      final_list[[paste("Word", pos, sep=".")]][np] <- paste0(font_fade, final_list[[paste("Word", pos, sep=".")]][np], font_fade_end)
-      item <- paste(item, substr(random_compat[[pos]], len_substring, len_substring), sep="")  # add the last letter of the substring
+      final_list[[paste("Word", word_num, sep=".")]][np] <- paste0(font_fade, final_list[[paste("Word", word_num, sep=".")]][np], font_fade_end)
     }
 
-    # keep item only if not in the 'models', 'exclude' or 'pseudos' list
-    # Column for whole item (whole in red)
-    # We keep the length test for cases when we break : we need to not to include these items in the final_list. validWord boolean should be enough though.
-    if (nchar(item) == len && isTRUE(validWord) && !(item %in% c(models, exclude)) && !(paste0(font_first_element, item, font_second_element) %in% final_list$Pseudoword)) {
-      final_list$Pseudoword[np] = paste0(font_first_element, item, font_second_element)
-      np = np + 1
-    }
+    # reset timeout
+    start_time <- as.numeric(Sys.time())*1000
   }
-  if (np > n) {
-    return(final_list)
-  } else {
+
+  # Show alert if not enough pseudowords and while broke
+  if (np < n){
+    final_list <- final_list[-c(np+1:n), ] # remove lines not filled with pseudowords from df
     if (!testing){
       shinyalert("Error", paste0(
-        'Failed to generate the requested number of pseudowords. Please enter a larger number of words in the \"',
-        paste_words, '\" section.'),
+        'Failed to generate the requested number of pseudowords : not enough valid source words provided.\nWe generated ', np, ' on the ', n, ' requested.\nPlease enter words of the desired length in the \"',
+        paste_words, '\" section.\nThe more pseudowords you need, the more words you need to provide in the \"',
+        paste_words, '\" section.\nA minimum of 100 words for 20 pseudowords is a good basis, unfortunately there is no fixed minimal number of words. You need to proceed with trial-and-error or use the \"',
+        generator_name, '\" for easier pseudowords generation.'),
         type = "error")
+      if (np == 0){
+        shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Failed to generate pseudowords from", len_models, "source words...</div>"))
+      }else{
+        shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">", np, "pseudowords generated from", len_models, "source words...</div>"))
+      }
     }
-    return()
+  }else{
+    shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">", n, "pseudowords generated from", len_models, "source words !</div>"))
   }
+  return(final_list)
 }
