@@ -286,6 +286,7 @@ server <- function(input, output, session) {
         words <- c()
       }
       wordsok <- words[nchar(words) == longueur]
+      wordsok <- tolower(wordsok) # to avoid case-sensitive
       wordsok <- wordsok[!duplicated(wordsok)]
       wordsok <- as.character(wordsok)
       v$words_to_search <- paste(wordsok, collapse="\n")
@@ -362,10 +363,10 @@ server <- function(input, output, session) {
            algo = input$lenGram
            words <- strsplit(input$mots,"[\n]")[[1]]
            wordsok <- words[nchar(words) == longueur]
-           wordsok <- wordsok[!duplicated(wordsok)]
+           wordsok <- tolower(wordsok) # to avoid case-sensitive
+           wordsok <- wordsok[!duplicated(wordsok)] # remove duplicate models
            wordsok <- as.character(wordsok)
            v$len_wordsok <- length(wordsok)
-           shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Generating from", v$len_wordsok, "source words...</div>"))
            if (v$language_selected != default_other){
              exclude <- get_dataset_words(
                datasets=v$datasets,
@@ -393,8 +394,6 @@ server <- function(input, output, session) {
         dt <- pseudowords()
         v$nb_pseudowords <- length(dt)
 
-        shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">", input$nbpseudos, "pseudowords generated from", v$len_wordsok, "source words !</div>"))
-
         datatable(dt,
                   escape = FALSE, selection = 'none',
                   filter=list(position = 'top', clear = FALSE),
@@ -414,13 +413,7 @@ server <- function(input, output, session) {
                                search=list(searching = TRUE,
                                            regex=TRUE,
                                            caseInsensitive = FALSE)
-                   ))#%>%
-        # formatStyle(
-        #   'Word.1',
-        #   color = 'grey', backgroundColor = 'white', fontWeight = 'bold'
-        # )
-      }else{
-        shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Failed to generate pseudowords from", v$len_wordsok, "source words...</div>"))
+                   ))
       }
     }, server = TRUE)
 
