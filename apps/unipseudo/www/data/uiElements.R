@@ -21,16 +21,18 @@ tab1 = tags$b("Pseudowords")
 tab2 = tags$b("Pseudowords with details")
 app_name = "UniPseudo"
 min_nbpseudos = 1
-max_nbpseudos = 2000
+max_nbpseudos = 5000
 default_nbpseudos = 20
 default_none = ""
 default_other = "Other"
-algo_choices = c("bigram", "trigram")
+big_choice = "bigram"
+trig_choice = "trigram"
+algo_choices = c(big_choice, trig_choice)
 
 tooltip_style = "style='font-size:14px;display:block;text-align:justify'"
 info_style = "style='font-size:14px;text-align:center;margin-top:1em;' class='help-block'"
 
-lenGram_tooltip = paste("<span",tooltip_style,">The", lenGram_choice, "option is set automatically, depending on the", length_choice, "option. The generation of pseudowords of length >= 5 is based on the random selection of an initial trigram (the<b>", "trigram", "</b>algorithm). Then, compatible trigrams are selected until the generation of the pseudoword is complete. For shorter pseudowords (length <= 5), we obtain better performance when replacing trigrams with bigrams (the<b>", "bigram", "</b>algorithm). If you want to try both algorithms with different pseudoword lengths, you can change the", lenGram_choice, "option.</span>")
+lenGram_tooltip = paste("<span",tooltip_style,">The", lenGram_choice, "option is set automatically, depending on the", length_choice, "option. The generation of pseudowords of length >= 5 is based on the random selection of an initial trigram (the<b>", trig_choice, "</b>algorithm). Then, compatible trigrams are selected until the generation of the pseudoword is complete. For shorter pseudowords (length <= 5), we obtain better performance when replacing trigrams with bigrams (the<b>", big_choice, "</b>algorithm). If you want to try both algorithms with different pseudoword lengths, you can change the", lenGram_choice, "option.</span>")
 
 btn_generator_tooltip = paste("<span",tooltip_style,">Click the", btn_show_generator_name, "button to show import options.<br>Click the",
 generateDB_neutral, "button to generate a list from an OpenLexicon database (see the tooltip next to the button for more details on the database used).<br>Please note that words selected from Lexique are French words. Words in other languages are selected from WorldLex. <b>Please note that Lexique allows to select the grammatical class, to restrict the type of pseudowords that will be generated to be similar to words of this grammatical class. We will soon propose other customization options.<br>For now, if you want to generate optimal non-french pseudowords, you may paste a custom list which controls parameters of interest (e.g., if you want to generate pseudowords that look alike verbs, paste only verbs in the<b>",paste_words,"section).</span>")
