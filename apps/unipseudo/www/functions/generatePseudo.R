@@ -99,8 +99,11 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
       # Add char to vector if not already assigned to this substring at this step (dict_index). Also assign model index to wordsindex.
       if (!(nextChar %in% substrings[[dict_index]][[curSubstr]])){
         substrings[[dict_index]][[curSubstr]] <- c(substrings[[dict_index]][[curSubstr]], nextChar)
-        wordsindex[[dict_index]][[curSubstr]] <- c(wordsindex[[dict_index]][[curSubstr]], model_num)
+        wordsindex[[dict_index]][[curSubstr]] <- c(wordsindex[[dict_index]][[curSubstr]], as.character(model_num)) # If new entry, store model index as character
         count_char = count_char+1
+      }else{ # If not new entry, concatenate previous model nums and new model num as a string with elements separated with comma
+        index_char <- which(substrings[[dict_index]][[curSubstr]] == nextChar)[[1]] # get index char from substrings dict (since index_char is unique in substrings[[dict_index]][[curSubstr]] due to test above)
+        wordsindex[[dict_index]][[curSubstr]][[index_char]] <- paste(c(wordsindex[[dict_index]][[curSubstr]][[index_char]], model_num), collapse=",")
       }
     }
   }
@@ -138,9 +141,11 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
     current_vec <- substrings[[step]][[last_letters]]
     random_int <- sample(1:length(current_vec), 1)
     # Recursive call
+    # Select a random model from models that gave this gram in wordsindex, to show in pseudowords with details
+    model_index <- as.integer(sample(strsplit(wordsindex[[step]][[last_letters]][[random_int]], ",")[[1]], 1))
     return(build_pseudoword_rec(
       c(pseudoword_vec, current_vec[[random_int]]),
-      c(source_vec, models[wordsindex[[step]][[last_letters]][[random_int]]]),
+      c(source_vec, models[model_index]),
       step+1
     ))
   }
