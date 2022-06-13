@@ -6,7 +6,7 @@ join_column = "Word"
 # Les datasets-id sont les noms des json
 # Pb avec anagrammes
 dataset_ids <- c('Lexique383','AoA_FreqSub_1493','AoA_FamConcept_1225','Assoc_520','Assoc_366','Concr_ContextAv_ValEmo_Arous_1659','Concr_Imag_FreqSub_Valemo_866',
-                 'FrenchLexiconProject-words','FreqSub_Adulte_Senior_660','FreqSub_Imag_1916','FreqSub_Imag_3600','Img_AoA_..._400','Imag_1493','Manulex-Ortho','Manulex-Lemmes',
+                 'FrenchLexiconProject-words','FreqSub_Adulte_Senior_660','FreqSub_Imag_ParAge_1286','FreqSub_Imag_1916','FreqSub_Imag_3600','Img_AoA_..._400','Imag_1493','Manulex-Ortho','Manulex-Lemmes',
                  'Megalex-visual','Megalex-auditory','SUBTLEX-US','Aoa32lang',
                  'RT_LD_NMG_FLP_Mono_1482','SensoryExp_1659','SensoryExp_1659',
                  'ValEmo_Arous_Imag_835','ValEmo_Arous_1286',
