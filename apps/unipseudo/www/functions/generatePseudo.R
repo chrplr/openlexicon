@@ -1,9 +1,7 @@
 get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL){
   for (dataset in datasets){
-    # Load dataset if needed
-      if (is.null(dictionary_databases[[dataset]][['dstable']])){
-         load_dataset_table(dataset)
-      }
+      # Load dataset if needed
+      load_dataset_table(dataset)
       words <- dictionary_databases[[dataset]][['dstable']]
       freqCol = "BlogFreq"
       nbcharCol = "nbcar"

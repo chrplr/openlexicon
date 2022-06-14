@@ -174,6 +174,7 @@ fix.encoding <- function(df) {
 }
 
 load_dataset_table <- function(ds){
+  if (is.null(dictionary_databases[[ds]][['dstable']])){
     tryCatch({
       json_url <- datasets[[ds]][1]
       rds_file <- datasets[[ds]][2]
@@ -187,6 +188,7 @@ load_dataset_table <- function(ds){
     if (is.null(dictionary_databases[[ds]][["dstable"]])) { datasets[[ds]] <- NULL} else {
         colnames(dictionary_databases[[ds]][["dstable"]])[1] <<- join_column
     }
+  }
 }
 
 load_language <- function(language){
@@ -194,7 +196,12 @@ load_language <- function(language){
   gc()
   # Unload all dataset tables. Required datasets will be loaded in get_dataset_words directly
   for (ds in names(datasets)){
-    dictionary_databases[[ds]][["dstable"]] <<- NULL
+    # Exception for Lexique since we need dstable to determine cgram list
+    if (ds == "Lexique383" && tolower(language) %in% tolower(dslanguage[["Lexique383"]][["name"]])){
+      load_dataset_table(ds)
+    }else{
+      dictionary_databases[[ds]][["dstable"]] <<- NULL
+    }
   }
 }
 
