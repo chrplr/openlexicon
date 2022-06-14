@@ -61,7 +61,7 @@ ui <- fluidPage(
     tags$script(HTML(js))
   ),
   useShinyjs(),
-  useShinyalert(force=TRUE),
+  useShinyalert(),
 
   titlePanel(tags$a(href="http://www.lexique.org/?page_id=582", app_name)),
   title = app_name,
