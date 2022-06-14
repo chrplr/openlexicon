@@ -212,6 +212,7 @@ server <- function(input, output, session) {
         tippy(circleButton("generateTooltip", "?", status = "info", size = "xs"), interactive = TRUE, trigger="click", theme = 'light', tooltip = v$info_tooltip)
       )
     })
+    outputOptions(output, "outgenerateDB", suspendWhenHidden=FALSE)
 
     observeEvent(input$language, {
       v$language_selected <- input$language
