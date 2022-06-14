@@ -1,5 +1,10 @@
-get_dataset_words <- function(datasets, dictionary_databases, nbchar=NULL, gram_class=NULL){
+get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL){
   for (dataset in datasets){
+    # Load dataset if needed
+      if (is.null(dictionary_databases[[dataset]][['dstable']])){
+         load_dataset_table(dataset)
+      }
+      words <- dictionary_databases[[dataset]][['dstable']]
       freqCol = "BlogFreq"
       nbcharCol = "nbcar"
       freqThreshold = 1
@@ -15,7 +20,6 @@ get_dataset_words <- function(datasets, dictionary_databases, nbchar=NULL, gram_
         freqThreshold = -1
       }
 
-      words <- dictionary_databases[[dataset]][['dstable']]
       # for testing purposes
       if (is.null(nbchar)){
         words <- words[words[[freqCol]] > freqThreshold,]

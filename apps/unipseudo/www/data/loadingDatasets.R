@@ -192,13 +192,9 @@ load_dataset_table <- function(ds){
 load_language <- function(language){
   # Call garbage collector
   gc()
-  # Load only required datasets and unload others
+  # Unload all dataset tables. Required datasets will be loaded in get_dataset_words directly
   for (ds in names(datasets)){
-    if (tolower(language) %in% tolower(dslanguage[[ds]][["name"]])){
-      load_dataset_table(ds)
-    }else{
-      dictionary_databases[[ds]][["dstable"]] <<- NULL
-    }
+    dictionary_databases[[ds]][["dstable"]] <<- NULL
   }
 }
 
@@ -215,7 +211,7 @@ for (ds in dataset_ids)
                      paste(rds_file,'.rds', sep = ""))
 }
 
-dictionary_databases <- list()
+dictionary_databases <- list() # global variable
 dslanguage <- list()
 # Initialize language list with default_other (choice Other)
 language_choices <- c(default_other)

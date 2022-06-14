@@ -32,7 +32,7 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
 
       # Get characters, to have an overview of which characters are used for a given language
       if (character_check){
-        words <- get_dataset_words(datasets, dictionary_databases)
+        words <- get_dataset_words(datasets)
         fwrite(get_characters(words),
           file.path(testdir, paste0("character_",lang_test,".txt")), sep="\n", append=FALSE)
       }
@@ -44,7 +44,7 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
         if (lang_test %in% latin_languages){
           nb_repeat_consonants = 0
           nb_repeat_same_letter = 0
-          words <- get_dataset_words(datasets, dictionary_databases)
+          words <- get_dataset_words(datasets)
           nb_words = length(words)
           consonants = c()
           vowels = c()
@@ -96,7 +96,7 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
 
       # Check how many words are loaded for each language, to check how much frequency threshold removes, and if there are import issues
       if (load_check){
-        words <- get_dataset_words(datasets, dictionary_databases)
+        words <- get_dataset_words(datasets)
         words <- words[!duplicated(words)]
         words <- as.character(words)
         fwrite(as.list(paste(lang_test, ":", length(words))),
@@ -107,7 +107,7 @@ QA_test <- function(QA_check=FALSE, character_check=FALSE, load_check=FALSE, con
       if (QA_check){
         for (longueur in c(3:15)){
           print(paste("Length:", longueur))
-          words <- get_dataset_words(datasets, dictionary_databases, longueur)
+          words <- get_dataset_words(datasets, longueur)
           NbWords <- c(NbWords, length(words))
           for (algo in algo_choices){
             # Does not perform check for trigram algo and length 3 because it can't work ! (we would only get a word of 3 letters, and not a pseudoword)

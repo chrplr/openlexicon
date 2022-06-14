@@ -286,7 +286,6 @@ server <- function(input, output, session) {
       if (v$language_selected != default_other){
         words <- get_dataset_words(
           datasets=v$datasets,
-          dictionary_databases=dictionary_databases,
           nbchar=longueur,
           gram_class=input$gram_class
         )
@@ -378,7 +377,6 @@ server <- function(input, output, session) {
            if (v$language_selected != default_other){
              exclude <- get_dataset_words(
                datasets=v$datasets,
-               dictionary_databases=dictionary_databases,
                nbchar=longueur
              )
            }else{
