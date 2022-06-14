@@ -48,7 +48,7 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
     shinyjs::html(id = 'oInfoGeneration', paste("<div", info_style, ">Failed to generate pseudowords from", len_models, "source words...</div>"))
     if(!testing){
       shinyalert("Error", paste0(
-        'Please provide words in the Words to use section !'),
+        'Please provide words of the desired length in the "Words to use" section !'),
         type = "error")
         return ()
       }else{
@@ -183,9 +183,9 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
        }
       }
 
-      # Check we do not have more than 2 times the same consecutive letter
+      # Check we do not have more than 2 times the same consecutive letter for bigram algo
       wordChars <- strsplit(pseudoword, "")[[1]]
-      if (length(wordChars) >= 3){
+      if (len_grams == big_choice && length(wordChars) >= 3){
         for (charCount in 1:(length(wordChars)-2)){
           char <- tolower(wordChars[charCount])
           if (char == wordChars[charCount+1] && char == wordChars[charCount+2]){
