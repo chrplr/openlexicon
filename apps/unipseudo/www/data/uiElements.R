@@ -53,3 +53,11 @@ generator_name, '</b>for easier pseudowords generation.</span>')
              # tags$li("Download the result by clicking on the button below the table. The table in the", tab1,"tab contains the generated pseudowords. If you want more details about the way pseudowords are created, click on the", tab2, "tab. This second table contains the pseudowords (first column) and all words used to generate them. For each word, parts used to compose the final pseudoword are written in bold and red-colored.")
            # )
            #  )
+
+getDate <- function(tz){
+  if (is.null(tz)){
+    tz = "UTC"
+  }
+  tm <- as.POSIXlt(Sys.time(), tz)
+  return(strftime(tm , "%Y-%m-%dT%H-%M-%S%z"))
+}

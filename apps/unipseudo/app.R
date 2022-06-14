@@ -16,23 +16,30 @@ source('www/data/loadingDatasets.R')
 # source('www/functions/test.R')
 
 js <- "
-$(document).ready(function() {
-  $('#pseudomots').on('shiny:recalculating', function() {
-    $('#go').prop('disabled', true);
-  });
-  $('#pseudomots').on('shiny:recalculated', function() {
-    $('#go').prop('disabled', false);
-  });
+var text = '';
+// On button click, set variable text to text of button clicked (can't get id reliably)
+$(document).click(function(event) {
+    text = $(event.target).text();
 });
 
-$(document).on('shiny:busy', function() {
-  var $inputs = $('button,input,textarea');
-$inputs.prop('disabled', true);
+$(document).on('shiny:busy', function(event) {
+  // Check that button clicked is not btn_generate. If not, disable interface.
+  if (!['Show Word Import Tool', 'Hide Word Import Tool'].some(function(v) { return text.indexOf(v) >= 0; })){
+    var $inputs = $('button,input,textarea');
+    $inputs.prop('disabled', true);
+  }
 });
 
+// Enable back interface when shiny is idle.
 $(document).on('shiny:idle', function() {
-var $inputs = $('button,input,textarea');
-$inputs.prop('disabled', false);
+  var $inputs = $('button,input,textarea');
+  $inputs.prop('disabled', false);
+})
+
+// Get timezone
+$(document).on('shiny:sessioninitialized', function(){
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  Shiny.setInputValue('currentTZ', timezone);
 })
 "
 
@@ -459,8 +466,7 @@ server <- function(input, output, session) {
     output$download.xlsx <- downloadHandler(
       filename = function() {
         paste("Pseudowords-query-",
-              format(Sys.time(), "%Y-%m-%d"), ' ',
-              paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
+              getDate(input$currentTZ),
               ".xlsx", sep="")
       },
       content = function(fname) {
@@ -484,8 +490,7 @@ server <- function(input, output, session) {
       output$download2.xlsx <- downloadHandler(
         filename = function() {
           paste("Pseudowords-details-query-",
-                format(Sys.time(), "%Y-%m-%d"), ' ',
-                paste(hour(Sys.time()), minute(Sys.time()), second(Sys.time()), sep = "-"),
+                getDate(input$currentTZ),
                 ".xlsx", sep="")
         },
         content = function(fname) {
