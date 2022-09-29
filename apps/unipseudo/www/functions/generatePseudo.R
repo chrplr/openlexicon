@@ -3,14 +3,14 @@ get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL){
       # Load dataset if needed
       load_dataset_table(dataset)
       words <- dictionary_databases[[dataset]][['dstable']]
-      freqCol = "BlogFreq"
+      freqCol = "BlogFreqPm"
       nbcharCol = "nbcar"
-      freqThreshold = 1
+      freqThreshold = 0.5
 
       if (dataset == "Lexique383"){
         freqCol = "freqfilms2"
         nbcharCol = "nblettres"
-        freqThreshold = 0.01
+        freqThreshold = 0.5
       }
 
       # No blog freq value (all zeros) for these languages so we need to "remove" threshold
