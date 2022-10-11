@@ -17,19 +17,19 @@ If the dataset is not yet on the Internet, you need to put it on a web server.
 
 Here we show an example for <http://www.lexique.org> maintainers:
 
-* Connect to the server and go to the databases directory 
+* Connect to the server and go to the databases directory
 
         cd /var/www/databases
 
 * Create a folder for the database, for example `zzzz`
-    
+
         cd zzz
 
 * Copy there  the relevant files (csv, csv, xlsx, zip, ...)
 
 * To generate a `.rds` file (a binary format for faster loading in R), create a script `make_rds.R` like the following:
-   
-        #! /usr/bin/env Rscript 
+
+        #! /usr/bin/env Rscript
         require(readr)
         yyyyyyyyyy <- read_delim('xxxxxxxxxxxxxxxxxxxxxxx.tsv', delim='\t')
         saveRDS(yyyyyyyyyy, file='xxxxxxxxxxxxxxxxxxxxxxx.rds')
@@ -49,10 +49,14 @@ Here we show an example for <http://www.lexique.org> maintainers:
         sudo systemctl restart shiny-server.service
 
 
-## create a json description file ## 
+## create a json description file ##
 
 
-If you plan to use the data fetchers, it is necessary to  create a `.json` file describing the dataset, and to push it to <http://github.com/chrplr/openlexicon/datasets-info/_json>
+If you plan to use the data fetchers, it is necessary to  create a `.json` file describing the dataset, and to push it to <http://github.com/chrplr/openlexicon/datasets-info/_json>.
+
+For the database to be accessible from a shiny app, the url pointing to the rds file must absolutely be indicated in the json file (see example below).
+
+Further, for the database to be visible in the [openlexicon app](http://github.com/chrplr/openlexicon/app.R), the first tag of the json file must be a language (e.g., _french_).
 
 Here is, for example, the `.json` file associated to _Lexique3_
 
@@ -104,8 +108,11 @@ For example:
 To make the database accessible in openlexicon:
 
 1. Modify the [openlexicon app](http://github.com/chrplr/openlexicon/app.R) that will use this database (issue a pull request).
-2. Connect to the lexique server by ssh and run: 
-   
+More specifically, update the [loadingDatasets.R file](http://github.com/chrplr/openlexicon/www/data/loadingDatasets.R) by adding your dataset id to the vector dataset_ids.
+**Note**: ideally, the id of your dataset must match the filename of your rds and json files (e.g., Lexique383, Lexique383.json, Lexique383.rds). If this is not the case, you may add in ex_filenames_ds the correspondance between your dataset id and a vector containing your json and rds files in that order (e.g., 'Manulex-Lemmes' = c('Manulex', 'Manulex-Lemmes')).
+
+2. Connect to the lexique server by ssh and run:
+
         cd ~chrplr/shiny-server
         git pull
 
