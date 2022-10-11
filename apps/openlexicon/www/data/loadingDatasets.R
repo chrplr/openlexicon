@@ -2,6 +2,8 @@
 json_folder = '../../datasets-info/_json/'
 
 join_column = "Word"
+default_db = "Lexique383"
+default_language = "French"
 
 # Les datasets-id sont les noms des json
 # Pb avec anagrammes
@@ -128,24 +130,41 @@ fix.encoding <- function(df) {
   return(df)
 }
 
+load_tables <- function(ds_list, my_tables){
+  for (ds in names(my_tables)){
+    if (!(ds %in% ds_list)){
+      my_tables[[ds]] <- NULL
+    }
+  }
+  for (ds in ds_list){
+    if (!(ds %in% names(my_tables))){
+      new_table <- load_dataset_table(ds)
+      if (!is.null(new_table)){
+        my_tables[[ds]] <- new_table
+      }
+    }
+  }
+  return(my_tables)
+}
 
 load_dataset_table <- function(ds){
+  my_table <<- NULL
   tryCatch({
     json_url <- datasets[[ds]][1]
     rds_file <- datasets[[ds]][2]
-    dictionary_databases[[ds]][["dstable"]] <<- fix.encoding(readRDS(get_dataset_from_json(json_url, rds_file)))
+    my_table <<- fix.encoding(readRDS(get_dataset_from_json(json_url, rds_file)))
   },
   error = function(e) {
     message(paste("Couldn't load database ", ds, ". Check json and rds files.", sep = ""))
   }
   )
   # Removes not loaded datasets from the list
-  if (is.null(dictionary_databases[[ds]][["dstable"]])) { datasets[[ds]] <<- NULL} else {
-    colnames(dictionary_databases[[ds]][["dstable"]])[1] <<- join_column
+  if (is.null(my_table)) { datasets[[ds]] <<- NULL} else {
+    colnames(my_table)[1] <<- join_column
 
     # Column names description
-    for (j in 2:length(colnames(dictionary_databases[[ds]][["dstable"]]))) {
-      current_colname = colnames(dictionary_databases[[ds]][["dstable"]])[j]
+    for (j in 2:length(colnames(my_table))) {
+      current_colname = colnames(my_table)[j]
       if (typeof(info$column_names[[current_colname]]) == "NULL"){
         dictionary_databases[[ds]][["colnames_dataset"]][[current_colname]] <<- ""
       }
@@ -158,17 +177,7 @@ load_dataset_table <- function(ds){
       dictionary_databases[[ds]][["dsmandcol"]] <<- names(dictionary_databases[[ds]][["colnames_dataset"]])
     }
   }
-}
-
-load_language <- function(language){
-  gc()
-  for (ds in names(datasets)){
-    if (tolower(language) %in% tolower(dslanguage[[ds]][["name"]])){
-      load_dataset_table(ds)
-    }else{
-      dictionary_databases[[ds]][["dstable"]] <<- NULL
-    }
-  }
+  return(my_table)
 }
 
 for (ds in dataset_ids)
@@ -203,7 +212,7 @@ for (ds in names(datasets)) {
   dictionary_databases[[ds]][["dsweb"]] <- info$website
   dictionary_databases[[ds]][["colnames_dataset"]] <- list()
   # Load Lexique from the start since this is our default language
-  if (ds == "Lexique383"){
+  if (ds == default_db){
     load_dataset_table(ds)
   }
   dictionary_databases[[ds]][["dsmandcol"]] <- get_mandatory_columns(ds, info, dictionary_databases)

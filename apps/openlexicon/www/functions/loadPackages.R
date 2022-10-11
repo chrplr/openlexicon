@@ -18,6 +18,7 @@ usePackageGit <- function(i, github_repo){
 usePackage("stringi")
 usePackage("shiny")
 usePackage("shinyBS")
+usePackage("shinyalert")
 usePackage("shinyjs")
 usePackage("DT")
 usePackage("stringr")

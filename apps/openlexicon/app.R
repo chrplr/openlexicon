@@ -32,6 +32,7 @@ ui <- fluidPage(
     }'))),
 
     useShinyjs(),
+    useShinyalert(),
 
     titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
     title = "Open Lexicon",
@@ -77,9 +78,9 @@ ui <- fluidPage(
 
 #### Server ####
 server <- function(input, output, session) {
-  v <- reactiveValues(language_selected = 'French',
-                      categories = names(list.filter(dslanguage, 'french' %in% tolower(name))),
-                      dataset_selected = c('Lexique383', 'Megalex-visual'),
+  v <- reactiveValues(language_selected = default_language,
+                      categories = names(list.filter(dslanguage, tolower(default_language) %in% tolower(name))),
+                      dataset_selected = c(default_db),
                       selected_columns = list(),
                       col_tooltips = list(),
                       button_listsearch = btn_show_name,
@@ -87,9 +88,10 @@ server <- function(input, output, session) {
                       prefix_col = prefix_single,
                       suffix_col = suffix_single,
                       labeldropdown = "",
-                      needTreeRender = TRUE,
+                      needTreeRender = FALSE,
                       change_language = FALSE,
-                      total_col = length(names(dictionary_databases[['Lexique383']][["colnames_dataset"]]))+length(names(dictionary_databases[['Megalex-visual']][["colnames_dataset"]])))
+                      total_col = 0,
+                      my_tables = list()) # each subject has a specific list for his specific session (avoid share because we need to empty dictionary when we update dataset selection, which is not very compatible with sessionshare)
 
   #### Toggle helper_alert ####
 
@@ -221,7 +223,6 @@ server <- function(input, output, session) {
     v$language_selected <- input$language
     v$change_language <- TRUE
 
-    load_language(input$language)
     if (input$language == "\n") {
       v$categories <- c()
       v$dataset_selected <- ""
@@ -285,6 +286,7 @@ server <- function(input, output, session) {
       v$suffix_col = suffix_multiple
     }
 
+    v$my_tables <- load_tables(input$databases, v$my_tables)
     output <- updateFromDB(input$databases,
                            v$selected_columns,
                            dictionary_databases,
@@ -315,16 +317,24 @@ server <- function(input, output, session) {
 
   datasetInput <- reactive({
     list_df <- list()
-
+    not_loaded_db <- c()
     for (database in names(v$selected_columns)){
-      dat <- dictionary_databases[[database]][["dstable"]]
-
+      dat <- v$my_tables[[database]]
       for (col in names(v$selected_columns[[database]])){
         colnames(dat)[colnames(dat)==col] <- v$selected_columns[[database]][[col]]
 
       }
 
-      list_df <- list.append(list_df,dat)
+      # if table for a given database could not be loaded, it is not included in the table displayed to user.
+      if (!is.null(dat)){
+        list_df <- list.append(list_df,dat)
+      }else {
+        not_loaded_db <- c(not_loaded_db, database)
+      }
+    }
+    # Display warning message if some databases could not be loaded
+    if (length(not_loaded_db) > 0){
+      shinyalert("Warning", paste("Databases", paste(not_loaded_db, collapse = ', '), "could not be loaded. Check json and rds files."))
     }
 
     if (length(mots2()) > 0){
