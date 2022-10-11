@@ -7,12 +7,11 @@
       "readme": "XXXXXX",
       "urls" : [
          {
-            "url": "http://www.lexique.org/databases/rds/FreqSub_Imag_ParAge_1286.rds",
+            "url": "http://www.lexique.org/databases/Ballot_2021_FreqSub_Imag_ParAge_1286/FreqSub_Imag_ParAge_1286.rds",
             "bytes": 125125,
             "md5sum": "791952bbb51a02b68795d49edbff1b29"
          }
-      ], 
+      ],
        "type": "rds",
        "tags": ["french", "frequencies"]
 }
-
