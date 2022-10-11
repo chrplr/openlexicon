@@ -22,8 +22,8 @@ ui <- fluidPage(
   useShinyjs(),
   useShinyalert(),
 
-  titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Infra")),
-  title = "Infra",
+  titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Lexique Infra 1.11")),
+  title = "Lexique Infra 1.11",
 
   sidebarLayout(
     sidebarPanel(
@@ -51,16 +51,14 @@ ui <- fluidPage(
                             hide.element.when.recalculating = FALSE,
                             proxy.height = 0),
         uiOutput("outdownload"),
-        br(),
-        htmlOutput("notokpseudowords")
+        br()
       ))
     )
 )
 
 server <- function(input, output, session) {
   v <- reactiveValues(
-    button_helperalert = btn_hide_helper,
-    notokpseudowords = c())
+    button_helperalert = btn_hide_helper)
 
     #### Toggle helper_alert ####
 
@@ -83,6 +81,8 @@ server <- function(input, output, session) {
     words_list <- eventReactive(input$go,
     {
         words <- strsplit(input$mots,"[ \n\t]")[[1]]
+        # Keep only words with at least one character (removes empty rows)
+        words <- str_subset(words, ".+")
         wordsok <- unique(words[!grepl("[[:punct:][:space:]]", words)]) # remove words with punctuation or space, and duplicates
         })
 
@@ -91,7 +91,6 @@ server <- function(input, output, session) {
     retable <- reactive({
         words_list <- words_list()
         if (!is.null(words_list)){
-            notokpseudowords <- c()
             types_list <- c("let", "bigr", "trigr")
             subtypes_list <- c("Ty", "To")
             final_dt <- data.frame()
@@ -116,7 +115,6 @@ server <- function(input, output, session) {
                 # else we calculate its values
                 }else{
                     is_word <- FALSE
-                    ok_pseudoword <- TRUE
                     dic_info <- list()
                     # Dic values
                     for (type in types_list){
@@ -130,76 +128,69 @@ server <- function(input, output, session) {
 
                     count <- 0
                     for (type in types_list){
-                        # While the pseudoword is ok (we find info for it)
-                        if (ok_pseudoword == TRUE){
-                            for (num_elt in 1:(nchar(word) -count)){
-                                current_line <- subset(dt_info[[type]], Word == substring(word, num_elt, num_elt+count))
-                                # If part of the pseudoword is not found in the table, we decide it's not a valid pseudoword
-                                if (NROW(current_line) == 0){
-                                    ok_pseudoword <- FALSE
-                                }
-                                # Initial, middle or final position
-                                if (num_elt == 1){
-                                    spec = "I"
-                                    separator = ""
-                                }else if(num_elt==(nchar(word)-count)){
-                                    spec="F"
-                                    separator = "-"
+                        for (num_elt in 1:(nchar(word) -count)){
+                            ok_pseudoword <- TRUE
+                            current_line <- subset(dt_info[[type]], Word == substring(word, num_elt, num_elt+count))
+                            # If part of the pseudoword is not found in the table, we will add a 0 instead of info for this part
+                            if (NROW(current_line) == 0){
+                                ok_pseudoword <- FALSE
+                            }
+                            # Initial, middle or final position
+                            if (num_elt == 1){
+                                spec = "I"
+                                separator = ""
+                            }else if(num_elt==(nchar(word)-count)){
+                                spec="F"
+                                separator = "-"
+                            }else{
+                                spec="M"
+                                separator = "-"
+                            }
+                            # Get info in dictionary
+                            for (subtype in subtypes_list){
+                                if (ok_pseudoword){
+                                    new_sum_info <- as.double(current_line[[paste(type,subtype,spec,sep="")]])
+                                    new_decomp_info <- as.character(current_line[[paste(type,subtype,spec,sep="")]])
                                 }else{
-                                    spec="M"
-                                    separator = "-"
+                                    new_sum_info <- 0
+                                    new_decomp_info <- 0
                                 }
-                                # Get info in dictionary
-                                for (subtype in subtypes_list){
-                                    dic_info[[type]][[subtype]][["sum"]] <- dic_info[[type]][[subtype]][["sum"]] + as.double(current_line[[paste(type,subtype,spec,sep="")]])
+                                dic_info[[type]][[subtype]][["sum"]] <- dic_info[[type]][[subtype]][["sum"]] + new_sum_info
 
-                                    dic_info[[type]][[subtype]][["decomp"]] <- paste(dic_info[[type]][[subtype]][["decomp"]], as.character(current_line[[paste(type,subtype,spec,sep="")]]), sep=separator)
-                                }
+                                dic_info[[type]][[subtype]][["decomp"]] <- paste(dic_info[[type]][[subtype]][["decomp"]], new_decomp_info, sep=separator)
                             }
                         }
                         count = count+1
                     }
                     # Line creation
-                    if (ok_pseudoword == TRUE){
-                        new_line <- data.frame()
-                        new_line[1,1] <- word
-                        new_line[1,2] <- "Pseudoword"
-                        for (i in 3:6){
-                            new_line[1,i] <- ""
-                        }
-                        count <- 0
-                        count_col <- 7
-                        for (type in types_list){
-                            for (subtype in subtypes_list){
-                                new_line[1,count_col] <- dic_info[[type]][[subtype]][["decomp"]]
-                                new_line[1,count_col+1] <-dic_info[[type]][[subtype]][["sum"]]/(nchar(word)-count)
-                                count_col <- count_col +2
-                            }
-                            count <- count +1
-                        }
-                        for (i in 19:34){
-                            new_line[1,i] <- ""
-                        }
-                        colnames(new_line) <- colnames(whole_dt)
+                    new_line <- data.frame()
+                    new_line[1,1] <- word
+                    new_line[1,2] <- "Pseudoword"
+                    for (i in 3:6){
+                        new_line[1,i] <- ""
                     }
+                    count <- 0
+                    count_col <- 7
+                    for (type in types_list){
+                        for (subtype in subtypes_list){
+                            new_line[1,count_col] <- dic_info[[type]][[subtype]][["decomp"]]
+                            new_line[1,count_col+1] <-dic_info[[type]][[subtype]][["sum"]]/(nchar(word)-count)
+                            count_col <- count_col +2
+                        }
+                        count <- count +1
+                    }
+                    for (i in 19:34){
+                        new_line[1,i] <- ""
+                    }
+                    colnames(new_line) <- colnames(whole_dt)
                 }
-                # If the item is ok, we add it in the table
-                if (is_word == TRUE || ok_pseudoword == TRUE){
-                    final_dt <- rbind(final_dt, new_line)
-                }
-                # Else we show it in the text output
-                else if (ok_pseudoword == FALSE){
-                    notokpseudowords <- append(notokpseudowords, word)
-                }
+                final_dt <- rbind(final_dt, new_line)
             }
 
             # Rename word column
             if (nrow(final_dt) > 0){
                 colnames(final_dt)[colnames(final_dt) == join_column] <- "Item"
             }
-
-            # Update not ok items list
-            v$notokpseudowords <- notokpseudowords
 
             # return datatable
             final_dt
@@ -238,24 +229,6 @@ server <- function(input, output, session) {
                                                caseInsensitive = FALSE)
                        ))}
     }, server = TRUE)
-
-    #### Render not ok pseudowords ####
-
-    output$notokpseudowords <- renderUI({
-        if (length(v$notokpseudowords) > 0){
-            # final_list <- tags$ul(paste(v$notokpseudowords, collapse = ', '))
-            tags$div(id = "notok",
-                     class="alert alert-danger",
-                     tags$p("Sorry, we did not find information for the following pseudowords:"),
-                     tags$br(),
-                     tags$ul(tagList(
-                         lapply(seq_along(v$notokpseudowords), function(s) {
-                            tags$li(v$notokpseudowords[s])
-                          })
-                     )
-                      )
-        )}
-    })
 
     #### Download options ####
 
