@@ -161,6 +161,8 @@ load_dataset_table <- function(ds){
   # Removes not loaded datasets from the list
   if (is.null(my_table)) { datasets[[ds]] <<- NULL} else {
     colnames(my_table)[1] <<- join_column
+    json_url <- datasets[[ds]][1]
+    info = get_info_from_json(json_url)
 
     # Column names description
     for (j in 2:length(colnames(my_table))) {
