@@ -6,6 +6,8 @@
 rm(list = ls())
 source('www/functions/loadPackages.R')
 source('www/functions/qTips.R')
+source('www/functions/customDropdownButton.R')
+source('www/functions/updateFromTree.R')
 
 # Loading datasets and UI
 source('../../datasets-info/fetch_datasets.R')
@@ -34,6 +36,9 @@ ui <- fluidPage(
       div(textAreaInput("mots",
                   label = tags$b(paste_words),
                   rows = 10, resize = "none")),
+      uiOutput("consigne"),
+      uiOutput("shinyTreeCol"),
+      br(),
       div(style="text-align:center;",actionButton("go", go_btn)),
       width=4
     ),
@@ -58,7 +63,11 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   v <- reactiveValues(
-    button_helperalert = btn_hide_helper)
+    button_helperalert = btn_hide_helper,
+    needTreeRender = FALSE,
+    cols = list(),
+    selected_columns = list(),
+    go_clicked = FALSE)
 
     #### Toggle helper_alert ####
 
@@ -67,8 +76,6 @@ server <- function(input, output, session) {
     })
 
     observeEvent(input$btn, {
-      shinyjs::toggle("helper_box", anim = TRUE, animType = "slide")
-
       if (v$button_helperalert == btn_show_helper){
         v$button_helperalert = btn_hide_helper
       }else{
@@ -76,25 +83,92 @@ server <- function(input, output, session) {
       }
     })
 
+    observe({
+      shinyjs::toggle("helper_box", anim = TRUE, animType = "slide", condition = grepl(btn_hide_helper, v$button_helperalert))
+    })
+
     #### Generate word list ####
 
     words_list <- eventReactive(input$go,
     {
+        if (v$go_clicked == FALSE){
+          v$go_clicked = TRUE
+        }
         words <- strsplit(input$mots,"[ \n\t]")[[1]]
         # Keep only words with at least one character (removes empty rows)
         words <- str_subset(words, ".+")
         wordsok <- unique(words[!grepl("[[:punct:][:space:]]", words)]) # remove words with punctuation or space, and duplicates
         })
 
+    #### Column filter ####
+
+    output$consigne <- renderUI({
+      if (v$go_clicked == TRUE){
+        h5(strong("Choose columns to display"))
+      }
+    })
+
+    output$shinyTreeCol <- renderUI({
+      if (v$go_clicked == TRUE){
+        dropdownButton2(
+          textAreaInput("tree-search-input", label = NULL, placeholder = "Type to filter", resize = "none"),
+          shinyTree("tree",
+                    checkbox = TRUE,
+                    search = "tree-search-input",
+                    themeIcons = FALSE,
+                    themeDots = FALSE,
+                    theme = "proton"),
+          width ="100%", label = textOutput("dropdownlabel"), status = "default"
+        )
+      }
+    })
+
+    output$dropdownlabel <- renderText({
+      paste(length(v$selected_columns), "columns out of ", length(v$cols), " selected")
+    })
+
+    output$tree <- renderTree({
+      if (v$needTreeRender == TRUE){
+        finaltree <- list()
+        starting = 1
+
+        for (col in v$cols){
+            finaltree[[col]] = toString(starting)
+            starting = starting + 1
+            if (col %in% v$selected_columns){
+              attr(finaltree[[col]],"stselected")=TRUE
+            }
+        }
+
+        v$needTreeRender <- FALSE
+        finaltree
+      }
+    })
+
+    observeEvent(input$tree, {
+      output <- updateColFromTree(input$tree, dictionary_databases)
+      v$selected_columns <- output[[1]]
+      v$col_tooltips <- output[[2]]
+    })
+
+    #### Handle go btn ####
+    observeEvent(input$mots, {
+      if (trimws(input$mots) == ""){
+        shinyjs::disable("go")
+      }else{
+        shinyjs::enable("go")
+      }
+    })
+
     #### Table ####
 
     retable <- reactive({
         words_list <- words_list()
         if (!is.null(words_list)){
-            types_list <- c("let", "bigr", "trigr")
-            subtypes_list <- c("Ty", "To")
             final_dt <- data.frame()
             # Get whole databases
+            types_list <- c("let", "bigr", "trigr")
+            subtypes_list <- c("Ty", "To")
             dt_info <- list()
             dt_info[[types_list[[1]]]] <- dictionary_databases[['Lexique-Infra-lettres']][['dstable']]
             dt_info[[types_list[[2]]]] <- dictionary_databases[['Lexique-Infra-bigrammes']][['dstable']]
@@ -189,22 +263,39 @@ server <- function(input, output, session) {
 
             # Rename word column
             if (nrow(final_dt) > 0){
-                colnames(final_dt)[colnames(final_dt) == join_column] <- "Item"
+                colnames(final_dt)[colnames(final_dt) == join_column] <- join_column_alt
+                v$cols <- colnames(final_dt)[colnames(final_dt) != join_column_alt]
             }
 
             # return datatable
-            final_dt
+            # if first time showing table, we need to initialize selected_columns and col_tooltips
+            if (length(v$selected_columns) == 0){
+              for (elt in colnames(final_dt)){
+                if (elt != join_column_alt){
+                  v$selected_columns[[elt]] <- elt
+                }
+                v$col_tooltips[[elt]] <- dictionary_databases[["Lexique-Infra-word_frequency"]][["colnames_dataset"]][[elt]]
+              }
+              v$needTreeRender = TRUE
+            }
+            final_dt[,c(join_column_alt, to_vec(for (col in names(v$selected_columns)) v$selected_columns[[col]])), drop=FALSE]
         }
         })
 
     output$infra = renderDT({
         if (!is.null(words_list()) & nrow(retable() > 0)){
-            retable()
+            dat <- retable()
 
-            # for tooltips
+            # adding tooltips for column names
+            col_tooltips <- c()
+
+            for (elt in colnames(dat)){
+              col_tooltips <- c(col_tooltips, v$col_tooltips[[elt]])
+            }
+
             headerCallback <- c(
               "function(thead, data, start, end, display){",
-              qTips(dictionary_databases[['Lexique-Infra-word_frequency']][['colnames_dataset']]),
+              qTips(col_tooltips),
               "  for(var i = 1; i <= tooltips.length; i++){",
               "if(tooltips[i-1]['content']['text'].length > 0){",
               "      $('th:eq('+i+')',thead).qtip(tooltips[i-1]);",
@@ -213,7 +304,7 @@ server <- function(input, output, session) {
               "}"
             )
 
-            datatable(retable(),
+            datatable(dat,
                       escape = FALSE, selection = 'none',
                       filter=list(position = 'top', clear = FALSE),
                       rownames= FALSE, #extensions = 'Buttons',

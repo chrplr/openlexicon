@@ -3,6 +3,7 @@ btn_hide_helper = "Hide Quick How-To"
 go_btn = tags$b("Go!")
 paste_words = "Items to search"
 join_column = "Word"
+join_column_alt = "Item"
 type_column = "TypeItem"
 
 helper_alert <-
