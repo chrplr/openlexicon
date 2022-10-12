@@ -54,7 +54,7 @@ Here we show an example for <http://www.lexique.org> maintainers:
 
 If you plan to use the data fetchers, it is necessary to  create a `.json` file describing the dataset, and to push it to <http://github.com/chrplr/openlexicon/datasets-info/_json>.
 
-For the database to be accessible from a shiny app, the url pointing to the rds file must absolutely be indicated in the json file (see example below).
+**For the database to be accessible from a shiny app, the url pointing to the `.rds` file must absolutely be indicated in the `.json` file (see example below).**
 
 Further, for the database to be visible in the [openlexicon app](http://github.com/chrplr/openlexicon/app.R), the first tag of the json file must be a language (e.g., _french_).
 
@@ -108,8 +108,8 @@ For example:
 To make the database accessible in openlexicon:
 
 1. Modify the [openlexicon app](http://github.com/chrplr/openlexicon/app.R) that will use this database (issue a pull request).
-More specifically, update the [loadingDatasets.R file](http://github.com/chrplr/openlexicon/www/data/loadingDatasets.R) by adding your dataset id to the vector dataset_ids.
-**Note**: ideally, the id of your dataset must match the filename of your rds and json files (e.g., Lexique383, Lexique383.json, Lexique383.rds). If this is not the case, you may add in ex_filenames_ds the correspondance between your dataset id and a vector containing your json and rds files in that order (e.g., 'Manulex-Lemmes' = c('Manulex', 'Manulex-Lemmes')).
+More specifically, update the [loadingDatasets.R file](http://github.com/chrplr/openlexicon/www/data/loadingDatasets.R) by adding your dataset id to the vector `dataset_ids`.
+**Note**: ideally, the id of your dataset must match the filename of your `.rds` and `.json` files (e.g., Lexique383, Lexique383.json, Lexique383.rds). If this is not the case, you may add in `ex_filenames_ds` the correspondence between your dataset id and a vector containing your `.json` and `.rds` files in that order (e.g., 'Manulex-Lemmes' = c('Manulex', 'Manulex-Lemmes')).
 
 2. Connect to the lexique server by ssh and run:
 
