@@ -5,7 +5,7 @@ The procedure, in brief, is the following:
 1. add the table(s) of the datasets on some server on the internet, preferably in `.tsv` (text with tab separated columns) and `.rds` (R binary) formats. Other formats are ok, but `.rds` is needed if you intend to make it accessible by the [R data fetcher](https://github.com/chrplr/openlexicon/blob/master/datasets-info/fetch_datasets.R).  Note that the files must be directly accessible with  URLs.
 2. create a [`.json` file](_json/README_json.md) describing the datasets , and do a pull request on http://github.com/chrplr/openlexicon to have it added to the `datasets-info/_json`.
 3. (optional) To make the dataset easily accessible from R, update the R data fetcher at  https://github.com/chrplr/openlexicon/blob/master/datasets-info/fetch_datasets.R (again using a pull request)
-4. (optional) To make the dataset visible on the interactive page http://www.lexique.org/shiny/openlexicon , you must update https://github.com/chrplr/openlexicon/blob/master/apps/openlexicon/app.R  so that the table is loaded by the app (again using a pull request)
+4. (optional) To make the dataset visible on the interactive page http://www.lexique.org/shiny/openlexicon , you must update https://github.com/chrplr/openlexicon/blob/master/apps/openlexicon/www/data/loadingDatasets.R  so that the table is loaded by the app (again using a pull request)
 
 Here are more detailed explanations:
 
@@ -107,8 +107,8 @@ For example:
 
 To make the database accessible in openlexicon:
 
-1. Modify the [openlexicon app](http://github.com/chrplr/openlexicon/app.R) that will use this database (issue a pull request).
-More specifically, update the [loadingDatasets.R file](http://github.com/chrplr/openlexicon/www/data/loadingDatasets.R) by adding your dataset id to the vector `dataset_ids`.
+1. Modify the openlexicon app that will use this database (issue a pull request).
+More specifically, update the [loadingDatasets.R file](https://github.com/chrplr/openlexicon/blob/master/apps/openlexicon/www/data/loadingDatasets.R) by adding your dataset id to the vector `dataset_ids`.
 **Note**: ideally, the id of your dataset must match the filename of your `.rds` and `.json` files (e.g., Lexique383, Lexique383.json, Lexique383.rds). If this is not the case, you may add in `ex_filenames_ds` the correspondence between your dataset id and a vector containing your `.json` and `.rds` files in that order (e.g., 'Manulex-Lemmes' = c('Manulex', 'Manulex-Lemmes')).
 
 2. Connect to the lexique server by ssh and run:
