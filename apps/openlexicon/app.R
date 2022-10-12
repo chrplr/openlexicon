@@ -20,12 +20,42 @@ source('../../datasets-info/fetch_datasets.R')
 source('www/data/loadingDatasets.R')
 source('www/data/uiElements.R')
 
+js <- "
+$(document).on('shiny:busy', function(event) {
+  // we need to define inputs each time function is called because on first call not all elements are present on page, so inputs variable would not contain all elements
+  var $inputs = $('button,input,textarea,dropdown');
+  var $buttons = $('.dropdown.bootstrap-select.form-control');
+  $buttons.each(function(){
+    $(this).removeClass('open');
+  })
+  $inputs.prop('disabled', true);
+});
+
+// Enable back interface when shiny is idle.
+$(document).on('shiny:idle', function() {
+  var $inputs = $('button,input,textarea,dropdown');
+  $inputs.prop('disabled', false);
+});
+"
+
 #### UI ####
 ui <- fluidPage(
+# Spinner showing during computing time
+  add_busy_spinner(
+    spin = "double-bounce",
+    color = "#112446",
+    timeout = 100,
+    position = "bottom-right",
+    onstart = TRUE,
+    margins = c(10, 10),
+    height = "50px",
+    width = "50px"
+    ),
   tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
   tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
 
-  tags$head(tags$style(HTML('
+  tags$head(tags$script(HTML(js)),
+  tags$style(HTML('
   #tree-search-input{
     border-bottom-left-radius:0px;
     border-bottom-right-radius:0px;
@@ -52,10 +82,7 @@ ui <- fluidPage(
                         uiOutput("consigne"),
                         uiOutput("shinyTreeTest"),
                         br(),
-                        uiOutput("outdatabases")%>% withSpinner(type=3,
-                                                                color.background="#ffffff",
-                                                                hide.element.when.recalculating = FALSE,
-                                                                proxy.height = 0),
+                        uiOutput("outdatabases"),
                         br(),
            width=4#, style = "position:fixed;width:inherit;"
         ),
@@ -100,13 +127,15 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn, {
-    toggle("helper_box", anim = TRUE, animType = "slide")
-
     if (v$button_helperalert == btn_show_helper){
       v$button_helperalert = btn_hide_helper
     }else{
       v$button_helperalert = btn_show_helper
     }
+  })
+
+  observe({
+    shinyjs::toggle("helper_box", anim = TRUE, animType = "slide", condition = grepl(btn_hide_helper, v$button_helperalert))
   })
 
   #### Render column filter ####
@@ -175,19 +204,20 @@ server <- function(input, output, session) {
     if (v$language_selected != "\n") {
       actionButton("btn_listsearch", v$button_listsearch)
     }else if (grepl(btn_hide_name, v$button_listsearch)){
-      toggle("mots", anim = TRUE, animType = "slide")
       v$button_listsearch = btn_show_name
     }
   })
 
   observeEvent(input$btn_listsearch, {
-    toggle("mots", anim = TRUE, animType = "slide")
-
     if (grepl(btn_show_name, v$button_listsearch)){
       v$button_listsearch = btn_hide_name
     }else{
       v$button_listsearch = btn_show_name
     }
+  })
+
+  observe({
+    shinyjs::toggle("mots", anim = TRUE, animType = "slide", condition = grepl(btn_hide_name, v$button_listsearch))
   })
 
   # Transform list search input
@@ -210,9 +240,16 @@ server <- function(input, output, session) {
   #### Select a language ####
 
   output$outlang <- renderUI({
-    selectInput("language", "Choose a language",
+    div(
+      h5(tags$b("Choose a language")),
+      pickerInput(inputId = "language",
                 choices = language_choices,
-                selected = v$language_selected)
+                selected = v$language_selected,
+                options = pickerOptions(
+                  dropupAuto = FALSE
+                )
+              )
+      )
   })
 
   #### Show databases filter ####
