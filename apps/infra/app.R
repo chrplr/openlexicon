@@ -32,17 +32,6 @@ $(document).on('shiny:idle', function() {
 
 #### Script begins ####
 ui <- fluidPage(
-    # Spinner showing during computing time
-    add_busy_spinner(
-      spin = "double-bounce",
-      color = "#112446",
-      timeout = 100,
-      position = "bottom-right",
-      onstart = TRUE,
-      margins = c(10, 10),
-      height = "50px",
-      width = "50px"
-      ),
     tags$head(
       # Qtips
       tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
@@ -228,9 +217,13 @@ server <- function(input, output, session) {
         words_list <- words_list()
         if (!is.null(words_list)){
             final_dt <- data.frame()
+            count = 0
 
             # Get words
+            withProgress(message = "Building table", value = 0, {
             for (word in words_list){
+                count = count + 1
+                incProgress(1/length(words_list), detail = paste0("Word ", count, "/", length(words_list)))
                 word <- tolower(word)
                 # If elt is word, we get it in the word_frequency dt
                 if (is.element(word,unlist(whole_dt[[join_column]]))){
@@ -326,6 +319,7 @@ server <- function(input, output, session) {
                 }
                 final_dt <- rbind(final_dt, new_line)
             }
+            })
 
             final_dt
             }
