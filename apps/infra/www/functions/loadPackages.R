@@ -26,16 +26,15 @@ usePackageGit("shinycssloaders", "jbourgin/shinycssloaders") #https://github.com
 usePackage("rvest") # To repair encoding
 usePackage("shinyalert")
 usePackage("tippy")
+usePackage("vwr")
 usePackageGit("shinyTree", "shinyTree/shinyTree")
 usePackage("comprehenr") #list comprehension
+usePackage("rlist") # for list.append
+usePackage("shinyBS") # for bs button
 
 # usePackage("stringi")
-# usePackage("shinyBS")
 # usePackage("DT")
 # usePackage("stringr")
-# usePackage("shinyWidgets")
 # usePackage("data.table")
-# usePackage("rlist")
+# usePackage("shinyWidgets")
 # usePackage("RCurl") #To test if string is url
-# usePackageGit("tippy", "JohnCoene/tippy")
-# usePackageGit("shinyTree", "shinyTree/shinyTree")

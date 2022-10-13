@@ -5,7 +5,7 @@ join_column = "Word"
 
 # Les datasets-id sont les noms des json
 # Pb avec anagrammes
-dataset_ids <- c('Lexique-Infra-bigrammes','Lexique-Infra-trigrammes','Lexique-Infra-lettres','Lexique-Infra-word_frequency')
+dataset_ids <- c('Lexique383','Lexique-Infra-bigrammes','Lexique-Infra-trigrammes','Lexique-Infra-lettres','Lexique-Infra-word_frequency')
 
 datasets <- list()
 
@@ -74,3 +74,29 @@ for (ds in names(datasets)) {
     }
   }
 }
+
+# Get whole databases, this is done only one time, when launching app. Then these variables are accessible to all users.
+types_list <- c("let", "bigr", "trigr")
+subtypes_list <- c("Ty", "To")
+dt_info <- list()
+dt_info[[types_list[[1]]]] <- dictionary_databases[['Lexique-Infra-lettres']][['dstable']]
+dt_info[[types_list[[2]]]] <- dictionary_databases[['Lexique-Infra-bigrammes']][['dstable']]
+dt_info[[types_list[[3]]]] <- dictionary_databases[['Lexique-Infra-trigrammes']][['dstable']]
+whole_dt <- dictionary_databases[['Lexique-Infra-word_frequency']][['dstable']]
+# Add TypItem column in second position
+whole_dt[[type_column]] <- NA
+whole_dt<-whole_dt[,c(1,ncol(whole_dt), 3:ncol(whole_dt)-1)]
+
+hamming_distance_opt <- "Hamming Distance"
+hamming_position <- 3
+
+initialCols <- colnames(whole_dt)[colnames(whole_dt) != join_column]
+initialSelectedCols <- list()
+initialColTooltips <- list()
+for (elt in colnames(whole_dt)){
+  if (elt != join_column){
+    initialSelectedCols[[elt]] <- elt
+  }
+  initialColTooltips[[elt]] <- dictionary_databases[["Lexique-Infra-word_frequency"]][["colnames_dataset"]][[elt]]
+}
+initialColTooltips[[hamming_distance_opt]] <- hamming_distance_opt

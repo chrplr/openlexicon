@@ -8,6 +8,7 @@ source('www/functions/loadPackages.R')
 source('www/functions/qTips.R')
 source('www/functions/customDropdownButton.R')
 source('www/functions/updateFromTree.R')
+source('www/functions/customCheckboxGroup.R')
 
 # Loading datasets and UI
 source('../../datasets-info/fetch_datasets.R')
@@ -17,9 +18,12 @@ source('www/data/uiElements.R')
 
 #### Script begins ####
 ui <- fluidPage(
-    # Qtips
-    tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
-    tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
+    tags$head(
+      # Qtips
+      tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
+      tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
+      tags$link(rel = "stylesheet", type = "text/css", href = "styles/main.css"),
+    ),
 
   useShinyjs(),
   useShinyalert(),
@@ -39,6 +43,7 @@ ui <- fluidPage(
       uiOutput("consigne"),
       uiOutput("shinyTreeCol"),
       br(),
+      uiOutput("outOptions"),
       div(style="text-align:center;",actionButton("go", go_btn)),
       width=4
     ),
@@ -64,10 +69,10 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   v <- reactiveValues(
     button_helperalert = btn_hide_helper,
-    needTreeRender = FALSE,
-    cols = list(),
-    selected_columns = list(),
-    go_clicked = FALSE)
+    cols = initialCols,
+    selected_columns = initialSelectedCols,
+    go_clicked = FALSE,
+    optionsSelected = c())
 
     #### Toggle helper_alert ####
 
@@ -91,9 +96,19 @@ server <- function(input, output, session) {
 
     words_list <- eventReactive(input$go,
     {
+        ## Add/remove hamming distance element in selected columns if needed. We do it there since we need to add it only if user clicks the go button and chose this option (we assume they want the column displayed in this case) and if we update selected_columns value in renderDT, it leads to a circular phenomenon.
+        if (hamming_distance_opt %in% input$optionsGroup && !(hamming_distance_opt %in% names(v$selected_columns))){
+          v$selected_columns[[hamming_distance_opt]] <- hamming_distance_opt
+          # Reorder names in selected_columns so the columns are shown in the right order
+          new_order <- c(names(v$selected_columns)[1:(max(1, hamming_position-2))], names(v$selected_columns)[length(names(v$selected_columns))], names(v$selected_columns)[(hamming_position-1):(length(names(v$selected_columns))-1)])
+          v$selected_columns <- v$selected_columns[new_order]
+        }else if (!(hamming_distance_opt %in% input$optionsGroup) && hamming_distance_opt %in% names(v$selected_columns)){
+          v$selected_columns[[hamming_distance_opt]] <- NULL
+        }
         if (v$go_clicked == FALSE){
           v$go_clicked = TRUE
         }
+        v$optionsSelected <- input$optionsGroup
         words <- strsplit(input$mots,"[ \n\t]")[[1]]
         # Keep only words with at least one character (removes empty rows)
         words <- str_subset(words, ".+")
@@ -128,30 +143,51 @@ server <- function(input, output, session) {
     })
 
     output$tree <- renderTree({
-      if (v$needTreeRender == TRUE){
-        finaltree <- list()
-        starting = 1
+      finaltree <- list()
+      starting = 1
 
-        for (col in v$cols){
-            finaltree[[col]] = toString(starting)
-            starting = starting + 1
-            if (col %in% v$selected_columns){
-              attr(finaltree[[col]],"stselected")=TRUE
-            }
-        }
-
-        v$needTreeRender <- FALSE
-        finaltree
+      for (col in v$cols){
+          finaltree[[col]] = toString(starting)
+          starting = starting + 1
+          if (col %in% v$selected_columns){
+            attr(finaltree[[col]],"stselected")=TRUE
+          }
       }
+
+      finaltree
     })
 
     observeEvent(input$tree, {
-      output <- updateColFromTree(input$tree, dictionary_databases)
-      v$selected_columns <- output[[1]]
-      v$col_tooltips <- output[[2]]
+      v$selected_columns <- updateColFromTree(input$tree, dictionary_databases)
     })
 
+    #### Computation options ####
+
+    output$outOptions <- renderUI({
+      tooltips <- list()
+      tooltipContent <- c(hamming_tooltip)
+      optionList <- c(hamming_distance_opt)
+      for (i in 1:length(optionList)){
+        tooltips <- list.append(tooltips,
+        tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
+                  interactive = TRUE,
+                  trigger="click",
+                  theme = 'light',
+                  tooltip = tooltipContent[i]))
+      }
+      div(
+        h5(tags$b("Options"), id="optionsTitle"),
+        extendedCheckboxGroup("optionsGroup", label = "",
+                              choiceNames  = optionList,
+                              choiceValues = optionList,
+                              extensions = tooltips
+                              )
+        )
+    })
+
+
     #### Handle go btn ####
+
     observeEvent(input$mots, {
       if (trimws(input$mots) == ""){
         shinyjs::disable("go")
@@ -166,17 +202,6 @@ server <- function(input, output, session) {
         words_list <- words_list()
         if (!is.null(words_list)){
             final_dt <- data.frame()
-            # Get whole databases
-            types_list <- c("let", "bigr", "trigr")
-            subtypes_list <- c("Ty", "To")
-            dt_info <- list()
-            dt_info[[types_list[[1]]]] <- dictionary_databases[['Lexique-Infra-lettres']][['dstable']]
-            dt_info[[types_list[[2]]]] <- dictionary_databases[['Lexique-Infra-bigrammes']][['dstable']]
-            dt_info[[types_list[[3]]]] <- dictionary_databases[['Lexique-Infra-trigrammes']][['dstable']]
-            whole_dt <- dictionary_databases[['Lexique-Infra-word_frequency']][['dstable']]
-            # Add TypItem column in second position
-            whole_dt[[type_column]] <- NA
-            whole_dt<-whole_dt[,c(1,ncol(whole_dt), 3:ncol(whole_dt)-1)]
 
             # Get words
             for (word in words_list){
@@ -256,75 +281,84 @@ server <- function(input, output, session) {
                     for (i in 19:34){
                         new_line[1,i] <- ""
                     }
-                    colnames(new_line) <- colnames(whole_dt)
+                }
+                # Disabled by default because slow. WARNING : since retable is reactive, using input$optionsGroup here and checking/unchecking hamming distance would directly update the table if there was already one drawn. So we use an intermediate variable v$optionsSelected that we update when pushing go button.
+                if (hamming_distance_opt %in% v$optionsSelected){
+                  if (is_word == TRUE){
+                    distance <- vwr::hamming.distance(word, dictionary_databases[['Lexique383']][['dstable']][dictionary_databases[['Lexique383']][['dstable']][["nblettres"]] == nchar(word),][['Word']])
+                    original_ncol <- ncol(new_line)
+                    for (new_row in 1:nrow(new_line)){
+                      new_line[new_row,original_ncol+1] <- length(names(distance[distance==1]))
+                    }
+                  }else{
+                    new_line[1,ncol(new_line)+1] <- "NA"
+                  }
+                  new_line<-new_line[,c(1,2,ncol(new_line), 4:ncol(new_line)-1)]
+                  colnames(new_line) <- c(colnames(whole_dt)[1:hamming_position-1], hamming_distance_opt, colnames(whole_dt)[hamming_position:ncol(whole_dt)])
+                }else{
+                  colnames(new_line) <- colnames(whole_dt)
                 }
                 final_dt <- rbind(final_dt, new_line)
             }
 
-            # Rename word column
-            if (nrow(final_dt) > 0){
-                colnames(final_dt)[colnames(final_dt) == join_column] <- join_column_alt
-                v$cols <- colnames(final_dt)[colnames(final_dt) != join_column_alt]
+            final_dt
             }
-
-            # return datatable
-            # if first time showing table, we need to initialize selected_columns and col_tooltips
-            if (length(v$selected_columns) == 0){
-              for (elt in colnames(final_dt)){
-                if (elt != join_column_alt){
-                  v$selected_columns[[elt]] <- elt
-                }
-                v$col_tooltips[[elt]] <- dictionary_databases[["Lexique-Infra-word_frequency"]][["colnames_dataset"]][[elt]]
-              }
-              v$needTreeRender = TRUE
-            }
-            final_dt[,c(join_column_alt, to_vec(for (col in names(v$selected_columns)) v$selected_columns[[col]])), drop=FALSE]
-        }
         })
 
     output$infra = renderDT({
-        if (!is.null(words_list()) & nrow(retable() > 0)){
+        if (!is.null(words_list())){
+            # We do this retable step independently from column filter below, to avoid recall of retable every time we filter columns
             dat <- retable()
 
-            # adding tooltips for column names
-            col_tooltips <- c()
+            # Rename word column
+            if (nrow(dat) > 0){
+              colnames(dat)[colnames(dat) == join_column] <- join_column_alt
+              v$cols <- colnames(dat)[colnames(dat) != join_column_alt]
 
-            for (elt in colnames(dat)){
-              col_tooltips <- c(col_tooltips, v$col_tooltips[[elt]])
+              # return datatable
+              dat <- dat[,c(join_column_alt, to_vec(for (col in names(v$selected_columns)) v$selected_columns[[col]])), drop=FALSE]
+
+              # adding tooltips for column names
+              col_tooltips <- c()
+
+              for (elt in colnames(dat)){
+                col_tooltips <- c(col_tooltips, initialColTooltips[[elt]])
+              }
+
+              headerCallback <- c(
+                "function(thead, data, start, end, display){",
+                qTips(col_tooltips),
+                "  for(var i = 1; i <= tooltips.length; i++){",
+                "if(tooltips[i-1]['content']['text'].length > 0){",
+                "      $('th:eq('+i+')',thead).qtip(tooltips[i-1]);",
+                "    }",
+                "  }",
+                "}"
+              )
+
+              datatable(dat,
+                        escape = FALSE, selection = 'none',
+                        filter=list(position = 'top', clear = FALSE),
+                        rownames= FALSE, #extensions = 'Buttons',
+                        width = 200,
+                        options=list(headerCallback = JS(headerCallback),
+                                     pageLength=20,
+                                     columnDefs = list(list(className = 'dt-center', targets = "_all")),
+                                     sDom  = '<"top">lrt<"bottom">ip',
+
+                                     lengthMenu = c(20,100, 500, 1000),
+                                     search=list(searching = TRUE,
+                                                 regex=TRUE,
+                                                 caseInsensitive = FALSE)
+                         ))
             }
-
-            headerCallback <- c(
-              "function(thead, data, start, end, display){",
-              qTips(col_tooltips),
-              "  for(var i = 1; i <= tooltips.length; i++){",
-              "if(tooltips[i-1]['content']['text'].length > 0){",
-              "      $('th:eq('+i+')',thead).qtip(tooltips[i-1]);",
-              "    }",
-              "  }",
-              "}"
-            )
-
-            datatable(dat,
-                      escape = FALSE, selection = 'none',
-                      filter=list(position = 'top', clear = FALSE),
-                      rownames= FALSE, #extensions = 'Buttons',
-                      width = 200,
-                      options=list(headerCallback = JS(headerCallback),
-                                   pageLength=20,
-                                   columnDefs = list(list(className = 'dt-center', targets = "_all")),
-                                   sDom  = '<"top">lrt<"bottom">ip',
-
-                                   lengthMenu = c(20,100, 500, 1000),
-                                   search=list(searching = TRUE,
-                                               regex=TRUE,
-                                               caseInsensitive = FALSE)
-                       ))}
+        }
     }, server = TRUE)
 
     #### Download options ####
 
     output$outdownload <- renderUI({
-        if (!is.null(words_list()) & nrow(retable() > 0)){
+        if (!is.null(words_list()) && nrow(retable()) > 0){
             downloadButton('download.xlsx', label="Download infra query")
         }
     })
@@ -337,8 +371,12 @@ server <- function(input, output, session) {
               ".xlsx", sep="")
       },
       content = function(fname) {
-        dt = retable()[input[["infra_rows_all"]], ]
-        write_xlsx(dt, fname)
+        dat <- retable()[input[["infra_rows_all"]], ]
+        colnames(dat)[colnames(dat) == join_column] <- join_column_alt
+
+        # return datatable
+        dat <- dat[,c(join_column_alt, to_vec(for (col in names(v$selected_columns)) v$selected_columns[[col]])), drop=FALSE]
+        write_xlsx(dat, fname)
       })
 }
 
