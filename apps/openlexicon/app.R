@@ -23,7 +23,8 @@ source('www/data/uiElements.R')
 js <- "
 $(document).on('shiny:busy', function(event) {
   // we need to define inputs each time function is called because on first call not all elements are present on page, so inputs variable would not contain all elements
-  var $inputs = $('button,input,textarea,dropdown');
+  // we do not disable textarea (words list search) since database is updated constantly when entering words in this area (so we lose focus all the time)
+  var $inputs = $('button,input,dropdown');
   var $buttons = $('.dropdown.bootstrap-select.form-control');
   $buttons.each(function(){
     $(this).removeClass('open');
@@ -33,7 +34,7 @@ $(document).on('shiny:busy', function(event) {
 
 // Enable back interface when shiny is idle.
 $(document).on('shiny:idle', function() {
-  var $inputs = $('button,input,textarea,dropdown');
+  var $inputs = $('button,input,dropdown');
   $inputs.prop('disabled', false);
 });
 "
@@ -75,10 +76,16 @@ ui <- fluidPage(
                         uiOutput("outlang"),
                         uiOutput("outbtnlistsearch"),
                         br(),
-                        hidden(textAreaInput("mots",
-                                             label = h5(strong("Words to search")),
-                                             rows = 10,
-                                             resize = "none")),
+                        hidden(
+                        div(
+                          id="divMots",
+                          h5(strong("Words to search")),
+                          helpText(paste0("Please separate your words with a line break.")),
+                          textAreaInput("mots",
+                                 label = NULL,
+                                 rows = 10,
+                                 resize = "none")
+                        )),
                         uiOutput("consigne"),
                         uiOutput("shinyTreeTest"),
                         br(),
@@ -217,7 +224,7 @@ server <- function(input, output, session) {
   })
 
   observe({
-    shinyjs::toggle("mots", anim = TRUE, animType = "slide", condition = grepl(btn_hide_name, v$button_listsearch))
+    shinyjs::toggle("divMots", anim = TRUE, animType = "slide", condition = grepl(btn_hide_name, v$button_listsearch))
   })
 
   # Transform list search input
@@ -231,9 +238,9 @@ server <- function(input, output, session) {
         current_words <- str_remove_all(current_words, expression)
         expressions[expression_num] <- str_remove_all(expression, "\"")
       }
-      c(expressions, strsplit(current_words,"[ \n\t]")[[1]])
+      c(expressions, strsplit(current_words,"[\n]")[[1]])
     }else{
-      strsplit(current_words,"[ \n\t]")[[1]]
+      strsplit(current_words,"[\n]")[[1]]
     }
     } )
 
