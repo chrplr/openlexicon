@@ -75,6 +75,8 @@ for (ds in names(datasets)) {
   }
 }
 
+type_column = "TypeItem"
+
 # Get whole databases, this is done only one time, when launching app. Then these variables are accessible to all users.
 types_list <- c("let", "bigr", "trigr")
 subtypes_list <- c("Ty", "To")

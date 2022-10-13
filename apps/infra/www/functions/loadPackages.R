@@ -24,13 +24,13 @@ usePackage("shinyjs")
 usePackage("shinyalert")
 usePackageGit("shinycssloaders", "jbourgin/shinycssloaders") #https://github.com/daattali/shinycssloaders/issues/22
 usePackage("rvest") # To repair encoding
-usePackage("shinyalert")
 usePackage("tippy")
 usePackage("vwr")
 usePackageGit("shinyTree", "shinyTree/shinyTree")
 usePackage("comprehenr") #list comprehension
 usePackage("rlist") # for list.append
 usePackage("shinyBS") # for bs button
+usePackage("shinybusy") # load icon on full page
 
 # usePackage("stringi")
 # usePackage("DT")

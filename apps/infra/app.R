@@ -16,11 +16,37 @@ source('www/data/loadingDatasets.R')
 
 source('www/data/uiElements.R')
 
+js <- "
+$(document).on('shiny:busy', function(event) {
+  // we need to define inputs each time function is called because on first call not all elements are present on page, so inputs variable would not contain all elements
+  var $inputs = $('button,input,textarea,dropdown');
+  $inputs.prop('disabled', true);
+});
+
+// Enable back interface when shiny is idle.
+$(document).on('shiny:idle', function() {
+  var $inputs = $('button,input,textarea,dropdown');
+  $inputs.prop('disabled', false);
+});
+"
+
 #### Script begins ####
 ui <- fluidPage(
+    # Spinner showing during computing time
+    add_busy_spinner(
+      spin = "double-bounce",
+      color = "#112446",
+      timeout = 100,
+      position = "bottom-right",
+      onstart = TRUE,
+      margins = c(10, 10),
+      height = "50px",
+      width = "50px"
+      ),
     tags$head(
       # Qtips
       tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
+      tags$script(HTML(js)),
       tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
       tags$link(rel = "stylesheet", type = "text/css", href = "styles/main.css"),
     ),
