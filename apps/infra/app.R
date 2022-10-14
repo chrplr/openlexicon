@@ -217,13 +217,13 @@ server <- function(input, output, session) {
         words_list <- words_list()
         if (!is.null(words_list)){
             final_dt <- data.frame()
-            count = 0
+            inc_count = 0
 
             # Get words
             withProgress(message = "Building table", value = 0, {
             for (word in words_list){
-                count = count + 1
-                incProgress(1/length(words_list), detail = paste0("Word ", count, "/", length(words_list)))
+                inc_count = inc_count + 1
+                incProgress(1/length(words_list), detail = paste0("Word ", inc_count, "/", length(words_list)))
                 word <- tolower(word)
                 # If elt is word, we get it in the word_frequency dt
                 if (is.element(word,unlist(whole_dt[[join_column]]))){
