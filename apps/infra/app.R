@@ -48,6 +48,7 @@ ui <- fluidPage(
 
   sidebarLayout(
     sidebarPanel(
+      id="sidebarPanel",
       uiOutput("helper_alert"),
       br(),
       helper_alert,
@@ -60,9 +61,10 @@ ui <- fluidPage(
       br(),
       uiOutput("outOptions"),
       div(style="text-align:center;",actionButton("go", go_btn)),
-      width=4
+      width=3
     ),
   mainPanel(
+      id="mainPanel",
       fluidRow(tags$style(HTML("
                       thead:first-child > tr:first-child > th {
                           border-top: 0;
@@ -77,7 +79,8 @@ ui <- fluidPage(
                             proxy.height = 0),
         uiOutput("outdownload"),
         br()
-      ))
+      ),
+      width=9)
     )
 )
 
@@ -363,9 +366,9 @@ server <- function(input, output, session) {
                         width = 200,
                         options=list(headerCallback = JS(headerCallback),
                                      pageLength=20,
+                                     scrollX=TRUE,
                                      columnDefs = list(list(className = 'dt-center', targets = "_all")),
                                      sDom  = '<"top">lrt<"bottom">ip',
-
                                      lengthMenu = c(20,100, 500, 1000),
                                      search=list(searching = TRUE,
                                                  regex=TRUE,

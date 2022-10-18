@@ -5,3 +5,17 @@
 .row {
     margin-bottom:2em;
 }
+
+@media (min-width: 767px) and (max-width: 1279px) {
+  .col-sm-3 {
+    width:40% !important;
+  }
+
+  #mainPanel {
+    width: 60% !important;
+  }
+}
+
+td {
+  min-width:120px;
+}

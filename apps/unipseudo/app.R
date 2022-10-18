@@ -68,6 +68,7 @@ ui <- fluidPage(
 
   sidebarLayout(
     sidebarPanel(
+      id="sidebarPanel",
       # uiOutput("helper_alert"),
       # br(),
       # helper_alert,
@@ -94,9 +95,11 @@ ui <- fluidPage(
       div(uiOutput("oNbpseudos")),
       div(style="text-align:center;",actionButton("go", go_btn)),
       uiOutput("oInfoGeneration"),
-      width=4
+      width=3
     ),
   mainPanel(
+    id="mainPanel",
+    width=9,
     tabsetPanel(type = "tabs",
       tabPanel(tab1,
         (fluidRow(tags$style(HTML("
@@ -414,7 +417,6 @@ server <- function(input, output, session) {
                                sDom  = '<"top">lrt<"bottom">ip',
                                #sDom  = '<"top">Brt<"bottom">ip',
                                #buttons = list(list(extend = 'colvis', columns = c(1:(ncol(dt)-1)), text = "Words used")),
-
                                lengthMenu = c(20,100, 500, 1000),
                                search=list(searching = TRUE,
                                            regex=TRUE,
@@ -434,6 +436,7 @@ server <- function(input, output, session) {
                   rownames= FALSE,
                   width = 200,
                   options=list(pageLength=20,
+                               scrollX=TRUE,
                                stateSave = TRUE,
                                stateLoadParams = DT::JS("function (settings, data) {return false;}"),
                                columnDefs = list(list(className = 'dt-center', targets = "_all")),

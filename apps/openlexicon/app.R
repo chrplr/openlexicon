@@ -55,7 +55,9 @@ ui <- fluidPage(
   tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
   tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
 
-  tags$head(tags$script(HTML(js)),
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "styles/main.css"),
+    tags$script(HTML(js)),
   tags$style(HTML('
   #tree-search-input{
     border-bottom-left-radius:0px;
@@ -70,6 +72,7 @@ ui <- fluidPage(
 
     sidebarLayout(
         sidebarPanel(
+                        id="sidebarPanel",
                         uiOutput("helper_alert"),
                         br(),
                         helper_alert,
@@ -91,9 +94,10 @@ ui <- fluidPage(
                         br(),
                         uiOutput("outdatabases"),
                         br(),
-           width=4#, style = "position:fixed;width:inherit;"
+           width=3#, style = "position:fixed;width:inherit;"
         ),
             mainPanel(
+              id="mainPanel",
               fluidRow(tags$style(HTML("
                   thead:first-child > tr:first-child > th {
                       border-top: 0;
@@ -105,7 +109,8 @@ ui <- fluidPage(
                                                             color.background="#ffffff",
                                                             hide.element.when.recalculating = FALSE,
                                                             proxy.height = 0)),
-              uiOutput("outdownload")
+              uiOutput("outdownload"),
+              width=9
             )
         )
     )
@@ -443,6 +448,7 @@ server <- function(input, output, session) {
                rownames= FALSE,
                options=list(headerCallback = JS(headerCallback),
                             pageLength=20,
+                            scrollX=TRUE,
                             columnDefs = list(list(className = 'dt-center', targets = "_all")),
                             sDom  = '<"top">lrt<"bottom">ip',
                             lengthMenu = c(20,100, 500, 1000),
