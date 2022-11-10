@@ -78,12 +78,14 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
 
   count_key = 0
   count_char = 0
-  # Create dictionaries of substrings (trigrams or bigrams) and of wordsindex (to get models from which we select characters when building pseudowords)
+  # Create dictionaries of substrings (trigrams or bigrams), of wordsindex (to get models from which we select characters when building pseudowords) and of frequencies (to select grams according to their frequency in the input set)
   substrings <- list()
   wordsindex <- list()
+  frequencies <- list()
   for (step in 1:(len-len_substring)){
     substrings[[step]] <- list()
     wordsindex[[step]] <- list()
+    frequencies[[step]] <- list()
   }
   for (model_num in 1:length(models)){
     model <- models[[model_num]]
@@ -96,17 +98,28 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
       if (!(curSubstr %in% names(substrings[[dict_index]]))){
         substrings[[dict_index]][[curSubstr]] <- c()
         wordsindex[[dict_index]][[curSubstr]] <- c()
+        frequencies[[dict_index]][[curSubstr]] <- list()
+        frequencies[[dict_index]][[curSubstr]][["individual"]] <- c() # to count all iterations for each curSubstr/nextchar association
+        frequencies[[dict_index]][[curSubstr]][["all"]] <- 0 # to count all times curSubstr is encountered
         count_key = count_key+1
       }
       # Add char to vector if not already assigned to this substring at this step (dict_index). Also assign model index to wordsindex.
       if (!(nextChar %in% substrings[[dict_index]][[curSubstr]])){
+        # Add nextChar in the vector
         substrings[[dict_index]][[curSubstr]] <- c(substrings[[dict_index]][[curSubstr]], nextChar)
+        # Add model_num in the vector
         wordsindex[[dict_index]][[curSubstr]] <- c(wordsindex[[dict_index]][[curSubstr]], as.character(model_num)) # If new entry, store model index as character
+        # Initialize frequencies for this CurSubstr/nextChar association
+        frequencies[[dict_index]][[curSubstr]][["individual"]] <- c(frequencies[[dict_index]][[curSubstr]][["individual"]], 1)
         count_char = count_char+1
       }else{ # If not new entry, concatenate previous model nums and new model num as a string with elements separated with comma
         index_char <- which(substrings[[dict_index]][[curSubstr]] == nextChar)[[1]] # get index char from substrings dict (since index_char is unique in substrings[[dict_index]][[curSubstr]] due to test above)
+        # add model_num at correct position in the wordsindex vector. The vector is like c("1,6", "2,3,4", "5,7"). So if we add for instance 8 to position 3, it will be c("1,6", "2,3,4", "5,7,8")
         wordsindex[[dict_index]][[curSubstr]][[index_char]] <- paste(c(wordsindex[[dict_index]][[curSubstr]][[index_char]], model_num), collapse=",")
+        # increment at correct position in the frequencies vector. The vector is like c(1, 1, 4). So if we increment in position 2, it will be c(1, 2, 4).
+        frequencies[[dict_index]][[curSubstr]][["individual"]][[index_char]] <- frequencies[[dict_index]][[curSubstr]][["individual"]][[index_char]] + 1
       }
+      frequencies[[dict_index]][[curSubstr]][["all"]] <- frequencies[[dict_index]][[curSubstr]][["all"]] + 1
     }
   }
 
@@ -141,12 +154,22 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
     }
     # Vector from which to choose next characters
     current_vec <- substrings[[step]][[last_letters]]
-    random_int <- sample(1:length(current_vec), 1)
+    #random_int <- sample(1:length(current_vec), 1)
+    # select a random int between 1 and all iterations for this curString (last_letters)
+    random_int <- sample(1:frequencies[[step]][[last_letters]][["all"]],1)
+    count_frequency <- 0
+    # search the nextchar with frequency corresponding to random int selected. For instance if we got random int 112. We cumulate frequencies starting from first nextchar until we get a frequency >= our random int. E.g., first is 72, second is 40, so the good nextchar is the second one.
+    for (num_nextChar in 1:length(frequencies[[step]][[last_letters]][["individual"]])){
+      count_frequency <- count_frequency + frequencies[[step]][[last_letters]][["individual"]][[num_nextChar]]
+      if (count_frequency >= random_int){
+        break
+      }
+    }
     # Recursive call
     # Select a random model from models that gave this gram in wordsindex, to show in pseudowords with details
-    model_index <- as.integer(sample(strsplit(wordsindex[[step]][[last_letters]][[random_int]], ",")[[1]], 1))
+    model_index <- as.integer(sample(strsplit(wordsindex[[step]][[last_letters]][[num_nextChar]], ",")[[1]], 1))
     return(build_pseudoword_rec(
-      c(pseudoword_vec, current_vec[[random_int]]),
+      c(pseudoword_vec, current_vec[[num_nextChar]]),
       c(source_vec, models[model_index]),
       step+1
     ))
