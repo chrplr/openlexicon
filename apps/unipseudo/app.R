@@ -7,11 +7,13 @@ rm(list = ls())
 source('www/functions/loadPackages.R')
 source('www/functions/generatePseudo.R')
 source('www/data/uiElements.R')
-source('www/functions/filterFunctions.R')
 
 # Loading datasets and UI
 source('../../datasets-info/fetch_datasets.R')
 source('www/data/loadingDatasets.R')
+
+# Load filter functions at the end for dependencies reasons
+source('www/functions/filterFunctions.R')
 
 # For bug test
 # source('www/functions/test.R')
