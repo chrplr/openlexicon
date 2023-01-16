@@ -34,7 +34,7 @@ get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL){
   return(words[["Word"]])
 }
 
-generate_pseudowords <- function (n, len, models, len_grams, language, exclude=NULL, time.out=500, testing=FALSE)
+generate_pseudowords <- function (n, len, models, len_grams, language, input=NULL, exclude=NULL, time.out=500, testing=FALSE)
   # generate pseudowords by chaining trigrams or bigrams
   # n: number of pseudowords to return
   # len: length (nchar) of these pseudoword
@@ -184,6 +184,7 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
   np = 0
   time.out = 500
   start_time <- as.numeric(Sys.time())*1000
+  total_time <- as.numeric(Sys.time())*1000
   while (np < n && (as.numeric(Sys.time())*1000 - start_time) < time.out){
     validWord <- TRUE
     line <- build_pseudoword()
@@ -193,44 +194,24 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
     ###### BEGIN CHECKS ######
     ##########################
 
-    # Check for triple consonants with bigram algo
-    if (len_grams == big_choice && nchar(pseudoword) >= 4 && language %in% latin_languages){
-      # Exclude "nordic" languages, for they love consonants
-      if (!(language %in% c("Danish", "Dutch", "German", "Norwegian", "Swedish", "Welsh"))){
-        # Concatenates current item (pseudoword in formation) and selected compat, and transform all consonants to uppercase character C
-        b <- gsub("[^ɯαÅaáάαăàąǎâäāåãeéėèēεęêëiíίıİīïoóόòơôöºőόõøūuúûůüyýœɔɛə\\'\\.[:space:]-]","C",iconv(tolower(pseudoword), from="UTF-8", to="ASCII//TRANSLIT"))
-        # Remove pseudowords with 4 following consonants
-        if (grepl("CCCC", b, fixed=TRUE)){
-          # print(paste("four consonants", pseudoword))
-          validWord=FALSE
-          next
-        }
-       }
-      }
-
-      # Check we do not have more than 2 times the same consecutive letter for bigram algo
-      wordChars <- strsplit(pseudoword, "")[[1]]
-      if (len_grams == big_choice && length(wordChars) >= 3){
-        for (charCount in 1:(length(wordChars)-2)){
-          char <- tolower(wordChars[charCount])
-          if (char == wordChars[charCount+1] && char == wordChars[charCount+2]){
-            validWord=FALSE
+    if (!is.null(input)){
+      for (filter in filtersList){
+        if (input[[filter[["name"]]]] != default_filter_option){
+          validWord = filter[["checkFunc"]](pseudoword, as.numeric(input[[filter[["name"]]]]))
+          if (!validWord){
             break
           }
         }
-        if (!(validWord)){
-          # print(paste("same letter", pseudoword))
-          next
-        }
       }
+    }
 
-      # Check not duplicate word (validWord check should not be useful)
-      if (isTRUE(validWord) && !(pseudoword %in% c(models, exclude)) && !(paste0(font_first_element, pseudoword, font_second_element) %in% final_list$Pseudoword)) {
-        np = np + 1
-        final_list$Pseudoword[np] = paste0(font_first_element, pseudoword, font_second_element)
-      }else{
-        next
-      }
+    # Check not duplicate word (validWord check should not be useful)
+    if (isTRUE(validWord) && !(pseudoword %in% c(models, exclude)) && !(paste0(font_first_element, pseudoword, font_second_element) %in% final_list$Pseudoword)) {
+      np = np + 1
+      final_list$Pseudoword[np] = paste0(font_first_element, pseudoword, font_second_element)
+    }else{
+      next
+    }
 
     ########################
     ###### END CHECKS ######
@@ -262,6 +243,7 @@ generate_pseudowords <- function (n, len, models, len_grams, language, exclude=N
     # reset timeout
     start_time <- as.numeric(Sys.time())*1000
   }
+  # print(as.numeric(Sys.time())*1000 - total_time)
 
   # Show alert if not enough pseudowords and while broke
   if (np < n){

@@ -7,6 +7,7 @@ rm(list = ls())
 source('www/functions/loadPackages.R')
 source('www/functions/generatePseudo.R')
 source('www/data/uiElements.R')
+source('www/functions/filterFunctions.R')
 
 # Loading datasets and UI
 source('../../datasets-info/fetch_datasets.R')
@@ -92,6 +93,7 @@ ui <- fluidPage(
           uiOutput("outgenerateDB")
       )),
       div(uiOutput("oMots")),
+      div(uiOutput("oFilters")),
       div(uiOutput("oNbpseudos")),
       div(style="text-align:center;",actionButton("go", go_btn)),
       uiOutput("oInfoGeneration"),
@@ -266,6 +268,18 @@ server <- function(input, output, session) {
         v$info_tooltip = info_tooltip
         enable("generateDB")
         show("generateTooltip")
+
+        # Update filters
+        for (filter in filtersList){
+          new_val = default_filter_option
+          for (preset in filter[["preset"]]){
+            if (input$language %in% filter[["preset"]][["languages"]]){
+              new_val = filter[["preset"]][["value"]]
+              break
+            }
+          }
+          updatePickerInput(session, filter[["name"]], selected=new_val)
+        }
       }
     })
 
@@ -311,6 +325,20 @@ server <- function(input, output, session) {
                   label = NULL,
                   rows = 10, value = v$words_to_search, resize = "none")
                 )
+    })
+
+    #### Handle filters ####
+    output$oFilters <- renderUI({
+      div(
+        h5(tags$b(filter_section), tippy(circleButton("oFiltersTooltip", "?", status="info", size="xs"), interactive=TRUE, trigger="click", theme="light", tooltip = input_filter_tooltip)),
+        lapply(1:length(filtersList), function(i) {
+          filterInput(
+            filtersList[[i]][["name"]],
+            filtersList[[i]][["options"]],
+            filtersList[[i]][["pretty_name"]],
+            filtersList[[i]][["tooltip"]]
+          )
+      }))
     })
 
     #### Handle number of pseudowords ####
@@ -391,6 +419,7 @@ server <- function(input, output, session) {
              models=wordsok,
              len_grams=algo,
              language=v$language_selected,
+             input=input,
              exclude = exclude)
        }
     }

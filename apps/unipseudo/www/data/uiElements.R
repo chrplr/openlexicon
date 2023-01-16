@@ -6,6 +6,8 @@ btn_hide_generator_name = tags$b(paste("Hide", generator_name, sep= " "))
 go_btn = tags$b("Go!")
 anim_btn = tags$b("See animation")
 paste_words = "Words to use"
+filter_section = "Constraints"
+default_filter_option = "No constraint"
 font_first_element = "<font color='red'><b>"
 font_second_element = "</b></font>"
 font_previous_letters = "<font color='orange'><b>"
@@ -38,6 +40,14 @@ btn_generator_tooltip = paste("<span",tooltip_style,">Click the", btn_show_gener
 generateDB_neutral, "button to generate a list from an OpenLexicon database (see the tooltip next to the button for more details on the database used).<br>Please note that words selected from Lexique are French words. Words in other languages are selected from WorldLex. <b>Please note that Lexique allows to select the grammatical class, to restrict the type of pseudowords that will be generated to be similar to words of this grammatical class. We will soon propose other customization options.<br>For now, if you want to generate optimal non-french pseudowords, you may paste a custom list which controls parameters of interest (e.g., if you want to generate pseudowords that look alike verbs, paste only verbs in the<b>",paste_words,"section).</span>")
 
 input_mots_tooltip = paste('<span',tooltip_style,'>Paste a custom list with words of the desired pseudowords length. Alternatively, you can click the', btn_show_generator_name, 'button, and generate words from an <b>OpenLexicon</b> database (see above).</span>')
+
+input_filter_tooltip = paste('<span',tooltip_style,'>Options below are constraints that the pseudowords generated will respect. For each language, we add by default the constraints that seem appropriate, but feel free to tweak them. If you want to suggest other constraints to add, please let us know on <a href="https://github.com/chrplr/openlexicon">Github</a>.</span>')
+
+consonant_filter_tooltip = paste('<span',tooltip_style,'>Your pseudowords will not contain more consecutive consonants than the number specified below. We advise to set this constraint to 3 for latin languages.</span>')
+
+same_letter_filter_tooltip = paste('<span',tooltip_style,'>Your pseudowords will not contain the same consecutive letter more than the number specified below. We advise to set this constraint to 2 for all latin languages.</span>')
+
+diacritic_filter_tooltip = paste('<span',tooltip_style,'>Your pseudowords will not contain more diacritical letters than the number specified below. We advise to set this constraint to 1 for Spanish.</span>')
 
 nb_pseudos_tooltip = paste('<span',tooltip_style,'>The more pseudowords you want, the more words you need to provide in the<b>',
 paste_words, '</b>section. A minimum of 100 words for 20 pseudowords is a good basis, unfortunately there is no fixed minimal number of words. You may need to proceed with trial-and-error or use the<b>',
