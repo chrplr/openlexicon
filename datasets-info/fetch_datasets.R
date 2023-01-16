@@ -183,7 +183,7 @@ locations <- list(
     WorldLex_SIN=c("http://www.lexique.org/databases/_json/WorldLex-Sinhala.json", "WorldLex-Sinhala.rds"),
     WorldLex_SK=c("http://www.lexique.org/databases/_json/WorldLex-Slovak.json", "WorldLex-Slovak.rds"),
     WorldLex_SL=c("http://www.lexique.org/databases/_json/WorldLex-Slovenian.json", "WorldLex-Slovenian.rds"),
-    WorldLex_ES_SA=c("http://www.lexique.org/databases/_json/WorldLex-Spanish-South-America.json", "WorldLex-Spanish-South-America.rds"),
+    WorldLex_ES_SA=c("http://www.lexique.org/databases/_json/WorldLex-Spanish-Latin-America.json", "WorldLex-Spanish-Latin-America.rds"),
     WorldLex_ES=c("http://www.lexique.org/databases/_json/WorldLex-Spanish-Spain.json", "WorldLex-Spanish-Spain.rds"),
     WorldLex_SWA=c("http://www.lexique.org/databases/_json/WorldLex-Swahili.json", "WorldLex-Swahili.rds"),
     WorldLex_SWE=c("http://www.lexique.org/databases/_json/WorldLex-Swedish.json", "WorldLex-Swedish.rds"),

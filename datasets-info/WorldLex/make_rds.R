@@ -31,7 +31,7 @@ makeRDS('Cze.Freq.3.Hun.txt.gz', 'WorldLex-Czech.rds')
 makeRDS('De.Freq.3.Hun.txt.gz', 'WorldLex-German.rds')
 makeRDS('DK.Freq.3.Hun.txt.gz', 'WorldLex-Danish.rds')
 makeRDS('Es.Freq.3.Hun.txt.gz', 'WorldLex-Spanish-Spain.rds')
-makeRDS('Es_SA.Freq.3.Hun.txt.gz', 'WorldLex-Spanish-South-America.rds')
+makeRDS('Es_SA.Freq.3.Hun.txt.gz', 'WorldLex-Spanish-Latin-America.rds')
 makeRDS('Est.Freq.3.Hun.txt.gz', 'WorldLex-Estonian.rds')
 makeRDS('Fi.Freq.3.txt.gz', 'WorldLex-Finnish.rds')
 makeRDS('Ge.Freq.2.txt.gz', 'WorldLex-Georgian.rds')
@@ -79,12 +79,3 @@ makeRDS('Uk.Freq.3.Hun.txt.gz', 'WorldLex-Ukrainian.rds')
 makeRDS('Urd.Freq.2.txt.gz', 'WorldLex-Urdu.rds')
 makeRDS('Uz_Latin.Freq.2.txt.gz', 'WorldLex-Uzbek.rds')
 makeRDS('Vie.Freq.3.Hun.txt.gz', 'WorldLex-Vietnamese.rds')
-
-
-
-
-
-
-
-
-

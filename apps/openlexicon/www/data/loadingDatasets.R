@@ -78,7 +78,7 @@ dataset_ids <-
         'WorldLex-Sinhala',
         'WorldLex-Slovak',
         'WorldLex-Slovenian',
-        'WorldLex-Spanish-South-America',
+        'WorldLex-Spanish-Latin-America',
         'WorldLex-Spanish-Spain',
         'WorldLex-Swahili',
         'WorldLex-Swedish',
