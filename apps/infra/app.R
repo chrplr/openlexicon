@@ -306,14 +306,10 @@ server <- function(input, output, session) {
                 }
                 # Disabled by default because slow. WARNING : since retable is reactive, using input$optionsGroup here and checking/unchecking hamming distance would directly update the table if there was already one drawn. So we use an intermediate variable v$optionsSelected that we update when pushing go button.
                 if (hamming_distance_opt %in% v$optionsSelected){
-                  if (is_word == TRUE){
-                    distance <- vwr::hamming.distance(word, dictionary_databases[['Lexique383']][['dstable']][dictionary_databases[['Lexique383']][['dstable']][["nblettres"]] == nchar(word),][['Word']])
-                    original_ncol <- ncol(new_line)
-                    for (new_row in 1:nrow(new_line)){
-                      new_line[new_row,original_ncol+1] <- length(names(distance[distance==1]))
-                    }
-                  }else{
-                    new_line[1,ncol(new_line)+1] <- "NA"
+                  distance <- vwr::hamming.distance(word, dictionary_databases[['Lexique383']][['dstable']][dictionary_databases[['Lexique383']][['dstable']][["nblettres"]] == nchar(word),][['Word']])
+                  original_ncol <- ncol(new_line)
+                  for (new_row in 1:nrow(new_line)){
+                    new_line[new_row,original_ncol+1] <- length(names(distance[distance==1]))
                   }
                   new_line<-new_line[,c(1,2,ncol(new_line), 4:ncol(new_line)-1)]
                   colnames(new_line) <- c(colnames(whole_dt)[1:hamming_position-1], hamming_distance_opt, colnames(whole_dt)[hamming_position:ncol(whole_dt)])
