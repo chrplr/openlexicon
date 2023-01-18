@@ -30,6 +30,8 @@ default_other = "Other"
 big_choice = "bigram"
 trig_choice = "trigram"
 algo_choices = c(big_choice, trig_choice)
+btn_show_filter = tags$b("Show Constraints")
+btn_hide_filter = tags$b("Hide Constraints")
 
 tooltip_style = "style='font-size:14px;display:block;text-align:justify'"
 info_style = "style='font-size:14px;text-align:center;margin-top:1em;' class='help-block'"

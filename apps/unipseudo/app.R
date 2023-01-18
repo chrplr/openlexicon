@@ -95,7 +95,17 @@ ui <- fluidPage(
           uiOutput("outgenerateDB")
       )),
       div(uiOutput("oMots")),
-      div(uiOutput("oFilters")),
+      div(uiOutput("oShowFilters")),
+      hidden(div(
+        id="filter_box",
+        lapply(1:length(filtersList), function(i) {
+          filterInput(
+            filtersList[[i]][["name"]],
+            filtersList[[i]][["options"]],
+            filtersList[[i]][["pretty_name"]],
+            filtersList[[i]][["tooltip"]]
+          )
+      }))),
       div(uiOutput("oNbpseudos")),
       div(style="text-align:center;",actionButton("go", go_btn)),
       uiOutput("oInfoGeneration"),
@@ -155,7 +165,8 @@ server <- function(input, output, session) {
     button_generator = btn_show_generator_name,
     words_to_search = c(),
     len_gram = algo_choices[1],
-    len_wordsok = 0
+    len_wordsok = 0,
+    button_filter = btn_show_filter
   )
 
     #### Toggle helper_alert ####
@@ -330,17 +341,23 @@ server <- function(input, output, session) {
     })
 
     #### Handle filters ####
-    output$oFilters <- renderUI({
+    output$oShowFilters <- renderUI({
       div(
-        h5(tags$b(filter_section), tippy(circleButton("oFiltersTooltip", "?", status="info", size="xs"), interactive=TRUE, trigger="click", theme="light", tooltip = input_filter_tooltip)),
-        lapply(1:length(filtersList), function(i) {
-          filterInput(
-            filtersList[[i]][["name"]],
-            filtersList[[i]][["options"]],
-            filtersList[[i]][["pretty_name"]],
-            filtersList[[i]][["tooltip"]]
-          )
-      }))
+        actionButton("btnFilter", v$button_filter),
+        tippy(circleButton("oFiltersTooltip", "?", status="info", size="xs"), interactive=TRUE, trigger="click", theme="light", tooltip = input_filter_tooltip)
+      )
+    })
+
+    observeEvent(input$btnFilter, {
+      if (grepl(btn_show_filter, v$button_filter)){
+        v$button_filter = btn_hide_filter
+      }else{
+        v$button_filter = btn_show_filter
+      }
+    })
+
+    observe({
+      shinyjs::toggle("filter_box", anim = TRUE, animType = "slide", condition = grepl(btn_hide_filter, v$button_filter))
     })
 
     #### Handle number of pseudowords ####
