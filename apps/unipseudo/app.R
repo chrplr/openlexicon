@@ -166,7 +166,8 @@ server <- function(input, output, session) {
     words_to_search = c(),
     len_gram = algo_choices[1],
     len_wordsok = 0,
-    button_filter = btn_show_filter
+    button_filter = btn_show_filter,
+    need_init_listsearch = TRUE
   )
 
     #### Toggle helper_alert ####
@@ -293,6 +294,10 @@ server <- function(input, output, session) {
           }
           updatePickerInput(session, filter[["name"]], selected=new_val)
         }
+        if (v$need_init_listsearch){
+          populateListSearch(session, input, v)
+          v$need_init_listsearch = FALSE
+        }
       }
     })
 
@@ -312,22 +317,7 @@ server <- function(input, output, session) {
     #### Generate words from database ####
 
     observeEvent(input$generateDB, {
-      longueur = as.numeric(input$longueur)
-      if (v$language_selected != default_other){
-        words <- get_dataset_words(
-          datasets=v$datasets,
-          nbchar=longueur,
-          gram_class=input$gram_class
-        )
-      }else {
-        words <- c()
-      }
-      wordsok <- words[nchar(words) == longueur]
-      wordsok <- tolower(wordsok) # to avoid case-sensitive
-      wordsok <- wordsok[!duplicated(wordsok)]
-      wordsok <- as.character(wordsok)
-      v$words_to_search <- paste(wordsok, collapse="\n")
-      updateTextAreaInput(session, "mots", value = v$words_to_search)
+      populateListSearch(session, input, v)
     })
 
     output$oMots <- renderUI({

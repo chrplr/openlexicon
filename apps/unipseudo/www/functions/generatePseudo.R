@@ -1,3 +1,22 @@
+populateListSearch  <- function(session, input, v){
+  longueur = as.numeric(input$longueur)
+  if (v$language_selected != default_other){
+    words <- get_dataset_words(
+      datasets=v$datasets,
+      nbchar=longueur,
+      gram_class=input$gram_class
+    )
+  }else {
+    words <- c()
+  }
+  wordsok <- words[nchar(words) == longueur]
+  wordsok <- tolower(wordsok) # to avoid case-sensitive
+  wordsok <- wordsok[!duplicated(wordsok)]
+  wordsok <- as.character(wordsok)
+  v$words_to_search <- paste(wordsok, collapse="\n")
+  updateTextAreaInput(session, "mots", value = v$words_to_search)
+}
+
 get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL){
   for (dataset in datasets){
       # Load dataset if needed
