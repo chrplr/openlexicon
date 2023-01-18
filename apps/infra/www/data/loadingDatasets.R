@@ -89,7 +89,7 @@ whole_dt <- dictionary_databases[['Lexique-Infra-word_frequency']][['dstable']]
 whole_dt[[type_column]] <- NA
 whole_dt<-whole_dt[,c(1,ncol(whole_dt), 3:ncol(whole_dt)-1)]
 
-hamming_distance_opt <- "Hamming Distance"
+hamming_distance_opt <- "Ortho Neighbors"
 hamming_position <- 3
 
 initialCols <- colnames(whole_dt)[colnames(whole_dt) != join_column]
