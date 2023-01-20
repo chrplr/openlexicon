@@ -9,6 +9,7 @@ source('www/functions/qTips.R')
 source('www/functions/customDropdownButton.R')
 source('www/functions/updateFromTree.R')
 source('www/functions/customCheckboxGroup.R')
+source('www/functions/swapFunctions.R')
 
 # Loading datasets and UI
 source('../../datasets-info/fetch_datasets.R')
@@ -115,13 +116,12 @@ server <- function(input, output, session) {
     words_list <- eventReactive(input$go,
     {
         ## Add/remove hamming distance element in selected columns if needed. We do it there since we need to add it only if user clicks the go button and chose this option (we assume they want the column displayed in this case) and if we update selected_columns value in renderDT, it leads to a circular phenomenon.
-        if (hamming_distance_opt %in% input$optionsGroup && !(hamming_distance_opt %in% names(v$selected_columns))){
-          v$selected_columns[[hamming_distance_opt]] <- hamming_distance_opt
-          # Reorder names in selected_columns so the columns are shown in the right order
-          new_order <- c(names(v$selected_columns)[1:(max(1, hamming_position-2))], names(v$selected_columns)[length(names(v$selected_columns))], names(v$selected_columns)[(hamming_position-1):(length(names(v$selected_columns))-1)])
-          v$selected_columns <- v$selected_columns[new_order]
-        }else if (!(hamming_distance_opt %in% input$optionsGroup) && hamming_distance_opt %in% names(v$selected_columns)){
-          v$selected_columns[[hamming_distance_opt]] <- NULL
+        if (hamming_distance_opt %in% input$optionsGroup){
+          addToSelectedColumns(v, nb_hamming_distance, hamming_position)
+          addToSelectedColumns(v, hamming_distance_opt, hamming_position+1)
+        }else if (!(hamming_distance_opt %in% input$optionsGroup)){
+          removeFromSelectedColumns(v, hamming_distance_opt)
+          removeFromSelectedColumns(v, nb_hamming_distance)
         }
         if (v$go_clicked == FALSE){
           v$go_clicked = TRUE
@@ -130,7 +130,7 @@ server <- function(input, output, session) {
         words <- strsplit(input$mots,"[ \n\t]")[[1]]
         # Keep only words with at least one character (removes empty rows)
         words <- str_subset(words, ".+")
-        wordsok <- unique(words[!grepl("[[:punct:][:space:]]", words)]) # remove words with punctuation or space, and duplicates
+        wordsok <- unique(words[!grepl("[[:punct:][:space:]]", words)]) # remove words with punctuation or space, and duplicates. Words with space (such as a priori) are not included in 'Lexique-Infra-word_frequency'
         })
 
     #### Column filter ####
@@ -304,17 +304,13 @@ server <- function(input, output, session) {
                         new_line[1,i] <- ""
                     }
                 }
+                colnames(new_line) <- colnames(whole_dt)
                 # Disabled by default because slow. WARNING : since retable is reactive, using input$optionsGroup here and checking/unchecking hamming distance would directly update the table if there was already one drawn. So we use an intermediate variable v$optionsSelected that we update when pushing go button.
                 if (hamming_distance_opt %in% v$optionsSelected){
                   distance <- vwr::hamming.distance(word, dictionary_databases[['Lexique383']][['dstable']][dictionary_databases[['Lexique383']][['dstable']][["nblettres"]] == nchar(word),][['Word']])
-                  original_ncol <- ncol(new_line)
-                  for (new_row in 1:nrow(new_line)){
-                    new_line[new_row,original_ncol+1] <- length(names(distance[distance==1]))
-                  }
-                  new_line<-new_line[,c(1,2,ncol(new_line), 4:ncol(new_line)-1)]
-                  colnames(new_line) <- c(colnames(whole_dt)[1:hamming_position-1], hamming_distance_opt, colnames(whole_dt)[hamming_position:ncol(whole_dt)])
-                }else{
-                  colnames(new_line) <- colnames(whole_dt)
+                  neighbors = names(distance[distance==1])
+                  new_line <- populateEachRow(new_line, length(neighbors), nb_hamming_distance, hamming_position)
+                  new_line <- populateEachRow(new_line, paste(neighbors, collapse=","), hamming_distance_opt, hamming_position+1)
                 }
                 final_dt <- rbind(final_dt, new_line)
             }

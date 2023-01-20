@@ -90,6 +90,7 @@ whole_dt[[type_column]] <- NA
 whole_dt<-whole_dt[,c(1,ncol(whole_dt), 3:ncol(whole_dt)-1)]
 
 hamming_distance_opt <- "Ortho Neighbors"
+nb_hamming_distance <- paste("Number of", hamming_distance_opt)
 hamming_position <- 3
 
 initialCols <- colnames(whole_dt)[colnames(whole_dt) != join_column]
