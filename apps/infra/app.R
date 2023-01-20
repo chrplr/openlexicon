@@ -20,13 +20,13 @@ source('www/data/uiElements.R')
 js <- "
 $(document).on('shiny:busy', function(event) {
   // we need to define inputs each time function is called because on first call not all elements are present on page, so inputs variable would not contain all elements
-  var $inputs = $('button,input,textarea,dropdown');
+  var $inputs = $('button,input,dropdown');
   $inputs.prop('disabled', true);
 });
 
 // Enable back interface when shiny is idle.
 $(document).on('shiny:idle', function() {
-  var $inputs = $('button,input,textarea,dropdown');
+  var $inputs = $('button,input,dropdown');
   $inputs.prop('disabled', false);
 });
 "
