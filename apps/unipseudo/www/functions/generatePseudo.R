@@ -17,7 +17,7 @@ populateListSearch  <- function(session, input, v){
   updateTextAreaInput(session, "mots", value = v$words_to_search)
 }
 
-get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL){
+get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL, need_full_list=FALSE){
   for (dataset in datasets){
       # Load dataset if needed
       load_dataset_table(dataset)
@@ -40,6 +40,10 @@ get_dataset_words <- function(datasets, nbchar=NULL, gram_class=NULL){
       # for testing purposes
       if (is.null(nbchar)){
         words <- words[words[[freqCol]] > freqThreshold,]
+      }
+      # for exclude purposes
+      else if (need_full_list){
+        words <- words[words[[nbcharCol]] == nbchar,]
       }
       # Special case for Lexique383, when a grammatical class is selected
       else if (gram_class != default_none && !(is.null(gram_class)) && dataset == "Lexique383"){

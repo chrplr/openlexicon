@@ -417,7 +417,8 @@ server <- function(input, output, session) {
            if (v$language_selected != default_other){
              exclude <- get_dataset_words(
                datasets=v$datasets,
-               nbchar=longueur
+               nbchar=longueur,
+               need_full_list=TRUE
              )
            }else{
              exclude <- NULL
