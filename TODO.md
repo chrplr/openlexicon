@@ -12,6 +12,6 @@
 
 - improve the appearance of the openlexicon pages (nicer css, adda menu?), to make it more similar to lexique.org
 
-
+- make www.openlexicon.fr DNS entry point to chrplr.github.io/openlexicon
 
  
