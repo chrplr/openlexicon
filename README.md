@@ -1,7 +1,4 @@
-# OpenLexicon: Easy access to lexical databases
-
-
-Homepage: <http://chrplr.github.io/openlexicon>
+# OpenLexicon: Open access to lexical ressources
 
 **If all you want is to access the *[Openlexicon App](http://www.lexique.org/shiny/openlexicon)* (lexical search)or the *[UniPseudo App](http://www.lexique.org/shiny/unipseudo)* (pseudoword generator), click on one of the screenshots below**
 
