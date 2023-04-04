@@ -2,13 +2,11 @@
 
 You will find below a directory of open lexical databases. Click on the name of any database to access their README file and obtain more information and links to datasets.
 
-To work locally on your computer, you can download each datasets' tables directly from the links provided in the README file. For example:
+## Usage ##
 
-* in R:
+* Most datasets are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
 
-        library(readr)
-        lex = read_tsv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv')
-        head(lex)
+In R or Python, you can directly download datasets from the links provided in the README file. For example:
 
 
 * in Python:
@@ -16,6 +14,14 @@ To work locally on your computer, you can download each datasets' tables directl
         import pandas as pd
         lex = pd.read_csv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv', sep='\t')
         lex.head()
+
+
+* in R:
+
+        library(readr)
+        lex = read_tsv('http://www.lexique.org/databases/Lexique383/Lexique383.tsv')
+        head(lex)
+
 
 Yet, in R, we recommend you to use the [R dataset fetcher](https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R) as:
 - it avoids having to specify the location of the dataset on the web
@@ -30,6 +36,10 @@ For example, to download the table of Lexique383:
     source('https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/fetch_datasets.R')
     lexique383 <- get_lexique383()
 
+
+
+* Many of these databases can also be explored or queried on-line at <http://www.lexique.org/shiny/openlexicon>, thanks to shiny apps from [openlexicon](http://openlexicon.fr).
+* Most databases have associated publications listed in their respective `README` files. They should be cited in any derivative work!
 
 
 ## Français ##
@@ -80,12 +90,6 @@ For example, to download the table of Lexique383:
    |
 
 
-## Usage ##
-
-
-* Most datasets are provided in form of `.tsv` or `.csv` files (tab-separated-values or comma-separated-values). These are plain text files which can be easily imported in to R, MATLAB or Python, or even [opened with Excel](https://rievent.zendesk.com/hc/en-us/articles/360000029172-FAQ-How-do-I-open-a-tsv-file-in-Excel-). Check out our [script examples](../scripts/README.md).
-* Many of these databases can also be explored or queried on-line at <http://www.lexique.org/shiny/openlexicon>, thanks to shiny apps from the [openlexicon project](http://github.com/chrplr/openlexicon).
-* Most databases have associated publications listed in their respective `README` files. They must be cited in any derivative work!
 
 
 ## Similar lists or resources ##
