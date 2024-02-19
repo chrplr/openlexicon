@@ -4,7 +4,7 @@ Version: 0.0.1
 Authors@R: 
     c(person("Christophe", "Pallier", , "christophe@pallier.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3324-666X") ),
-           person("Ladislas", "Nalorczyk", , "ladislas.nalborczyk@gmail.com", role = c("aut"),
+           person("Ladislas", "Nalborczyk", , "ladislas.nalborczyk@gmail.com", role = c("aut"),
            comment = c(ORCID = "0000-0002-7419-9855") ) )
 Description: Fetches lexical databases from the openlexicon project.
 License: GPL (>= 3)

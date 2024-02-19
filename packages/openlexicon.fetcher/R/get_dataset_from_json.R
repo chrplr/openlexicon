@@ -16,8 +16,6 @@ get_dataset_from_json <- function (json_url, local_rds) {
     dest_dir <- file.path(get_data.home() )
     dest_rds <- paste0(paste(dest_dir, local_rds, sep = "/"), ".rds")
 
-    # print(dest_rds)
-
     json_data <- rjson::fromJSON(file = json_url)
     remote_rds <- json_data$url_rds
     remote_md5_rds <- json_data$md5_rds

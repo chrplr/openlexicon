@@ -6,7 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of openlexicon.fetcher is to …
+The goal of `openlexicon.fetcher` is to facilitate the downloaf of
+lexical databases related to the [openlexicon
+project](http://openlexicon.fr).
 
 ## Installation
 
@@ -15,14 +17,14 @@ You can install the development version of openlexicon.fetcher from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("chrplr/openlexicon")
+devtools::install_github("chrplr/openlexicon/packages/openlexicon.fetcher")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+You can download any list of databases as follows:
 
 ``` r
 library(openlexicon.fetcher)
-## basic example code
+fetch_datasets(listofdatasets = c("Lexique3", "Voisins", "Anagrammes") )
 ```

@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' fetch_datasets(c('Lexique3', 'Voisins', 'Anagrammes') )
+#' fetch_datasets(c("Lexique3", "Voisins", "Anagrammes") )
 #' }
 
 fetch_datasets <- function (
