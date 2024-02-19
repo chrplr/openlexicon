@@ -10,3 +10,6 @@ apps/unipseudo/tests/*
 .RData
 .Rhistory
 .Rproj.user
+.DS_Store
+**/.DS_Store
+
