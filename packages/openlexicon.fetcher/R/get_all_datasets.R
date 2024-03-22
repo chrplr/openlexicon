@@ -1,18 +1,24 @@
-#' Download all the datasets listed in locations (only if not already downloaded)
-#'
-#' @param locations A list of locations.
+#' Download all the datasets (only if not already downloaded)
 #'
 #' @return Local locations of all datasets listed in locations.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' loc <- "https://github.com/chrplr/openlexicon/tree/master/datasets-info/locations.toml"
-#' get_all_datasets(loc)
+#' get_all_datasets()
 #' }
 
-get_all_datasets <- function (locations = "https://github.com/chrplr/openlexicon/tree/master/datasets-info/locations.toml") {
+get_all_datasets <- function () {
 
-    return (fetch_datasets(names(locations), locations) )
+    # retrieving the content of the locations.toml file
+    locations <- blogdown::read_toml(
+        "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/locations.toml"
+        )
+
+    # retrieving the names of the datasets in locations
+    locations_datasets <- names(locations)
+
+    # downloading and returning everything
+    return (fetch_datasets(datasets = names(locations) ) )
 
 }

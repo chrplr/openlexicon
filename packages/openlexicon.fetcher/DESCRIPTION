@@ -10,7 +10,7 @@ Description: Fetches lexical databases from the openlexicon project.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Imports:
     blogdown,
     readr,

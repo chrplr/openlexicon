@@ -29,7 +29,7 @@ Creating json file from metadata supplied by the user.
 \examples{
 # creating the json file
 \dontrun{
-create_json_file (
+create_json_file(
     name = "lexique3",
     description = "Lexique382 is a French lexical database.",
     url_tsv = "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",

@@ -2,25 +2,18 @@
 % Please edit documentation in R/get_all_datasets.R
 \name{get_all_datasets}
 \alias{get_all_datasets}
-\title{Download all the datasets listed in locations (only if not already downloaded)}
+\title{Download all the datasets (only if not already downloaded)}
 \usage{
-get_all_datasets(
-  locations =
-    "https://github.com/chrplr/openlexicon/tree/master/datasets-info/locations.toml"
-)
-}
-\arguments{
-\item{locations}{A list of locations.}
+get_all_datasets()
 }
 \value{
 Local locations of all datasets listed in locations.
 }
 \description{
-Download all the datasets listed in locations (only if not already downloaded)
+Download all the datasets (only if not already downloaded)
 }
 \examples{
 \dontrun{
-loc <- "https://github.com/chrplr/openlexicon/tree/master/datasets-info/locations.toml"
-get_all_datasets(loc)
+get_all_datasets()
 }
 }

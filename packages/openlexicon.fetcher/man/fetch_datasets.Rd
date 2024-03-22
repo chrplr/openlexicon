@@ -2,27 +2,21 @@
 % Please edit documentation in R/fetch_datasets.R
 \name{fetch_datasets}
 \alias{fetch_datasets}
-\title{Return the local locations of datasets listed in listdatasets (downloading them from the internet if needed)}
+\title{Returns a list of datasets (downloading those datasets from the internet if needed)}
 \usage{
-fetch_datasets(
-  listofdatasets,
-  locations =
-    "https://github.com/chrplr/openlexicon/tree/master/datasets-info/locations.toml"
-)
+fetch_datasets(datasets = c("Lexique3", "Voisins", "Anagrammes"))
 }
 \arguments{
-\item{listofdatasets}{A list of datasets to be loaded.}
-
-\item{locations}{A list of locations (hosted online).}
+\item{datasets}{A list of datasets to be loaded.}
 }
 \value{
-Local locations of datasets listed in listdatasets.
+Local locations of datasets.
 }
 \description{
-Return the local locations of datasets listed in listdatasets (downloading them from the internet if needed)
+Returns a list of datasets (downloading those datasets from the internet if needed)
 }
 \examples{
 \dontrun{
-fetch_datasets(c('Lexique3', 'Voisins', 'Anagrammes') )
+fetch_datasets(c("Lexique3", "Voisins", "Anagrammes") )
 }
 }
