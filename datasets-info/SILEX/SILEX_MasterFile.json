@@ -1,0 +1,20 @@
+{
+    "_comment": "",
+    "name": "SILEX_MasterFile",
+    "description": "Silex, a database designed to facilitate the study of spelling performance in general, and silent-letter endings in particular. It was derived from two large and recent corpora based on child- and adult-targeted material. Silex consists of three kinds of Excel workbooks: a set of Stimuli Selector workbooks that allow researchers to select words based on a variety of statistics and word characteristics; a Table Generator workbook that allows researchers to build consistency distribution tables by selecting specific phonological or orthographic units; and a Master File workbook, from which all statistics were derived, and that allows researchers to compute other statistics. Silex is different from existing databases in the manner that silent-letter endings were coded and how consistency indices were computed. Importantly, Silex provides unconditional- and conditional-consistency indices for silent-letter endings. ",
+    "website": "https://carleton.ca/cllr/silex/",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SILEX/README_SILEX_MasterFile.txt",
+    "urls": [{
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_MasterFile.csv",
+            "bytes":  17511995,
+            "md5sum": "4101c13ed9226943303e027524021efa"
+        },
+        {
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_MasterFile.rds",
+            "bytes": 3653338,
+            "md5sum": "67f21062a79d3b012fa27c402c8e406a"
+        }
+    ],
+    "type": "csv",
+    "tags": ["french", "frequencies"]
+}
