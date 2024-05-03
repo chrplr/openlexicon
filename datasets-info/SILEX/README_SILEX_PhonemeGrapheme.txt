@@ -1,0 +1,1 @@
+This file is for Phoneme-Grapheme mappings. It provides frequency and probability distributions for all graphemes corresponding to each phoneme. The graphemes are in the Unit column; their frequencies, in the UnitFreq column; and their probabilities (also called consistency indices), in the UnitProb column. 

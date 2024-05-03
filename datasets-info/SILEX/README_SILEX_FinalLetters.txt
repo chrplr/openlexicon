@@ -1,0 +1,1 @@
+This file is for Final Letters. It provides frequency and probability distributions for final letters, silent or not. The final letters are in the Unit column; their frequencies, in the UnitFreq column; and their probabilities of occurrence, in the UnitProb column. Additional statistics are included in the UnitFreqSL and UnitProbSL columns. 
