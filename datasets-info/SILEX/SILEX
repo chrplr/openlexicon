@@ -6,7 +6,12 @@ Silex was derived from two existing databases, namely Manulex-infra (Peereman et
 Latest version: Silex 1.1
 Silex 1.1 includes four additional variables regarding the number and frequency of homophones for each word in the Stimuli Selectors. For more details on this update, see the User Guide.
 
-Tables:  [name](url) [name](url)
+Tables: 
+[MasterFile.csv](http://www.lexique.org/databases/SILEX/MasterFile.csv)
+[FinalLetters.csv](http://www.lexique.org/databases/SILEX/FinalLetters.csv)
+[OrthographicEndings.csv](http://www.lexique.org/databases/SILEX/OrthographicEndings.csv)
+[PhonemeGrapheme.csv](http://www.lexique.org/databases/SILEX/PhonemeGrapheme.csv)
+[PhonologicalCodesGraphemes.csv](http://www.lexique.org/databases/SILEX/PhonologicalCodesGraphemes.csv)
 
 Online: [Openlexicon](http://chrplr.github.io/openlexicon)
 
