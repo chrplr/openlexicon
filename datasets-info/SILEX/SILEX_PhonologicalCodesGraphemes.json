@@ -1,0 +1,20 @@
+﻿{
+    "_comment": "",
+    "name": "SILEX_PhonologicalCodesGraphemes",
+    "description": "For each phonological code (e.g., % for /ɑ̃/ in the word bilan), the file indicates the corresponding phoneme (in IPA notation), as well as words with the different graphemes (highlighted in red) corresponding to this phoneme. Vowels are in blue cells; consonants, in green cells; sequences of phonemes, in purple cells. The words are sorted by frequency of the highlighted grapheme, as estimated by the number of different words that contain it in Silex (Lexique + Manulex). Colours and filters are available using the original SILEX Table Generator. You can select the codes(s) for which you want explanations by using the Excel filters provided. In the User Guide, you can find more details about phonological coding and graphemic segmentation, as well as the exact reproduction of this table, in Appendix A.",
+    "website": "https://carleton.ca/cllr/silex/",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SILEX/README_SILEX_PhonologicalCodesGraphemes.txt",
+    "urls": [{
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_PhonologicalCodesGraphemes.csv",
+            "bytes":  3829,
+            "md5sum": "0adf484e3a6703e9e07c02dcc271942d
+        },
+        {
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_PhonologicalCodesGraphemes.rds",
+            "bytes": 2526,
+            "md5sum": "79e24554716f6ef11a115c8e570957de"
+        }
+    ],
+    "type": "csv",
+    "tags": ["french", "frequencies"]
+}

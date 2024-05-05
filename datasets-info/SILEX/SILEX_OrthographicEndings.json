@@ -1,0 +1,20 @@
+{
+    "_comment": "",
+    "name": "SILEX_OrthographicEndings",
+    "description": "It provides frequency and probability distributions for orthographic endings (i.e., silent-letter endings and null graphemes). The orthographic endings are in the Unit column; their frequencies, in the UnitFreq column; and their probabilities (also called consistency indices), in the UnitProb column. ",
+    "website": "https://carleton.ca/cllr/silex/",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SILEX/README_SILEX_OrthographicEndings.txt",
+    "urls": [{
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_OrthographicEndings.csv",
+            "bytes":  2921303,
+            "md5sum": "2430d61037418bf6041281f85a69287e
+        },
+        {
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_OrthographicEndings.rds",
+            "bytes": 423084,
+            "md5sum": "ae2b4a2643f9a132272c5c5e914ed861"
+        }
+    ],
+    "type": "csv",
+    "tags": ["french", "frequencies"]
+}
