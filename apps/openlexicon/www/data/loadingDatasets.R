@@ -90,7 +90,8 @@ dataset_ids <-
         'WorldLex-Urdu',
         'WorldLex-Uzbek',
         'WorldLex-Vietnamese',
-        'WorldLex-Welsh')
+        'WorldLex-Welsh',
+         'SILEX_MasterFile', 'SILEX_FinalLetters', 'SILEX_PhonemeGrapheme', 'SILEX_OrthographicEndings', 'SILEX_PhonologicalCodesGraphemes' )
 
 datasets <- list()
 # ex_filenames_ds dictionnaire assigns dataset_ids with a tuple (json, rds)
