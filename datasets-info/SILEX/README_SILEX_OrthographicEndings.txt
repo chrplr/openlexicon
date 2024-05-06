@@ -1,0 +1,1 @@
+This file is for Orthographic Endings. It provides frequency and probability distributions for orthographic endings (i.e., silent-letter endings and null graphemes). The orthographic endings are in the Unit column; their frequencies, in the UnitFreq column; and their probabilities (also called consistency indices), in the UnitProb column. 
