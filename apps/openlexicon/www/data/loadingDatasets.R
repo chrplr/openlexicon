@@ -1,6 +1,9 @@
 #json_folder = 'http://www.lexique.org/databases/_json/'
 json_folder = '../../datasets-info/_json/'
 
+source('../../datasets-info/fetch_datasets.R')
+source('../../apps/openlexicon/www/functions/getMandatory.R')
+
 join_column = "Word"
 default_db = "Lexique383"
 default_language = "French"
@@ -9,23 +12,41 @@ default_language = "French"
 # Pb avec anagrammes
 dataset_ids <-
         c('Lexique383',
-        'Lexique-Infra-bigrammes', 'Lexique-Infra-lettres', 'Lexique-Infra-trigrammes', 'Lexique-Infra-word_frequency',
-        'AoA_FreqSub_1493','AoA_FamConcept_1225','Aoa32lang',
-        'Assoc_520','Assoc_366',
-        'Concr_ContextAv_ValEmo_Arous_1659','Concr_Imag_FreqSub_Valemo_866',
+        'Lexique-Infra-bigrammes', 
+        'Lexique-Infra-lettres', 
+        'Lexique-Infra-trigrammes', 
+        'Lexique-Infra-word_frequency',
+        'AoA_FreqSub_1493',
+        'AoA_FamConcept_1225',
+        'Aoa32lang',
+        'Assoc_520',
+        'Assoc_366',
+        'Concr_ContextAv_ValEmo_Arous_1659',
+        'Concr_Imag_FreqSub_Valemo_866',
         'FrenchLexiconProject-words',
-        'FreqSub_Adulte_Senior_660','FreqSub_Imag_ParAge_1286','FreqSub_Imag_1916','FreqSub_Imag_3600',
-        'Img_AoA_..._400','Imag_1493',
-        'Manulex-Ortho','Manulex-Lemmes',
-        'Megalex-visual','Megalex-auditory',
+        'FreqSub_Adulte_Senior_660',
+        'FreqSub_Imag_ParAge_1286',
+        'FreqSub_Imag_1916',
+        'FreqSub_Imag_3600',
+        'Img_AoA_..._400',
+        'Imag_1493',
+        'Manulex-Ortho',
+        'Manulex-Lemmes',
+        'Megalex-visual',
+        'Megalex-auditory',
         'SUBTLEX-US',
         'RT_LD_NMG_FLP_Mono_1482',
-        'SensoryExp_1659','SensoryExp_1659',
-        'ValEmo_Arous_Imag_835','ValEmo_Arous_1286',
-        'Valemo_Enfants_600','Valemo_Adultes_604',
+        'SensoryExp_1659',
+        'SensoryExp_1659',
+        'ValEmo_Arous_Imag_835',
+        'ValEmo_Arous_1286',
+        'Valemo_Enfants_600',
+        'Valemo_Adultes_604',
         'Voisins',
         'FreqTwitter-WorldLex-French',
-        'SemantiQc_auditory', 'SemantiQc_familiarity_concept', 'SemantiQc_visual',
+        'SemantiQc_auditory', 
+        'SemantiQc_familiarity_concept', 
+        'SemantiQc_visual',
         'WorldLex-English',
         'WorldLex-Afrikaans',
         'WorldLex-Albanian',
@@ -91,7 +112,12 @@ dataset_ids <-
         'WorldLex-Uzbek',
         'WorldLex-Vietnamese',
         'WorldLex-Welsh',
-         'SILEX_MasterFile', 'SILEX_FinalLetters', 'SILEX_PhonemeGrapheme', 'SILEX_OrthographicEndings', 'SILEX_PhonologicalCodesGraphemes' )
+        'SILEX_MasterFile', 
+        'SILEX_FinalLetters', 
+        'SILEX_PhonemeGrapheme')
+        #'SILEX_OrthographicEndings', 
+        #'SILEX_PhonologicalCodesGraphemes'
+        
 
 datasets <- list()
 # ex_filenames_ds dictionnaire assigns dataset_ids with a tuple (json, rds)

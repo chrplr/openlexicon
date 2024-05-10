@@ -48,6 +48,7 @@ get_log.home <- function(app_name)
 get_info_from_json <- function(json_url)
   # extract information fields from a json file
 {
+  print(paste("Parsing", json_url))
   json_data <- fromJSON(file = json_url)
   return(
     list(

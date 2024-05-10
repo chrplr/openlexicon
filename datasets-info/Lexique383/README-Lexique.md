@@ -12,6 +12,9 @@ Lexique383 est une base de données lexicales du français qui fournit pour ~140
 
 **Web site:** <http://www.lexique.org>
 
+To propose corrections, improvements, use the forum <https://groups.google.com/g/lexiqueorg>.
+
+
 
 ## Publications ##
 
@@ -31,6 +34,9 @@ Lexique383 est une base de données lexicales du français qui fournit pour ~140
 - Sophie Dufour
 - Christian Lachaud
 - and many others... (contact us to be listed)
+
+
+
 
 ## License ##
 

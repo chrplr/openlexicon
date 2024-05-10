@@ -65,7 +65,7 @@ ui <- fluidPage(
     }'))),
 
     useShinyjs(),
-    useShinyalert(),
+    #useShinyalert(),
 
     titlePanel(tags$a(href="http://chrplr.github.io/openlexicon/", "Open Lexicon")),
     title = "Open Lexicon",
