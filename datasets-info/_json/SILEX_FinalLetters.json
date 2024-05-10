@@ -1,0 +1,20 @@
+{
+    "_comment": "",
+    "name": "SILEX_FinalLetters",
+    "description": "It provides frequency and probability distributions for final letters, silent or not. The final letters are in the Unit column; their frequencies, in the UnitFreq column; and their probabilities of occurrence, in the UnitProb column. Additional statistics are included in the UnitFreqSL and UnitProbSL columns. ",
+    "website": "https://carleton.ca/cllr/silex/",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SILEX/README_SILEX_FinalLetters.txt",
+    "urls": [{
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_FinalLetters.csv",
+            "bytes":  448000,
+            "md5sum": "a2d728c523e1e39184303db159eb3216"
+        },
+        {
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_FinalLetters.rds",
+            "bytes": 103065,
+            "md5sum": "4711a7de084e2840e2bd3db0bd2307c9"
+        }
+    ],
+    "type": "csv",
+    "tags": ["french", "frequencies"]
+}
