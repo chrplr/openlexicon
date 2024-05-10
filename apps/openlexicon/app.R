@@ -42,16 +42,16 @@ $(document).on('shiny:idle', function() {
 #### UI ####
 ui <- fluidPage(
 # Spinner showing during computing time
-  add_busy_spinner(
-    spin = "double-bounce",
-    color = "#112446",
-    timeout = 100,
-    position = "bottom-right",
-    onstart = TRUE,
-    margins = c(10, 10),
-    height = "50px",
-    width = "50px"
-    ),
+#  add_busy_spinner(
+#    spin = "double-bounce",
+#    color = "#112446",
+#    timeout = 100,
+#    position = "bottom-right",
+#    onstart = TRUE,
+#    margins = c(10, 10),
+#    height = "50px",
+#    width = "50px"
+#    ),
   tags$link(rel = "stylesheet", type = "text/css", href = "functions/jquery.qtip.css"),
   tags$script(type = "text/javascript", src = "functions/jquery.qtip.js"),
 

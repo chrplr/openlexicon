@@ -1,8 +1,8 @@
 #json_folder = 'http://www.lexique.org/databases/_json/'
 json_folder = '../../datasets-info/_json/'
 
-source('../../datasets-info/fetch_datasets.R')
-source('../../apps/openlexicon/www/functions/getMandatory.R')
+#source('../../datasets-info/fetch_datasets.R')
+#source('../../apps/openlexicon/www/functions/getMandatory.R')
 
 join_column = "Word"
 default_db = "Lexique383"
