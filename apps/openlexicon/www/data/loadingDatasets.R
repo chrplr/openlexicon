@@ -114,9 +114,9 @@ dataset_ids <-
         'WorldLex-Welsh',
         'SILEX_MasterFile', 
         'SILEX_FinalLetters', 
-        'SILEX_PhonemeGrapheme')
-        #'SILEX_OrthographicEndings', 
-        #'SILEX_PhonologicalCodesGraphemes'
+        'SILEX_PhonemeGrapheme',
+        'SILEX_OrthographicEndings', 
+        'SILEX_PhonologicalCodesGraphemes')
         
 
 datasets <- list()

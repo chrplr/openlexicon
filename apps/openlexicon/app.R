@@ -300,11 +300,15 @@ server <- function(input, output, session) {
           dictionary_databases[[v$categories[i]]][["dsweb"]],
           " target='_blank'>Website</a></p></div>",sep = "")
         }
-
-        tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
-                                                interactive = TRUE,
-                                                theme = 'light',
-                                                tooltip = info_tooltip))
+      
+        # check f we run in shiny
+        # this crashes the app when it is run in rstudio locally. Why??? TODO
+        if (Sys.getenv('SHINY_PORT') != "") {
+          tooltips <- list.append(tooltips, tippy(bsButton(paste("pB",i,sep=""), "?", style = "info", size = "extra-small"),
+                                                 interactive = TRUE,
+                                                 theme = 'light',
+                                                 tooltip = info_tooltip))
+        }
       }
 
       extendedCheckboxGroup("databases", label = "",
