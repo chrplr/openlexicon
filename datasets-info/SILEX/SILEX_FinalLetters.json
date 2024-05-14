@@ -5,7 +5,7 @@
     "website": "https://carleton.ca/cllr/silex/",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/SILEX/README_SILEX_FinalLetters.txt",
     "urls": [{
-            "url": "http://www.lexique.org/databases/SILEX/SILEX_FinalLetters.csv",
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_FinalLetters.tsv",
             "bytes":  448000,
             "md5sum": "a2d728c523e1e39184303db159eb3216"
         },
@@ -15,6 +15,6 @@
             "md5sum": "4711a7de084e2840e2bd3db0bd2307c9"
         }
     ],
-    "type": "csv",
+    "type": "tsv",
     "tags": ["french", "frequencies"]
 }

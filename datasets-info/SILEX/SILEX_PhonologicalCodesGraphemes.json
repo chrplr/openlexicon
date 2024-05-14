@@ -5,9 +5,9 @@
     "website": "https://carleton.ca/cllr/silex/",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/SILEX/README_SILEX_PhonologicalCodesGraphemes.txt",
     "urls": [{
-            "url": "http://www.lexique.org/databases/SILEX/SILEX_PhonologicalCodesGraphemes.csv",
+            "url": "http://www.lexique.org/databases/SILEX/SILEX_PhonologicalCodesGraphemes.tsv",
             "bytes":  3829,
-            "md5sum": "0adf484e3a6703e9e07c02dcc271942d
+            "md5sum": "0adf484e3a6703e9e07c02dcc271942d"
         },
         {
             "url": "http://www.lexique.org/databases/SILEX/SILEX_PhonologicalCodesGraphemes.rds",
@@ -15,6 +15,6 @@
             "md5sum": "79e24554716f6ef11a115c8e570957de"
         }
     ],
-    "type": "csv",
+    "type": "tsv",
     "tags": ["french", "frequencies"]
 }
