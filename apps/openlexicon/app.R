@@ -105,11 +105,10 @@ ui <- fluidPage(
                       font-weight: bold;
                   }
               ")),
-                 # DTOutput(outputId="table") %>% withSpinner(type=3,
-                 #                                            color.background="#ffffff",
-                 #                                            hide.element.when.recalculating = FALSE,
-                 #                                            proxy.height = 0)),
-                 DTOutput(outputId="table")),
+                 DTOutput(outputId="table") %>% shinycssloaders::withSpinner(type=3,
+                                                            color.background="#ffffff",
+                                                            hide.element.when.recalculating = FALSE,
+                                                            proxy.height = 0)),
               uiOutput("outdownload"),
               width=9
             )
