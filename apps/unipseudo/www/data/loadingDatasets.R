@@ -153,26 +153,6 @@ capFirst <- function(s) {
     paste(toupper(substring(s, 1, 1)), substring(s, 2), sep = "")
 }
 
-# Fix encoding to UTF-8 for all languages
-fix.encoding <- function(df) {
-  numCols <- ncol(df)
-  numRows <- nrow(df)
-  highProbaEncoding = guess_encoding(paste(df[ ,1], sep = " "))[[1]][1]
-  if (grepl("UTF-16BE", highProbaEncoding)){
-    highProbaEncoding = "latin1"
-  }
-  for (col in 1:numCols){
-    if (!(is.numeric(df[, col]))){
-      df[, col] <- as.character(df[, col])
-      df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
-      Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
-    }
-  }
-  # Remove leading and/or trailing whitespace from character strings.
-  colnames(df) <-  trimws(colnames(df))
-  return(df)
-}
-
 load_dataset_table <- function(ds){
   if (is.null(dictionary_databases[[ds]][['dstable']])){
     tryCatch({

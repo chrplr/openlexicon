@@ -12,9 +12,9 @@ default_language = "French"
 # Pb avec anagrammes
 dataset_ids <-
         c('Lexique383',
-        'Lexique-Infra-bigrammes', 
-        'Lexique-Infra-lettres', 
-        'Lexique-Infra-trigrammes', 
+        'Lexique-Infra-bigrammes',
+        'Lexique-Infra-lettres',
+        'Lexique-Infra-trigrammes',
         'Lexique-Infra-word_frequency',
         'AoA_FreqSub_1493',
         'AoA_FamConcept_1225',
@@ -44,8 +44,8 @@ dataset_ids <-
         'Valemo_Adultes_604',
         'Voisins',
         'FreqTwitter-WorldLex-French',
-        'SemantiQc_auditory', 
-        'SemantiQc_familiarity_concept', 
+        'SemantiQc_auditory',
+        'SemantiQc_familiarity_concept',
         'SemantiQc_visual',
         'WorldLex-English',
         'WorldLex-Afrikaans',
@@ -112,12 +112,12 @@ dataset_ids <-
         'WorldLex-Uzbek',
         'WorldLex-Vietnamese',
         'WorldLex-Welsh',
-        'SILEX_MasterFile', 
-        'SILEX_FinalLetters', 
+        'SILEX_MasterFile',
+        'SILEX_FinalLetters',
         'SILEX_PhonemeGrapheme',
-        'SILEX_OrthographicEndings', 
+        'SILEX_OrthographicEndings',
         'SILEX_PhonologicalCodesGraphemes')
-        
+
 
 datasets <- list()
 # ex_filenames_ds dictionnaire assigns dataset_ids with a tuple (json, rds)
@@ -136,25 +136,6 @@ ex_filenames_ds <- list(
 # Capitalize word
 capFirst <- function(s) {
     paste(toupper(substring(s, 1, 1)), substring(s, 2), sep = "")
-}
-
-# Fix encoding to UTF-8
-fix.encoding <- function(df) {
-  numCols <- ncol(df)
-  numRows <- nrow(df)
-  highProbaEncoding = guess_encoding(paste(df[ ,1], sep = " "))[[1]][1]
-  if (grepl("UTF-16BE", highProbaEncoding)){
-    highProbaEncoding = "latin1"
-  }
-  for (col in 1:numCols){
-    if (!(is.numeric(df[, col]))){
-      df[, col] <- as.character(df[, col])
-      df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
-      Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
-    }
-  }
-  colnames(df) <-  trimws(colnames(df))
-  return(df)
 }
 
 load_tables <- function(ds_list, my_tables){

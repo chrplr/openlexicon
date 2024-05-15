@@ -6,6 +6,44 @@
 require("rjson")
 require("tools") # Required for md5sum
 
+###############################
+########### Encoding ##########
+###############################
+
+# It counts NAs in input vector x and NAs in the output of as.numeric(x) and returns TRUE if the vector can be "safely" converted to numeric (i.e. without adding any additional NA values).
+can.be.numeric <- function(x) {
+    stopifnot(is.atomic(x) || is.list(x)) # check if x is a vector
+    numNAs <- sum(is.na(x))
+    numNAs_new <- suppressWarnings(sum(is.na(as.numeric(x))))
+    return(numNAs_new == numNAs)
+}
+
+# Fix encoding to UTF-8
+fix.encoding <- function(df) {
+  numCols <- ncol(df)
+  numRows <- nrow(df)
+  highProbaEncoding = guess_encoding(paste(df[ ,1], sep = " "))[[1]][1]
+  if (grepl("UTF-16BE", highProbaEncoding)){
+    highProbaEncoding = "latin1"
+  }
+  # Remove spaces to handle numeric columns
+  df_without_space <-as.data.frame(apply(df,2,function(x) str_replace_all(string=x, pattern=" ", repl="")))
+  for (col in 1:numCols){
+    # Handle numeric columns
+    if (can.be.numeric(df_without_space[,col])){
+        df[, col] <- as.numeric(df_without_space[, col])
+    }else{
+      df[, col] <- as.character(df[, col])
+      df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
+      Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
+    }
+  }
+  colnames(df) <-  trimws(colnames(df))
+  return(df)
+}
+
+###############################
+###############################
 
 get_data.home <- function()
   # return the path of the local folder where to put datasets

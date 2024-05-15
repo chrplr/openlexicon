@@ -9,25 +9,6 @@ dataset_ids <- c('Lexique383','Lexique-Infra-bigrammes','Lexique-Infra-trigramme
 
 datasets <- list()
 
-# Fix encoding to UTF-8
-fix.encoding <- function(df) {
-  numCols <- ncol(df)
-  numRows <- nrow(df)
-  highProbaEncoding = guess_encoding(paste(df[ ,1], sep = " "))[[1]][1]
-  if (grepl("UTF-16BE", highProbaEncoding)){
-    highProbaEncoding = "latin1"
-  }
-  for (col in 1:numCols){
-    if (!(is.numeric(df[, col]))){
-      df[, col] <- as.character(df[, col])
-      df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
-      Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
-    }
-  }
-  colnames(df) <-  trimws(colnames(df))
-  return(df)
-}
-
 for (ds in dataset_ids)
 {
   #datasets[[ds]] <- fetch_dataset(ds, format='rds')
