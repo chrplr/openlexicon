@@ -5,17 +5,17 @@
 
 require("rjson")
 require("tools") # Required for md5sum
+require("varhandle")
 
 ###############################
 ########### Encoding ##########
 ###############################
 
-# It counts NAs in input vector x and NAs in the output of as.numeric(x) and returns TRUE if the vector can be "safely" converted to numeric (i.e. without adding any additional NA values).
+# It counts non numeric cells in input vector x (using check.numeric) and returns TRUE if the vector can be "safely" converted to numeric (i.e. it does not contain any cells that can be considered non numeric, NAs being considered numeric).
 can.be.numeric <- function(x) {
     stopifnot(is.atomic(x) || is.list(x)) # check if x is a vector
-    numNAs <- sum(is.na(x))
-    numNAs_new <- suppressWarnings(sum(is.na(as.numeric(x))))
-    return(numNAs_new == numNAs)
+    numNonNumeric <- sum(!(check.numeric(x)))
+    return(numNonNumeric == 0)
 }
 
 # Fix encoding to UTF-8
@@ -27,11 +27,14 @@ fix.encoding <- function(df) {
     highProbaEncoding = "latin1"
   }
   # Remove spaces to handle numeric columns
-  df_without_space <-as.data.frame(apply(df,2,function(x) str_replace_all(string=x, pattern=" ", repl="")))
+  df_without_space <- df
+  for (i in colnames(df_without_space)) {
+    df_without_space[,i] <- gsub("[[:space:]]", "", df_without_space[,i])
+  }
   for (col in 1:numCols){
     # Handle numeric columns
     if (can.be.numeric(df_without_space[,col])){
-        df[, col] <- as.numeric(df_without_space[, col])
+      df[, col] <- as.numeric(df_without_space[, col])
     }else{
       df[, col] <- as.character(df[, col])
       df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
