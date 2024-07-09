@@ -22,9 +22,13 @@ can.be.numeric <- function(x) {
 fix.encoding <- function(df) {
   numCols <- ncol(df)
   numRows <- nrow(df)
-  highProbaEncoding = guess_encoding(paste(df[ ,1], sep = " "))[[1]][1]
+  highProbaEncoding = html_encoding_guess(paste(df[ ,1], sep = " "))[[1]][1]
   if (grepl("UTF-16BE", highProbaEncoding)){
     highProbaEncoding = "latin1"
+  }
+  for (col in 1:numCols){
+    df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
+    Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
   }
   # Remove spaces to handle numeric columns
   df_without_space <- df
@@ -37,8 +41,6 @@ fix.encoding <- function(df) {
       df[, col] <- as.numeric(df_without_space[, col])
     }else{
       df[, col] <- as.character(df[, col])
-      df[, col] <- iconv(df[, col], from = highProbaEncoding, to = "UTF-8")
-      Encoding(colnames(df)[colnames(df)==col]) <- "UTF-8"
     }
   }
   colnames(df) <-  trimws(colnames(df))
