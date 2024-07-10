@@ -1,0 +1,34 @@
+#venv
+venv/*
+
+# Production settings
+
+openlexicon/prod_base_settings.py
+
+#Ignore bytecode .pyc files
+*.pyc
+
+00*.py
+
+#Ignore database
+*.sqlite3
+
+# Ignore sent emails
+sent_emails/**
+
+# Ignore vim swap files
+*.swp
+
+# Ignore visual studio BSFolder
+.vs/**
+
+# Ignore
+root/**
+
+media/**
+
+Pipfile.lock
+
+*.pem
+
+*.bak
