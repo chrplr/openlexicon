@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'openlexiconApp.apps.OpenlexiconappConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # TODO
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'openlexicon', 'templates'),
+            os.path.join(BASE_DIR, 'openlexiconApp', 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -171,8 +175,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# TODO
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'openlexicon', 'static')
+]
 
 CONTACT_MAIL = "contact@lexique.org"
 

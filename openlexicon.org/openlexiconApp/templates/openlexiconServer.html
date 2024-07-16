@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- add searchpanes for filters https://datatables.net/extensions/searchpanes/examples/performance/searchPanes50k.html -->
+
+{% block title %}{{table_name}}{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<table id="{{table_name}}" class="display nowrap" style="width: 100% !important">
+    <thead>
+        <tr>
+            <th>Ortho</th>
+            <th>Phon</th>
+            <th>Lemme</th>
+            <th>Cgram</th>
+            <th>freqlemfilms2</th>
+            <th>freqfilms2</th>
+            <th>nblettres</th>
+            <th>puorth</th>
+            <th>puphon</th>
+            <th>nbsyll</th>
+            <th>cgramortho</th>
+        </tr>
+    </thead>
+</table>
+{% endblock %}
+
+{% block extrajavascript %}
+<script>
+    // https://datatables.net/faqs/index#speed
+    var table;
+    $(document).ready(function() {
+       table = $('#{{table_name}}').DataTable({
+       dom: 'lBfrtip',
+       paging: true, // DataTables can split the rows in tables into individual pages, which is an efficient method of showing a large number of records in a small space. The end user is provided with controls to request the display of different data as the navigate through the data
+       lengthMenu: [20, 100, 500, 1000],
+       buttons: [{text: 'Export', action: function(e, dt, button, config) {
+           // TODO need to send filters to server
+           window.location = "{% url 'openlexiconApp:export_data' %}"
+           // $.ajax({url: "{% url 'openlexiconApp:export_data' %}",
+           //     data:{csrfmiddlewaretoken: document.querySelector('[name=csrfmiddlewaretoken]').value},
+           //     type: 'POST',
+           //     success: function (data) {},
+           //     error: function (data){}
+           // })
+       }}],
+       serverSide: true, // https://datatables.net/examples/data_sources/server_side. With server-side processing enabled, all paging, searching, ordering actions that DataTables performs are handed off to a server where an SQL engine (or similar) can perform these actions on the large data set (after all, that's what the database engine is designed for!)
+       sAjaxSource: "{% url 'openlexiconApp:data' %}",
+       processing: true, // Enable the display of a 'processing' indicator when the table is being processed
+       columns: [
+           { name: "ortho", data: 0 },
+           { name: "phon", data: 1 },
+           { name: "lemme", data: 2 },
+           { name: "cgram", data: 3 },
+           { name: "freqlemfilms2", data: 4 },
+           { name: "freqfilms2", data: 5 },
+           { name: "nblettres", data: 6 },
+           { name: "puorth", data: 7 },
+           { name: "puphon", data: 8 },
+           { name: "nbsyll", data: 9 },
+           { name: "cgramortho", data: 10 },
+       ]
+       });
+    });
+
+</script>
+{% endblock %}

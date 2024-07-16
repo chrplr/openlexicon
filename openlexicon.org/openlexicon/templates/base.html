@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+<meta http-equiv="content-type" content="width=device-width, initial-scale=1.0, charset=utf-8" name="viewport">
+
+<!-- CSS -->
+<link type="text/css" href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/datatables/jquery.dataTables.1.10.9.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/datatables/buttons.dataTables.2.3.min.css' %}" rel="stylesheet">
+<link href="{% static 'qtip/jquery.qtip.min.css' %}" rel="stylesheet">
+<!-- jS -->
+<script type="application/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'qtip/jquery.qtip.min.js' %}"></script>
+<script src="{% static 'js/datatables/jquery.dataTables.1.10.19.min.js' %}"></script>
+<script src="{% static 'js/datatables/dataTables.buttons.2.3.2.min.js' %}"></script>
+<script src="{% static 'js/datatables/buttons.html5.2.3.2.min.js' %}"></script> <!-- Used by client version of datatable only (CSV option). To remove if we switch to server -->
+<!-- Bootstrap needs to be loaded in head in order for DateTimePicker to work -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+<title>{% block title %}{% endblock %}</title>
+{% block extracss %}
+{% endblock %}
+
+{% block extraheadjs %}
+{% endblock %}
+
+</head>
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<body>
+
+    <div id="contain_all" style="display:flex;height:93%;">
+        <div id="bootstrap-overrides" class="container content-container" style="padding-bottom:2em;">
+            <div class="row">
+              <div class="col-lg-12 text-center" style="display:flex;flex-direction:column;">
+                  {% include 'messages.html' %}
+                  {% include "_modal.html" %}
+                  {% block content %}
+                  {% endblock %}
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- to trigger modal forms -->
+    <button id="modalbutton" style="display: none;"></button>
+</body>
+</html>
+
+{% block scripts %}
+<script>
+function addZero(number){
+   if (number < 10){
+       return '0'+number
+   }
+   return number
+}
+
+var today = new Date();
+var today_format = today.getDate() + "-" + (addZero(today.getMonth()+1)) + "-" + today.getFullYear() + "_" + today.getHours() + "-" +  addZero(today.getMinutes());
+</script>
+{% endblock %}
+
+{% block extrajavascript %}
+{% endblock %}

@@ -1,0 +1,13 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog mt-5" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<script>
+    $(".modal").on("hidden.bs.modal", function(){
+        console.log("unbind");
+        $(document).unbind('submit');
+        return false;
+    });
+</script>

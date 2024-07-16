@@ -32,3 +32,6 @@ Pipfile.lock
 *.pem
 
 *.bak
+
+static/*
+openlexicon/static/Lexique383.json

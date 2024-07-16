@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{table_name}}{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<table id="{{table_name}}" class="display nowrap" style="width: 100% !important">
+    <thead>
+        <tr>
+            <th>Ortho</th>
+            <th>Phon</th>
+            <th>Lemme</th>
+            <th>Cgram</th>
+            <th>freqlemfilms2</th>
+            <th>freqfilms2</th>
+            <th>nblettres</th>
+            <th>puorth</th>
+            <th>puphon</th>
+            <th>nbsyll</th>
+            <th>cgramortho</th>
+        </tr>
+    </thead>
+</table>
+{% endblock %}
+
+{% block extrajavascript %}
+<script>
+    var table;
+    $(document).ready(function() {
+       table = $('#{{table_name}}').DataTable({
+       dom: 'lBfrtip',
+       paging: true,
+       lengthMenu: [20, 100, 500, 1000],
+       buttons: ["csv"],
+       ajax: "{% static 'Lexique383.json' %}",
+       processing: true, // Enable the display of a 'processing' indicator when the table is being processed
+       columns: [
+           { data: "ortho" },
+           { data: "phon" },
+           { data: "lemme" },
+           { data: "cgram"},
+           { data: "freqlemfilms2" },
+           { data: "freqfilms2" },
+           { data: "nblettres" },
+           { data: "puorth" },
+           { data: "puphon"},
+           { data: "nbsyll" },
+           { data: "cgramortho" },
+       ]
+       });
+    });
+
+</script>
+{% endblock %}

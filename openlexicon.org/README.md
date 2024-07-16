@@ -1,3 +1,5 @@
+# OpenLexicon.org (powered by Django)
+
 ## Requirements
 
 ### On Windows
