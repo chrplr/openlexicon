@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from openlexicon.prod_base_settings import db_pass, secret_key, passmail
+from openlexicon.prod_base_settings import db_pass, secret_key #passmail
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 LOG_LEVEL = 1
-DEBUG = True
-PRODUCTION = False
+DEBUG = False
+PRODUCTION = True
 
-SITE_URL = "openlexicon.org"
+#SITE_URL = "openlexicon.org"
+SITE_URL = "5.39.73.115"
 SITE_NAME = "OpenLexicon"
 
 # Application definition
@@ -91,9 +92,10 @@ if DEBUG:
 if DEBUG:
     ALLOWED_HOSTS = ["127.0.0.1", SITE_URL]
 else:
-    ALLOWED_HOSTS = [SITE_URL]
+    ALLOWED_HOSTS = ["localhost", "0.0.0.0", SITE_URL]
 
-CSRF_COOKIE_SECURE = True
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+'''CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = None
 SESSION_COOKIE_SAMESITE = None
@@ -103,7 +105,7 @@ else:
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     BASE_URL = "https://"+SITE_URL
-
+'''
 ##############################
 ########## Database ##########
 ##############################
@@ -120,12 +122,12 @@ else:
 
     DATABASES = {
             'default': {
-                'ENGINE': 'django.db.backends.mysql',
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
         	    'NAME': 'django_openlexicon',
                 'USER': 'django_openlexicon',
                 'PASSWORD': db_pass,
                 'HOST': 'localhost',
-                'PORT': '3306',
+                'PORT': '',
             }
         }
 
@@ -173,7 +175,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'openlexicon', 'static')
@@ -188,7 +190,7 @@ CONTACT_MAIL = "contact@lexique.org"
 ########### Email ############
 ##############################
 # FOR TESTING
-if not PRODUCTION:
+'''if not PRODUCTION:
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
     EMAIL_FILE_PATH = str(os.path.join(BASE_DIR, 'sent_emails'))
 else:
@@ -202,7 +204,7 @@ else:
     #https://stackoverflow.com/questions/26333009/how-do-you-configure-django-to-send-mail-through-postfix
     DEFAULT_FROM_EMAIL = "Contact LEXIQUE <contact@lexique.org>"
     EMAIL_SUBJECT_PREFIX = "[LEXIQUE]"
-
+'''
 ##############################
 ########### Models ###########
 ##############################

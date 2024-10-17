@@ -13,3 +13,5 @@ apps/unipseudo/tests/*
 .DS_Store
 **/.DS_Store
 
+#venv
+openlexicon.org/venv/*
