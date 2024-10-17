@@ -92,3 +92,21 @@ deactivate
 ```
 
 Note : for reload, just edit the wsgi configuration file (avoid to reload whole server)
+
+## Production
+
+Follow [How To Set Up Django with Postgres, Nginx, and Gunicorn on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu)
+
+During postgres step, do
+```
+GRANT postgres TO django_openlexicon;
+```
+
+During django step, go to /etc/nginx/nginx.conf and change user www-data; for user zebulon;
+
+After edit on gunicorn, run
+```
+sudo systemctl daemon-reload
+sudo systemctl restart gunicorn
+sudo systemctl restart nginx
+```
