@@ -22,5 +22,6 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('openlexicon/', include('openlexiconApp.urls')),
-    path('', home),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', home, name="home"),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

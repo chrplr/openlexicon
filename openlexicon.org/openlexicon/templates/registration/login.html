@@ -1,0 +1,63 @@
+{% extends 'admin/login.html' %}
+{% load i18n static %}
+{% block title %}Connexion{% endblock %}
+{% block extrastyle %}
+{{ block.super }}
+<style>
+#header {
+  background-color: transparent !important;
+}
+.login {
+    padding: 0 0px !important;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+{% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+
+{% if user.is_authenticated %}
+<p class="errornote">
+{% blocktrans trimmed %}
+    Vous n’êtes pas autorisé à accéder à cette page. Souhaitez-vous vous connecter avec un autre compte utilisateur ?
+{% endblocktrans %}
+</p>
+{% endif %}
+
+<form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+  <div class="form-row">
+    {{ form.username.errors }}
+    {{ form.username.label_tag }} {{ form.username }}
+  </div>
+  <div class="form-row">
+    {{ form.password.errors }}
+    {{ form.password.label_tag }} {{ form.password }}
+    <input type="hidden" name="next" value="{{ next }}">
+  </div>
+  {% url 'admin_password_reset' as password_reset_url %}
+  <div class="password-reset-link">
+    <a href="{% url 'password_reset' %}">{% trans 'Forgotten your password or username?' %}</a>
+  </div>
+  <div class="submit-row">
+    <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}">
+  </div>
+</form>
+
+</div>
+
+{% endblock %}

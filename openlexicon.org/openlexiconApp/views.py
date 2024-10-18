@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import StreamingHttpResponse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import DatabaseObject
 from django_serverside_datatable.views import ServerSideDatatableView
@@ -18,10 +19,12 @@ def home(request):
 def homeClient(request):
     return render(request, 'openlexiconClient.html', {'table_name': settings.SITE_NAME})
 
+@login_required
 def import_data(request):
     if request.method == 'POST' and request.FILES['json_file']:
         json_file = request.FILES['json_file']
         data = json.load(json_file)
+        objs = []
         for item in data["data"]:
             dbObj = DatabaseObject()
             for attr in item.keys():
@@ -29,7 +32,8 @@ def import_data(request):
                     setattr(dbObj, attr, item[attr])
                 except:
                     continue
-            dbObj.save()
+            objs.append(dbObj)
+        DatabaseObject.objects.bulk_create(objs) # bulk to avoid multiple save requests
         messages.success(request, ("Fichier importé !"))
     return render(request, 'importForm.html')
 

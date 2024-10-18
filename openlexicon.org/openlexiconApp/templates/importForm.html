@@ -9,4 +9,10 @@
         <input type="file" name="json_file">
         <button type="submit">Import</button>
     </form>
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">logout</button>
+</form>
+{% endif %}
 {% endblock %}
