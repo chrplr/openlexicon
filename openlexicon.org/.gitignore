@@ -34,4 +34,5 @@ Pipfile.lock
 *.bak
 
 static/*
-openlexicon/static/Lexique383.json
+openlexicon/static/*.json
+openlexicon/static/*.tsv

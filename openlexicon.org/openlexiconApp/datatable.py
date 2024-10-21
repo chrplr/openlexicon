@@ -29,7 +29,7 @@ class DataTablesServer(object):
 
     def output_result(self):
         output = dict()
-        output['sEcho'] = str(int(self.request_values['sEcho']))
+        # output['sEcho'] = str(int(self.request_values['sEcho']))
         output['iTotalRecords'] = str(self.qs.count())
         output['iTotalDisplayRecords'] = str(self.cardinality_filtered)
         data_rows = []
@@ -57,14 +57,18 @@ class DataTablesServer(object):
         if _filter:
             if op == "or":
                 data = qs.filter(
-                    reduce(operator.or_, _filter)).order_by('%s' % sorting)
+                    reduce(operator.or_, _filter))
             else:
                 data = qs.filter(
-                    reduce(operator.and_, _filter)).order_by('%s' % sorting)
+                    reduce(operator.and_, _filter))
+            if sorting != "":
+                data = data.order_by('%s' % sorting)
             len_data = data.count()
             data = list(data[pages.start:pages.length].values(*self.columns))
         else:
-            data = qs.order_by('%s' % sorting).values(*self.columns)
+            if sorting != "":
+                qs = qs.order_by('%s' % sorting)
+            data = qs.values(*self.columns)
             len_data = data.count()
             _index = int(pages.start)
             data = data[_index:_index + (pages.length - pages.start)]
@@ -99,25 +103,22 @@ class DataTablesServer(object):
     def sorting(self):
 
         order = ''
-        if (self.request_values['iSortCol_0'] != "") and (int(self.request_values['iSortingCols']) > 0):
+        if ("order[0][column]" in self.request_values.keys()):
+            # column number
+            column_number = int(self.request_values["order[0][column]"])
+            # sort direction
+            sort_direction = self.request_values['order[0][dir]']
 
-            for i in range(int(self.request_values['iSortingCols'])):
-                # column number
-                column_number = int(self.request_values['iSortCol_' + str(i)])
-                # sort direction
-                sort_direction = self.request_values['sSortDir_' + str(i)]
-
-                order = ('' if order == '' else ',') +order_dict[sort_direction]+self.columns[column_number]
+            order = ('' if order == '' else ',') +order_dict[sort_direction]+self.columns[column_number]
 
         return order
 
     def paging(self):
 
         pages = namedtuple('pages', ['start', 'length'])
-
-        if (self.request_values['iDisplayStart'] != "") and (self.request_values['iDisplayLength'] != -1):
-            pages.start = int(self.request_values['iDisplayStart'])
-            pages.length = pages.start + int(self.request_values['iDisplayLength'])
+        if (self.request_values['start'] != "") and (self.request_values['length'] != -1):
+            pages.start = int(self.request_values['start'])
+            pages.length = pages.start + int(self.request_values['length'])
 
         return pages
 

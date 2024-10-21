@@ -110,3 +110,21 @@ sudo systemctl daemon-reload
 sudo systemctl restart gunicorn
 sudo systemctl restart nginx
 ```
+
+## Add new database
+
+- Download RDS files from /home/chrplr/openlexicon_datasets using filezilla client
+- Convert to TSV using R script :
+```
+files = list.files()
+for (file in files) {
+    if (grepl(".rds", file)) {
+        tryCatch({
+            df <- readRDS(file)
+            write.table(df, paste(tools::file_path_sans_ext(file), "tsv", sep="."), row.names=FALSE, quote=FALSE, sep='\t', na="")
+        }, error=function(e){print(file)})
+    }
+}
+```
+- Convert from TSV to JSON using Python script convert_json.py
+- Go to http://5.39.73.115/openlexicon/import_data and import json
