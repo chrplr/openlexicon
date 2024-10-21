@@ -49,7 +49,7 @@ def import_data(request):
     return render(request, 'importForm.html')
 
 def export_data(request):
-    queryset = DatabaseObject.objects.values_list("ortho", "phon", "lemme")
+    queryset = DatabaseObject.objects.values_list("ortho", "phon", "lemme", "cgram", "freqlemfilms2", "freqfilms2", "nblettres", "puorth", "puphon", "nbsyll", "cgramortho")
     echo_buffer = Echo()
     csv_writer = csv.writer(echo_buffer)
 
@@ -68,4 +68,4 @@ def export_data(request):
 # https://github.com/umesh-krishna/django_serverside_datatable/tree/master
 class ItemListView(ServerSideDatatableView):
 	queryset = DatabaseObject.objects.all()
-	columns = ['ortho', 'phon', 'lemme', 'cgram', 'freqlemfilms2', 'freqfilms2', 'nblettres', 'puorth', 'puphon', 'nbsyll', 'jsonData']
+	columns = ['ortho', 'phon', 'lemme', 'cgram', 'freqlemfilms2', 'freqfilms2', 'nblettres', 'puorth', 'puphon', 'nbsyll', 'cgramortho']
