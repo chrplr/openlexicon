@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 LOG_LEVEL = 1
-DEBUG = True
+DEBUG = False
 PRODUCTION = True
 
 #SITE_URL = "openlexicon.org"
