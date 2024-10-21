@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'openlexiconApp.apps.OpenlexiconappConfig',
+    'django_ckeditor_5',
 ]
 
 MIDDLEWARE = [
@@ -151,6 +152,30 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+##############################
+########### Media ############
+##############################
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Toolbar options: https://ckeditor.com/latest/samples/old/toolbar/toolbar.html
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'filebrowserBrowseUrl': '', # remove browse server button
+        "removePlugins": "exportpdf,easyimage,cloudservices,elementspath",
+        "resize_enabled": False,
+        'width': '100%',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Format', 'Font', 'FontSize'],
+            ['Redo', 'Undo'],
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'TextColor']
+        ]
+    }
+}
 
 ##############################
 #### Internationalization ####

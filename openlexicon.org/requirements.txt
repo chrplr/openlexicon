@@ -1,4 +1,4 @@
 django == 5.0.7
-django-serverside-datatable == 2.1.0
 gunicorn == 23.0.0
 psycopg2-binary == 2.9.10
+django-ckeditor-5 == 0.2.15
