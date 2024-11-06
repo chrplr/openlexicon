@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import DatabaseObject, Database
+from django.db.models import Q
+from .models import DatabaseObject, Database, ExportMode
 from .datatable import ServerSideDatatableView
 import json
 import csv
 import os
+import io
+from pyexcelerate import Workbook
 
 class Echo:
     def write(self, value):
@@ -48,22 +51,45 @@ def import_data(request):
         messages.success(request, ("Fichier importé !"))
     return render(request, 'importForm.html')
 
-def export_data(request):
+def export_data(request, mode, search=""):
+    # filter
     queryset = DatabaseObject.objects.values_list("ortho", "phon", "lemme", "cgram", "freqlemfilms2", "freqfilms2", "nblettres", "puorth", "puphon", "nbsyll", "cgramortho")
-    echo_buffer = Echo()
-    csv_writer = csv.writer(echo_buffer)
+    if search != "":
+        # NOTE : to change. We need to identify which columns are searchable, authorize filtering numbers etc
+        queryset = queryset.filter(
+            Q(ortho__contains=search) | Q(phon__contains=search) | Q(lemme__contains=search) | Q(cgram__contains=search) | Q(cgramortho__contains=search)
 
-    # By using a generator expression to write each row in the queryset
-    # python calculates each row as needed, rather than all at once.
-    # Note that the generator uses parentheses, instead of square
-    # brackets – ( ) instead of [ ].
-    rows = (csv_writer.writerow(row) for row in queryset)
+        )
 
-    return StreamingHttpResponse(
-        rows,
-        content_type="text/csv",
-        headers={"Content-Disposition": 'attachment; filename="Lexique.csv"'},
-    )
+    if mode == ExportMode.CSV:
+        echo_buffer = Echo()
+        csv_writer = csv.writer(echo_buffer)
+
+        # By using a generator expression to write each row in the queryset python calculates each row as needed, rather than all at once.
+        rows = (csv_writer.writerow(row) for row in queryset)
+
+        response = StreamingHttpResponse(
+            rows,
+            content_type="text/csv",
+            headers={"Content-Disposition": 'attachment; filename=Lexique.csv'}
+        )
+
+    # https://hakibenita.com/python-django-optimizing-excel-export
+    elif mode == ExportMode.EXCEL:
+        stream = io.BytesIO()
+
+        workbook = Workbook()
+        sheet = workbook.new_sheet("OpenLexicon", data=queryset)
+
+        workbook.save(stream)
+        stream.seek(0)
+        # TODO : try to make this work with StreamingHttpResponse
+        response = HttpResponse(stream.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = 'attachment; filename=Lexique.xlsx'
+    else:
+        raise Exception("Invalid export format")
+
+    return response
 
 # https://github.com/umesh-krishna/django_serverside_datatable/tree/master
 class ItemListView(ServerSideDatatableView):

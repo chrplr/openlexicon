@@ -1,6 +1,10 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
+class ExportMode(models.TextChoices):
+    CSV = "CSV"
+    EXCEL = "EXCEL"
+
 class Lang(models.TextChoices):
     FR = "French"
     EN = "English"

@@ -32,13 +32,19 @@
     var table;
     $(document).ready(function() {
        table = $('#{{table_name}}').DataTable({
-       dom: 'lBfrtip',
+       layout: {
+           topStart: 'pageLength',
+           topEnd: 'search',
+           bottomStart: 'info',
+           bottomEnd: 'paging',
+           bottom2End: 'buttons'
+       },
        paging: true, // DataTables can split the rows in tables into individual pages, which is an efficient method of showing a large number of records in a small space. The end user is provided with controls to request the display of different data as the navigate through the data
        lengthMenu: [20, 100, 500, 1000],
-       buttons: [{text: 'Export', action: function(e, dt, button, config) {
-          // TODO need to send filters to server
-          window.location = "{% url 'openlexiconApp:export_data' %}"
-       }}],
+       buttons: [
+           {text: 'CSV', action: goExport},
+           {text: 'EXCEL', action: goExport}
+       ],
        serverSide: true, // https://datatables.net/examples/data_sources/server_side. With server-side processing enabled, all paging, searching, ordering actions that DataTables performs are handed off to a server where an SQL engine (or similar) can perform these actions on the large data set (after all, that's what the database engine is designed for!)
        ajax: "{% url 'openlexiconApp:data' %}",
        processing: true, // Enable the display of a 'processing' indicator when the table is being processed
@@ -57,6 +63,10 @@
        ]
        });
     });
+
+    function goExport(e, dt, button, config) {
+        window.location = "{% url 'openlexiconApp:export_data' 'EXPORT_CODE' 'SEARCH' %}".replace("EXPORT_CODE", button.text()).replace('SEARCH', dt.search().trim())
+    }
 
 </script>
 {% endblock %}
