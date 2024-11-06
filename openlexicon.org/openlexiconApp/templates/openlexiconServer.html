@@ -5,6 +5,22 @@
 
 {% block title %}{{table_name}}{% endblock %}
 
+{% block extracss %}
+<style>
+.large-col {
+    min-width: 200px;
+}
+
+.medium-col {
+    min-width: 150px;
+}
+
+.small-col {
+    min-width: 70px;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 {% csrf_token %}
 <table id="{{table_name}}" class="display nowrap" style="width: 100% !important">
@@ -48,6 +64,11 @@
        serverSide: true, // https://datatables.net/examples/data_sources/server_side. With server-side processing enabled, all paging, searching, ordering actions that DataTables performs are handed off to a server where an SQL engine (or similar) can perform these actions on the large data set (after all, that's what the database engine is designed for!)
        ajax: "{% url 'openlexiconApp:data' %}",
        processing: true, // Enable the display of a 'processing' indicator when the table is being processed
+       columnDefs: [
+           {className: "large-col", targets:[0,1,2]},
+           {className: "medium-col", targets:[10]},
+           {className: "small-col", targets:[3,4,5,6,7,8,9]},
+       ],
        columns: [
            { name: "ortho", data: 0 },
            { name: "phon", data: 1 },
@@ -60,7 +81,8 @@
            { name: "puphon", data: 8 },
            { name: "nbsyll", data: 9 },
            { name: "cgramortho", data: 10 },
-       ]
+       ],
+       scrollX: true,
        });
     });
 
