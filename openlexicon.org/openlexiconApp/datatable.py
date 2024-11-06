@@ -86,17 +86,18 @@ class DataTablesServer(object):
         # build your filter spec
         or_filter = []
         op = ""
-        if (self.request_values.get('sSearch')) and (self.request_values['sSearch'] != ""):
+        if (self.request_values.get('search[value]')) and (self.request_values['search[value]'] != ""):
             op = "or"
             for i in range(len(self.columns)):
-                if self.request_values['bSearchable_%d' % i] == 'true':
+                if self.request_values['columns[%d][searchable]' % i] == 'true':
                     or_filter.append(
-                        Q(**{'%s__icontains' % self.columns[i]: self.request_values['sSearch']}))
-        else:
-            op = "and"
-            for i in range(len(self.columns)):
-                if (self.request_values.get(f'sSearch_{i}')) and (self.request_values[f'sSearch_{i}'] != ""):
-                    or_filter.append((self.columns[i]+'__icontains', self.request_values[f'sSearch_{i}']))
+                        Q(**{'%s__icontains' % self.columns[i]: self.request_values['search[value]']}))
+        # TODO : check if useful
+        # else:
+        #     op = "and"
+            # for i in range(len(self.columns)):
+            #     if (self.request_values.get(f'sSearch_{i}')) and (self.request_values[f'sSearch_{i}'] != ""):
+            #         or_filter.append((self.columns[i]+'__icontains', self.request_values[f'sSearch_{i}']))
         q_list = [Q(x) for x in or_filter]
         return q_list, op
 
