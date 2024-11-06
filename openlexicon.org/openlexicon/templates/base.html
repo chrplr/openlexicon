@@ -6,16 +6,16 @@
 
 <!-- CSS -->
 <link type="text/css" href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-<link href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css" rel="stylesheet">
-<link href="{% static 'qtip/jquery.qtip.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/datatables/dataTables.dataTables-2.1.8.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/datatables/buttons.dataTables-3.1.2.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'qtip/jquery.qtip.min.css' %}" rel="stylesheet">
 <!-- jS -->
-<script type="application/javascript" src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script type="application/javascript" src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'qtip/jquery.qtip.min.js' %}"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-<script type="application/javascript" src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
-<script type="application/javascript" src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
-<script type="application/javascript" src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.min.js"></script>
+<script src="{% static 'js/datatables/dataTables-2.1.8.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/dataTables.buttons-3.1.2.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/buttons.dataTables-3.1.2.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/buttons.html5-3.1.2.min.js' %}"></script>
 <!-- Bootstrap needs to be loaded in head in order for DateTimePicker to work -->
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 

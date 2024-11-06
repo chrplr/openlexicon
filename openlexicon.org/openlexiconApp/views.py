@@ -30,8 +30,8 @@ def import_data(request):
             db = db_filter[0]
         data = json.load(json_file)
         objs = []
-        jsonDict = {}
         for item in data["data"]:
+            jsonDict = {}
             dbObj = DatabaseObject()
             for attr in item.keys():
                 if attr == "Word":
