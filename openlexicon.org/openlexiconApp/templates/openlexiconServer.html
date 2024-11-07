@@ -47,43 +47,43 @@
     // https://datatables.net/faqs/index#speed
     var table;
     $(document).ready(function() {
-       table = $('#{{table_name}}').DataTable({
-       layout: {
-           topStart: 'pageLength',
-           topEnd: 'search',
-           bottomStart: 'info',
-           bottomEnd: 'paging',
-           bottom2End: 'buttons'
-       },
-       paging: true, // DataTables can split the rows in tables into individual pages, which is an efficient method of showing a large number of records in a small space. The end user is provided with controls to request the display of different data as the navigate through the data
-       lengthMenu: [20, 100, 500, 1000],
-       buttons: [
-           {text: 'CSV', action: goExport},
-           {text: 'EXCEL', action: goExport}
-       ],
-       serverSide: true, // https://datatables.net/examples/data_sources/server_side. With server-side processing enabled, all paging, searching, ordering actions that DataTables performs are handed off to a server where an SQL engine (or similar) can perform these actions on the large data set (after all, that's what the database engine is designed for!)
-       ajax: "{% url 'openlexiconApp:data' %}",
-       processing: true, // Enable the display of a 'processing' indicator when the table is being processed
-       columnDefs: [
-           {className: "large-col", targets:[0,1,2]},
-           {className: "medium-col", targets:[10]},
-           {className: "small-col", targets:[3,4,5,6,7,8,9]},
-       ],
-       columns: [
-           { name: "ortho", data: 0 },
-           { name: "phon", data: 1 },
-           { name: "lemme", data: 2 },
-           { name: "cgram", data: 3 },
-           { name: "freqlemfilms2", data: 4 },
-           { name: "freqfilms2", data: 5 },
-           { name: "nblettres", data: 6 },
-           { name: "puorth", data: 7 },
-           { name: "puphon", data: 8 },
-           { name: "nbsyll", data: 9 },
-           { name: "cgramortho", data: 10 },
-       ],
-       scrollX: true,
-       });
+        table = $('#{{table_name}}').DataTable({
+            layout: {
+                topStart: 'pageLength',
+                topEnd: 'search',
+                bottomStart: 'info',
+                bottomEnd: 'paging',
+                bottom2End: 'buttons'
+            },
+            paging: true, // DataTables can split the rows in tables into individual pages, which is an efficient method of showing a large number of records in a small space. The end user is provided with controls to request the display of different data as the navigate through the data
+            lengthMenu: [20, 100, 500, 1000],
+            buttons: [
+                {text: 'CSV', action: goExport},
+                {text: 'EXCEL', action: goExport}
+            ],
+            serverSide: true, // https://datatables.net/examples/data_sources/server_side. With server-side processing enabled, all paging, searching, ordering actions that DataTables performs are handed off to a server where an SQL engine (or similar) can perform these actions on the large data set (after all, that's what the database engine is designed for!)
+            ajax: "{% url 'openlexiconApp:data' %}",
+            processing: true, // Enable the display of a 'processing' indicator when the table is being processed
+            columnDefs: [
+                {className: "large-col", targets:[0,1,2]},
+                {className: "medium-col", targets:[10]},
+                {className: "small-col", targets:[3,4,5,6,7,8,9]},
+            ],
+            columns: [
+                { name: "ortho", data: 0 },
+                { name: "phon", data: 1 },
+                { name: "lemme", data: 2 },
+                { name: "cgram", data: 3 },
+                { name: "freqlemfilms2", data: 4 },
+                { name: "freqfilms2", data: 5 },
+                { name: "nblettres", data: 6 },
+                { name: "puorth", data: 7 },
+                { name: "puphon", data: 8 },
+                { name: "nbsyll", data: 9 },
+                { name: "cgramortho", data: 10 },
+            ],
+            scrollX: true,
+        });
     });
 
     function goExport(e, dt, button, config) {
