@@ -1,16 +1,24 @@
 # https://github.com/umesh-krishna/django_serverside_datatable
 # https://pypi.org/project/django-serverside-datatable/2.1.0/#files
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import QuerySet
 from collections import namedtuple
 import operator
+from .models import ExportMode
 from django.db.models import Q
 from functools import reduce
+from pyexcelerate import Workbook
+import csv
+import os
+import io
 
 order_dict = {'asc': '', 'desc': '-'}
 
+class Echo:
+    def write(self, value):
+        return value
 
 class DataTablesServer(object):
     def __init__(self, request, columns, qs):
@@ -64,10 +72,13 @@ class DataTablesServer(object):
             if sorting != "":
                 data = data.order_by('%s' % sorting)
             len_data = data.count()
+
+            self.full_data = data.values_list(*self.columns)
             data = list(data[pages.start:pages.length].values(*self.columns))
         else:
             if sorting != "":
                 qs = qs.order_by('%s' % sorting)
+            self.full_data = qs.values_list(*self.columns)
             data = qs.values(*self.columns)
             len_data = data.count()
             _index = int(pages.start)
@@ -85,18 +96,27 @@ class DataTablesServer(object):
     def filtering(self):
         # build your filter spec
         or_filter = []
-        op = "or"
-        # search for single value
+        # search for single value (table search field)
         if (self.request_values.get('search[value]')) and (self.request_values['search[value]'] != ""):
+            op = "or"
             for i in range(len(self.columns)):
                 if self.request_values['columns[%d][searchable]' % i] == 'true':
                     or_filter.append(
                         Q(**{'%s__icontains' % self.columns[i]: self.request_values['search[value]']}))
+        # search for each column (column search field)
+        else:
+            op = "and"
+            for i in range(len(self.columns)):
+                col_list = self.request_values.getlist(f'columns[{i}][search][value][]')
+                col_elt = self.request_values.get(f'columns[{i}][search][value]')
+                if (col_elt and col_elt != ""): # characters
+                    or_filter.append((self.columns[i]+'__icontains', col_elt))
+                elif (col_list and len(col_list) == 2) : # numbers
+                    or_filter.append((self.columns[i]+'__range', col_list))
         q_list = [Q(x) for x in or_filter]
         return q_list, op
 
     def sorting(self):
-
         order = ''
         if ("order[0][column]" in self.request_values.keys()):
             # column number
@@ -109,7 +129,6 @@ class DataTablesServer(object):
         return order
 
     def paging(self):
-
         pages = namedtuple('pages', ['start', 'length'])
         if (self.request_values['start'] != "") and (self.request_values['length'] != -1):
             pages.start = int(self.request_values['start'])
@@ -123,10 +142,49 @@ class ServerSideDatatableView(View):
     columns = None
     model = None
 
+    def export(self, table, mode):
+        qs = table.full_data
+        if mode == ExportMode.CSV:
+            echo_buffer = Echo()
+            csv_writer = csv.writer(echo_buffer)
+
+            # By using a generator expression to write each row in the queryset python calculates each row as needed, rather than all at once.
+            rows = (csv_writer.writerow(row) for row in qs)
+
+            response = StreamingHttpResponse(
+                rows,
+                content_type="text/csv",
+                headers={"Content-Disposition": 'attachment; filename=Lexique.csv'}
+            )
+
+        # https://hakibenita.com/python-django-optimizing-excel-export
+        elif mode == ExportMode.EXCEL:
+            stream = io.BytesIO()
+
+            workbook = Workbook()
+            sheet = workbook.new_sheet("OpenLexicon", data= qs)
+
+            workbook.save(stream)
+            stream.seek(0)
+            # TODO : try to make this work with StreamingHttpResponse
+            response = HttpResponse(stream.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            response['Content-Disposition'] = 'attachment; filename=Lexique.xlsx'
+        else:
+            raise Exception("Invalid export format")
+
+        return response
+
+
     def get(self, request, *args, **kwargs):
-        result = DataTablesServer(
-            request, self.columns, self.get_queryset()).output_result()
-        return JsonResponse(result, safe=False)
+        export_mode = request.GET.get("export_mode")
+        if export_mode != None and not request.GET.get("export_post"): # get ajax url for real export
+            return JsonResponse({"url": request.build_absolute_uri()}, safe=False)
+        table = DataTablesServer(
+            request, self.columns, self.get_queryset())
+        if export_mode != None:
+            return self.export(table, export_mode)
+        else:
+            return JsonResponse(table.output_result(), safe=False)
 
     def get_queryset(self):
         """

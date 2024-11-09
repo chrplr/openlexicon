@@ -1,0 +1,11 @@
+.large-col {
+    min-width: 200px;
+}
+
+.medium-col {
+    min-width: 150px;
+}
+
+.small-col {
+    min-width: 70px;
+}

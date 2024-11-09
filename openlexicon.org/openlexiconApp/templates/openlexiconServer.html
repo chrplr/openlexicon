@@ -6,19 +6,21 @@
 {% block title %}{{table_name}}{% endblock %}
 
 {% block extracss %}
-<style>
-.large-col {
-    min-width: 200px;
-}
+<link type="text/css" href="{% static 'css/datatables/dataTables.dataTables-2.1.8.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/datatables/buttons.dataTables-3.1.2.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/datatables/fixedColumns.dataTables-5.0.3.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/datatables/dataTables.extra.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/datatables/jquery.nouislider.min.css' %}" rel="stylesheet">
+{% endblock %}
 
-.medium-col {
-    min-width: 150px;
-}
-
-.small-col {
-    min-width: 70px;
-}
-</style>
+{% block extraheadjs %}
+<script src="{% static 'js/datatables/dataTables-2.1.8.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/dataTables.buttons-3.1.2.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/buttons.dataTables-3.1.2.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/buttons.html5-3.1.2.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/dataTables.fixedColumns-5.0.3.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/fixedColumns.dataTables-5.0.3.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/datatables/jquery.nouislider.min.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -26,17 +28,19 @@
 <table id="{{table_name}}" class="display nowrap" style="width: 100% !important">
     <thead>
         <tr>
-            <th>Ortho</th>
-            <th>Phon</th>
-            <th>Lemme</th>
-            <th>Cgram</th>
-            <th>freqlemfilms2</th>
-            <th>freqfilms2</th>
-            <th>nblettres</th>
-            <th>puorth</th>
-            <th>puphon</th>
-            <th>nbsyll</th>
-            <th>cgramortho</th>
+            <th class="text">ortho</th>
+            <th class="text">phon</th>
+            <th class="text">lemme</th>
+            <th class="text">cgram</th>
+            <th class="float">freqlemfilms2</th>
+            <th class="float">freqfilms2</th>
+            <th class="int">nblettres</th>
+            <th class="int">puorth</th>
+            <th class="int">puphon</th>
+            <th class="int">nbsyll</th>
+            <th class="text">cgramortho</th>
+        </tr>
+        <tr id="{{table_name}}_filterrow">
         </tr>
     </thead>
 </table>
@@ -46,14 +50,39 @@
 <script>
     // https://datatables.net/faqs/index#speed
     var table;
+    // To keep track of original min/max slider values
+    var column_dict = {}
     $(document).ready(function() {
+        // Setup - add a text input to each column
+        $('#{{table_name}} thead th').each(function (i) {
+            dataType = $(this).attr("class");
+            $("#{{table_name}}_filterrow").append('<th class="'+ dataType +'"><div tabindex="0" id="filterDiv'+i+'" class="form-group" style="margin-bottom: auto; position:relative"><input id="filterInput'+i+'" type="text" placeholder="All" class="form-control" data-index="' + i + '" /></div></th>');
+
+            if (["float", "int"].includes(dataType)) {
+                $input = $("#filterInput"+i);
+                $filterDiv = $("#filterDiv"+i);
+                $("<div id ='filterRange"+i+"' style='position: absolute; width: 202px; opacity: 1; z-index: 1; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; padding: 50px 40px 10px 40px; display: none;'><div id='filterSlider"+i+"'></div></div>").insertAfter($input);
+
+                $filterDiv.on({
+                    focusin: function() {
+                        $("#filterRange"+i).show().trigger('show');
+                    },
+                    focusout: function() {
+                        if (!document.getElementById("filterDiv"+i).matches(':focus-within')) { // we hide slider if no focus inside div (on input or slider)
+                            $("#filterRange"+i).hide().trigger('hide');
+                        }
+                    }
+                })
+            }
+        });
+
         table = $('#{{table_name}}').DataTable({
+            orderCellsTop: true, // sorting is assigned to top row (not to filterrow)
             layout: {
                 topStart: 'pageLength',
-                topEnd: 'search',
+                topEnd: 'buttons',
                 bottomStart: 'info',
-                bottomEnd: 'paging',
-                bottom2End: 'buttons'
+                bottomEnd: 'paging'
             },
             paging: true, // DataTables can split the rows in tables into individual pages, which is an efficient method of showing a large number of records in a small space. The end user is provided with controls to request the display of different data as the navigate through the data
             lengthMenu: [20, 100, 500, 1000],
@@ -83,11 +112,116 @@
                 { name: "cgramortho", data: 10 },
             ],
             scrollX: true,
+            fixedColumns:true, // fix first column when scrolling right
+            initComplete: function(settings, json) { // Add slider filters (needs to be done after table is initialized to get min/max slider values). Largely inspired by https://github.com/rstudio/DT/
+                $('#{{table_name}}_filterrow th').each(function (i) {
+                    if ($(this).hasClass("dt-type-numeric")){
+                        setSlider(i);
+                    } else { // character
+                        $("#filterInput"+i).on('keyup', function (event) { // Search filter
+                            table
+                                .column($(this).data('index'))
+                                .search(this.value)
+                                .draw();
+                        });
+                    }
+                });
+            }
         });
+
+        // remove the overflow: hidden attribute of the scrollHead (otherwise the scrolling table body obscures the filters if scrollX is enabled)
+        // The workaround and the discussion from https://github.com/rstudio/DT/issues/554#issuecomment-518007347
+        // Table needs to go to the far right of the page for this change to not be visible for user (titles overflowing to the right)
+        $(document).find('.dt-scroll-head,.dt-scroll-foot,.dt-scroll-body').each(function() {
+            $(this).css("overflow", "visible");
+        })
+        $(document).find('.dt-scroll').each(function() {
+            $(this).css("overflow-x", "scroll");
+        })
     });
 
     function goExport(e, dt, button, config) {
-        window.location = "{% url 'openlexiconApp:export_data' 'EXPORT_CODE' 'SEARCH' %}".replace("EXPORT_CODE", button.text()).replace('SEARCH', dt.search().trim())
+        // NOTE:  We first make an ajax call to get the string url with filters
+        $.ajax({
+            url: "{% url 'openlexiconApp:data' %}",
+            data: Object.assign(table.ajax.params(), {"export_mode": button.text()}),
+            success: function(data) { // we call URL without ajax to export
+                window.location = data.url + "&export_post=1"
+            }
+        })
+    }
+
+    const compareArrays = (a, b) => {
+        return JSON.stringify(a) === JSON.stringify(b);
+    };
+
+    function setSlider(i) {
+        $.ajax({
+            url: "{% url 'openlexiconApp:filter_data' %}",
+            data: {
+                colName: table.column(i).header().innerText, // TODO : change for something more robust (i index will not be reliable when column selection will be available)
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            type: 'POST',
+            success: function(data) {
+                column_dict[i] = [data.min, data.max];
+                filterSlider = document.getElementById("filterSlider"+i);
+                step = null;
+                format = null;
+                if ($("#filterSlider"+i).closest("th").hasClass("int")) {
+                    step = 1;
+                    format = {
+                        from: function(value) {
+                            return parseInt(value);
+                        },
+                        to: function(value) {
+                            return parseInt(value);
+                        }
+                    }
+                }
+                noUiSlider.create(filterSlider, {
+                    start: column_dict[i],
+                    range: {'min': column_dict[i][0], 'max': column_dict[i][1]},
+                    connect: true,
+                    tooltips: true,
+                    step: step,
+                    format: format
+                });
+
+                filterSlider.noUiSlider.on('set', function( values, handle ) {
+                    if (!compareArrays(values.map(function(e) {return parseFloat(e);}), column_dict[i])) {
+                        $("#filterInput"+i).val(values[0] + " ... " + values[1]);
+                    }else{
+                        $("#filterInput"+i).val("")
+                    }
+                    table
+                        .column($("#filterInput"+i).data('index'))
+                        .search(values)
+                        .draw();
+                });
+
+                $("#filterInput"+i).on('keyup', function() {
+                    v = $(this).val();
+                    isvalid = true;
+                    if (v == "") { // all
+                        v = column_dict[i];
+                    } else {
+                        v = v.split(" ... ")
+                        if (v.length !== 2 || isNaN(v[0]) || isNaN(v[1]) || v[0] > v[1]) {
+                            $(this).addClass('is-invalid');
+                            isvalid = false;
+                        }
+                    }
+                    if (isvalid) {
+                        $(this).removeClass('is-invalid');
+                        document.getElementById("filterSlider"+i).noUiSlider.set(v);
+                    }
+                });
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        });
     }
 
 </script>
