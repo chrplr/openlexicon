@@ -1,251 +1,251 @@
 [Anagrammes]
-url="http://www.lexique.org/databases/_json/anagrammes.json"
+url="http://www.lexique.org/databases/links/anagrammes.json"
 
 [AoA32]
-url="http://www.lexique.org/databases/_json/AoA-32lang.json"
+url="http://www.lexique.org/databases/links/AoA-32lang.json"
 
 [AoA_FamConcept_1225]
-url="http://www.lexique.org/databases/_json/AoA_FamConcept_1225.json"
+url="http://www.lexique.org/databases/links/AoA_FamConcept_1225.json"
 
 [AoA_FreqSub_1493]
-url="http://www.lexique.org/databases/_json/AoA_FreqSub_1493.json"
+url="http://www.lexique.org/databases/links/AoA_FreqSub_1493.json"
 
 [Imag_1493]
-url="http://www.lexique.org/databases/_json/Imag_1493.json"
+url="http://www.lexique.org/databases/links/Imag_1493.json"
 
 [Lexique3]
-url="http://www.lexique.org/databases/_json/Lexique383.json"
+url="http://www.lexique.org/databases/links/Lexique383.json"
 
 [Megalex_auditory]
-url="http://www.lexique.org/databases/_json/Megalex-auditory.json"
+url="http://www.lexique.org/databases/links/Megalex-auditory.json"
 
 [Megalex_visual]
-url="http://www.lexique.org/databases/_json/Megalex-visual.json"
+url="http://www.lexique.org/databases/links/Megalex-visual.json"
 
 [SemantiQc_auditory]
-url="http://www.lexique.org/databases/_json/SemantiQc_auditory.json"
+url="http://www.lexique.org/databases/links/SemantiQc_auditory.json"
 
 [SemantiQc_familiarity_concept]
-url="http://www.lexique.org/databases/_json/SemantiQc_familiarity_concept.json"
+url="http://www.lexique.org/databases/links/SemantiQc_familiarity_concept.json"
 
 [SemantiQc_visual]
-url="http://www.lexique.org/databases/_json/SemantiQc_visual.json"
+url="http://www.lexique.org/databases/links/SemantiQc_visual.json"
 
 [SensoryExp_1659]
-url="http://www.lexique.org/databases/_json/SensoryExp_1659.json"
+url="http://www.lexique.org/databases/links/SensoryExp_1659.json"
 
 [SubtlexUS]
-url="http://www.lexique.org/databases/_json/SUBTLEX-US.json"
+url="http://www.lexique.org/databases/links/SUBTLEX-US.json"
 
 [Valemo_Adultes_604]
-url="http://www.lexique.org/databases/_json/Valemo_Adultes_604.json"
+url="http://www.lexique.org/databases/links/Valemo_Adultes_604.json"
 
 [ValEmo_Arous_1286]
-url="http://www.lexique.org/databases/_json/ValEmo_Arous_1286.json"
+url="http://www.lexique.org/databases/links/ValEmo_Arous_1286.json"
 
 [ValEmo_Arous_Imag_835]
-url="http://www.lexique.org/databases/_json/ValEmo_Arous_Imag_835.json"
+url="http://www.lexique.org/databases/links/ValEmo_Arous_Imag_835.json"
 
 [Valemo_Enfants_600]
-url="http://www.lexique.org/databases/_json/Valemo_Enfants_600.json"
+url="http://www.lexique.org/databases/links/Valemo_Enfants_600.json"
 
 [Voisins]
-url="http://www.lexique.org/databases/_json/Voisins.json"
+url="http://www.lexique.org/databases/links/Voisins.json"
 
 [WorldLex_EN]
-url="http://www.lexique.org/databases/_json/WorldLex-English.json"
+url="http://www.lexique.org/databases/links/WorldLex-English.json"
 
 [WorldLex_FR]
-url="http://www.lexique.org/databases/_json/WorldLex-French.json"
+url="http://www.lexique.org/databases/links/WorldLex-French.json"
 
 [WorldLex_AF]
-url="http://www.lexique.org/databases/_json/WorldLex-Afrikaans.json"
+url="http://www.lexique.org/databases/links/WorldLex-Afrikaans.json"
 
 [WorldLex_ALB]
-url="http://www.lexique.org/databases/_json/WorldLex-Albanian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Albanian.json"
 
 [WorldLex_AMH]
-url="http://www.lexique.org/databases/_json/WorldLex-Amharic.json"
+url="http://www.lexique.org/databases/links/WorldLex-Amharic.json"
 
 [WorldLex_ARA]
-url="http://www.lexique.org/databases/_json/WorldLex-Arabic.json"
+url="http://www.lexique.org/databases/links/WorldLex-Arabic.json"
 
 [WorldLex_ARM]
-url="http://www.lexique.org/databases/_json/WorldLex-Armenian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Armenian.json"
 
 [WorldLex_AZE]
-url="http://www.lexique.org/databases/_json/WorldLex-Azeri.json"
+url="http://www.lexique.org/databases/links/WorldLex-Azeri.json"
 
 [WorldLex_BEN]
-url="http://www.lexique.org/databases/_json/WorldLex-Bengali.json"
+url="http://www.lexique.org/databases/links/WorldLex-Bengali.json"
 
 [WorldLex_BOS]
-url="http://www.lexique.org/databases/_json/WorldLex-Bosnian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Bosnian.json"
 
 [WorldLex_CAT]
-url="http://www.lexique.org/databases/_json/WorldLex-Catalan.json"
+url="http://www.lexique.org/databases/links/WorldLex-Catalan.json"
 
 [WorldLex_CHI]
-url="http://www.lexique.org/databases/_json/WorldLex-Chinese-Simplified.json"
+url="http://www.lexique.org/databases/links/WorldLex-Chinese-Simplified.json"
 
 [WorldLex_CRO]
-url="http://www.lexique.org/databases/_json/WorldLex-Croatian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Croatian.json"
 
 [WorldLex_CZE]
-url="http://www.lexique.org/databases/_json/WorldLex-Czech.json"
+url="http://www.lexique.org/databases/links/WorldLex-Czech.json"
 
 [WorldLex_DK]
-url="http://www.lexique.org/databases/_json/WorldLex-Danish.json"
+url="http://www.lexique.org/databases/links/WorldLex-Danish.json"
 
 [WorldLex_NL]
-url="http://www.lexique.org/databases/_json/WorldLex-Dutch.json"
+url="http://www.lexique.org/databases/links/WorldLex-Dutch.json"
 
 [WorldLex_EST]
-url="http://www.lexique.org/databases/_json/WorldLex-Estonian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Estonian.json"
 
 [WorldLex_FI]
-url="http://www.lexique.org/databases/_json/WorldLex-Finnish.json"
+url="http://www.lexique.org/databases/links/WorldLex-Finnish.json"
 
 [WorldLex_GE]
-url="http://www.lexique.org/databases/_json/WorldLex-Georgian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Georgian.json"
 
 [WorldLex_DE]
-url="http://www.lexique.org/databases/_json/WorldLex-German.json"
+url="http://www.lexique.org/databases/links/WorldLex-German.json"
 
 [WorldLex_GRE]
-url="http://www.lexique.org/databases/_json/WorldLex-Greek.json"
+url="http://www.lexique.org/databases/links/WorldLex-Greek.json"
 
 [WorldLex_GL]
-url="http://www.lexique.org/databases/_json/WorldLex-Greenlandic.json"
+url="http://www.lexique.org/databases/links/WorldLex-Greenlandic.json"
 
 [WorldLex_GU]
-url="http://www.lexique.org/databases/_json/WorldLex-Gujarati.json"
+url="http://www.lexique.org/databases/links/WorldLex-Gujarati.json"
 
 [WorldLex_HE]
-url="http://www.lexique.org/databases/_json/WorldLex-Hebrew.json"
+url="http://www.lexique.org/databases/links/WorldLex-Hebrew.json"
 
 [WorldLex_HI]
-url="http://www.lexique.org/databases/_json/WorldLex-Hindi.json"
+url="http://www.lexique.org/databases/links/WorldLex-Hindi.json"
 
 [WorldLex_HU]
-url="http://www.lexique.org/databases/_json/WorldLex-Hungarian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Hungarian.json"
 
 [WorldLex_ICE]
-url="http://www.lexique.org/databases/_json/WorldLex-Icelandic.json"
+url="http://www.lexique.org/databases/links/WorldLex-Icelandic.json"
 
 [WorldLex_ID]
-url="http://www.lexique.org/databases/_json/WorldLex-Indonesian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Indonesian.json"
 
 [WorldLex_ITA]
-url="http://www.lexique.org/databases/_json/WorldLex-Italian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Italian.json"
 
 [WorldLex_JAP]
-url="http://www.lexique.org/databases/_json/WorldLex-Japanese.json"
+url="http://www.lexique.org/databases/links/WorldLex-Japanese.json"
 
 [WorldLex_KN]
-url="http://www.lexique.org/databases/_json/WorldLex-Kannada.json"
+url="http://www.lexique.org/databases/links/WorldLex-Kannada.json"
 
 [WorldLex_KZ]
-url="http://www.lexique.org/databases/_json/WorldLex-Kazakh.json"
+url="http://www.lexique.org/databases/links/WorldLex-Kazakh.json"
 
 [WorldLex_KHM]
-url="http://www.lexique.org/databases/_json/WorldLex-Khmer.json"
+url="http://www.lexique.org/databases/links/WorldLex-Khmer.json"
 
 [WorldLex_KR]
-url="http://www.lexique.org/databases/_json/WorldLex-Korean.json"
+url="http://www.lexique.org/databases/links/WorldLex-Korean.json"
 
 [WorldLex_LV]
-url="http://www.lexique.org/databases/_json/WorldLex-Latvian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Latvian.json"
 
 [WorldLex_LIT]
-url="http://www.lexique.org/databases/_json/WorldLex-Lithuanian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Lithuanian.json"
 
 [WorldLex_MK]
-url="http://www.lexique.org/databases/_json/WorldLex-Macedonian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Macedonian.json"
 
 [WorldLex_ML]
-url="http://www.lexique.org/databases/_json/WorldLex-Malayalam.json"
+url="http://www.lexique.org/databases/links/WorldLex-Malayalam.json"
 
 [WorldLex_MY]
-url="http://www.lexique.org/databases/_json/WorldLex-Malaysian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Malaysian.json"
 
 [WorldLex_MN]
-url="http://www.lexique.org/databases/_json/WorldLex-Mongolian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Mongolian.json"
 
 [WorldLex_NEP]
-url="http://www.lexique.org/databases/_json/WorldLex-Nepali.json"
+url="http://www.lexique.org/databases/links/WorldLex-Nepali.json"
 
 [WorldLex_NOB]
-url="http://www.lexique.org/databases/_json/WorldLex-Norwegian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Norwegian.json"
 
 [WorldLex_PER]
-url="http://www.lexique.org/databases/_json/WorldLex-Persian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Persian.json"
 
 [WorldLex_PL]
-url="http://www.lexique.org/databases/_json/WorldLex-Polish.json"
+url="http://www.lexique.org/databases/links/WorldLex-Polish.json"
 
 [WorldLex_POR_BR]
-url="http://www.lexique.org/databases/_json/WorldLex-Portuguese-Brazil.json"
+url="http://www.lexique.org/databases/links/WorldLex-Portuguese-Brazil.json"
 
 [WorldLex_POR_EU]
-url="http://www.lexique.org/databases/_json/WorldLex-Portuguese-Europe.json"
+url="http://www.lexique.org/databases/links/WorldLex-Portuguese-Europe.json"
 
 [WorldLex_PAN]
-url="http://www.lexique.org/databases/_json/WorldLex-Punjabi.json"
+url="http://www.lexique.org/databases/links/WorldLex-Punjabi.json"
 
 [WorldLex_RO]
-url="http://www.lexique.org/databases/_json/WorldLex-Romanian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Romanian.json"
 
 [WorldLex_RU]
-url="http://www.lexique.org/databases/_json/WorldLex-Russian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Russian.json"
 
 [WorldLex_SER]
-url="http://www.lexique.org/databases/_json/WorldLex-Serbian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Serbian.json"
 
 [WorldLex_SIN]
-url="http://www.lexique.org/databases/_json/WorldLex-Sinhala.json"
+url="http://www.lexique.org/databases/links/WorldLex-Sinhala.json"
 
 [WorldLex_SK]
-url="http://www.lexique.org/databases/_json/WorldLex-Slovak.json"
+url="http://www.lexique.org/databases/links/WorldLex-Slovak.json"
 
 [WorldLex_SL]
-url="http://www.lexique.org/databases/_json/WorldLex-Slovenian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Slovenian.json"
 
 [WorldLex_ES_SA]
-url="http://www.lexique.org/databases/_json/WorldLex-Spanish-Latin-America.json"
+url="http://www.lexique.org/databases/links/WorldLex-Spanish-Latin-America.json"
 
 [WorldLex_ES]
-url="http://www.lexique.org/databases/_json/WorldLex-Spanish-Spain.json"
+url="http://www.lexique.org/databases/links/WorldLex-Spanish-Spain.json"
 
 [WorldLex_SWA]
-url="http://www.lexique.org/databases/_json/WorldLex-Swahili.json"
+url="http://www.lexique.org/databases/links/WorldLex-Swahili.json"
 
 [WorldLex_SWE]
-url="http://www.lexique.org/databases/_json/WorldLex-Swedish.json"
+url="http://www.lexique.org/databases/links/WorldLex-Swedish.json"
 
 [WorldLex_TGL]
-url="http://www.lexique.org/databases/_json/WorldLex-Tagalog.json"
+url="http://www.lexique.org/databases/links/WorldLex-Tagalog.json"
 
 [WorldLex_TA]
-url="http://www.lexique.org/databases/_json/WorldLex-Tamil.json"
+url="http://www.lexique.org/databases/links/WorldLex-Tamil.json"
 
 [WorldLex_TEL]
-url="http://www.lexique.org/databases/_json/WorldLex-Telugu.json"
+url="http://www.lexique.org/databases/links/WorldLex-Telugu.json"
 
 [WorldLex_TUR]
-url="http://www.lexique.org/databases/_json/WorldLex-Turkish.json"
+url="http://www.lexique.org/databases/links/WorldLex-Turkish.json"
 
 [WorldLex_UK]
-url="http://www.lexique.org/databases/_json/WorldLex-Ukrainian.json"
+url="http://www.lexique.org/databases/links/WorldLex-Ukrainian.json"
 
 [WorldLex_URD]
-url="http://www.lexique.org/databases/_json/WorldLex-Urdu.json"
+url="http://www.lexique.org/databases/links/WorldLex-Urdu.json"
 
 [WorldLex_UZ]
-url="http://www.lexique.org/databases/_json/WorldLex-Uzbek.json"
+url="http://www.lexique.org/databases/links/WorldLex-Uzbek.json"
 
 [WorldLex_VIE]
-url="http://www.lexique.org/databases/_json/WorldLex-Vietnamese.json"
+url="http://www.lexique.org/databases/links/WorldLex-Vietnamese.json"
 
 [WorldLex_CY]
-url="http://www.lexique.org/databases/_json/WorldLex-Welsh.json"
+url="http://www.lexique.org/databases/links/WorldLex-Welsh.json"
