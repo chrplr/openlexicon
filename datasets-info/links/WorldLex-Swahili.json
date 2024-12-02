@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Swahili.rds",
         "bytes": 595782,
-        "md5sum": "8667e2ba30eb24f98ba861d3adb59b1f"
+        "md5sum": "8667e2ba30eb24f98ba861d3adb59b1f",
     "tags": ["swahili", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex_FR.rds",
         "bytes": 2598005,
-        "md5sum": "f089106f7f211403c072a37c205e8806"
+        "md5sum": "f089106f7f211403c072a37c205e8806",
     "tags": ["french", "frequencies"]
 }

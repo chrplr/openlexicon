@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Russian.rds",
         "bytes": 8020049,
-        "md5sum": "7e55946657b654ead7263fece0e951e5"
+        "md5sum": "7e55946657b654ead7263fece0e951e5",
     "tags": ["russian", "frequencies"]
 }

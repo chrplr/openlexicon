@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Croatian.rds",
         "bytes": 2935243,
-        "md5sum": "844b8ade0508b57cee14d1ab1321fe06"
+        "md5sum": "844b8ade0508b57cee14d1ab1321fe06",
     "tags": ["croatian", "frequencies"]
 }

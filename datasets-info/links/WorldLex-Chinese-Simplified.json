@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Chinese-Simplified.rds",
         "bytes": 8521733,
-        "md5sum": "76364642f026d13cd8aa0794cfa8fd39"
+        "md5sum": "76364642f026d13cd8aa0794cfa8fd39",
     "tags": ["chinese", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Megalex/README-Megalex.html",
             "url_rds": "http://www.lexique.org/databases/Megalex/Megalex-visual.rds",
             "bytes": 1074961,
-            "md5sum": "ee78de93453e73d3ea47b34153a74735"
+            "md5sum": "ee78de93453e73d3ea47b34153a74735",
     "tags": ["french", "frequencies"]
 }

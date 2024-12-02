@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Serbian.rds",
         "bytes": 2506971,
-        "md5sum": "8fa1a0fc7b96839e1ecbe158b9141cf8"
+        "md5sum": "8fa1a0fc7b96839e1ecbe158b9141cf8",
     "tags": ["serbian", "frequencies"]
 }

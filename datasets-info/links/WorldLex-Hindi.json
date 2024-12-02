@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Hindi.rds",
         "bytes": 4064936,
-        "md5sum": "6d44e8510a2ad04f5d71090bc7823004"
+        "md5sum": "6d44e8510a2ad04f5d71090bc7823004",
     "tags": ["hindi", "frequencies"]
 }

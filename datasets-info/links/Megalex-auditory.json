@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Megalex/README-Megalex.html",
             "url_rds": "http://www.lexique.org/databases/Megalex/Megalex-auditory.rds",
             "bytes": 713524,
-            "md5sum": "572fc12d482a5a2d36cf258a5d211726"
+            "md5sum": "572fc12d482a5a2d36cf258a5d211726",
     "tags": ["french", "lexical decision"]
 }

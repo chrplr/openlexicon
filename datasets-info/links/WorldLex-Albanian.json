@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Albanian.rds",
         "bytes": 1819457,
-        "md5sum": "636d98572b0dd5a553f667d66ee8f7eb"
+        "md5sum": "636d98572b0dd5a553f667d66ee8f7eb",
     "tags": ["albanian", "frequencies"]
 }

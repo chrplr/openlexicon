@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Estonian.rds",
         "bytes": 8479653,
-        "md5sum": "d0d88ee1402b230f5e1b8c8717b8cfa4"
+        "md5sum": "d0d88ee1402b230f5e1b8c8717b8cfa4",
     "tags": ["estonian", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Czech.rds",
         "bytes": 4443286,
-        "md5sum": "c3f6001278ffb3a1d30adc440cad7368"
+        "md5sum": "c3f6001278ffb3a1d30adc440cad7368",
     "tags": ["czech", "frequencies"]
 }

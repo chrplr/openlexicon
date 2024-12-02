@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Bosnian.rds",
         "bytes": 3698748,
-        "md5sum": "3fb34d6b7417503f7e0b726ae72f446d"
+        "md5sum": "3fb34d6b7417503f7e0b726ae72f446d",
     "tags": ["bosnian", "frequencies"]
 }

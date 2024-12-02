@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Greenlandic.rds",
         "bytes": 5544599,
-        "md5sum": "20b2d935fd9a3f493b6eea61d19d8d54"
+        "md5sum": "20b2d935fd9a3f493b6eea61d19d8d54",
     "tags": ["greenlandic", "frequencies"]
 }

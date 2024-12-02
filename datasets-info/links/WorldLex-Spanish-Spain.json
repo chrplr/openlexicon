@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Spanish-Spain.rds",
         "bytes": 2706394,
-        "md5sum": "d53b3de89278923dcd9804f50c3cc907"
-    "id_lang": "Spanish Spain"
+        "md5sum": "d53b3de89278923dcd9804f50c3cc907",
+    "id_lang": "Spanish Spain",
 }

@@ -5,7 +5,7 @@
       "readme": "",
             "url_rds": "http://www.lexique.org/databases/Lexique-Infra/Lexique-Infra-trigrammes.rds",
             "bytes": 150955,
-            "md5sum": "967ec0c1170ed07f54b5db967ec31221"
+            "md5sum": "967ec0c1170ed07f54b5db967ec31221",
        "column_names":
-           "trigrTyMot": "Trigramme Type Mot"
+           "trigrTyMot": "Trigramme Type Mot",
 }

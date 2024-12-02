@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Polish.rds",
         "bytes": 6549777,
-        "md5sum": "dd9ee3a0268dcd61776b1e1694a1d78f"
+        "md5sum": "dd9ee3a0268dcd61776b1e1694a1d78f",
     "tags": ["polish", "frequencies"]
 }

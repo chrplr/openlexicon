@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Kannada.rds",
         "bytes": 7543872,
-        "md5sum": "80f6b5724c9fce00759b1a3adfecb7d6"
+        "md5sum": "80f6b5724c9fce00759b1a3adfecb7d6",
     "tags": ["kannada", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Sinhala.rds",
         "bytes": 2638321,
-        "md5sum": "f8e779cc614b071f606965ec04fba9bd"
+        "md5sum": "f8e779cc614b071f606965ec04fba9bd",
     "tags": ["sinhala", "frequencies"]
 }

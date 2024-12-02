@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Voisins/README-Voisins..html",
     "url_rds": "http://www.lexique.org/databases/Voisins/Voisins.rds",
     "bytes": 1632735,
-    "md5sum": "f70aa302f5452cf3210d16d41ee37b29"
+    "md5sum": "f70aa302f5452cf3210d16d41ee37b29",
     "tags": ["french", "lexical neighboors", "minimal pairs"]
 }

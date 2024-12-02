@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Indonesian.rds",
         "bytes": 1984856,
-        "md5sum": "8e16415f3bb7f28946b15c6a76a0f0e8"
+        "md5sum": "8e16415f3bb7f28946b15c6a76a0f0e8",
     "tags": ["indonesian", "frequencies"]
 }

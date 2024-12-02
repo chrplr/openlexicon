@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-German.rds",
         "bytes": 2057637,
-        "md5sum": "38e5d6c43a27aa34d82805dd1ecebd6b"
+        "md5sum": "38e5d6c43a27aa34d82805dd1ecebd6b",
     "tags": ["german", "frequencies"]
 }

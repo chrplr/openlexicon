@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Punjabi.rds",
         "bytes": 353591,
-        "md5sum": "aadd8cd9b78fa08890e89b3e548a586d"
+        "md5sum": "aadd8cd9b78fa08890e89b3e548a586d",
     "tags": ["punjabi", "frequencies"]
 }

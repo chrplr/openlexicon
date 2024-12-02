@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Macedonian.rds",
         "bytes": 1754062,
-        "md5sum": "cf34eedb582df68d8b88bdd7f9dbf3da"
+        "md5sum": "cf34eedb582df68d8b88bdd7f9dbf3da",
     "tags": ["macedonian", "frequencies"]
 }

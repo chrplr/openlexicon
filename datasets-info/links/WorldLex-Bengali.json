@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Bengali.rds",
         "bytes": 2480688,
-        "md5sum": "326333db7dca61ede6e6f1800eb9606f"
+        "md5sum": "326333db7dca61ede6e6f1800eb9606f",
     "tags": ["bengali", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/anagrammes/README-anagrammes.html",
     "url_rds": "http://www.lexique.org/databases/anagrammes/Anagrammes.rds",
     "bytes":205127,
-    "md5sum": "9c52e4bfa1b627d543321a1653f17fab"
+    "md5sum": "9c52e4bfa1b627d543321a1653f17fab",
     "tags": ["french", "anagrams"]
 }

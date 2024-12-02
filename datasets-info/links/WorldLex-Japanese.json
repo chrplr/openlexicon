@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Japanese.rds",
         "bytes": 3797379,
-        "md5sum": "ff904263d41be04f4b58127fedc7cc8c"
+        "md5sum": "ff904263d41be04f4b58127fedc7cc8c",
     "tags": ["japanese", "frequencies"]
 }

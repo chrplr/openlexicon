@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Gujarati.rds",
         "bytes": 3877726,
-        "md5sum": "4804d33a4f3daa9eff85714b1d4c13d0"
+        "md5sum": "4804d33a4f3daa9eff85714b1d4c13d0",
     "tags": ["gujarati", "frequencies"]
 }

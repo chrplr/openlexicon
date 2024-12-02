@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Slovenian.rds",
         "bytes": 3532196,
-        "md5sum": "e7063d327bd07e49c783ac7ccd85f4c6"
+        "md5sum": "e7063d327bd07e49c783ac7ccd85f4c6",
     "tags": ["slovenian", "frequencies"]
 }

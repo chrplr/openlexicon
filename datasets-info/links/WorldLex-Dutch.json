@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Dutch.rds",
         "bytes": 4181613,
-        "md5sum": "930db9efb94cccde746ede433fae7690"
+        "md5sum": "930db9efb94cccde746ede433fae7690",
     "tags": ["dutch", "frequencies"]
 }

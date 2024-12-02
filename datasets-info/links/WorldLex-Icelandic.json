@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Icelandic.rds",
         "bytes": 1742265,
-        "md5sum": "49e39e839b53950b1c0927649878dcba"
+        "md5sum": "49e39e839b53950b1c0927649878dcba",
     "tags": ["icelandic", "frequencies"]
 }

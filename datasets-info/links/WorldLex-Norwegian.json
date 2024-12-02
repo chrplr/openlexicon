@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Norwegian.rds",
         "bytes": 5070334,
-        "md5sum": "0d88dd29eb89003247b96e1394b97984"
+        "md5sum": "0d88dd29eb89003247b96e1394b97984",
     "tags": ["norwegian", "frequencies"]
 }

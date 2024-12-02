@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Italian.rds",
         "bytes": 3374265,
-        "md5sum": "b6c93285ae29f81c490b0c91c89399dd"
+        "md5sum": "b6c93285ae29f81c490b0c91c89399dd",
     "tags": ["italian", "frequencies"]
 }

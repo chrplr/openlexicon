@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Tamil.rds",
         "bytes": 10245676,
-        "md5sum": "b1012718d2e993596fa4b9f6ad737c1e"
+        "md5sum": "b1012718d2e993596fa4b9f6ad737c1e",
     "tags": ["tamil", "frequencies"]
 }

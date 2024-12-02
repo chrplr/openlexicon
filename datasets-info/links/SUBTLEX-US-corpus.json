@@ -2,11 +2,11 @@
     "name": "SUTLEX-US",
             "url_rds": "http://www.lexique.org/databases/SUBTLEX-US/SUBTLEX-US-corpus.rds",
             "bytes": 2005043,
-            "md5sum": "afb63b9bed3334078e964c7e65cc3ecd"
+            "md5sum": "afb63b9bed3334078e964c7e65cc3ecd",
             "url_rds": "http://www.lexique.org/databases/SUBTLEX-US/Subtlex-US-corpus.txt.gz",
             "bytes": 110422733,
-            "md5sum": "cb00ff8e80dda38fd3358f9f8d7f0d43"
+            "md5sum": "cb00ff8e80dda38fd3358f9f8d7f0d43",
     "description": "Subtlex-US-corpus gathers English and American movies and TV series subtitles (51 million words in total).",
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/SUBTLEX-US/README-SUBTLEXus.html",
-    "website": "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus>"
+    "website": "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus>",
 }

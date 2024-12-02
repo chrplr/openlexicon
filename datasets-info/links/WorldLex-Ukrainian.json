@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Ukrainian.rds",
         "bytes": 4737005,
-        "md5sum": "f08e435a290d6072cb1917d574d3378b"
+        "md5sum": "f08e435a290d6072cb1917d574d3378b",
     "tags": ["ukrainian", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Kazakh.rds",
         "bytes": 1187518,
-        "md5sum": "d4e8d81764157f3ebfd6c6fe5e1678b9"
+        "md5sum": "d4e8d81764157f3ebfd6c6fe5e1678b9",
     "tags": ["kazakh", "frequencies"]
 }

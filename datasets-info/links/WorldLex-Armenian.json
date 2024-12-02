@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Armenian.rds",
         "bytes": 1107373,
-        "md5sum": "852055ee077f36ccbc24edb44a0aa410"
+        "md5sum": "852055ee077f36ccbc24edb44a0aa410",
     "tags": ["armenian", "frequencies"]
 }

@@ -6,6 +6,6 @@
       "readme": "XXXXXX",
             "url_rds": "http://www.lexique.org/databases/Ballot_2021_FreqSub_Imag_ParAge_1286/FreqSub_Imag_ParAge_1286.rds",
             "bytes": 125125,
-            "md5sum": "791952bbb51a02b68795d49edbff1b29"
+            "md5sum": "791952bbb51a02b68795d49edbff1b29",
        "tags": ["french", "frequencies"]
 }

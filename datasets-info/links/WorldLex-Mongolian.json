@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Mongolian.rds",
         "bytes": 1659236,
-        "md5sum": "1efa05c91bc489985cae0f577a636fc9"
+        "md5sum": "1efa05c91bc489985cae0f577a636fc9",
     "tags": ["mongolian", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Danish.rds",
         "bytes": 5986203,
-        "md5sum": "f3371ad2f63a1bead85230d8f57fdcbb"
+        "md5sum": "f3371ad2f63a1bead85230d8f57fdcbb",
     "tags": ["danish", "frequencies"]
 }

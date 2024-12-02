@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Malayalam.rds",
         "bytes": 940638,
-        "md5sum": "068b3cf4ad43bd2d893c94b25fbfb18a"
+        "md5sum": "068b3cf4ad43bd2d893c94b25fbfb18a",
     "tags": ["malayalam", "frequencies"]
 }

@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Latvian.rds",
         "bytes": 4730363,
-        "md5sum": "04264f5dad82f42e01c99bb696c43ce0"
+        "md5sum": "04264f5dad82f42e01c99bb696c43ce0",
     "tags": ["latvian", "frequencies"]
 }

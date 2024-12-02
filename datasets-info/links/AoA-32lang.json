@@ -6,10 +6,10 @@
         	 {
             "url_rds": "http://www.lexique.org/databases/AoA-32lang/AoA32lang.rds",
             "bytes": 20063,
-            "md5sum": "7df0a1390f84ac79f786fba481cca1fd"
+            "md5sum": "7df0a1390f84ac79f786fba481cca1fd",
             "url_rds": "http://www.lexique.org/databases/AoA-32lang/AoA32lang.tsv",
             "bytes": 49149,
-            "md5sum": "88b69473c626f5bd8673ae133d80a662"
+            "md5sum": "88b69473c626f5bd8673ae133d80a662",
        "tags": ["multiple_languages"]
 }
 

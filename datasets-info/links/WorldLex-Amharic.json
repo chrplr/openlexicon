@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Amharic.rds",
         "bytes": 2257172,
-        "md5sum": "0bc65268c1737bfc18ae3325717a3435"
+        "md5sum": "0bc65268c1737bfc18ae3325717a3435",
     "tags": ["amharic", "frequencies"]
 }

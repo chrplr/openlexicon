@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Malaysian.rds",
         "bytes": 3617082,
-        "md5sum": "8c1b882707325e0acabd155b12165cfb"
+        "md5sum": "8c1b882707325e0acabd155b12165cfb",
     "tags": ["malaysian", "frequencies"]
 }

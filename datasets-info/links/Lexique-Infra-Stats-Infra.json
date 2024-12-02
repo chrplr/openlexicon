@@ -5,9 +5,9 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/Lexique-Infra/README-Lexique-Infra.html",
             "url_rds": "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
             "bytes": 25850842,
-            "md5sum": "28d18d7ac1464d09e379f30995d9d605"
+            "md5sum": "28d18d7ac1464d09e379f30995d9d605",
             "url_rds": "http://www.lexique.org/databases/Lexique382/Lexique382.rds",
             "bytes": 5923674,
-            "md5sum": "e3e5f47409b91fdb620edfdd960dd7a5"
+            "md5sum": "e3e5f47409b91fdb620edfdd960dd7a5",
     "tags": ["french", "frequencies"]
 }

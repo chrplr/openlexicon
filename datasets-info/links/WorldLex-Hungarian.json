@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Hungarian.rds",
         "bytes": 13650746,
-        "md5sum": "46b1bf625087498ac119df6b87babcba"
+        "md5sum": "46b1bf625087498ac119df6b87babcba",
     "tags": ["hungarian", "frequencies"]
 }

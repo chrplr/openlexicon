@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Vietnamese.rds",
         "bytes": 353147,
-        "md5sum": "5ed57fcae30bc37f35614955b232c056"
+        "md5sum": "5ed57fcae30bc37f35614955b232c056",
     "tags": ["vietnamese", "frequencies"]
 }

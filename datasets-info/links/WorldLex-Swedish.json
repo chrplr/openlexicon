@@ -5,6 +5,6 @@
     "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
         "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Swedish.rds",
         "bytes": 7781701,
-        "md5sum": "bdc308d4d7a0c205bd59440996f67967"
+        "md5sum": "bdc308d4d7a0c205bd59440996f67967",
     "tags": ["swedish", "frequencies"]
 }
