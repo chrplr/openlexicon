@@ -1,0 +1,11 @@
+
+{
+      "name": "FreqSub_Adulte_Senior_660",
+      "description": "<b>Fréquences subjectives</b> pour des adultes et des adultes senior pour 660 mots",
+      "website": "XXXXXX",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/FreqSub_Adulte_Senior_660.md",
+            "url_rds": "http://www.lexique.org/databases/Robert_2012_FreqSub_Adulte_Senior_660/FreqSub_Adulte_Senior_660.rds",
+            "bytes": 9498,
+            "md5sum": "772834da8db2a8cbf5fe23326cff7e23"
+       "tags": ["french", "frequencies"]
+}

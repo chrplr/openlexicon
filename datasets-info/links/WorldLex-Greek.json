@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Greek",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Greek.rds",
+        "bytes": 3885791,
+        "md5sum": "e3b5483e7f1aafdef03b935e4c76b727"
+    "tags": ["greek", "frequencies"]
+}

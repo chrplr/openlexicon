@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Welsh",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Welsh.rds",
+        "bytes": 399612,
+        "md5sum": "c67e4039ff292c4f07c24d54c20e2078"
+    "tags": ["welsh", "frequencies"]
+}

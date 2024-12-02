@@ -1,0 +1,11 @@
+{
+      "name": "Lexique-Infra-lettres",
+      "description": "Lexique-infra is a new database providing infra-lexical indicators for 137,717 words in French coming from Lexique 3.83. ",
+      "website": "http://www.lexique.org/?page_id=331",
+      "readme": "",
+            "url_rds": "http://www.lexique.org/databases/Lexique-Infra/Lexique-Infra-lettres.rds",
+            "bytes": 2157,
+            "md5sum": "fd00c64e69671a5715bf7e252709ccdc"
+       "column_names":
+
+}

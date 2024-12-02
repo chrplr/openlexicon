@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Tagalog",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Tagalog.rds",
+        "bytes": 3169123,
+        "md5sum": "cfa2231a7786c494e02698cd073bf0a6"
+    "tags": ["tagalog", "frequencies"]
+}

@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Turkish",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Turkish.rds",
+        "bytes": 6848192,
+        "md5sum": "1234b7c0f252908043d089ad2904881d"
+    "tags": ["turkish", "frequencies"]
+}

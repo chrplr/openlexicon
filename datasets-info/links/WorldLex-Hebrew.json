@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Hebrew",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Hebrew.rds",
+        "bytes": 4100910,
+        "md5sum": "4f48fdae16ddb091d2e17b4c613e23ae"
+    "tags": ["hebrew", "frequencies"]
+}

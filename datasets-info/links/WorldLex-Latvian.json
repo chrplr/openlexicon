@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Latvian",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Latvian.rds",
+        "bytes": 4730363,
+        "md5sum": "04264f5dad82f42e01c99bb696c43ce0"
+    "tags": ["latvian", "frequencies"]
+}

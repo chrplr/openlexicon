@@ -1,0 +1,12 @@
+
+{
+      "name": "Concr_ContextAv_ValEmo_Arous_1659",
+      "description": "<b>Concrétude</b>, <b>disponibilité du contexte</b>, <b>valence émotionnelle</b> et <b>arousal</b> pour 1659 mots",
+      "website": "http://www.lexique.org/?page_id=481",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Concr_ContextAv_ValEmo_Arous_1659.md",
+            "url_rds": "http://www.lexique.org/databases/Bonin_2018_Concr_ContextAv_ValEmo_Arous_1659/Concr_ContextAv_ValEmo_Arous_1659.rds",
+            "bytes": 30888,
+            "md5sum": "b267ad5bd1326867c065edbcd688e7f9"
+       "tags": ["french", "frequencies"]
+}
+

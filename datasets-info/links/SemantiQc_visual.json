@@ -1,0 +1,14 @@
+{
+    "name": "SemantiQc_visual",
+    "description": "SemantiQc_visual présente la force perceptuelle visuelle de 3596 mots de la langue française auprès de 304 adultes francophones québécois",
+    "website": "https://lingualab.ca/fr/project/norms-familiarity-perceptual-strength/",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SemantiQc.md",
+            "url_rds": "https://lingualab.ca/dataset/SemantiQc_visual.tsv",
+            "bytes": 157480,
+            "md5sum": "081ee8baeda6acf86aa5bac31a7eb105"
+            "url_rds": "https://lingualab.ca/dataset/SemantiQc_visual.rds",
+            "bytes": 67995,
+            "md5sum": "0b130d38f856144fcb35b33adc52b665"
+    "tags": ["french", "visual-perception"]
+}
+

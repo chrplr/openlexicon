@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Albanian",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Albanian.rds",
+        "bytes": 1819457,
+        "md5sum": "636d98572b0dd5a553f667d66ee8f7eb"
+    "tags": ["albanian", "frequencies"]
+}

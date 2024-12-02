@@ -1,0 +1,12 @@
+
+{
+      "name": "AoA_FreqSub_1493",
+      "description": "<b>Age d'acquisition</b> et <b>Fréquence subjective</b> pour 1493 mots.",
+      "website": "http://www.lexique.org/?page_id=489",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/AoA_FreqSub_1493.md",
+            "url_rds": "http://www.lexique.org/databases/Ferrand_2008_AoA_FreqSub_1493/AoA_FreqSub_1493.rds",
+            "bytes": 32373,
+            "md5sum": "a6806ee1b6cde91054d04357994e8216"
+       "tags": ["french", "frequencies"]
+}
+

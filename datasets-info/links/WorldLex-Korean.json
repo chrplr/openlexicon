@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Korean",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Korean.rds",
+        "bytes": 60682994,
+        "md5sum": "df4d7f936077fe30ed8285fd4cdb308d"
+    "tags": ["korean", "frequencies"]
+}

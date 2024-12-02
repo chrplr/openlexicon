@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-English",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex_EN.rds",
+        "bytes": 2817529,
+        "md5sum": "33c6d36449c1ced5970585b1d838c4ec"
+    "tags": ["english", "frequencies"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "lexique383",
+    "description": "Donne pour 140 000 mots français la <b>fréquences d’occurrences</b> dans différents corpus, la <b>représentation phonologique</b>, les <b>lemmes associés</b>, le <b>nombre de syllabes</b>, la <b>catégorie grammaticale</b>, etc.",
+    "website": "http://www.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/Lexique383/README-Lexique.html",
+    "url_rds": "http://www.lexique.org/databases/Lexique383/Lexique383.rds",
+    "bytes": 5923649,
+    "md5sum": "0f3329ff256333332bd0705e29b69e65"
+}

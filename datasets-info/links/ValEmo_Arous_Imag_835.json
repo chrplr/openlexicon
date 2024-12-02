@@ -1,0 +1,12 @@
+
+{
+      "name": "ValEmo_Arous_Imag_835",
+      "description": "<b>Valence émotionnelle</b>, <b>arousal</b>, et imageabilité pour 835 adjectifs par des jeunes, des adultes et des personnes âgées : The French Emotional Evaluation List (FEEL)",
+      "website": "http://www.lexique.org/?page_id=539",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/ValEmo_Arous_Imag_835.md",
+            "url_rds": "http://www.lexique.org/databases/Gilet_2012_ValEmo_Arous_Imag_835/ValEmo_Arous_Imag_835.rds",
+            "bytes": 169342,
+            "md5sum": "accea2f9d40563664efd79ea452ecfb3"
+       "tags": ["french", "frequencies"]
+}
+

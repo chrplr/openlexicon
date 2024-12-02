@@ -1,0 +1,12 @@
+
+{
+      "name": "Manulex",
+      "description": "Manulex présente les fréquences des lemmes et des mots dans les manuels scolaires du CP au CM2",
+      "website": "http://www.manulex.org/fr/home.html",
+      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Manulex.md",
+      "url_rds": "http://www.lexique.org/databases/Lete_2004_Manulex/Manulex-Ortho.rds",
+      "bytes": 1157313,
+      "md5sum": "f8f3c18be75a195394b3e977c7750b43"
+      "tags": ["french", "frequencies"]
+}
+

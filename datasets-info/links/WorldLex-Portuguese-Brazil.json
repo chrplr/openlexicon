@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Portuguese-Brazil",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Portuguese-Brazil.rds",
+        "bytes": 2485038,
+        "md5sum": "1597223d17d7bb66aea05d8697c96193"
+    "id_lang": "Portuguese Brazil"
+}

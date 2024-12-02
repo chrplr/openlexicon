@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Slovak",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Slovak.rds",
+        "bytes": 3716427,
+        "md5sum": "6c8bda88475d6125800869eed6952aa3"
+    "tags": ["slovak", "frequencies"]
+}

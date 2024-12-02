@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Nepali",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Nepali.rds",
+        "bytes": 3386965,
+        "md5sum": "229b94dc645cbd70101b929c9ad2dfbd"
+    "tags": ["nepali", "frequencies"]
+}

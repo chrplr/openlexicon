@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Catalan",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Catalan.rds",
+        "bytes": 1573011,
+        "md5sum": "931dadacf19658976810e924205bd447"
+    "tags": ["catalan", "frequencies"]
+}

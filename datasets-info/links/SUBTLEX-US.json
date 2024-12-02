@@ -1,0 +1,12 @@
+{
+    "name": "SUTLEX-US",
+            "url_rds": "http://www.lexique.org/databases/SUBTLEX-US/SUBTLEXus74286wordstextversion.tsv",
+            "bytes": 3298971,
+            "md5sum": "ee7be8db21f26e1925ac0ea3ab598f32"
+            "url_rds": "http://www.lexique.org/databases/SUBTLEX-US/SUBTLEXus.rds",
+            "bytes": 772391,
+            "md5sum": "a14db9f70260412145a56055b8aa427f"
+    "description": "SubtlexUS is database containing word frequencies based on English and American movies and TV series subtitles (51 million words in total). This table corresponds to the file `74286words`",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SUBTLEX-US/README-SUBTLEXus.html",
+    "website": "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus"
+}

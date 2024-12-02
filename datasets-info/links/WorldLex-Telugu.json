@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Telugu",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Telugu.rds",
+        "bytes": 6059263,
+        "md5sum": "8fcb7ee111e6263523b2c84a9d7048f7"
+    "tags": ["telugu", "frequencies"]
+}

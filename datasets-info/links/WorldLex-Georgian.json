@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Georgian",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Georgian.rds",
+        "bytes": 4799339,
+        "md5sum": "eeb0194e17d99210db66115e2a58c1f9"
+    "tags": ["georgian", "frequencies"]
+}

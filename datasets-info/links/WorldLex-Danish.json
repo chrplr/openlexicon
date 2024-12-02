@@ -1,0 +1,10 @@
+{
+    "name": "WorldLex-Danish",
+    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+    "website": "http://worldlex.lexique.org",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Danish.rds",
+        "bytes": 5986203,
+        "md5sum": "f3371ad2f63a1bead85230d8f57fdcbb"
+    "tags": ["danish", "frequencies"]
+}
