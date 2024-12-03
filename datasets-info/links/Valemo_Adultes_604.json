@@ -1,12 +1,13 @@
-
 {
-      "name": "Valemo_Adultes_604",
-      "description": "<b>Valence émotionnelle</b> collectées chez l'adulte pour 604 mots",
-      "website": "http://www.lexique.org/?page_id=497",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Valemo_Adultes_604.md",
-            "url_rds": "http://www.lexique.org/databases/Syssau_Font_2005_Valemo_Adultes_604/Valemo_Adultes_604.rds",
-            "bytes": 10544,
-            "md5sum": "8b114fa92545994f0bb20b2152b5a1c4"
-       "tags": ["french", "frequencies"]
+  "name": "Valemo_Adultes_604",
+  "description": "<b>Valence émotionnelle</b> collectées chez l'adulte pour 604 mots",
+  "website": "http://www.lexique.org/?page_id=497",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/Valemo_Adultes_604.md",
+  "url_rds": "http://www.lexique.org/databases/Syssau_Font_2005_Valemo_Adultes_604/Valemo_Adultes_604.rds",
+  "bytes": 10544,
+  "md5sum": "8b114fa92545994f0bb20b2152b5a1c4",
+  "tags": [
+    "french",
+    "frequencies"
+  ]
 }
-

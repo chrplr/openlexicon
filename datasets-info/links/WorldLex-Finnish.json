@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Finnish",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Finnish.rds",
-        "bytes": 2054586,
-        "md5sum": "9ffa6d059137effb58464b64fa8f43d0",
-    "tags": ["finnish", "frequencies"]
+  "name": "WorldLex-Finnish",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Finnish.rds",
+  "bytes": 2054586,
+  "md5sum": "9ffa6d059137effb58464b64fa8f43d0",
+  "tags": [
+    "finnish",
+    "frequencies"
+  ]
 }

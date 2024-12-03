@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Urdu",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Urdu.rds",
-        "bytes": 2189449,
-        "md5sum": "24733795de38ada43e272e087b640382",
-    "tags": ["urdu", "frequencies"]
+  "name": "WorldLex-Urdu",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Urdu.rds",
+  "bytes": 2189449,
+  "md5sum": "24733795de38ada43e272e087b640382",
+  "tags": [
+    "urdu",
+    "frequencies"
+  ]
 }

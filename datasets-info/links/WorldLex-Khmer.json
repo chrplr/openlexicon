@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Khmer",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Khmer.rds",
-        "bytes": 9393218,
-        "md5sum": "99d6a5f05d4d33053310560312bb08af",
-    "tags": ["khmer", "frequencies"]
+  "name": "WorldLex-Khmer",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Khmer.rds",
+  "bytes": 9393218,
+  "md5sum": "99d6a5f05d4d33053310560312bb08af",
+  "tags": [
+    "khmer",
+    "frequencies"
+  ]
 }

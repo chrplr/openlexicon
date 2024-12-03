@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Bengali",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Bengali.rds",
-        "bytes": 2480688,
-        "md5sum": "326333db7dca61ede6e6f1800eb9606f",
-    "tags": ["bengali", "frequencies"]
+  "name": "WorldLex-Bengali",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Bengali.rds",
+  "bytes": 2480688,
+  "md5sum": "326333db7dca61ede6e6f1800eb9606f",
+  "tags": [
+    "bengali",
+    "frequencies"
+  ]
 }

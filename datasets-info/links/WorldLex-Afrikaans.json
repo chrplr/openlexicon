@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Afrikaans",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Afrikaans.rds",
-        "bytes": 1359621,
-        "md5sum": "5bbd87b311af7aa63a16693f8aaa0fdd",
-    "tags": ["afrikaans", "frequencies"]
+  "name": "WorldLex-Afrikaans",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Afrikaans.rds",
+  "bytes": 1359621,
+  "md5sum": "5bbd87b311af7aa63a16693f8aaa0fdd",
+  "tags": [
+    "afrikaans",
+    "frequencies"
+  ]
 }

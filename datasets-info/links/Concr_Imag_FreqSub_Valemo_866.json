@@ -1,12 +1,13 @@
-
 {
-      "name": "Concr_Imag_FreqSub_Valemo_866",
-      "description": "<b>Concrétude</b>, <b>imageabilité</b>, <b>fréquence subjective</b> et <b>valence émotionnelle</b> pour 866 mots.",
-      "website": "http://www.lexique.org/?page_id=515",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Concr_Imag_FreqSub_Valemo_866.md",
-            "url_rds": "http://www.lexique.org/databases/Bonin_2003_Concr_Imag_FreqSub_Valemo_866/Concr_Imag_FreqSub_Valemo_866.rds",
-            "bytes": 20558,
-            "md5sum": "96e8f0106d82ce30ac23c0037bd4ba89"
-       "tags": ["french", "frequencies"]
+  "name": "Concr_Imag_FreqSub_Valemo_866",
+  "description": "<b>Concrétude</b>, <b>imageabilité</b>, <b>fréquence subjective</b> et <b>valence émotionnelle</b> pour 866 mots.",
+  "website": "http://www.lexique.org/?page_id=515",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/Concr_Imag_FreqSub_Valemo_866.md",
+  "url_rds": "http://www.lexique.org/databases/Bonin_2003_Concr_Imag_FreqSub_Valemo_866/Concr_Imag_FreqSub_Valemo_866.rds",
+  "bytes": 20558,
+  "md5sum": "96e8f0106d82ce30ac23c0037bd4ba89",
+  "tags": [
+    "french",
+    "frequencies"
+  ]
 }
-

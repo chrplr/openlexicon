@@ -1,12 +1,13 @@
-
 {
-      "name": "Img_AoA_..._400",
-      "description": "<b>Accord de nom</b>, <b>accord de l’image</b>, <b>familiarité</b>, <b>complexité visuelle</b>, <b>variabilité de l’image</b> et <b>âge d’acquisition</b> pour 400 imageset leurs noms correspondant",
-      "website": "http://www.lexique.org/?page_id=461",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Img_AoA_..._400.md",
-            "url_rds": "http://www.lexique.org/databases/Alario_1999_Img_AoA_..._400/Img_AoA_..._400.rds",
-            "bytes": 18041,
-            "md5sum": "18167e11eea8886f7f0fb182a9ac03c6"
-       "tags": ["french", "frequencies"]
+  "name": "Img_AoA_..._400",
+  "description": "<b>Accord de nom</b>, <b>accord de l’image</b>, <b>familiarité</b>, <b>complexité visuelle</b>, <b>variabilité de l’image</b> et <b>âge d’acquisition</b> pour 400 imageset leurs noms correspondant",
+  "website": "http://www.lexique.org/?page_id=461",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/Img_AoA_..._400.md",
+  "url_rds": "http://www.lexique.org/databases/Alario_1999_Img_AoA_..._400/Img_AoA_..._400.rds",
+  "bytes": 18041,
+  "md5sum": "18167e11eea8886f7f0fb182a9ac03c6",
+  "tags": [
+    "french",
+    "frequencies"
+  ]
 }
-

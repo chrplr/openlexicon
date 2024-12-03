@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Lithuanian",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Lithuanian.rds",
-        "bytes": 3203282,
-        "md5sum": "fe54f02707c1e05e9e19e65b0f177afe",
-    "tags": ["lithuanian", "frequencies"]
+  "name": "WorldLex-Lithuanian",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Lithuanian.rds",
+  "bytes": 3203282,
+  "md5sum": "fe54f02707c1e05e9e19e65b0f177afe",
+  "tags": [
+    "lithuanian",
+    "frequencies"
+  ]
 }

@@ -1,12 +1,13 @@
-
 {
-      "name": "Imag_1493",
-      "description": "<b>Imageabilité</b> pour 1493 mots",
-      "website": "http://www.lexique.org/?page_id=489",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/Imag_1493.md",
-            "url_rds": "http://www.lexique.org/databases/Bonin_2011_Imag_1493/Imag_1493.rds",
-            "bytes": 20524,
-            "md5sum": "68c44975349c25803f6abb84e9a989dd"
-       "tags": ["french", "frequencies"]
+  "name": "Imag_1493",
+  "description": "<b>Imageabilité</b> pour 1493 mots",
+  "website": "http://www.lexique.org/?page_id=489",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/Imag_1493.md",
+  "url_rds": "http://www.lexique.org/databases/Bonin_2011_Imag_1493/Imag_1493.rds",
+  "bytes": 20524,
+  "md5sum": "68c44975349c25803f6abb84e9a989dd",
+  "tags": [
+    "french",
+    "frequencies"
+  ]
 }
-

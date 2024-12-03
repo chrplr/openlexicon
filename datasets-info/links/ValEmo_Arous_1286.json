@@ -1,12 +1,13 @@
-
 {
-      "name": "ValEmo_Arous_1286",
-      "description": "<b>Valence émotionnelle</b>, <b>éveil</b>, et <b>catégorie</b> pour 1286 mots français selon l'âge",
-      "website": "http://www.lexique.org/?page_id=492",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/ValEmo_Arous_1286.md",
-            "url_rds": "http://www.lexique.org/databases/Gobin_2017_ValEmo_Arous_1286/ValEmo_Arous_1286.rds",
-            "bytes": 83401,
-            "md5sum": "5f583dfe11fbea99466369b5dd765f4a"
-       "tags": ["french", "frequencies"]
+  "name": "ValEmo_Arous_1286",
+  "description": "<b>Valence émotionnelle</b>, <b>éveil</b>, et <b>catégorie</b> pour 1286 mots français selon l'âge",
+  "website": "http://www.lexique.org/?page_id=492",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/ValEmo_Arous_1286.md",
+  "url_rds": "http://www.lexique.org/databases/Gobin_2017_ValEmo_Arous_1286/ValEmo_Arous_1286.rds",
+  "bytes": 83401,
+  "md5sum": "5f583dfe11fbea99466369b5dd765f4a",
+  "tags": [
+    "french",
+    "frequencies"
+  ]
 }
-

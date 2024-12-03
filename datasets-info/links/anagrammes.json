@@ -1,10 +1,13 @@
 {
-    "name": "anagrammes",
-    "description": "Le fichier `anagrammes.txt` liste plus de 25000 ensembles d'anagrammes calculés à partir d'une liste de plus de 300.000 mots français. Le script Python ayant servi à calculer ces anagrammes est accessible par les liens ci-dessous.",
-    "website": "http://chrplr.github.io/openlexicon/scripts/anagrams/anagrams.py",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/anagrammes/README-anagrammes.html",
-    "url_rds": "http://www.lexique.org/databases/anagrammes/Anagrammes.rds",
-    "bytes":205127,
-    "md5sum": "9c52e4bfa1b627d543321a1653f17fab",
-    "tags": ["french", "anagrams"]
+  "name": "anagrammes",
+  "description": "Le fichier `anagrammes.txt` liste plus de 25000 ensembles d'anagrammes calculés à partir d'une liste de plus de 300.000 mots français. Le script Python ayant servi à calculer ces anagrammes est accessible par les liens ci-dessous.",
+  "website": "http://chrplr.github.io/openlexicon/scripts/anagrams/anagrams.py",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/anagrammes/README-anagrammes.html",
+  "url_rds": "http://www.lexique.org/databases/anagrammes/Anagrammes.rds",
+  "bytes": 205127,
+  "md5sum": "9c52e4bfa1b627d543321a1653f17fab",
+  "tags": [
+    "french",
+    "anagrams"
+  ]
 }

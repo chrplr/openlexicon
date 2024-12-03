@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Azeri",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Azeri.rds",
-        "bytes": 445894,
-        "md5sum": "78787ac84cb57d1233930c8d1ec9a8b5",
-    "tags": ["azeri", "frequencies"]
+  "name": "WorldLex-Azeri",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Azeri.rds",
+  "bytes": 445894,
+  "md5sum": "78787ac84cb57d1233930c8d1ec9a8b5",
+  "tags": [
+    "azeri",
+    "frequencies"
+  ]
 }

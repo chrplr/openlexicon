@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Arabic",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Arabic.rds",
-        "bytes": 9991218,
-        "md5sum": "bb2085c13dacc26fa05e18c2acf1752d",
-    "tags": ["arabic", "frequencies"]
+  "name": "WorldLex-Arabic",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Arabic.rds",
+  "bytes": 9991218,
+  "md5sum": "bb2085c13dacc26fa05e18c2acf1752d",
+  "tags": [
+    "arabic",
+    "frequencies"
+  ]
 }

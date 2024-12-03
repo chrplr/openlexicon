@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Persian",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Persian.rds",
-        "bytes": 988188,
-        "md5sum": "c7afccdece5b5cd070622b20e16d983c",
-    "tags": ["persian", "frequencies"]
+  "name": "WorldLex-Persian",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Persian.rds",
+  "bytes": 988188,
+  "md5sum": "c7afccdece5b5cd070622b20e16d983c",
+  "tags": [
+    "persian",
+    "frequencies"
+  ]
 }

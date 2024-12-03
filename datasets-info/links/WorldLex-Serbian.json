@@ -1,10 +1,13 @@
 {
-    "name": "WorldLex-Serbian",
-    "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
-    "website": "http://worldlex.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
-        "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Serbian.rds",
-        "bytes": 2506971,
-        "md5sum": "8fa1a0fc7b96839e1ecbe158b9141cf8",
-    "tags": ["serbian", "frequencies"]
+  "name": "WorldLex-Serbian",
+  "description": "WorldLex provides word frequencies tables estimated from web pages (Blog, Twitter and Newspapers).",
+  "website": "http://worldlex.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/WorldLex/README-Worldlex.html",
+  "url_rds": "http://www.lexique.org/databases/WorldLex/WorldLex-Serbian.rds",
+  "bytes": 2506971,
+  "md5sum": "8fa1a0fc7b96839e1ecbe158b9141cf8",
+  "tags": [
+    "serbian",
+    "frequencies"
+  ]
 }

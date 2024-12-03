@@ -1,14 +1,13 @@
 {
-    "name": "SemantiQc_auditory",
-    "description": "SemantiQc_auditory présente la force perceptuelle auditive de 3596 mots de la langue française auprès de 304 adultes francophones québécois",
-    "website": "https://lingualab.ca/fr/project/norms-familiarity-perceptual-strength/",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/SemantiQc.md",
-            "url_rds": "https://lingualab.ca/dataset/SemantiQc_auditory.tsv",
-            "bytes": 155777,
-            "md5sum": "0c4720f9ee29fa423161d2e4313265a0"
-            "url_rds": "https://lingualab.ca/dataset/SemantiQc_auditory.rds",
-            "bytes": 67028,
-            "md5sum": "a09974a48dff611b146fd3d139f8be7e"
-    "tags": ["french", "auditory-perception"]
+  "name": "SemantiQc_auditory",
+  "description": "SemantiQc_auditory présente la force perceptuelle auditive de 3596 mots de la langue française auprès de 304 adultes francophones québécois",
+  "website": "https://lingualab.ca/fr/project/norms-familiarity-perceptual-strength/",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/SemantiQc.md",
+  "url_rds": "https://lingualab.ca/dataset/SemantiQc_auditory.rds",
+  "bytes": 67028,
+  "md5sum": "a09974a48dff611b146fd3d139f8be7e",
+  "tags": [
+    "french",
+    "auditory-perception"
+  ]
 }
-
