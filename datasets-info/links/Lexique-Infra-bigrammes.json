@@ -1,10 +1,9 @@
 {
-      "name": "Lexique-Infra-bigrammes",
-      "description": "Lexique-infra is a new database providing infra-lexical indicators for 137,717 words in French coming from Lexique 3.83. ",
-      "website": "http://www.lexique.org/?page_id=331",
-      "readme": "",
-            "url_rds": "http://www.lexique.org/databases/Lexique-Infra/Lexique-Infra-bigrammes.rds",
-            "bytes": 19991,
-            "md5sum": "8efb595817095c6a28d9c8fea1afa3b7",
-       "column_names":
+    "name": "Lexique-Infra-bigrammes",
+    "description": "Lexique-infra provides infra-lexical indicators for 137,717 words in French coming from Lexique 3.83.",
+    "website": "http://www.lexique.org/?page_id=331",
+    "readme": "",
+    "url_rds": "http://www.lexique.org/databases/Lexique-Infra/Lexique-Infra-bigrammes.rds",
+    "bytes": 19991,
+    "md5sum": "8efb595817095c6a28d9c8fea1afa3b7",
 }

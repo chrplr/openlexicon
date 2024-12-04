@@ -1,12 +1,12 @@
 {
-      "name": "Lexique-Infra-word_frequency",
-      "description": "Lexique-infra is a new database providing infra-lexical indicators for 137,717 words in French coming from Lexique 3.83.",
-      "website": "http://www.lexique.org/?page_id=331",
-      "readme": "",
-            "url_rds": "http://www.lexique.org/databases/Lexique-Infra/Lexique-Infra-word_frequency.rds",
-            "bytes": 15913892,
-            "md5sum": "0df25feec63cfe9547ab58ae66a7e03a",
-       "column_names":
+    "name": "Lexique-Infra-word_frequency",
+    "description": "Lexique-infra is a new database providing infra-lexical indicators for 137,717 words in French coming from Lexique 3.83.",
+    "website": "http://www.lexique.org/?page_id=331",
+    "readme": "",
+    "url_rds": "http://www.lexique.org/databases/Lexique-Infra/Lexique-Infra-word_frequency.rds",
+    "bytes": 15913892,
+    "md5sum": "0df25feec63cfe9547ab58ae66a7e03a",
+    "column_names": {
            "phono": "Phonologie",
            "cgram": "Categ Gram",
            "graphemes": "Décomposition Graphèmes",
@@ -38,5 +38,7 @@
            "SylphonDecompTy": "Fréquence Syllabes Phonologiques - Décomposition - Type",
            "SylphonFreqTy": "Fréquence Syllabes Phonologiques - Fréquence moyenne - Type",
            "SylphonDecompTo": "Fréquence Syllabes Phonologiques - Décomposition - Token",
-           "SylphonFreqTo": "Fréquence Syllabes Phonologiques - Fréquence moyenne - Token",
+           "SylphonFreqTo": "Fréquence Syllabes Phonologiques - Fréquence moyenne - Token"
+    }
 }
+    

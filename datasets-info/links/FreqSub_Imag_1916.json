@@ -1,16 +1,11 @@
-
 {
-      "name": "FreqSub Imag 1916",
-      "description": "<b>Fréquence subjective</b> et <b>imageabilité</b> pour 1916 mots.",
-      "website": "http://www.lexique.org/?page_id=510",
-      "readme": "https://chrplr.github.io/openlexicon/datasets-info/FreqSub_Imag_1916.md",
-            "url_rds": "http://www.lexique.org/databases/Desrochers_2000_FreqSub_Imag_1916/FreqSub_Imag_1916.tsv",
-            "bytes": 88999,
-            "md5sum": "1feb3bb904def57652a28d9e6d4bde2f",
-,
-            "url_rds": "http://www.lexique.org/databases/Desrochers_2000_FreqSub_Imag_1916/FreqSub_Imag_1916.rds",
-            "bytes": 32159,
-            "md5sum": "c4cb3722ec31806bb333eaa162463eda",
-       "tags": ["french", "frequencies"]
+    "name": "FreqSub Imag 1916",
+    "description": "<b>Fréquence subjective</b> et <b>imageabilité</b> pour 1916 mots.",
+    "website": "http://www.lexique.org/?page_id=510",
+    "readme": "https://chrplr.github.io/openlexicon/datasets-info/FreqSub_Imag_1916.md",
+    "url_rds": "http://www.lexique.org/databases/Desrochers_2000_FreqSub_Imag_1916/FreqSub_Imag_1916.rds",
+    "bytes": 32159,
+    "md5sum": "c4cb3722ec31806bb333eaa162463eda",
+    "tags": ["french", "frequencies"]
 }
 

@@ -1,35 +1,29 @@
-The .json files provide descriptions and links to the various databases tables.
+Openlexicon json files
+======================
 
-They are used by the data-fetchers to download the tables locally. 
+`Time-stamp: <2024-12-04 08:29:03 christophe@pallier.org>`
+
+The `.json` files in this folder provide descriptions and links to the various lexical databases tables.
+
+They are used by the R and Python data-fetchers to download the tables locally. 
 
 Here is, for example, the json file associated to Lexique383:
 
 ```{json}
 {
-    "_comment": "# Time-stamp: <2019-06-04 21:43:22 christophe@pallier.org>",
-    "name": "lexique383",
-    "description": "Lexique383 est une base de données lexicales du français qui fournit pour ~140000 mots du français: les représentations orthographiques et phonémiques, les lemmes associés, la syllabation, la catégorie grammaticale, le genre et le nombre, les fréquences dans un corpus de livres et dans un corpus de sous-titres de films, etc.",
-    "website": "http://www.lexique.org",
-    "readme": "https://chrplr.github.io/openlexicon/datasets-info/Lexique383/README-Lexique.html",
-    "urls": [{
-            "url": "http://www.lexique.org/databases/Lexique383/Lexique383.tsv",
-            "bytes": 25850780,
-            "md5sum": "a742a88cb00759c1ebed34995aed9904"
-        },
-        {
-            "url": "http://www.lexique.org/databases/Lexique383/Lexique383.rds",
-            "bytes": 5923649,
-            "md5sum": "0f3329ff256333332bd0705e29b69e65"
-        }
-    ],
-    "type": "tsv",
-    "tags": ["french", "frequencies"]
+  "name": "lexique383",
+  "description": "Donne pour 140 000 mots français la <b>fréquences d’occurrences</b> dans différents corpus, la <b>représentation phonologique</b>, les <b>lemmes associés</b>, le <b>nombre de syllabes</b>, la <b>catégorie grammaticale</b>, etc.",
+  "website": "http://www.lexique.org",
+  "readme": "https://chrplr.github.io/openlexicon/datasets-info/Lexique383/README-Lexique.html",
+  "url_rds": "http://www.lexique.org/databases/Lexique383/Lexique383.rds",
+  "bytes": 5923649,
+  "md5sum": "0f3329ff256333332bd0705e29b69e65"
 }
-`̀``
 
+```
 
-
-To generate the  skeleton of a .json` file, one can use the script `create_json.py`. For example:
+To generate the  skeleton of a `.json` file, you can use the script `create_json.py`. For example:
 
       python3 create_json.py ../Lexique383/Lexique383.*
+
 
