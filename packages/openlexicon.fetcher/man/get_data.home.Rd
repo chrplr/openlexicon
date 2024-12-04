@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.home.R
 \name{get_data.home}
 \alias{get_data.home}
-\title{Return the path of the local folder where to put datasets}
+\title{Returning the path of the local folder where to put datasets}
 \usage{
 get_data.home()
 }
@@ -10,7 +10,7 @@ get_data.home()
 A path for the datasets folder.
 }
 \description{
-Return the path of the local folder where to put datasets
+Returning the path of the local folder where to put datasets
 }
 \examples{
 get_data.home()

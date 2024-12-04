@@ -2,7 +2,7 @@
 % Please edit documentation in R/available_datasets.R
 \name{available_datasets}
 \alias{available_datasets}
-\title{Return a list of the available datasets}
+\title{Returning a list of the available datasets}
 \usage{
 available_datasets()
 }
@@ -10,7 +10,7 @@ available_datasets()
 List of available datasets
 }
 \description{
-Return a list of the available datasets
+Returning a list of the available datasets
 }
 \examples{
 \dontrun{

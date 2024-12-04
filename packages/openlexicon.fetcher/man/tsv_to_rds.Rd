@@ -2,7 +2,7 @@
 % Please edit documentation in R/tsv_to_rds.R
 \name{tsv_to_rds}
 \alias{tsv_to_rds}
-\title{Load in memory the rds files listed in list_rds, in variables with the names matching names(list_rds).}
+\title{Loading in memory the rds files listed in list_rds, in variables with the names matching names(list_rds).}
 \usage{
 tsv_to_rds(tsv_url, table_name)
 }
@@ -15,7 +15,7 @@ tsv_to_rds(tsv_url, table_name)
 Returns a rds file.
 }
 \description{
-Load in memory the rds files listed in list_rds, in variables with the names matching names(list_rds).
+Loading in memory the rds files listed in list_rds, in variables with the names matching names(list_rds).
 }
 \examples{
 \dontrun{

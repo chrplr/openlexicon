@@ -1,4 +1,4 @@
-#' Return a list of the available datasets
+#' Returning a list of the available datasets
 #'
 #' @return List of available datasets
 #' @export

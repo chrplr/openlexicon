@@ -2,13 +2,14 @@
 % Please edit documentation in R/create_json_file.R
 \name{create_json_file}
 \alias{create_json_file}
-\title{Creating json file from metadata supplied by the user.}
+\title{Creating a json file from metadata supplied by the user.}
 \usage{
 create_json_file(
   name = "lexique3",
   description = "Lexique382 is a French lexical database.",
   url_tsv = "http://www.lexique.org/databases/Lexique382/Lexique382.tsv",
-  url_rds = "http://www.lexique.org/databases/Lexique382/Lexique382.rds"
+  url_rds = "http://www.lexique.org/databases/Lexique382/Lexique382.rds",
+  output_dir = getwd()
 )
 }
 \arguments{
@@ -19,12 +20,14 @@ create_json_file(
 \item{url_tsv}{URL for the tsv file.}
 
 \item{url_rds}{URL for the rds file.}
+
+\item{output_dir}{Output directory.}
 }
 \value{
 A json file.
 }
 \description{
-Creating json file from metadata supplied by the user.
+Creating a json file from metadata supplied by the user.
 }
 \examples{
 # creating the json file

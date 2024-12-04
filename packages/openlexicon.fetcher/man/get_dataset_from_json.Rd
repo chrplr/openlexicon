@@ -2,23 +2,26 @@
 % Please edit documentation in R/get_dataset_from_json.R
 \name{get_dataset_from_json}
 \alias{get_dataset_from_json}
-\title{Download (only if needed), the dataset 'filename' indicated from the json description file}
+\title{Downloading (only if needed) the dataset 'filename' indicated from the json description file}
 \usage{
-get_dataset_from_json(json_url, local_rds)
+get_dataset_from_json(json_url, local_rds_name)
 }
 \arguments{
 \item{json_url}{URL to json file.}
 
-\item{local_rds}{Name of the local rds file.}
+\item{local_rds_name}{Name of the local rds file.}
 }
 \value{
 The path to the local version of the dataset.
 }
 \description{
-Download (only if needed), the dataset 'filename' indicated from the json description file
+Downloading (only if needed) the dataset 'filename' indicated from the json description file
 }
 \examples{
 \dontrun{
-get_dataset_from_json("http://www.lexique.org/databases/_json/Lexique383.json", "Lexique383.rds")
+get_dataset_from_json(
+    json_url = "http://www.lexique.org/databases/_json/Lexique383.json",
+    local_rds_name = "Lexique383"
+    )
 }
 }

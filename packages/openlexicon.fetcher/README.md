@@ -4,15 +4,16 @@
 # openlexicon.fetcher
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
-The goal of `openlexicon.fetcher` is to facilitate the downloaf of
+The goal of `openlexicon.fetcher` is to facilitate the download of
 lexical databases related to the [openlexicon
 project](http://openlexicon.fr).
 
 ## Installation
 
-You can install the development version of openlexicon.fetcher from
+You can install the development version of `openlexicon.fetcher` from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -20,11 +21,42 @@ You can install the development version of openlexicon.fetcher from
 devtools::install_github("chrplr/openlexicon/packages/openlexicon.fetcher")
 ```
 
-## Example
+## Usage
 
-You can download any list of databases as follows:
+### Downloading datasets
+
+You can load (or download if needed) any list of datasets as follows:
 
 ``` r
 library(openlexicon.fetcher)
-fetch_datasets(listofdatasets = c("Lexique3", "Voisins", "Anagrammes") )
+fetch_datasets(datasets = c("Lexique3", "Voisins", "Anagrammes") )
+```
+
+Or download all datasets using:
+
+``` r
+# getting a list of all available datasets
+available_datasets()
+
+# downloading them all
+get_all_datasets()
+```
+
+Note that, by default, datasets are saved in your home directory in
+`~/openlexicon_datasets/`.
+
+### Contributing datasets
+
+To contribute datasets, you can use the `create_json_file()` function to
+generate a minimal .json file containing (at least) a name, a concise
+description, and an url to download the .rds file containing the data
+(see also the `tsv_to_rds()` function to convert .tsv files to .rds if
+needed).
+
+``` r
+create_json_file(
+    name = "lexique3",
+    description = "Lexique382 is a French lexical database.",
+    url_rds = "http://www.lexique.org/databases/Lexique382/Lexique382.rds"
+    )
 ```

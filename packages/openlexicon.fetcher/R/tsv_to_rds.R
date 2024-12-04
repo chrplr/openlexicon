@@ -1,4 +1,4 @@
-#' Load in memory the rds files listed in list_rds, in variables with the names matching names(list_rds).
+#' Loading in memory the rds files listed in list_rds, in variables with the names matching names(list_rds).
 #'
 #' @param tsv_url URL to the original tsv file.
 #' @param table_name Name of the output rds file (without extension).

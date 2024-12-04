@@ -10,6 +10,7 @@ apps/unipseudo/tests/*
 .RData
 .Rhistory
 .Rproj.user
+.gitignore
 .DS_Store
-**/.DS_Store
-
+*/.DS_Store
+**/**/.DS_Store

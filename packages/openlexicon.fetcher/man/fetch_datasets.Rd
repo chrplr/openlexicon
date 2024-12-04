@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_datasets.R
 \name{fetch_datasets}
 \alias{fetch_datasets}
-\title{Returns a list of datasets (downloading those datasets from the internet if needed)}
+\title{Returning a list of datasets (downloading those datasets from the internet if needed)}
 \usage{
 fetch_datasets(datasets = c("Lexique3", "Voisins", "Anagrammes"))
 }
@@ -13,7 +13,7 @@ fetch_datasets(datasets = c("Lexique3", "Voisins", "Anagrammes"))
 Local locations of datasets.
 }
 \description{
-Returns a list of datasets (downloading those datasets from the internet if needed)
+Returning a list of datasets (downloading those datasets from the internet if needed)
 }
 \examples{
 \dontrun{

@@ -18,7 +18,7 @@ get_all_datasets <- function () {
     # retrieving the names of the datasets in locations
     locations_datasets <- names(locations)
 
-    # downloading and returning everything
+    # downloading and returning all datasets
     return (fetch_datasets(datasets = names(locations) ) )
 
 }
