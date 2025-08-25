@@ -2,7 +2,7 @@ Nom	FrenchLexiconProjectMono
 Tags	Temps de lecture
 Description	The French Lexicon Project (FLP) provides lexical decision data for 38,840 French words and the same number of nonwords. The full data represents 1942000 reactions times from 975 participants.
 Auteurs	Ferrand, L., New, B., Brysbaert, M., Keuleers, E., Bonin, P., Méot, A., Augustinova, M., Pallier, C.
-Site web	https://openlexicon.fr/datasets-info/FrenchLexiconProject/README-FrenchLexiconProject.html
+Site web	http://www.lexique.org/?page_id=489
 Langue	French
 Champs Oblig
 Champs
