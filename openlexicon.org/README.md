@@ -126,5 +126,6 @@ for (file in files) {
     }
 }
 ```
-- Convert from TSV to JSON using Python script convert_json.py
-- Go to http://5.39.73.115/openlexicon/import_data and import json
+- Create config .txt file in english language
+- Go to http://5.39.73.115/openlexicon/import_data and import .tsv and .txt
+- Reload server for new database to appear correctly (if no reload, we get error "No matching records found")

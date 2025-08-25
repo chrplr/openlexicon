@@ -49,7 +49,9 @@ def get_database_info(text_file):
         else: # name, description, website and language fields
             for key in text_file_keys.keys():
                 if line_key.casefold() == key.casefold():
-                    database_info[text_file_keys[key]] = line_split[1].strip()
+                    try: key_content = line_split[1].strip()
+                    except IndexError: key_content = None
+                    database_info[text_file_keys[key]] = key_content
                     break
     return database_info, col_info
 
