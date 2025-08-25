@@ -1,8 +1,8 @@
 Nom	Voisins
-Tags	Voisins orthographiques
-Description	L'une de définitions possible des voisins orthographiques d'un mot sont les mots qui peuvent être créés en changeant une lettre sans modifier pour autant la position des autres lettres (formant une 'paire minimale'). La table `Voisins` a été construite à partir des 130000 entrées de la base `Graphemes` de Lexique262. Elle est constituée des champs suivants: *Graph: Toutes les entrées orthographiques de Lexique2; *NbVoisOrth: Le nombre de voisins orthographiques; *VoisOrth: Les différents voisins orthographiques. *FreqVoisOrth: Les différentes fréquences (de la bases de livres Frantext et par million) de chacun des voisins; *FreqCum: La fréquence cumulée de tous les voisins.
+Tags	Orthographic Neighbors
+Description	One possible definition of the orthographic neighbors of a word is the words that can be created by changing one letter without changing the position of the other letters (forming a ‘minimal pair’). The `Neighbors` table was constructed from the 130,000 entries in the `Graphemes` database of Lexique262. It consists of the following fields: *Graph: All orthographic entries in Lexique2; *NbVoisOrth: The number of orthographic neighbors; *VoisOrth: The different orthographic neighbors. *FreqVoisOrth: The different frequencies (from the Frantext book database and per million) of each of the neighbors; *FreqCum: The cumulative frequency of all neighbors.
 Auteurs	New, B., Pallier, C.
 Site web	https://openlexicon.fr/datasets-info/Voisins/README-Voisins.html
 Langue	French
-Champs Oblig	
+Champs Oblig
 Champs

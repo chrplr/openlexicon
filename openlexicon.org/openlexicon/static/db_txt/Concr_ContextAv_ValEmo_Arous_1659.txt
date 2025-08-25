@@ -1,6 +1,6 @@
 Nom	Concr_ContextAv_ValEmo_Arous_1659
-Tags	Concrétude, Valence Emotionnelle
-Description	On a constaté depuis longtemps que les mots qui correspondent à une expérience sensorielle potentielle – les mots concrets – possèdent un avantage de traitement par rapport aux mots abstraits dans diverses tâches lexicales. Nous avons recueilli des normes de concrétise pour un ensemble de 1 659 mots français, ainsi que d’autres normes psycholinguistiques qui n’étaient pas disponibles pour ces mots – disponibilité contextuelle, valence émotionnelle et éveil – mais qui sont importantes si nous voulons parvenir à une meilleure compréhension de la signification des effets de concrétisation. 
+Tags	Arousal, Concreteness, Emotional Valence
+Description	It has long been observed that words that correspond to a potential sensory experience—concrete words—have a processing advantage over abstract words in various lexical tasks. We collected concreteness norms for a set of 1,659 French words, as well as other psycholinguistic norms that were not available for these words—contextual availability, emotional valence, and arousal—but which are important if we are to gain a better understanding of the significance of concreteness effects.
 Auteurs	Bonin, P., Méot, A., & Bugaiska, A.
 Site web	http://www.lexique.org/?page_id=481
 Langue	French

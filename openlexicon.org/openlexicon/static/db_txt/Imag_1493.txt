@@ -1,8 +1,8 @@
 Nom	Imag_1493
-Tags	Imageabilité
-Description	Des normes d’âge d’acquisition (AoA) et de fréquence subjective ont été recueillies pour les 1 493 mots monosyllabiques français les plus connus des étudiants français. Les évaluations de l’AoA ont été recueillies en demandant aux participants d’estimer en années l’âge auquel ils ont appris chaque mot. Les évaluations de la fréquence subjective ont été recueillies sur une échelle de 7 points, allant de jamais rencontré à rencontré plusieurs fois par jour.
-Auteurs	Ferrand, L., Bonin, P., Méot, A., Augustinova, M., New, B., Pallier, C., & Brysbaert, M.
-Site web	http://www.lexique.org/?page_id=489
+Tags	Imageability
+Description	This database presents imageability standards (or imaging values) for a set of 1,493 words.
+Auteurs	Bonin, P., Méot, A., Ferrand, L., & Roux, S.
+Site web	http://www.lexique.org/?page_id=503
 Langue	French
 Champs Oblig
 Champs

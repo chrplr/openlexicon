@@ -1,8 +1,8 @@
 Nom	ValEmo_Arous_Imag_835
-Tags	Valence Emotionnelle, Imageabilité
-Description	Cette base de données a étudié les différences liées à l’âge dans les évaluations émotionnelles des adjectifs français. Des adultes jeunes, d’âge moyen et plus âgés ont jugé 835 adjectifs français sur la valence, l’éveil (arousal) et l’imagerie.
-Auteurs	Gilet, A. L., Grühn, D., Studer, J., & Labouvie-Vief, G. 
+Tags	Arousal, Emotional Valence, Imageability
+Description	This database studied age-related differences in emotional evaluations of French adjectives. Young, middle-aged, and older adults rated 835 French adjectives on valence, arousal, and imagery.
+Auteurs	Gilet, A. L., Grühn, D., Studer, J., & Labouvie-Vief, G.
 Site web	http://www.lexique.org/?page_id=539
 Langue	French
-Champs Oblig	
+Champs Oblig
 Champs

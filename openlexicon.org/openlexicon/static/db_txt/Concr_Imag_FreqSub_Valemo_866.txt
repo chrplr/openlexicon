@@ -1,6 +1,6 @@
 Nom	Concr_Imag_FreqSub_Valemo_866
-Tags	Concrétude, Fréquence Subjective, Valence Emotionnelle
-Description	Cette base de données présente des normes de fréquence subjective pour 660 mots de la langue française recueillies auprès d’adultes jeunes (M = 22,6 ans) et âgés (M = 71,2 ans). La fréquence subjective a été évaluée en utilisant une échelle en 7 points, allant de « jamais rencontré » à « rencontré plusieurs fois par jour ».
+Tags	Concreteness, Subjective Frequency, Emotional Valence
+Description	This database presents subjective frequency norms for 660 words in the French language collected from young adults (M = 22.6 years) and older adults (M = 71.2 years). Subjective frequency was assessed using a 7-point scale ranging from “never encountered” to “encountered several times a day”.
 Auteurs	Robert, C., Dorot, D., & Mathey, S.
 Site web	http://www.lexique.org/?page_id=515
 Langue	French

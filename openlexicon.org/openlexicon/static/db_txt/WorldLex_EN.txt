@@ -1,8 +1,8 @@
 Nom	WorldLex_EN
-Tags	Fréquence Subjective
+Tags	Subjective Frequency
 Description	Worldlex makes available new word frequencies based on Twitter, blog posts, or newspapers for 66 languages. We showed that these frequencies predict lexical decision reaction times similar to the already existing frequencies, or even better than them.
 Auteurs	Gimenes, M., New, B.
 Site web	http://www.lexique.org/?page_id=250
 Langue	English
-Champs Oblig	
+Champs Oblig
 Champs

@@ -1,5 +1,5 @@
 Nom	AoA32lang
-Tags	Age d'acquisition
+Tags	Age of Acquisition
 Description	We present a new set of subjective Age of Acquisition (AoA) ratings for 299 words (158 nouns, 141 verbs) in seven languages from various language families and cultural settings: American English, Czech, Scottish Gaelic, Lebanese Arabic, Malaysian Malay, Persian, and Western Armenian.
 Auteurs	Luniewska, M., Wodniecka, Z., Miller, C. A., Smolik, F., Butcher, M., Chondrogianni, V., Kouba Hreich, E., Messarra, C., Razak, R. A., Treffers-Daller, J., Thai Yap, N., Abboud, L., Talebi, A., [...], Haman, E.
 Site web	https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220611

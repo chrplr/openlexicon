@@ -1,11 +1,11 @@
 Nom	Lexique3
-Tags	Fréquence Subjective
-Description	Donne pour 140 000 mots français la fréquence d’occurrence dans différents corpus, la représentation phonologique, les lemmes associés, le nombre de syllabes, la catégorie grammaticale, etc.
+Tags	Subjective Frequency
+Description	Provides the frequency of occurrence in different corpora, phonological representation, associated lemmas, number of syllables, grammatical category, etc. for 140,000 French words.
 Auteurs	New, B., Pallier, C., Bourgin, J.
 Site web	http://www.lexique.org
 Langue	French
 Champs Oblig	Word, phon, lemme, cgram, freqlemfilms2, freqfilms2, islem, nblettres, puorth, puphon, nbsyll, cgramortho
-Champs	
-phon	Représentations phonologiques des mots
-lemme	A lemma is an entry in a dictionary that is used to represent all the other possible inflected forms.
-CGram	the grammatical category of the word.  
+Champs
+phon	Phonological representation
+lemme	A lemma is an entry in a dictionary that is used to represent all the other possible inflected forms
+CGram	Grammatical category

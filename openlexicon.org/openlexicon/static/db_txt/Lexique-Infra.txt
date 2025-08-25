@@ -1,5 +1,5 @@
 Nom	Lexique-Infra
-Tags	Fréquence Subjective
+Tags	Subjective Frequency
 Description	Lexique-infra is a new database providing infra-lexical indicators for 137,717 words in French coming from Lexique 3.83. The frequencies of the grapheme-phoneme and phoneme-grapheme correspondences as well as other indicators (consistency, regularity, frequencies of letters, bigrams, trigrams, phonemes, biphones and syllables, etc.). Several new indicators of consistency and regularity are also proposed: number of irregularities in a word, position of the irregularity, average complexity of the graphemes of a word, frequency of the lowest inconsistency in a word. These indices were calculated by type and token and according to the initial, middle and final positions.
 Auteurs	Gimenes, M., Perret, C., New, B.
 Site web	http://www.lexique.org/?page_id=331

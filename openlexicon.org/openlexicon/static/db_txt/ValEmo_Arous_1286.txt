@@ -1,8 +1,8 @@
 Nom	ValEmo_Arous_1286
-Tags	Valence Emotionnelle
-Description	1286 mots français ont été évalués en ligne sur la valence émotionnelle et l’éveil (arousal) par 1017 adultes de 18 à 82 ans. De plus, chaque mot jugé négatif ou positif a été attribué à une catégorie (joie, surprise, colère, dégoût, peur ou tristesse).
+Tags	Arousal, Emotional Valence
+Description	1,286 French words were evaluated online for emotional valence and arousal by 1,017 adults aged 18 to 82. In addition, each word judged to be negative or positive was assigned to a category (joy, surprise, anger, disgust, fear, or sadness).
 Auteurs	Gobin, P., Camblats, A. M., Faurous, W., & Mathey, S.
 Site web	http://www.lexique.org/?page_id=492
 Langue	French
-Champs Oblig	
+Champs Oblig
 Champs

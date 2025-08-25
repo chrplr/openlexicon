@@ -1,6 +1,6 @@
 Nom	AoA_FreqSub_1493
-Tags	Age d'acquisition, Fréquence Subjective
-Description	Des normes d’âge d’acquisition (AoA) et de fréquence subjective ont été recueillies pour les 1 493 mots monosyllabiques français les plus connus des étudiants français. Les évaluations de l’AoA ont été recueillies en demandant aux participants d’estimer en années l’âge auquel ils ont appris chaque mot. Les évaluations de la fréquence subjective ont été recueillies sur une échelle de 7 points, allant de jamais rencontré à rencontré plusieurs fois par jour.
+Tags	Age of Acquisition, Subjective Frequency
+Description	Age of acquisition (AoA) and subjective frequency ratings were collected for the 1,493 most familiar monosyllabic French words among French students. AoA ratings were collected by asking participants to estimate the age in years at which they learned each word. Subjective frequency ratings were collected on a 7-point scale, ranging from never encountered to encountered several times a day.
 Auteurs	Ferrand, L., Bonin, P., Méot, A., Augustinova, M., New, B., Pallier, C., & Brysbaert, M.
 Site web	http://www.lexique.org/?page_id=489
 Langue	French

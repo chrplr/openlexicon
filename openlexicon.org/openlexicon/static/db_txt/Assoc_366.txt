@@ -1,7 +1,7 @@
 Nom	Assoc_366
-Tags	Associations verbales
-Description	Cette base de données présente des normes d’association de mots développée pour la recherche expérimentale en psycholinguistique. Elle contient des normes d’association libre de plus de 300 mots de la langue française, recueillis auprès d’un groupe de 89 francophones, âgés de 18 à 25 ans.
-Auteurs	Ferrand, L., & Alario, F. X. 
+Tags	Verbal Associations
+Description	This database presents word association norms developed for experimental research in psycholinguistics. It contains free association norms for over 300 words in the French language, collected from a group of 89 French speakers aged 18 to 25.
+Auteurs	Ferrand, L., & Alario, F. X.
 Site web	http://www.lexique.org/?page_id=518
 Langue	French
 Champs Oblig

@@ -1,8 +1,8 @@
 Nom	AoA_FamConcept_1225
-Tags	Age d'acquisition, Familiarité
-Description	Une base de données lexicales a été constituée afin d’informer l’âge d’acquisition et la familiarité conceptuelle pour un corpus de 1225 mots monosyllabiques et bisyllabiques du Français.
+Tags	Age of Acquisition, Familiarity
+Description	A lexical database has been compiled to provide information on age of acquisition and conceptual familiarity for a corpus of 1,225 monosyllabic and disyllabic words in French.
 Auteurs	Lachaud, C.
 Site web	http://www.lexique.org/?page_id=486
 Langue	French
 Champs Oblig
-Champs	
+Champs

@@ -1,8 +1,8 @@
 Nom	Valemo_Adultes_604
-Tags	Valence Emotionnelle
-Description	La présente base de données fournit la valence émotionnelle collectée chez des adultes (positive, neutre et négative) pour 600 mots.
-Auteurs	Syssau, A., & Font, N. 
+Tags	Emotional Valence
+Description	This database provides the emotional valence collected from adults (positive, neutral, and negative) for 600 words.
+Auteurs	Syssau, A., & Font, N.
 Site web	http://www.lexique.org/?page_id=241
 Langue	French
-Champs Oblig	
+Champs Oblig
 Champs

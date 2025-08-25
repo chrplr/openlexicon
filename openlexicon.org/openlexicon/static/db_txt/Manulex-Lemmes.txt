@@ -1,7 +1,7 @@
 Nom	Manulex-Lemmes
-Tags	Général
-Description	Manulex est une base de données lexicales qui fournit les fréquences d'occurrences de mots calculées à partir d'un corpus de 54 manuels scolaires (1,9 millions de mots). Les listes de fréquences de mots sont fournies pour trois niveaux d'expertise de la lecture : le CP (6 ans) où se construit le lexique de l'enfant sur la base de la médiation phonologique, le CE1 (7 ans) où se construit le lexique orthographique par automatisation progressive de la reconnaissance du mot écrit et le cycle 3 (CE2-CM2, 8-11 ans) où se consolide et s'enrichit le stock lexical par exposition répétée à l'écrit. Un quatrième niveau est constitué par le regroupement de l'ensemble des manuels du CP au CM2 représentant ainsi l'écrit adressé à l'enfant à l'école primaire.
-Auteurs	
+Tags	General
+Description	Manulex is a lexical database that provides word frequencies calculated from a corpus of 54 textbooks (1.9 million words). Word frequency lists are provided for three levels of reading proficiency: CP (6 years old), where children build their vocabulary through phonological mediation; CE1 (7 years old), where they build their orthographic vocabulary through the gradual automation of written word recognition; and cycle 3 (CE2-CM2, 8-11 years old) where the lexical stock is consolidated and enriched through repeated exposure to writing. A fourth level consists of all textbooks from CP to CM2, thus representing the writing addressed to children in primary school.
+Auteurs
 Site web	https://www.manulex.org/
 Langue	French
 Champs Oblig	NLET, SYNT

@@ -1,6 +1,6 @@
 Nom	FreqSub_Imag_ParAge_1286
-Tags	Fréquence Subjective, Imageabilité
-Description	Ces normes visent à fournir des évaluations d’imageabilité et de fréquence subjective pour quatre groupes d’âge adultes allant de 18 à 85 ans (18-25 ; 26-39 ; 40-59 ; et 60 et plus) pour 1286 mots français neutres et émotionnels disponibles dans la base de données EMA (Gobin et al., 2017). Dans l’ensemble, les adultes plus âgés ont évalué les mots comme étant plus fréquents (subjectivement) et plus imageables que les adultes plus jeunes.
+Tags	Subjective Frequency, Imageability
+Description	These standards aim to provide imageability and subjective frequency ratings for four adult age groups ranging from 18 to 85 years old (18-25; 26-39; 40-59; and 60 and older) for 1,286 neutral and emotional French words available in the EMA database (Gobin et al., 2017). Overall, older adults rated words as more frequent (subjectively) and more imageable than younger adults.
 Auteurs	Ballot, C., Mathey, S., & Robert, C.
 Site web	http://www.lexique.org/?page_id=618
 Langue	French

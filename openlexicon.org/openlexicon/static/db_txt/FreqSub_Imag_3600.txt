@@ -1,6 +1,6 @@
 Nom	FreqSub_Imag_3600
-Tags	Fréquence Subjective, Imageabilité, Familiarité
-Description	Des estimations subjectives de fréquence et d’imageabilité pour un échantillon de 3 600 noms français ont été recueillies auprès de deux des groupes indépendants de 72 jeunes adultes chacun. Les deux groupes ont reçu des instructions standard et ont fourni leur évaluation sur une échelle de 7 points.
+Tags	Subjective Frequency, Imageability, Familiarity
+Description	Subjective estimates of frequency and imageability for a sample of 3,600 French names were collected from two independent groups of 72 young adults each. Both groups received standard instructions and provided their assessments on a 7-point scale.
 Auteurs	Desrochers, A., & Thompson, G. L.
 Site web	http://www.lexique.org/?page_id=506
 Langue	French

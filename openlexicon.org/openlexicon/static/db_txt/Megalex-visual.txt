@@ -1,8 +1,8 @@
 Nom	Megalex-visual
-Tags	Temps de lecture
+Tags	Reading Time
 Description	Megalex is a database of visual and auditory lexical decision times and accuracy rates for tens of thousands of words. We collected visual lexical decision data for 28,466 French words and the same number of pseudowords, and auditory lexical decision data for 17,876 French words and the same number of pseudowords (synthesized tokens were used for the auditory modality). This constitutes the first large-scale database for auditory lexical decision, and the first database to enable a direct comparison of word recognition in different modalities.
 Auteurs	Ferrand, L., Méot, A., Spinelli, E., New, B., Pallier, C., Bonin, P., Dufau, S., Mathôt, S., Grainger, J.
 Site web	http://www.lexique.org/?page_id=366
 Langue	French
-Champs Oblig	
+Champs Oblig
 Champs
