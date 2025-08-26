@@ -51,32 +51,35 @@
     let col_string = "{{col_string}}";
     let database_order = {{database_order | safe}};
 
+    const operators = ["<", "<=", ">", ">=", "=", "=="];
+
     check_columns();
 
     function floatedVals(vals) {
         return vals.map(val => parseFloat(val));
     }
 
+    function splitAllComparisons(filterVal) {
+        const pattern = '(?:' + operators.join('|') + ')\\s*\\d+(?:\\.\\d+)?';
+        return filterVal.match(new RegExp(pattern, 'g')); // g is to search all matches
+    }
+
     function has_comp_operator(operator, filterVal) {
         return new RegExp("^[ ]*" + operator + "[ ]*\\d+(\\.\\d+)?[ ]*$").test(filterVal);
     }
 
+    function is_one_number(filterVal) {
+        return /^[ ]*\d+(\.\d+)?[ ]*$/.test(filterVal);
+    }
+
     function get_filter_array(filterVal, colMin, colMax) { // return array with min/max values for float/int filters. Accepts ... > < notations.
         // TODO : for now < and > do not exclude bounds, which is counterintuitive. To recheck.
-        for (const op of ["<", "<=", ">", ">="]) {
-            if (has_comp_operator(op, filterVal)) { // one value only less/greater than or equal
-                switch (op) {
-                    case "<":
-                    case "<=":
-                        return floatedVals([colMin, filterVal.split(op)[1]]);
-                        break;
-                    case ">":
-                    case ">=":
-                        return floatedVals([filterVal.split(op)[1], colMax]);
-                        break;
-                }
-            }
+
+        // one number (get all values equal to this number)
+        if (is_one_number(filterVal)) {
+            return floatedVals([filterVal, filterVal]);
         }
+
         // ellipsis
         filterVals = filterVal.split("...");
         if (/^[ ]*\d+(\.\d+)?[ ]*[.]{3}[ ]*$/.test(filterVal)) { // left val only
@@ -85,6 +88,52 @@
             return floatedVals([colMin, filterVals[1]]);
         }else if (/^[ ]*\d+(\.\d+)?[ ]*[.]{3}[ ]*\d+(\.\d+)?[ ]*$/.test(filterVal)) { // val on both sides
             return floatedVals(filterVals)
+        }
+
+        // operators
+        filterValList = splitAllComparisons(filterVal);
+        if (filterValList == null) {
+            return [];
+        }
+        let rangeMin = null;
+        let rangeMax = null;
+        for (filterElt of filterValList) {
+            for (const op of operators) {
+                if (has_comp_operator(op, filterElt)) { // one value only less/greater than or equal
+                    switch (op) {
+                        case "<":
+                        case "<=":
+                            if (rangeMax == null) {
+                                rangeMax = filterElt.split(op)[1];
+                            }else{
+                                return [];
+                            }
+                            break;
+                        case ">":
+                        case ">=":
+                            if (rangeMin == null) {
+                                rangeMin = filterElt.split(op)[1];
+                            }else{
+                                return [];
+                            }
+                            break;
+                        case "=":
+                        case "==":
+                            if (rangeMin == null && rangeMax == null) {
+                                rangeMin = filterElt.split(op)[1];
+                                rangeMax = filterElt.split(op)[1];
+                            }else{
+                                return [];
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        if (rangeMax != null || rangeMin != null) {
+            rangeMax = rangeMax == null ? colMax : rangeMax;
+            rangeMin = rangeMin == null ? colMin : rangeMin;
+            return floatedVals([rangeMin, rangeMax]);
         }
         return [];
     }
@@ -349,7 +398,11 @@
                         .search(values)
                         .draw();
                     manualSet = false;
-                    localStorage[id] = values.join(" ... ");
+                    if (values.length == 2) {
+                        localStorage[id] = values.join(" ... ");
+                    }else{ // remove filter if no value entered
+                        localStorage.removeItem(id);
+                    }
                 }
             });
 
