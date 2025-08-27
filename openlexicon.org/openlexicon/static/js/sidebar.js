@@ -70,13 +70,40 @@ function make_popover(id, def, label=false, content=null, link=null) {
         tag.setAttribute("class", "tooltipable");
         tag.setAttribute("data-toggle", "popover");
         tag.setAttribute("data-placement", "auto");
-        tag.setAttribute("data-trigger", "hover");
+        tag.setAttribute("data-trigger", "manual");
         tag.setAttribute("data-content", def);
         tag.setAttribute("tabindex", "0");
         tag.setAttribute("role", "button");
 
+        var counter;
         $(tag).popover({
             container: 'body', // put popover inside body to avoid other elements with greater z-index hiding it
+        }).on("mouseenter", function(e) {
+            var _this = this;
+            e.preventDefault();
+            clearTimeout(counter);
+            $('[rel="popover"]').not(_this).popover('hide');
+            counter = setTimeout(function(){
+                if($(_this).is(':hover'))
+                {
+                    $(_this).popover("show");
+                }
+                $(".popover").on("mouseleave", function () {
+                    $(_this).popover('hide');
+                });
+            }, 10);
+
+        }).on("mouseleave", function () {
+            var _this = this;
+
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    if(!$(_this).is(':hover')) // change $(this) to $(_this)
+                    {
+                       $(_this).popover('hide');
+                    }
+                }
+            }, 200);
         });
 
         if (content == null) {
