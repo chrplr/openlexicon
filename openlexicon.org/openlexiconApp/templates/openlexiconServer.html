@@ -153,7 +153,7 @@
     }
 
     function getAjaxUrl() {
-        return "{% url 'openlexiconApp:data' 'COL_PLACEHOLDER' %}".replace("COL_PLACEHOLDER", col_string);
+        return "{% url 'dataOpenlexicon' 'COL_PLACEHOLDER' %}".replace("COL_PLACEHOLDER", col_string);
     }
 
     function goExport(e, dt, button, config) {
