@@ -23,7 +23,7 @@
     position:fixed;
 }
 
-.submenu-icon { /* place dropdown button to the right */
+.nav-menu-text:not(.category) > .submenu-icon { /* place dropdown button to the right */
     float:right;
     margin-left: 0.5em !important;
 }
@@ -44,6 +44,16 @@
     align-items:center;
 }
 
+.nav-menu-text.category {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2) !important;
+    z-index:1; /* required for box-shadow to show */
+    position:relative;
+    border-top: 1px solid #BFBFBF;
+    padding:.4rem 1.25rem;
+}
+
+
 .navbar-item-text > label {
     margin-left:1em;
 }
@@ -62,6 +72,13 @@
 
 .database-checkbox {
     transform: scale(1.3);
+}
+
+.category-icon {
+    height:15px;
+    width: 15px;
+    padding: 0;
+    margin:0;
 }
 
 .how-to {

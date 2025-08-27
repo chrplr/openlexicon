@@ -17,14 +17,38 @@ def home(request, column_list=[]):
     else:
         column_list = DbColMap.listify_string(column_list)
     dbColMap = DbColMap(column_list)
-    all_columns = DatabaseColumn.objects.all().select_related("database").order_by("database__name", "id") # TODO : order_by id is important so that headers list will be in the same order than values list (see DbColMap and datatable). Find a more robust way ?
+    all_columns = DatabaseColumn.objects.all().select_related("database").prefetch_related("database__tags").order_by("database__name", "id") # TODO : order_by id is important so that headers list will be in the same order than values list (see DbColMap and datatable). Find a more robust way ?
     all_columns_dict = {}
+    all_tags_dict = {}
+    all_languages_dict = {}
+    all_favorites_dict = {"Favorites": {}}
     for col in all_columns:
+        for tag in col.database.tags.all():
+            if tag.name not in all_tags_dict:
+                all_tags_dict[tag.name] = {col.database: []}
+        if col.database.language not in all_languages_dict:
+            all_languages_dict[col.database.language] = {col.database: []}
         if col.database not in all_columns_dict:
-            all_columns_dict[col.database] = [col]
-        else:
-            all_columns_dict[col.database].append(col)
-    return render(request, 'openlexiconServer.html', {'table_name': settings.SITE_NAME, 'columns': json.dumps(dbColMap.string_column_dict), 'col_string': dbColMap.col_string, 'all_columns': all_columns_dict, "database_order": list(dbColMap.string_column_dict.keys())})
+            all_columns_dict[col.database] = []
+            all_tags_dict[tag.name][col.database] = []
+            all_languages_dict[col.database.language][col.database] = []
+            if col.database.favorite:
+                all_favorites_dict["Favorites"][col.database] = []
+        all_columns_dict[col.database].append(col)
+        all_tags_dict[tag.name][col.database].append(col)
+        all_languages_dict[col.database.language][col.database].append(col)
+        if col.database.favorite:
+            all_favorites_dict["Favorites"][col.database].append(col)
+    return render(request, 'openlexiconServer.html', {
+        'table_name': settings.SITE_NAME,
+        'columns': json.dumps(dbColMap.string_column_dict),
+        'col_string': dbColMap.col_string,
+        'all_columns': all_columns_dict,
+        "database_order": list(dbColMap.string_column_dict.keys()),
+        'all_languages': sortdict(all_languages_dict),
+        'all_tags': sortdict(all_tags_dict),
+        'all_favorites': sortdict(all_favorites_dict)
+    })
 
 @login_required
 def import_data(request):

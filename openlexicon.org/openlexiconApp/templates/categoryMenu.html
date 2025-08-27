@@ -1,0 +1,12 @@
+{% for category, category_dict in all_dict.items %}
+    <div class="nav-menu-text category list-group-item list-group-item-action" id="category_{{ category|cut:' ' }}_head" onclick="menu_click(event)">
+        <i class="category-icon fas fa-{{icon}}"></i>
+        <span class="sidebar-span">{{category}}</span>
+        <span class="submenu-icon ml-auto"> <i class="fas"></i> </span>
+    </div>
+    <div id="category_{{ category|cut:' ' }}" class="collapse submenu-collapse">
+        {% for database, column_list in category_dict.items %}
+            {% include 'databaseMenu.html' %}
+        {% endfor %}
+    </div>
+{% endfor %}

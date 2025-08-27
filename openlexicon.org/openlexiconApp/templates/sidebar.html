@@ -7,6 +7,7 @@
             <div class="how-to">
                 <b>Quick how-to</b>
                 <ul>
+                    <li>Click on desired <b>tags</b>. For instance, if you want only databases in english, click on the <b>English</b> tag. Note: a dataset may have several tags (e.g., <b>Lexique3</b> is a <b>French</b> database and gives measures of <b>Subjective Frequency</b>).
                     <li>Select desired <b>datasets</b>. If you want more informations about a specific dataset, you can hover over its tooltip.</li>
                     <li>Select <b>columns</b> to display for each dataset.</li>
                     <li>For each column in the table, you can:</li>
@@ -19,56 +20,35 @@
                 </ul>
             </div>
 
-            {% for database, column_list in all_columns.items %}
-            <div> <!-- if we want only one dropdown open at any given time, add class "nav-menu" -->
-                <div class="nav-menu-text list-group-item list-group-item-action" id="submenu_{{database.id}}_head" onclick="menu_click(event)">
-                    <input type="checkbox" id="checkbox_db_{{database.id}}" name="{{database.id}}" class="database-checkbox" onclick="check_all(this)" autocomplete="off"/>
-                    <span class="sidebar-span" title="{{database}}">{{database}}</span>
-                    <span class="submenu-icon ml-auto"> <i class="fas"></i> </span>
-                </div>
-                <!-- Submenu area -->
-                <div id='submenu_{{database.id}}' class="collapse submenu-collapse">
-                    {% for column in column_list %}
-                    <div id='div_check_{{column.id}}' class="list-group-item list-group-item-action navbar-item-text">
-                        <input type="checkbox" id="checkbox_col_{{column.id}}" name="{{database.id}}" onclick="check_instance(this);" disabled autocomplete="off"/>
-                        <label for="checkbox_col_{{column.id}}" style="margin-bottom:0" data-toggle="tooltip" data-placement="top" title="{% if column.description != None %}{{column.description}}{% endif %}">{{column}}</label>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endfor %}
+            <!-- Favorites -->
+            {% with all_dict=all_favorites icon="star" %}
+                {% include 'categoryMenu.html' %}
+            {% endwith %}
+            <!-- Languages -->
+            {% with all_dict=all_languages icon="globe" %}
+                {% include 'categoryMenu.html' %}
+            {% endwith %}
+            <!-- Tags -->
+            {% with all_dict=all_tags icon="tag" %}
+                {% include 'categoryMenu.html' %}
+            {% endwith %}
         </div>
     </div>
 </form>
 
 <script>
-    function reveal_menu(object){
-        let menu = $(object).parents('.nav-menu-text'); // database checkbox
-        if (menu.prop("id") == undefined) { // column checkbox
-            menu = $(object).parents('.submenu-collapse').prev();
-        }
-        // If check all, open menu if not already the case
-        if ($(object).prop('checked') && !menu_is_open(menu)) {
-            // open_menu(menu);
-        }
-    }
-
     $('.nav-menu-text').each(function(){
-        // var state = localStorage.getItem($(this).prop('id'));
-        // if(state === 'expanded'){
-        if (false) {
-            expand_menu(this);
-        } else {
-            collapse_menu(this);
-        }
+        collapse_menu(this);
     });
+    // Open favorites menu. TODO : find more robust way to do so and replace this by localstorage if some menus were saved as expanded
+    open_menu($("#category_Favorites_head"));
 
     {% for database in all_columns.keys %}
         database_info = "{{database.info}}";
         {% if database.website is not None %}
-            database_info += "<br><br><b>Site web</b> : <a href='{{database.website}}' target='_blank'>{{database.website}}</a>"
+            database_info += "<br><br><b>Language</b> : {{database.language}}<br><b>Tags</b> : {% for tag in database.tags.all %}{% if forloop.counter0 > 0 %}, {% endif %}{{tag.name}}{% endfor %}<br><b>Site web</b> : <a href='{{database.website}}' target='_blank'>{{database.website}}</a>"
         {% endif %}
-        make_popover("submenu_{{database.id}}_head", database_info, label=true);
+        make_popover("submenu_{{database.id}}", database_info, label=true);
     {% endfor %}
 
     function handle_checkbox_disable(bool) {
@@ -86,7 +66,7 @@
             let new_database_order = [];
             {% for database, column_list in all_columns.items %}
                 {% for column in column_list %}
-                    if ($("#checkbox_col_{{column.id}}").prop("checked")) {
+                    if ($("[data-item='input_col_{{column.id}}'").first().prop("checked")) {
                         new_col_string.push("{{database.id}}__{{column.id}}");
                         json_key = {{database.id}};
                         if (!new_column_dict.hasOwnProperty(json_key)) {
@@ -108,23 +88,41 @@
         $('input[name='+$(object).attr("name")+']').each(function(){
             $(this).prop('checked', $(object).prop('checked'));
         });
-        reveal_menu($(object));
+        // check database copies
+        $('input[data-item='+$(object).attr("data-item")+']').each(function(){
+            $(this).prop('indeterminate', $(object).prop('indeterminate'));
+            $(this).prop('checked', $(object).prop('checked'));
+        });
+
         filter_callback();
+    }
+
+    function click_check_instance(object, check_status, filter) {
+        if (check_status == null) {
+            check_status = object.checked;
+        }
+        let checkboxes = document.querySelectorAll('[data-item="'+$(object).attr("data-item")+'"]');
+        for (checkbox of checkboxes) {
+            checkbox.checked = check_status;
+            check_instance(checkbox);
+        }
+        if (filter) {
+            filter_callback();
+        }
     }
 
     function check_instance(object){
         let database = $(object).attr("name");
-        let nb_checked = $('#submenu_'+database+' :input[name='+database+']:checked').length;
-        $("#checkbox_db_"+database).prop("indeterminate", false);
-        if (nb_checked == $('#submenu_'+database+' :input[name='+database+']').length) {
-            $("#checkbox_db_"+database).prop("checked", true);
-            reveal_menu($(object));
+        let category = $(object).attr("data-parent");
+        let nb_checked = $('#submenu_'+category+'_'+database+' :input[name='+database+']:checked').length;
+        let checkbox_db = $("#checkbox_"+category+"_db_"+database);
+        checkbox_db.prop("indeterminate", false);
+        if (nb_checked == $('#submenu_'+category+'_'+database+' :input[name='+database+']').length) {
+            checkbox_db.prop("checked", true);
         }else if (nb_checked == 0) {
-            $("#checkbox_db_"+database).prop("checked", false);
+            checkbox_db.prop("checked", false);
         }else{
-            $("#checkbox_db_"+database).prop("indeterminate", true);
-            reveal_menu($(object));
+            checkbox_db.prop("indeterminate", true);
         }
-        filter_callback();
     }
 </script>

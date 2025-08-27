@@ -16,6 +16,13 @@ text_file_keys = {
     "favori": "favorite"
 }
 
+def sortdict(d):
+    # **opts so any currently supported sorted() options can be passed
+    sorted_dict = {}
+    for k in sorted(d):
+        sorted_dict[k] = d[k]
+    return sorted_dict
+
 def save_many_relations(db_name, container, selected_items):
     selected = set(selected_items)
     db = getattr(container, db_name)

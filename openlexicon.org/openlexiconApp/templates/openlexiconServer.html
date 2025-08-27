@@ -144,9 +144,8 @@
         for (const [database, column_list] of Object.entries(column_dict)) {
             for (const col of column_list) {
                 // NOTE : we use document.getElementById instead of $("#id").click() because the last is called three times when combined with inline onclick (see this post: https://github.com/jquery/jquery/issues/4493)
-                let checkbox = document.getElementById("checkbox_col_"+col.id);
-                checkbox.checked = true;
-                check_instance(checkbox);
+                let checkbox_ref = document.querySelectorAll('[data-item="input_col_'+col.id+'"]')[0];
+                click_check_instance(checkbox_ref, true, false);
             }
         }
         checkbox_ready = true;

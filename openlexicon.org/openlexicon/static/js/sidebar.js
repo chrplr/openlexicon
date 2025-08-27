@@ -25,9 +25,9 @@ function open_menu(menu) {
     expand_menu(menu);
     localStorage.setItem($(menu).prop('id'), 'expanded');
     // closing brother menus
-    $(menu).parent().parent().children('.nav-menu').children('.nav-menu-text:not(#' + $(menu).attr('id') +')').each(function() {
-        close_menu($(this));
-    });
+    // $(menu).parent().children('.nav-menu-text:not(#' + $(menu).attr('id') +')').each(function() {
+    //     close_menu($(this));
+    // });
 }
 
 function menu_click(event) {
@@ -57,40 +57,38 @@ function menu_click(event) {
 // content: text that triggers the tooltip
 // if content is null, puts a questionmark.
 function make_popover(id, def, label=false, content=null, link=null) {
-    var tag;
-    if (link != null) {
-        if (def != "") {
-            def += "<br>";
+    $('[data-item="'+id+'"]').each(function(){
+        var tag;
+        if (link != null) {
+            if (def != "") {
+                def += "<br>";
+            }
+            def += "<a class='float-right' href='" + link + "'> " + gettext("Edit") +" </a>";
         }
-        def += "<a class='float-right' href='" + link + "'> " + gettext("Edit") +" </a>";
-    }
-    tag = document.createElement("a");
-    tag.setAttribute("data-html", "true");
-    tag.setAttribute("class", "tooltipable");
-    tag.setAttribute("data-toggle", "popover");
-    tag.setAttribute("data-placement", "auto");
-    tag.setAttribute("data-trigger", "hover");
-    tag.setAttribute("data-content", def);
-    tag.setAttribute("tabindex", "0");
-    tag.setAttribute("role", "button");
+        tag = document.createElement("a");
+        tag.setAttribute("data-html", "true");
+        tag.setAttribute("class", "tooltipable");
+        tag.setAttribute("data-toggle", "popover");
+        tag.setAttribute("data-placement", "auto");
+        tag.setAttribute("data-trigger", "hover");
+        tag.setAttribute("data-content", def);
+        tag.setAttribute("tabindex", "0");
+        tag.setAttribute("role", "button");
 
-    $(tag).popover({
-        container: $(tag)
+        $(tag).popover({
+            container: 'body', // put popover inside body to avoid other elements with greater z-index hiding it
+        });
+
+        if (content == null) {
+            var symbol = document.createElement("i");
+            symbol.setAttribute("class", "fa fa-question-circle");
+            tag.appendChild(symbol);
+            tag.setAttribute("style", "margin-left: auto;");
+        } else {
+            tag.append(content);
+        }
+
+        $(tag).insertBefore($(this).children('.submenu-icon'));
     });
 
-    if (content == null) {
-        var symbol = document.createElement("i");
-        symbol.setAttribute("class", "fa fa-question-circle");
-        tag.appendChild(symbol);
-        tag.setAttribute("style", "margin-left: auto;");
-    } else {
-        tag.append(content);
-    }
-    if (!label){
-        document.getElementById(id).insertBefore(document.createElement("br"), document.getElementById(id).firstChild);
-        document.getElementById(id).insertBefore(tag, document.getElementById(id).firstChild);
-    }
-    else{
-        $(tag).insertBefore($("#" + id).children('.submenu-icon'));
-    }
 }
