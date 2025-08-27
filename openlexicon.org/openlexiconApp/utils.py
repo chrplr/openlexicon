@@ -12,7 +12,8 @@ text_file_keys = {
     "description": "info",
     "site web": "website",
     "langue": "language",
-    "auteurs": "authors"
+    "auteurs": "authors",
+    "favori": "favorite"
 }
 
 def save_many_relations(db_name, container, selected_items):

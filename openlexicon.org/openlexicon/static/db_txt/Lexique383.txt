@@ -4,6 +4,7 @@ Description	Provides the frequency of occurrence in different corpora, phonologi
 Auteurs	New, B., Pallier, C., Bourgin, J.
 Site web	http://www.lexique.org
 Langue	French
+Favori	True
 Champs Oblig	Word, phon, lemme, cgram, freqlemfilms2, freqfilms2, islem, nblettres, puorth, puphon, nbsyll, cgramortho
 Champs
 phon	Phonological representation
