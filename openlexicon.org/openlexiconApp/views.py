@@ -142,7 +142,7 @@ def import_data(request):
                 # Update database number of rows
                 db.nbRows = DatabaseObject.objects.filter(database=db).count()
                 db.save()
-            messages.success(request, ("Fichier importé !"))
+            messages.success(request, (f"{db_name} importée !"))
     return render(request, 'importForm.html')
 
 # https://github.com/umesh-krishna/django_serverside_datatable/tree/master
