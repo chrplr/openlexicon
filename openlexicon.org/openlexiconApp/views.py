@@ -10,12 +10,11 @@ import os
 import pandas as pd
 
 # https://datatables.net/examples/data_sources/server_side.html
-def home(request, column_list=[]):
+def home(request):
     # Get default database and columns for table header format
-    if column_list == []:
-        column_list = default_DbColList
-    else:
-        column_list = DbColMap.listify_string(column_list)
+    column_list = default_DbColList
+    # TODO : check if we have use for listify_string
+    # column_list = DbColMap.listify_string(column_list.replace("column_list:", "",1))
     dbColMap = DbColMap(column_list)
     all_columns = DatabaseColumn.objects.all().select_related("database").prefetch_related("database__tags").order_by("database__name", "id") # TODO : order_by id is important so that headers list will be in the same order than values list (see DbColMap and datatable). Find a more robust way ?
     all_columns_dict = {}
