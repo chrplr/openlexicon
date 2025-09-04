@@ -120,7 +120,7 @@ if DEBUG:
     mimetypes.add_type("application/javascript", ".js", True)
 
 if DEBUG:
-    ALLOWED_HOSTS = ["127.0.0.1", SITE_URL]
+    ALLOWED_HOSTS = ["127.0.0.1", "lexique.org"]
 else:
     ALLOWED_HOSTS = ["localhost", "0.0.0.0", SITE_URL]
 
@@ -197,7 +197,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ########### Media ############
 ##############################
 
-MEDIA_URL = '/media/'
+FORCE_SCRIPT_NAME = '/django'
+MEDIA_URL = os.path.join(FORCE_SCRIPT_NAME, 'media/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Toolbar options: https://ckeditor.com/latest/samples/old/toolbar/toolbar.html
@@ -239,7 +240,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = os.path.join(FORCE_SCRIPT_NAME, 'static/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
@@ -278,7 +279,8 @@ else:
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
+#LOGIN_URL = os.path.join(FORCE_SCRIPT_NAME, "accounts", "login")
+LOGIN_REDIRECT_URL = os.path.join(FORCE_SCRIPT_NAME, "home")
+LOGOUT_REDIRECT_URL = os.path.join(FORCE_SCRIPT_NAME, "home")
 
 DEFAULT_DB = "Lexique3"

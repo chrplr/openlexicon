@@ -28,7 +28,7 @@ urlpatterns = [
     path('import_data/', import_data, name="import_data"),
     path('data/<str:column_list>', ItemListView.as_view(), name="dataOpenlexicon"),
     path('data/', ItemListView.as_view(), name="dataOpenlexicon"),
-    path('', home, name="homeServer")
+    path('openlexicon', home, name="homeServer")
 ]+ [
     path("ckeditor5/", include('django_ckeditor_5.urls')),
 ] +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+debug_toolbar_urls()
