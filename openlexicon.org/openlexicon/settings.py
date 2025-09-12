@@ -27,8 +27,10 @@ DEBUG = debug
 PRODUCTION = production
 
 #SITE_URL = "openlexicon.org"
-SITE_URL = "5.39.73.115"
+#SITE_URL = "5.39.73.115"
 SITE_NAME = "OpenLexicon"
+SITE_URL = "lexique.org"
+CSRF_TRUSTED_ORIGINS = ["lexique.org", "http://*lexique.org"]
 
 # Application definition
 
