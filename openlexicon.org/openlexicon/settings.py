@@ -30,7 +30,7 @@ PRODUCTION = production
 #SITE_URL = "5.39.73.115"
 SITE_NAME = "OpenLexicon"
 SITE_URL = "lexique.org"
-CSRF_TRUSTED_ORIGINS = ["lexique.org", "http://*lexique.org"]
+CSRF_TRUSTED_ORIGINS = ["http://www.lexique.org", "http://*lexique.org"]
 
 # Application definition
 
@@ -200,7 +200,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ##############################
 
 USE_X_FORWARDED_HOST = True
-FORCE_SCRIPT_NAME = '/django'
+if not PRODUCTION:
+    FORCE_SCRIPT_NAME = ""
+else:
+    FORCE_SCRIPT_NAME = '/django'
 MEDIA_URL = os.path.join(FORCE_SCRIPT_NAME, 'media/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
