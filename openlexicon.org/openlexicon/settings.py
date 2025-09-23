@@ -199,6 +199,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ########### Media ############
 ##############################
 
+USE_X_FORWARDED_HOST = True
 FORCE_SCRIPT_NAME = '/django'
 MEDIA_URL = os.path.join(FORCE_SCRIPT_NAME, 'media/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -281,7 +282,7 @@ else:
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#LOGIN_URL = os.path.join(FORCE_SCRIPT_NAME, "accounts", "login")
+LOGIN_URL = os.path.join(FORCE_SCRIPT_NAME, "accounts", "login")
 LOGIN_REDIRECT_URL = os.path.join(FORCE_SCRIPT_NAME, "openlexicon")
 LOGOUT_REDIRECT_URL = os.path.join(FORCE_SCRIPT_NAME, "openlexicon")
 
