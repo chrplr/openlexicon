@@ -122,9 +122,9 @@ if DEBUG:
     mimetypes.add_type("application/javascript", ".js", True)
 
 if DEBUG:
-    ALLOWED_HOSTS = ["127.0.0.1", "lexique.org"]
+    ALLOWED_HOSTS = ["127.0.0.1", "lexique.org", "www.lexique.org"]
 else:
-    ALLOWED_HOSTS = ["localhost", "0.0.0.0", SITE_URL]
+    ALLOWED_HOSTS = ["localhost", "0.0.0.0", SITE_URL, "www." + SITE_URL]
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 '''CSRF_COOKIE_SECURE = True
