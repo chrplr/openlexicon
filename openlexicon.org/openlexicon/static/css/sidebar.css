@@ -19,18 +19,58 @@
 #sidebar_filter {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
+    background-color: #FCFCFC;
 }
 
-.section_title {
+.btn-sidebar {
+    background-color: white;
+    border: 2px solid #878787;
     font-weight:bold;
+}
+
+.toggable-wrapper {
+  overflow:hidden;
+}
+
+.toggable-wrapper.toggle-hide {
+  height:0;
+}
+
+.toggable-div {
+  max-height: 1000px;
+  transition: all 0.5s ease-in;
+}
+
+.hide {
+  max-height: 0 !important;
+  transition: all 0.2s ease-out;
+}
+
+.section_title, .section_help {
     padding: 1em;
-    color: #000;
     text-align: left;
     margin-bottom:0.2em;
 }
 
+.section_title {
+    font-weight:bold;
+    color: #000;
+}
+
+.section_help {
+    padding-top: 0 !important;
+    margin-top: -1em;
+    color: #737373;
+}
+
+#words_search {
+    resize:none;
+    width: 96%;
+    margin:2%;
+}
+
 hr {
-    margin: 2em 0 1em;
+    margin: 1em 0 1em;
 }
 
 #language_select {
@@ -108,7 +148,7 @@ hr {
     margin:0;
 }
 
-.how-to {
+#div_howto {
     color: #000;
     text-align: justify;
     padding:1em 1em 0 1em;

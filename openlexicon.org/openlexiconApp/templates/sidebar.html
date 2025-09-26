@@ -4,21 +4,27 @@
     <div id="sidebar_filter" class="col p-0 text-white w-sidebar d-md-flex sidebar">
         <!-- fixed sidebar -->
         <div class="navbar-light w-sidebar">
-            <div class="how-to">
-                <b>Quick how-to</b>
-                <ul>
-                    <li>Choose a language to see the available datasets in the language below.</li>
-                    <li>Click on desired <b>tags</b>. For instance, if you want only datasets in english, click on the <b>English</b> tag. Note: a dataset may have several tags (e.g., <b>Lexique3</b> is a <b>French</b> database and gives measures of <b>Subjective Frequency</b>).</li>
-                    <li>Select desired <b>datasets</b>. If you want more informations about a specific dataset, you can hover over its tooltip.</li>
-                    <li>Select <b>columns</b> to display for each dataset.</li>
-                    <li>For each column in the table, you can:</li>
+            <button id="howto" type="button" class="btn btn-default btn-sidebar" style="margin-top:1em">
+              Show Quick How-To
+            </button>
+            <div class="toggable-wrapper toggle-hide">
+                <div id="div_howto" class="toggable-div hide">
+                    <b>Quick how-to</b>
                     <ul>
-                        <li>Hover the mouse over the column name to see a brief description</li>
-                        <li>Filter using <b>intervals (e.g. 40...500)</b> or <b><a href="http://www.lexique.org/?page_id=101" target="_blank">regular expressions</a></b></li>
-                        <li>Sort, ascending or descending</li>
+                        <li>Choose a <b>language</b> to see the available datasets in the language below.</li>
+                        <li>Click on desired <b>tags</b>. For instance, if you want datasets that give measures of subjective frequency, click on the <b>Subjective frequency</b> tag. Note: a dataset may have several tags (e.g., AoA_FreqSub_1493 gives measures of <b>Age of acquisition</b> and <b>Subjective frequency</b>).</li>
+                        <li>Select desired <b>datasets</b>. If you want more informations about a specific dataset, you can hover over its tooltip.</li>
+                        <li>Select <b>columns</b> to display for each dataset.</li>
+                        <li>For each column in the table, you can:</li>
+                        <ul>
+                            <li>Hover the mouse over the column name to see a brief description</li>
+                            <li>Filter using <b>intervals (e.g. 40...500)</b> or <b><a href="http://www.lexique.org/?page_id=101" target="_blank">regular expressions</a></b></li>
+                            <li>Sort, ascending or descending</li>
+                        </ul>
+                        <li>Click on the button <b>Show Word List Search</b> to enter words that you want to search in the table.</li>
+                        <li><b>Download</b> the result of your manipulations by clicking on the TSV or EXCEL buttons above the table</li>
                     </ul>
-                    <li><b>Download</b> the result of your manipulations by clicking on the TSV or EXCEL buttons above the table</li>
-                </ul>
+                </div>
             </div>
 
             <!-- Languages -->
@@ -29,6 +35,19 @@
                     <option  value="{{category}}">{{category}}</option>
                 {% endfor %}
             </select>
+
+            <!-- Word search -->
+            <hr>
+            <button id="listsearch" type="button" class="btn btn-default btn-sidebar">
+              Show Word List Search
+            </button>
+            <div class="toggable-wrapper toggle-hide">
+                <div id="div_listsearch" class="toggable-div hide">
+                    <div class="section_title">Words to search</div>
+                    <div class="section_help">Please separate your words with a line break.</div>
+                    <textarea id="words_search" class="form-control" rows="10" autocomplete="off"></textarea>
+                </div>
+            </div>
 
             <!-- Favorites -->
             <hr>
@@ -60,7 +79,33 @@
             make_popover("submenu_{{database.id}}", database_info, label=true);
         {% endfor %}
 
+        $("#words_search").on("input", function(event) { // trigger ortho input on words_search change
+            $("#filterInput0").trigger("input");
+        })
+
+        // buttons
+        document.getElementById("listsearch").addEventListener('click', function() {
+            handle_button_show(this);
+            $("#filterInput0").trigger("input");
+        });
+
+        document.getElementById("howto").addEventListener('click', function() {
+            handle_button_show(this);
+        });
     })
+
+    function handle_button_show(button) {
+        let el = document.getElementById('div_'+button.id);
+        if (el.classList.contains('hide')) {
+            el.classList.remove('hide');
+            el.parentNode.classList.remove('toggle-hide');
+            button.innerHTML = "Hide" + button.innerHTML.replace("Show", "");
+        } else {
+            el.classList.add('hide');
+            el.parentNode.classList.add('toggle-hide');
+            button.innerHTML = "Show" + button.innerHTML.replace("Hide", "");
+        }
+    }
 
     function handle_checkbox_disable(bool) {
         $("#sidebar_filter").find('input').each(function () {

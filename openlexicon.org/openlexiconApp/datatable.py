@@ -246,7 +246,14 @@ class DataTablesServer(object):
                 column_list = self.request_values.getlist(f'columns[{i}][search][value][]')
                 col_elt = self.request_values.get(f'columns[{i}][search][value]')
                 if (col_elt and col_elt != ""): # characters
-                    filter.append((f"{self.column_list[i]}__regex", col_elt))
+                    is_list = False # TODO : combine regex in column filter and list in word list search
+                    if self.column_list[i] == "ortho":
+                        splitted_list = [x.strip().replace("\"", "") for x in col_elt.splitlines()]
+                        if len(splitted_list) > 1:
+                            is_list = True
+                            filter.append((f"{self.column_list[i]}__in", splitted_list))
+                    if not is_list:
+                        filter.append((f"{self.column_list[i]}__regex", col_elt))
                 elif (column_list and len(column_list) == 2) : # numbers. WARNING : range does not work with JSONField on SQLite. It works with Postgresql. We need to use cast for numbers to be considered as such and not as text.
                     filter.append((f"{self.column_list[i]}__range", column_list))
         q_list = []

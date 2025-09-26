@@ -370,12 +370,15 @@
                 $('#{{table_name}}_filterrow th').each(function (i) {
                     if (!$(this).hasClass("dt-type-numeric")){ // character
                         let $column_id = $("th[data-dt-column='"+i+"']").attr("id");
-                        $("#filterInput"+i).on('keyup', function (event) {
+                        $("#filterInput"+i).on('input', function (event) {
                             if (timer) { // clear previous timer if there is one
                                clearTimeout(timer);
                             }
                             let index = $(this).data('index');
                             let value = this.value;
+                            if (index == 0 && !document.getElementById("div_listsearch").classList.contains('hide') && document.getElementById("words_search").value.replace(/[\r\n]+/gm, "").replace(" ", "") != "") { // ortho. Include word list search if not hidden
+                                value = this.value + "\n" + $("#words_search").val()
+                            }
                             timer = setTimeout(function() {
                                 // Search filter
                                 table
