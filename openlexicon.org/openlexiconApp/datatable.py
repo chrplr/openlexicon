@@ -248,7 +248,7 @@ class DataTablesServer(object):
                 if (col_elt and col_elt != ""): # characters
                     is_list = False # TODO : combine regex in column filter and list in word list search
                     if self.column_list[i] == "ortho":
-                        splitted_list = [x.strip().replace("\"", "") for x in col_elt.splitlines()]
+                        splitted_list = [x.strip().replace("\"", "").lower() for x in col_elt.splitlines()]
                         if len(splitted_list) > 1:
                             is_list = True
                             filter.append((f"{self.column_list[i]}__in", splitted_list))
