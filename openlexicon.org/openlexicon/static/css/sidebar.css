@@ -2,14 +2,18 @@
 /* In case we need flex : https://moduscreate.com/blog/how-to-fix-overflow-issues-in-css-flex-layouts/ */
 
 .overflow-container {
-    margin-left: 382px;
+    margin-left: calc(100vw / 4 + 20px);
 }
 
 /* sidebar style */
 
 .w-sidebar {
-    width: 362px;
-    max-width: 362px;
+    width: calc(100vw / 4);
+}
+
+.page-title {
+    position:fixed;
+    top:0.2em;
 }
 
 #sidebar_filter {
@@ -109,4 +113,37 @@ hr {
     text-align: justify;
     padding:1em 1em 0 1em;
     font-size:0.95em;
+}
+
+@media (min-width: 767px) and (max-width: 1279px) {
+    .overflow-container {
+        margin-left: calc(100vw / 2.5 + 20px);
+    }
+
+    .w-sidebar {
+        width: calc(100vw / 2.5);
+    }
+}
+
+/* Phone */
+@media (max-width: 767px) {
+    .page-title {
+        position:static;
+        top: 0;
+        text-align:left;
+    }
+    .overflow-container {
+        margin-left: 0;
+    }
+
+    .w-sidebar {
+        width: 100%;
+    }
+
+    .sidebar {
+        position: static;
+        top: 0;
+        bottom:0;
+        overflow:visible;
+    }
 }
