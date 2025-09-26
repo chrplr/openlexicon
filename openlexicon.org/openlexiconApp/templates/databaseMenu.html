@@ -1,6 +1,6 @@
 <div class="nav-menu-text list-group-item list-group-item-action" id="submenu_{{ category|cut:' ' }}_{{database.id}}_head" onclick="menu_click(event)" data-item="submenu_{{database.id}}">
     <input type="checkbox" id="checkbox_{{ category|cut:' ' }}_db_{{database.id}}" name="{{database.id}}" data-item="input_db_{{database.id}}" class="database-checkbox" onclick="check_all(this)" autocomplete="off"/>
-    <span class="sidebar-span" title="{{database}}">{{database}}</span>
+    <span class="sidebar-span database-title" title="{{database}}">{{database}}</span>
     <span class="submenu-icon ml-auto"> <i class="fas"></i> </span>
 </div>
 <!-- Submenu area -->

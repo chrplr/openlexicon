@@ -1,21 +1,28 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render
 from .datatable import ServerSideDatatableView
-from .models import DatabaseObject, Database, DatabaseColumn, ColType, Tag
+from .models import DatabaseObject, Database, DatabaseColumn, ColType, Tag, Lang
 from .utils import *
-import json
 import os
 import pandas as pd
 
 # https://datatables.net/examples/data_sources/server_side.html
 def home(request):
-    # Get default database and columns for table header format
-    column_list = default_DbColList
-    # TODO : check if we have use for listify_string
-    # column_list = DbColMap.listify_string(column_list.replace("column_list:", "",1))
-    dbColMap = DbColMap(column_list)
+    if request.method == 'POST':
+        chosen_db, dbColMap, lang_databases = getLangDefault(request.POST.get('new_language', None))
+        return JsonResponse({
+            "columns": dbColMap.string_column_dict,
+            "database_order": list(dbColMap.string_column_dict.keys()),
+            "col_string": dbColMap.col_string,
+            "lang_databases": lang_databases,
+            "chosen_db": chosen_db
+        })
+
+    # default language is French for Lexique
+    default_lang = Lang.FR
     all_columns = DatabaseColumn.objects.all().select_related("database").prefetch_related("database__tags").order_by("database__name", "id") # TODO : order_by id is important so that headers list will be in the same order than values list (see DbColMap and datatable). Find a more robust way ?
     all_columns_dict = {}
     all_tags_dict = {}
@@ -40,13 +47,11 @@ def home(request):
             all_favorites_dict["Favorites"][col.database].append(col)
     return render(request, 'openlexiconServer.html', {
         'table_name': settings.SITE_NAME,
-        'columns': json.dumps(dbColMap.string_column_dict),
-        'col_string': dbColMap.col_string,
         'all_columns': all_columns_dict,
-        "database_order": list(dbColMap.string_column_dict.keys()),
         'all_languages': sortdict(all_languages_dict),
         'all_tags': sortdict(all_tags_dict),
-        'all_favorites': sortdict(all_favorites_dict)
+        'all_favorites': sortdict(all_favorites_dict),
+        'default_lang': default_lang
     })
 
 @login_required

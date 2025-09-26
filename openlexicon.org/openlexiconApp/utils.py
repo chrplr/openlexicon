@@ -1,5 +1,5 @@
 from django.conf import settings
-from .models import Database, DatabaseColumn, ColType, ColSize
+from .models import Database, DatabaseColumn, ColType, ColSize, Lang
 from openlexicon.render_data import debug_log
 import chardet
 from io import StringIO
@@ -184,9 +184,26 @@ class DbColMap:
     def listify_string(string):
         return string.split(export_sep)
 
+def getLangDefault(lang):
+    defaultDbs = {
+        Lang.FR: {
+            "chosen_db": Database.objects.get(name="Lexique3"),
+            "column_list": [f"Lexique3__{col_name}" for col_name in ['phon', 'lemme', 'cgram', 'freqlemfilms2', 'freqfilms2', 'nblettres', 'puorth', 'puphon', 'nbsyll', 'cgramortho']]
+        }
+    }
+
+    lang_databases = Database.objects.filter(language=lang)
+
+    if lang in defaultDbs.keys():
+        column_list = defaultDbs[lang]["column_list"]
+        chosen_db = defaultDbs[lang]["chosen_db"]
+    else: # get first favorite db of language, or first db of language as default
+        lang_favorites = lang_databases.filter(favorite=True)
+        if len(lang_favorites) > 0:
+            chosen_db = lang_favorites[0]
+        else:
+            chosen_db = lang_databases[0]
+        column_list = [f"{chosen_db.name}__{col_name}" for col_name in DatabaseColumn.objects.filter(database=chosen_db).values_list("name", flat=True)]
+    return chosen_db.name, DbColMap(column_list), list(lang_databases.values_list("name", flat=True))
+
 export_sep = ","
-
-default_DbColList = [f"{settings.DEFAULT_DB}__{col_name}" for col_name in ['phon', 'lemme', 'cgram', 'freqlemfilms2', 'freqfilms2', 'nblettres', 'puorth', 'puphon', 'nbsyll', 'cgramortho']]
-
-try: default_db = Database.objects.get(code=settings.DEFAULT_DB)
-except: default_db = Database.objects.none()

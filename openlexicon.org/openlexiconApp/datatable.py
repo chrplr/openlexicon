@@ -10,7 +10,6 @@ from django.db.models.functions import Cast
 from collections import namedtuple
 import operator
 from .models import ExportMode, ColType, DatabaseObject
-from .utils import default_db, default_DbColList
 from functools import reduce
 from pyexcelerate import Workbook
 import csv
@@ -155,7 +154,6 @@ class DataTablesServer(object):
         }
         patterns = {}
         cache_data = {}
-        is_default = None
         patterns["databases"] = self.get_cache_pattern("databases")
         patterns["_filter"] = "&".join([patterns["databases"], self.get_cache_pattern("_filter")])
         listPattern = None
@@ -164,8 +162,6 @@ class DataTablesServer(object):
             cachePattern = f"{pattern}_{cacheKey}"
             cache_data = cache.get(cachePattern)
             if cache_data is None: # set cache
-                if is_default is None:
-                    is_default = self.column_list == default_DbColList and not self._filter
                 if cacheKey == "full_data_count":
                     try:
                         # Get count info
@@ -186,7 +182,7 @@ class DataTablesServer(object):
                 # Save count info in cache
                 keyVal = getattr(self, cacheKey)
                 if cacheKey != "id_list":
-                    cache.set(cachePattern, keyVal, timeout=None if is_default else 3600)
+                    cache.set(cachePattern, keyVal, timeout=3600)
                 else:
                     listPattern = cachePattern # save list after we get count
             else: # get cache
@@ -203,7 +199,7 @@ class DataTablesServer(object):
         if listPattern is not None: # need to set list
             if self._filter:
                 self.id_list = list(self.id_list) # convert to full list of integers only if filtering (since caching is slow for big data, but filtering is even slower with jsonData)
-            cache.set(listPattern, self.id_list, timeout=None if is_default else 3600)
+            cache.set(listPattern, self.id_list, timeout=3600)
 
     def get_min_max(self):
         # Format to {"database__colName": {"min": 0, "max":0}}
@@ -221,10 +217,12 @@ class DataTablesServer(object):
 
         # Determine database of reference (ref_db) for count and column grouping.
         if len(self.databases) > 0: # WARNING : if we deselect all columns, we will have no database left.
-            self.ref_db = self.databases[0]
-            if len(self.databases) > 1:
-                if default_db in self.databases:
-                    self.ref_db = default_db
+            # Try to take a favorite db as ref
+            favorite_dbs = [x for x in self.databases if x.favorite]
+            if len(favorite_dbs) > 0:
+                self.ref_db = favorite_dbs[0]
+            else:
+                self.ref_db = self.databases[0]
         else:
             self.ref_db = None
 

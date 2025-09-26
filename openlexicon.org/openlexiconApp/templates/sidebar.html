@@ -7,7 +7,8 @@
             <div class="how-to">
                 <b>Quick how-to</b>
                 <ul>
-                    <li>Click on desired <b>tags</b>. For instance, if you want only databases in english, click on the <b>English</b> tag. Note: a dataset may have several tags (e.g., <b>Lexique3</b> is a <b>French</b> database and gives measures of <b>Subjective Frequency</b>).
+                    <li>Choose a language to see the available datasets in the language below.</li>
+                    <li>Click on desired <b>tags</b>. For instance, if you want only datasets in english, click on the <b>English</b> tag. Note: a dataset may have several tags (e.g., <b>Lexique3</b> is a <b>French</b> database and gives measures of <b>Subjective Frequency</b>).</li>
                     <li>Select desired <b>datasets</b>. If you want more informations about a specific dataset, you can hover over its tooltip.</li>
                     <li>Select <b>columns</b> to display for each dataset.</li>
                     <li>For each column in the table, you can:</li>
@@ -20,12 +21,19 @@
                 </ul>
             </div>
 
-            <!-- Favorites -->
-            {% with all_dict=all_favorites icon="star" %}
-                {% include 'categoryMenu.html' %}
-            {% endwith %}
             <!-- Languages -->
-            {% with all_dict=all_languages icon="globe" %}
+            <hr>
+            <div class="section_title">Choose a language</div>
+            <select id="language_select" class="nav-menu-text language list-group-item list-group-item-action" aria-label="Language selection">
+                {% for category, category_dict in all_languages.items %}
+                    <option  value="{{category}}">{{category}}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Favorites -->
+            <hr>
+            <div class="section_title">Choose tags</div>
+            {% with all_dict=all_favorites icon="star" %}
                 {% include 'categoryMenu.html' %}
             {% endwith %}
             <!-- Tags -->
@@ -37,19 +45,22 @@
 </form>
 
 <script>
-    $('.nav-menu-text').each(function(){
-        collapse_menu(this);
-    });
-    // Open favorites menu. TODO : find more robust way to do so and replace this by localstorage if some menus were saved as expanded
-    open_menu($("#category_Favorites_head"));
+    $(document).ready(function(){
+        $('.nav-menu-text').each(function(){
+            collapse_menu(this);
+        });
+        // Open favorites menu. TODO : find more robust way to do so and replace this by localstorage if some menus were saved as expanded
+        open_menu($("#category_Favorites_head"));
 
-    {% for database in all_columns.keys %}
-        database_info = "{{database.info}}";
-        {% if database.website is not None %}
-            database_info += "<br><br><b>Language</b> : {{database.language}}<br><b>Tags</b> : {% for tag in database.tags.all %}{% if forloop.counter0 > 0 %}, {% endif %}{{tag.name}}{% endfor %}<br><b>Site web</b> : <a href='{{database.website}}' target='_blank'>{{database.website}}</a>"
-        {% endif %}
-        make_popover("submenu_{{database.id}}", database_info, label=true);
-    {% endfor %}
+        {% for database in all_columns.keys %}
+            database_info = "{{database.info}}";
+            {% if database.website is not None %}
+                database_info += "<br><br><b>Language</b> : {{database.language}}<br><b>Tags</b> : {% for tag in database.tags.all %}{% if forloop.counter0 > 0 %}, {% endif %}{{tag.name}}{% endfor %}<br><b>Site web</b> : <a href='{{database.website}}' target='_blank'>{{database.website}}</a>"
+            {% endif %}
+            make_popover("submenu_{{database.id}}", database_info, label=true);
+        {% endfor %}
+
+    })
 
     function handle_checkbox_disable(bool) {
         $("#sidebar_filter").find('input').each(function () {

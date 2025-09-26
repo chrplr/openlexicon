@@ -28,6 +28,9 @@
 
 {% block content %}
 {% csrf_token %}
+<h2 style="position:fixed;top:0.2em;">
+  <a href="http://chrplr.github.io/openlexicon/" target="_blank">Open Lexicon</a>
+</h2>
 {% include 'sidebar.html' %}
 <div id="datatable-div-container" class="overflow-container">
 </div>
@@ -47,13 +50,81 @@
     const THRESHOLD = 500 // 500 ms delay before considering input when typing in column filters
     var timer;
     var checkbox_ready = false;
-    let column_dict = {{columns | safe}};
-    let col_string = "{{col_string}}";
-    let database_order = {{database_order | safe}};
+    let column_dict;
+    let col_string;
+    let database_order;
+    let lang_processing = false;
 
     const operators = ["<", "<=", ">", ">=", "=", "=="];
 
-    check_columns();
+    function switch_language(new_language) {
+        // Uncheck all
+        let checkboxes = document.getElementById("sidebar_filter").querySelectorAll("input[type='checkbox']");
+        for (checkbox of checkboxes) {
+            checkbox.checked = false;
+            check_instance(checkbox);
+        }
+
+        // Get new columns by default
+        if (!lang_processing) {
+            lang_processing = true;
+            handle_checkbox_disable(true);
+            $.ajax({
+                url: "{% url 'homeServer' %}",
+                data: {
+                    new_language: new_language,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                },
+                type: 'POST',
+                success: function (data) {
+                    column_dict = data.columns;
+                    col_string = data.col_string;
+                    database_order = data.database_order;
+
+                    // check new columns with code
+                    check_columns();
+
+                    // Change datasets shown.
+                    // Each tag
+                    let chosen_menu_shown = false;
+                    $(".category-submenu").each(function() {
+                        let show_submenu = false;
+                        let need_collapse = true;
+                        let submenu = $(this);
+                        submenu_head = $("#"+submenu.attr("id")+"_head");
+                        // Each dataset
+                        submenu.find(".database-title").each(function() {
+                            let show_dataset = data.lang_databases.includes($(this).prop("title"));
+                            // keep submenu open if at least one dataset shown inside
+                            if (show_dataset) {
+                                show_submenu = true;
+                            }
+                            // Hide dataset if needed
+                            if (!chosen_menu_shown && $(this).prop("title") == data.chosen_db) {
+                                expand_menu(submenu_head);
+                                chosen_menu_shown = true;
+                                need_collapse = false;
+                            }
+                            collapse_menu($(this).parent());
+                            $(this).parent().css("display", show_dataset ? "" : "none");
+                        })
+                        // hide submenu if needed
+                        if (need_collapse) {
+                            collapse_menu(submenu_head);
+                        }
+                        submenu_head.css("display", show_submenu ? "" : "none");
+                    });
+
+                    set_table(false);
+                    lang_processing = false;
+                    handle_checkbox_disable(false);
+                },
+                error: function() {
+                    lang_processing = false;
+                },
+            });
+        }
+    }
 
     function floatedVals(vals) {
         return vals.map(val => parseFloat(val));
@@ -347,7 +418,15 @@
 
     $(document).ready(function() {
         datatableContainer = document.getElementById("datatable-div-container");
-        set_table(false);
+
+        // open language
+        $('#language_select option[value="{{default_lang}}"]').prop('selected', true);
+        switch_language("{{default_lang}}");
+
+        // Select
+        $('#language_select').on('change', function() {
+            switch_language(this.value);
+        });
     });
 
     const compareArrays = (a, b) => {

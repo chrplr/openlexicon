@@ -288,5 +288,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = os.path.join(FORCE_SCRIPT_NAME, "accounts", "login")
 LOGIN_REDIRECT_URL = os.path.join(FORCE_SCRIPT_NAME, "openlexicon")
 LOGOUT_REDIRECT_URL = os.path.join(FORCE_SCRIPT_NAME, "openlexicon")
-
-DEFAULT_DB = "Lexique3"

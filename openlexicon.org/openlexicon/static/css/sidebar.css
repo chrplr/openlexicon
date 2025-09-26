@@ -10,13 +10,33 @@
 .w-sidebar {
     width: 362px;
     max-width: 362px;
-    margin-right:20px;
+}
+
+#sidebar_filter {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+.section_title {
+    font-weight:bold;
+    padding: 1em;
+    color: #000;
+    text-align: left;
+    margin-bottom:0.2em;
+}
+
+hr {
+    margin: 2em 0 1em;
+}
+
+#language_select {
+    text-align:left;
 }
 
 .sidebar {
     overflow-y: auto; /* auto rather than scroll to avoid scroll bar being there when not needed */
     overflow-x: hidden;
-    top: 1em;
+    top: 4em;
     scrollbar-width: thin;
     scrollbar-color: var(--middle-blue) var(--pale-blue);
     bottom:2em;
@@ -44,13 +64,16 @@
     align-items:center;
 }
 
-.nav-menu-text.category {
+.nav-menu-text.category, .nav-menu-text.language {
     background-color: #f9f9f9;
-    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2) !important;
-    z-index:1; /* required for box-shadow to show */
     position:relative;
     border-top: 1px solid #BFBFBF;
     padding:.4rem 1.25rem;
+}
+
+.nav-menu-text.category {
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2) !important;
+    z-index:1; /* required for box-shadow to show */
 }
 
 
@@ -84,8 +107,6 @@
 .how-to {
     color: #000;
     text-align: justify;
-    padding:1em;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 0.25rem;
+    padding:1em 1em 0 1em;
     font-size:0.95em;
 }

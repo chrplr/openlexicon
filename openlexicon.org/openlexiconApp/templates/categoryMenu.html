@@ -4,7 +4,7 @@
         <span class="sidebar-span">{{category}}</span>
         <span class="submenu-icon ml-auto"> <i class="fas"></i> </span>
     </div>
-    <div id="category_{{ category|cut:' ' }}" class="collapse submenu-collapse">
+    <div id="category_{{ category|cut:' ' }}" class="category-submenu collapse submenu-collapse">
         {% for database, column_list in category_dict.items %}
             {% include 'databaseMenu.html' %}
         {% endfor %}
