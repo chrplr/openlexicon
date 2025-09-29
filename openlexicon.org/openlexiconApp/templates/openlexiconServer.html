@@ -376,17 +376,27 @@
                             }
                             let index = $(this).data('index');
                             let value = this.value;
-                            if (index == 0 && !document.getElementById("div_listsearch").classList.contains('hide') && document.getElementById("words_search").value.replace(/[\r\n]+/gm, "").replace(" ", "") != "") { // ortho. Include word list search if not hidden
-                                value = this.value + "\n" + $("#words_search").val()
+                            var isValid = true;
+                            if (index == 0) {
+                                if (!document.getElementById("div_listsearch").classList.contains('hide') && document.getElementById("words_search").value.replace(/[\r\n]+/gm, "").replace(" ", "") != "") { // ortho. Include word list search if not hidden
+                                    value = this.value + "\n" + $("#words_search").val()
+                                }
+                                try {
+                                    new RegExp(value);
+                                } catch(e) {
+                                    isValid = false;
+                                }
                             }
-                            timer = setTimeout(function() {
-                                // Search filter
-                                table
-                                    .column(index)
-                                    .search(value)
-                                    .draw();
-                                localStorage[$column_id] = value;
-                            }, THRESHOLD);
+                            if (isValid) {
+                                timer = setTimeout(function() {
+                                    // Search filter
+                                    table
+                                        .column(index)
+                                        .search(value)
+                                        .draw();
+                                    localStorage[$column_id] = value;
+                                }, THRESHOLD);
+                            }
                         });
                     }
                 });
