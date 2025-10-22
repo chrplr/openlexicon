@@ -188,7 +188,7 @@ def getLangDefault(lang):
     defaultDbs = {
         Lang.FR: {
             "chosen_db": Database.objects.get(name="Lexique3"),
-            "column_list": [f"Lexique3__{col_name}" for col_name in ['phon', 'lemme', 'cgram', 'freqlemfilms2', 'freqfilms2', 'nblettres', 'puorth', 'puphon', 'nbsyll', 'cgramortho']]
+            "column_list": [f"Lexique3__{col_name}" for col_name in DatabaseColumn.objects.filter(database__name="Lexique3", mandatory=True).values_list(flat=True)]
         }
     }
 

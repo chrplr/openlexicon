@@ -130,9 +130,9 @@ hr {
 }
 
 .nav-menu-text > .sidebar-span {
+    color:black;
     margin-left:2em;
     vertical-align:middle;
-    font-weight:bold;
     overflow: hidden;
     text-overflow: ellipsis
 }
