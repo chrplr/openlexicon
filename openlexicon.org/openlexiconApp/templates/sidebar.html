@@ -74,7 +74,7 @@
         {% for database in all_columns.keys %}
             database_info = "{{database.info}}";
             {% if database.website is not None %}
-                database_info += "<br><br><b>Language</b> : {{database.language}}<br><b>Tags</b> : {% for tag in database.tags.all %}{% if forloop.counter0 > 0 %}, {% endif %}{{tag.name}}{% endfor %}<br><b>Site web</b> : <a href='{{database.website}}' target='_blank'>{{database.website}}</a>"
+                database_info += "<br><br><b>Language</b> : {{database.language}}<br>{% if database.nbWords != None %}<b>Nb Words</b> : {{database.nbWords}}<br>{% endif %}<b>Tags</b> : {% for tag in database.tags.all %}{% if forloop.counter0 > 0 %}, {% endif %}{{tag.name}}{% endfor %}<br><b><a href='{{database.website}}' target='_blank'>Site web</a></b>{% if database.biblio != None %}<br><b>Ref</b> : {{database.biblio}}{% endif %}"
             {% endif %}
             make_popover("submenu_{{database.id}}", database_info, label=true);
         {% endfor %}

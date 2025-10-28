@@ -42,8 +42,10 @@ class Database(models.Model):
     info = CKEditor5Field(blank=True, null=True) # for tooltip
     website = models.URLField(blank=True, null=True)
     authors = models.CharField(blank=True, null=True, max_length=400)
+    biblio = models.CharField(blank=True, null=True, max_length=1000)
     language = models.CharField(max_length=20, choices=Lang.choices, default=Lang.FR)
     nbRows = models.IntegerField(default=0)
+    nbWords = models.IntegerField(blank=True, null=True)
     favorite = models.BooleanField(default=False)
     tags = models.ManyToManyField(
         Tag,

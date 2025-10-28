@@ -6,6 +6,7 @@ from django.shortcuts import render
 from .datatable import ServerSideDatatableView
 from .models import DatabaseObject, Database, DatabaseColumn, ColType, Tag, Lang
 from .utils import *
+import math
 import os
 import pandas as pd
 
@@ -75,14 +76,21 @@ def import_data(request):
             isvalid = False
 
         if isvalid:
-            db_code = db_name.replace(" ", "")
+            # Handle changing database name
+            db_new_code = db_name.replace(" ", "")
+            if "oldname" in database_info.keys():
+                db_old_code = database_info["oldname"].replace(" ", "")
+            else:
+                db_old_code = db_new_code
 
             # Check if database exists, else create it
-            db_filter = Database.objects.filter(code=db_code)
+            db_filter = Database.objects.filter(code=db_old_code)
             if not db_filter.exists():
-                db = Database.objects.create(code=db_code, name=db_name)
+                db = Database.objects.create(code=db_new_code, name=db_name)
             else:
                 db = db_filter[0]
+                db.name = db_name
+                db.code = db_new_code
 
             # Set database info from text file
             for key in database_info:
@@ -130,10 +138,13 @@ def import_data(request):
                         else:
                             col = col_dict[col_name]
                             if itemAttr is not None and col.type in [ColType.INT, ColType.FLOAT]:
-                                if col.min == None or itemAttr < col.min:
-                                    col.min = itemAttr
-                                if col.max == None or itemAttr > col.max:
-                                    col.max = itemAttr
+                                if math.isinf(itemAttr):
+                                    itemAttr = None
+                                else:
+                                    if col.min == None or itemAttr < col.min:
+                                        col.min = itemAttr
+                                    if col.max == None or itemAttr > col.max:
+                                        col.max = itemAttr
                         if col_count != word_col_idx:
                             jsonDict[dbattr] = itemAttr
                         else:

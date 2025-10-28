@@ -9,11 +9,14 @@ import re
 
 text_file_keys = {
     "nom": "name",
+    "ancien nom": "oldname",
     "description": "info",
     "site web": "website",
     "langue": "language",
     "auteurs": "authors",
-    "favori": "favorite"
+    "favori": "favorite",
+    "ref": "biblio",
+    "nb words": "nbWords"
 }
 
 def sortdict(d):
@@ -59,6 +62,8 @@ def get_database_info(text_file):
                 if line_key.casefold() == key.casefold():
                     try: key_content = line_split[1].strip()
                     except IndexError: key_content = None
+                    if text_file_keys[key] == "nbWords":
+                        key_content = int(key_content.replace(",",""))
                     database_info[text_file_keys[key]] = key_content
                     break
     return database_info, col_info
