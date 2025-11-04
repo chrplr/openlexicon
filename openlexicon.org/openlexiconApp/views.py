@@ -157,6 +157,13 @@ def import_data(request):
                 # Update database number of rows
                 db.nbRows = DatabaseObject.objects.filter(database=db).count()
                 db.save()
+            # Update column mandatory/description fields as they can be updated in text file
+            mandatory_columns = database_info["champs oblig"]
+            col_to_update = DatabaseColumn.objects.filter(database=db)
+            for col in col_to_update:
+                col.mandatory = col.name.lower() in mandatory_columns
+                col.description=None if col.name.lower() not in col_info else col_info[col.name.lower()]
+            DatabaseColumn.objects.bulk_update(col_to_update, fields=["mandatory", "description"])
             messages.success(request, (f"{db_name} importée !"))
     return render(request, 'importForm.html')
 

@@ -70,7 +70,6 @@ def get_database_info(text_file):
     return database_info, col_info
 
 def get_column_info(df, db, database_info, col_info, word_col_idx):
-    mandatory_columns = database_info["champs oblig"]
     col_dict = {}
     for col_count, col in enumerate(df.columns):
         clean_col = DatabaseColumn.cleanColName(col)
@@ -93,9 +92,7 @@ def get_column_info(df, db, database_info, col_info, word_col_idx):
                     code=clean_col,
                     name=clean_col,
                     type=type,
-                    size=size,
-                    mandatory=col.lower() in mandatory_columns,
-                    description=None if col.lower() not in col_info else col_info[col.lower()]
+                    size=size
                 )
                 col_dict[col] = col_obj
             else: # Get existing column
