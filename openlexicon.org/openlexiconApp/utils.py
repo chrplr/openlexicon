@@ -19,10 +19,11 @@ text_file_keys = {
     "nb words": "nbWords"
 }
 
-def sortdict(d):
+# NOTE : we give sorted_d because sort does not always involve same lambda function
+def sortdict(d, sorted_d):
     # **opts so any currently supported sorted() options can be passed
     sorted_dict = {}
-    for k in sorted(d):
+    for k in sorted_d:
         sorted_dict[k] = d[k]
     return sorted_dict
 

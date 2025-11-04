@@ -31,27 +31,27 @@ def home(request):
     all_favorites_dict = {"Favorites": {}}
     for col in all_columns:
         for tag in col.database.tags.all():
-            if tag.name not in all_tags_dict:
-                all_tags_dict[tag.name] = {col.database: []}
+            if tag not in all_tags_dict:
+                all_tags_dict[tag] = {col.database: []}
         if col.database.language not in all_languages_dict:
             all_languages_dict[col.database.language] = {col.database: []}
         if col.database not in all_columns_dict:
             all_columns_dict[col.database] = []
-            all_tags_dict[tag.name][col.database] = []
+            all_tags_dict[tag][col.database] = []
             all_languages_dict[col.database.language][col.database] = []
             if col.database.favorite:
                 all_favorites_dict["Favorites"][col.database] = []
         all_columns_dict[col.database].append(col)
-        all_tags_dict[tag.name][col.database].append(col)
+        all_tags_dict[tag][col.database].append(col)
         all_languages_dict[col.database.language][col.database].append(col)
         if col.database.favorite:
             all_favorites_dict["Favorites"][col.database].append(col)
     return render(request, 'openlexiconServer.html', {
         'table_name': settings.SITE_NAME,
         'all_columns': all_columns_dict,
-        'all_languages': sortdict(all_languages_dict),
-        'all_tags': sortdict(all_tags_dict),
-        'all_favorites': sortdict(all_favorites_dict),
+        'all_languages': sortdict(all_languages_dict, sorted(all_languages_dict)),
+        'all_tags': sortdict(all_tags_dict, sorted(all_tags_dict, key=lambda x : x.name)),
+        'all_favorites': sortdict(all_favorites_dict, sorted(all_favorites_dict)),
         'default_lang': default_lang
     })
 

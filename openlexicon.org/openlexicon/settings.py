@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'openlexiconApp.templatetags',
     'openlexiconApp.apps.OpenlexiconappConfig',
     'django_ckeditor_5',
 ]

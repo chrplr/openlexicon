@@ -1,14 +1,14 @@
-<div class="nav-menu-text list-group-item list-group-item-action" id="submenu_{{ category|cut:' ' }}_{{database.id}}_head" onclick="menu_click(event)" data-item="submenu_{{database.id}}">
-    <input type="checkbox" id="checkbox_{{ category|cut:' ' }}_db_{{database.id}}" name="{{database.id}}" data-item="input_db_{{database.id}}" class="database-checkbox" onclick="check_all(this)" autocomplete="off"/>
+<div class="nav-menu-text list-group-item list-group-item-action" id="submenu_{{category.id}}_{{database.id}}_head" onclick="menu_click(event)" data-item="submenu_{{database.id}}">
+    <input type="checkbox" id="checkbox_{{category.id}}_db_{{database.id}}" name="{{database.id}}" data-item="input_db_{{database.id}}" class="database-checkbox" onclick="check_all(this)" autocomplete="off"/>
     <span class="sidebar-span database-title" title="{{database}}">{{database}}</span>
     <span class="submenu-icon ml-auto"> <i class="fas"></i> </span>
 </div>
 <!-- Submenu area -->
-<div id="submenu_{{ category|cut:' ' }}_{{database.id}}" class="collapse submenu-collapse">
+<div id="submenu_{{category.id}}_{{database.id}}" class="collapse submenu-collapse">
     {% for column in column_list %}
-    <div id="div_check_{{ category|cut:' ' }}_{{column.id}}" class="list-group-item list-group-item-action navbar-item-text">
-        <input type="checkbox" id="checkbox_{{ category|cut:' ' }}_col_{{column.id}}" name="{{database.id}}" onclick="click_check_instance(this, null, true);" disabled autocomplete="off" data-item="input_col_{{column.id}}" data-parent="{{ category|cut:' ' }}"/>
-        <label for="checkbox_{{ category|cut:' ' }}_col_{{column.id}}" style="margin-bottom:0" data-toggle="tooltip" data-placement="top" title="{% if column.description != None %}{{column.description}}{% endif %}">{{column}}</label>
+    <div id="div_check_{{category.id}}_{{column.id}}" class="list-group-item list-group-item-action navbar-item-text">
+        <input type="checkbox" id="checkbox_{{category.id}}_col_{{column.id}}" name="{{database.id}}" onclick="click_check_instance(this, null, true);" disabled autocomplete="off" data-item="input_col_{{column.id}}" data-parent="{{category.id}}"/>
+        <label for="checkbox_{{category.id}}_col_{{column.id}}" style="margin-bottom:0" data-toggle="tooltip" data-placement="top" title="{% if column.description != None %}{{column.description}}{% endif %}">{{column}}</label>
     </div>
     {% endfor %}
 </div>
