@@ -44,12 +44,15 @@ def save_many_relations(db_name, container, selected_items):
     return items_to_delete
 
 def get_database_info(text_file):
+    encoding = get_encoding(text_file)
+    # TODO : Handle encoding None
+    text_file.seek(0)
     lines = text_file.read().splitlines()
     database_info = {}
     col_info = {}
     getting_col_info = False
     for line in lines:
-        line_split = line.decode("utf-8").split("\t")
+        line_split = line.decode(encoding).split("\t")
         line_key = line_split[0].lower()
         if getting_col_info: # currently getting columns description
             col_info[line_key] = line_split[1].strip()
@@ -107,8 +110,8 @@ def remove_spaces(x):
             except: return float(x)
     return x
 
-def load_tsv_file(tsv_file):
-    # check encoding and decode if needed
+# check encoding and decode if needed
+def get_encoding(tsv_file):
     rawdata = tsv_file.read()
     chardet_data = chardet.detect(rawdata)
     encoding = chardet_data["encoding"]
@@ -121,14 +124,17 @@ def load_tsv_file(tsv_file):
             debug_log(f"Could not detect file {tsv_file.name} encoding -> skip", -1)
         elif enc_confidence < 0.7:
             debug_log(f"Chardet confidence {enc_confidence} for file {tsv_file.name} -> skip", -1)
-        else:
-            # go back to file first row to read again and decode
-            tsv_file.seek(0)
-            tsv_file = tsv_file.read().decode(encoding)
-            df = pd.read_csv(StringIO(tsv_file), sep='\t', keep_default_na=False, na_values=[''])
-    else:
-        tsv_file.seek(0)
-        df = pd.read_csv(tsv_file, sep="\t", keep_default_na=False, na_values=['']) # TODO : is it enough to consider just '' as nan ?
+            encoding = None
+    return encoding
+
+def load_tsv_file(tsv_file):
+    encoding = get_encoding(tsv_file)
+    if encoding is None:
+        return None # TODO : handle returning None > show error
+    # go back to file first row to read again and decode
+    tsv_file.seek(0)
+    tsv_file = tsv_file.read().decode(encoding)
+    df = pd.read_csv(StringIO(tsv_file), sep='\t', keep_default_na=False, na_values=['']) # TODO : is it enough to consider just '' as nan ?
     # Remove spaces from cells with numbers only
     for col in list(df.columns):
         df[col] = df[col].apply(remove_spaces)
