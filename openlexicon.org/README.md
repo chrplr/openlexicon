@@ -80,6 +80,10 @@ run.sh
 run.bat
 ```
 
+## Database
+
+Database engine is Postgresql. Locally, we need to install PostgreSQL and to run it using pgAdmin.
+
 ## Notes for update on server
 
 ```
@@ -109,6 +113,50 @@ After edit on /etc/systemd/system/gunicorn.service, run
 sudo systemctl daemon-reload
 sudo systemctl restart gunicorn
 sudo systemctl restart nginx
+```
+
+gunicorn.service content:
+```
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+
+[Service]
+User=zebulon
+Group=www-data
+WorkingDirectory=/home/zebulon/openlexicon/openlexicon.org
+ExecStart=/home/zebulon/openlexicon/openlexicon.org/venv/bin/gunicorn \
+          #--access-logfile /home/zebulon/openlexicon_access.log \
+          #--reload --reload-extra-file /home/zebulon/openlexicon/openlexicon.org/openlexicon/gunicorn_openlexicon.reload \ # does not work
+          --preload \
+          --timeout 900 \
+          --max-requests 1000 --max-requests-jitter 100 \
+          --error-logfile /home/zebulon/openlexicon_error.log \
+          --workers 16 \
+          # To avoid error request line is too large (since datatable ajax request can be pretty long)
+          --limit-request-line 0 \
+          --capture-output \
+          #--enable-stdio-inheritance \
+          --log-level DEBUG \
+          --bind unix:/run/gunicorn.sock \
+          openlexicon.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Cache
+
+Since we are using several workers for gunicorn, we need a data structure to handle cache share. For this, we use Redis.
+
+```
+sudo apt-get update
+sudo apt-get install redis-server
+sudo systemctl start redis-server
+sudo systemctl enable redis-server
 ```
 
 ## Add new database
