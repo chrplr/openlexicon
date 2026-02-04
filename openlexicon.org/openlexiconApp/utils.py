@@ -1,4 +1,6 @@
+from django.db import connection
 from django.conf import settings
+from django.core.management.base import BaseCommand
 from .models import Database, DatabaseColumn, ColType, ColSize, Lang
 from openlexicon.render_data import debug_log
 import chardet
@@ -6,6 +8,82 @@ from io import StringIO
 from pandas.api.types import is_string_dtype, is_float_dtype, is_numeric_dtype
 import pandas as pd
 import re
+import os
+import signal
+import subprocess
+import sys
+
+""" It seems that join requests are optimized automatically for big databases but not for some smaller ones (e.g., Cobb).
+So on each new database import we run an optimization script to vacuum and reindex table.
+"""
+class DatabaseIndexOptimizer:
+
+    def __init__(self, connection):
+        self.connection = connection
+
+    def check_index_exists(self, table_name, column_name):
+        query = """
+        SELECT EXISTS (
+            SELECT 1
+            FROM pg_index idx
+            JOIN pg_class i ON i.oid = idx.indexrelid
+            JOIN pg_class t ON t.oid = idx.indrelid
+            JOIN pg_attribute a ON a.attrelid = t.oid AND a.attnum = ANY(idx.indkey)
+            WHERE t.relname = %s
+            AND a.attname = %s
+        );
+        """
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(query, [table_name, column_name])
+            return cursor.fetchone()[0]
+
+    def execute_query(self, operation, isConcurrent, target):
+        old_autocommit = self.connection.autocommit
+        self.connection.autocommit = True
+
+        query = '%s %s%s' % (
+            operation, "CONCURRENTLY " if isConcurrent else "", target
+        )
+
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query)
+        except Exception as e:
+            self.connection.autocommit = old_autocommit
+            if isConcurrent:
+                try:
+                    query_fallback = '%s %s' % (
+                        operation, target
+                    )
+                    with self.connection.cursor() as cursor:
+                        cursor.execute(query_fallback)
+                except Exception as e2:
+                    raise
+        finally:
+            self.connection.autocommit = old_autocommit
+
+    def create_btree_index(self, table_name, column_name, index_name=None):
+        if index_name is None:
+            index_name = f"idx_{table_name}_{column_name}"
+
+        if self.check_index_exists(table_name, column_name):
+            return
+
+        self.execute_query("CREATE INDEX", True, '"%s" ON "%s" ("%s")'%(index_name, table_name, column_name))
+
+
+    def full_optimization(self, table_name, column_name=None):
+        # Not sure this is useful > Django should create index automatically
+        if column_name:
+            self.create_btree_index(table_name, column_name)
+
+        # VACUUM is sort of cleaning/defragmentation of database. Since the database is huge, we can have dead tuples for instance.
+        self.execute_query("VACUUM ANALYZE", False, '"%s"'%table_name)
+
+        # Rebuild all table index to force optimization
+        #self.execute_query("REINDEX TABLE", True, '"%s"'%table_name)
+
 
 text_file_keys = {
     "nom": "name",
@@ -18,6 +96,18 @@ text_file_keys = {
     "ref": "biblio",
     "nb words": "nbWords"
 }
+
+def reloadGunicorn():
+    try:
+        result = subprocess.run(
+            ['sudo', 'systemctl', 'restart', 'gunicorn'],
+            capture_output=False,
+            text=False,
+            timeout=100
+        )
+
+    except Exception as e:
+        print(f"Reload error: {e}")
 
 # NOTE : we give sorted_d because sort does not always involve same lambda function
 def sortdict(d, sorted_d):

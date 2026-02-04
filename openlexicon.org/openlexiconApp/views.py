@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.cache import cache
+from django.db import connections
 from django.http import JsonResponse
 from django.shortcuts import render
 from .datatable import ServerSideDatatableView
@@ -9,6 +11,7 @@ from .utils import *
 import math
 import os
 import pandas as pd
+from django.db import connection
 
 # https://datatables.net/examples/data_sources/server_side.html
 def home(request):
@@ -165,6 +168,11 @@ def import_data(request):
                 col.description=None if col.name.lower() not in col_info else col_info[col.name.lower()]
             DatabaseColumn.objects.bulk_update(col_to_update, fields=["mandatory", "description"])
             messages.success(request, (f"{db_name} importée !"))
+            cache.clear()  # Clear cache to avoid strange request handling in datatable (strange interaction between cache and new data in postgresql). If issue persists, consider reloading gunicorn (not recommended from client side on production)
+            connections.close_all() # fresh connections
+            optimizer = DatabaseIndexOptimizer(connection)
+            optimizer.full_optimization('openlexiconApp_databaseobject', 'ortho')
+            reloadGunicorn() # reload workers
     return render(request, 'importForm.html')
 
 # https://github.com/umesh-krishna/django_serverside_datatable/tree/master

@@ -4,6 +4,7 @@ from django.views import View
 from django.core.cache import cache
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.core.exceptions import ImproperlyConfigured
+from django.db import connection
 from django.db.models import QuerySet, F, Q, Subquery, OuterRef, Max, Min
 from django.db.models.fields.json import KeyTextTransform
 from django.db.models.functions import Cast
@@ -69,7 +70,7 @@ class DataTablesServer(object):
             reversed_data = reversed_data[_index:_end_index]
             data = reversed(reversed_data)
         else:
-            data = filtered_values.order_by('%s' % self._sorting)
+            data = filtered_values.order_by('id') #.order_by('%s' % self._sorting)
             data = data[_index:_end_index]
 
         self.result_data = data
@@ -208,6 +209,7 @@ class DataTablesServer(object):
             self.min_max_dict[f"{col.database.id}__{col.id}"] = {"min": col.min, "max": col.max}
 
     def run_queries(self):
+        connection.close() # reset connection in case we imported database
         # the term you entered into the datatable search
         self._filter, self._op = self.filtering()
         # the document field you chose to sort
