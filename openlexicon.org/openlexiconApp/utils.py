@@ -145,7 +145,8 @@ def get_database_info(text_file):
         line_split = line.decode(encoding).split("\t")
         line_key = line_split[0].lower()
         if getting_col_info: # currently getting columns description
-            col_info[line_key] = line_split[1].strip()
+            try: col_info[line_key] = line_split[1].strip()
+            except IndexError: continue # must be empty line at the end of the file
         elif line_key in ["tags", "champs oblig"]: # list fields
             try: database_info[line_key] = [x.lower().strip() for x in line_split[1].split(",")]
             except IndexError: database_info[line_key] = []

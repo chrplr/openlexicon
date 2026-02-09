@@ -174,15 +174,22 @@ else:
 ##############################
 ########### Cache ############
 ##############################
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+if not PRODUCTION:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
         }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/1',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
 
 ##############################
 ########## Password ##########
@@ -220,17 +227,24 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_5_CONFIGS = {
     'default': {
         'filebrowserBrowseUrl': '', # remove browse server button
-        "removePlugins": "exportpdf,easyimage,cloudservices,elementspath",
+        # "removePlugins": "exportpdf,easyimage,cloudservices,elementspath",
         "resize_enabled": False,
         'width': '100%',
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Format', 'Font', 'FontSize'],
-            ['Redo', 'Undo'],
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList'],
-            ['Link', 'TextColor']
-        ]
+        "toolbar": [
+            "heading",
+            "|",
+            "bold", "italic", "underline",
+            "|",
+            "link",
+            "|",
+            "bulletedList", "numberedList",
+            "|",
+            "undo", "redo",
+        ],
+        "link": {
+            "addTargetToExternalLinks": True,
+            "defaultProtocol": "https://",
+        },
     }
 }
 

@@ -72,7 +72,7 @@
         open_menu($("#category_Favorites_head"));
 
         {% for database in all_columns.keys %}
-            database_info = "{{database.info}}";
+            database_info = "{{ database.info|escapejs }}";
             {% if database.website is not None %}
                 database_info += "<br><br><b>Language</b> : {{database.language}}<br>{% if database.nbWords != None %}<b>Nb Words</b> : {{database.nbWords}}<br>{% endif %}<b>Tags</b> : {% for tag in database.tags.all %}{% if forloop.counter0 > 0 %}, {% endif %}{{tag.name}}{% endfor %}<br><b><a href='{{database.website}}' target='_blank'>Site web</a></b>{% if database.biblio != None %}<br><b>Ref</b> : {{database.biblio}}{% endif %}"
             {% endif %}
