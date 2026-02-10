@@ -73,8 +73,8 @@ class DatabaseColumn(models.Model):
     size = models.CharField(max_length=10, verbose_name="Taille", default=ColSize.MEDIUM)
     type = models.CharField(max_length=10, verbose_name="Type de données", default=ColType.TEXT) # try to assume type if not given ?
     mandatory = models.BooleanField(default=False)
-    min = models.FloatField(null=True)
-    max = models.FloatField(null=True)
+    min = models.FloatField(null=True, blank=True)
+    max = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name

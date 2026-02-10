@@ -287,8 +287,8 @@ class DbColMap:
 def getLangDefault(lang):
     defaultDbs = {
         Lang.FR: {
-            "chosen_db": Database.objects.get(name="Lexique3"),
-            "column_list": [f"Lexique3__{col_name}" for col_name in DatabaseColumn.objects.filter(database__name="Lexique3", mandatory=True).values_list(flat=True)]
+            "chosen_db": Database.objects.get(name="Lexique4"),
+            "column_list": [f"Lexique4__{col_name}" for col_name in DatabaseColumn.objects.filter(database__name="Lexique4", mandatory=True).values_list(flat=True)]
         }
     }
 
