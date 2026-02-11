@@ -70,7 +70,7 @@ class DataTablesServer(object):
             reversed_data = reversed_data[_index:_end_index]
             data = reversed(reversed_data)
         else:
-            data = filtered_values.order_by('id') #.order_by('%s' % self._sorting)
+            data = filtered_values.order_by('%s' % self._sorting)
             data = data[_index:_end_index]
 
         self.result_data = data
