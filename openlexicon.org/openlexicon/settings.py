@@ -30,7 +30,7 @@ PRODUCTION = production
 #SITE_URL = "5.39.73.115"
 SITE_NAME = "OpenLexicon"
 SITE_URL = "lexique.org"
-CSRF_TRUSTED_ORIGINS = ["http://www.lexique.org", "http://*lexique.org"]
+CSRF_TRUSTED_ORIGINS = ["http://www.lexique.org", "http://*lexique.org", "https://www.lexique.org", "https://*lexique.org"]
 
 # Application definition
 
