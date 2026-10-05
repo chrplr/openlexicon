@@ -304,6 +304,9 @@ def getLangDefault(lang):
         else:
             chosen_db = lang_databases[0]
         column_list = [f"{chosen_db.name}__{col_name}" for col_name in DatabaseColumn.objects.filter(database=chosen_db, mandatory=True).values_list("name", flat=True)]
+    # All columns by default if none is mandatory
+    if len(column_list) == 0:
+        column_list = [f"{chosen_db.name}__{col_name}" for col_name in DatabaseColumn.objects.filter(database__name=chosen_db.name).values_list(flat=True)]
     return chosen_db.name, DbColMap(column_list), list(lang_databases.values_list("name", flat=True))
 
 export_sep = ","
