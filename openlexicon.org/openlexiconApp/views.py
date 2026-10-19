@@ -28,7 +28,7 @@ def home(request):
 
     # default language is French for Lexique
     default_lang = Lang.FR
-    all_columns = DatabaseColumn.objects.all().select_related("database").prefetch_related("database__tags").order_by("database__name", "id") # TODO : order_by id is important so that headers list will be in the same order than values list (see DbColMap and datatable). Find a more robust way ?
+    all_columns = DatabaseColumn.objects.filter(database__visible=True).select_related("database").prefetch_related("database__tags").order_by("database__name", "id") # TODO : order_by id is important so that headers list will be in the same order than values list (see DbColMap and datatable). Find a more robust way ?
     all_columns_dict = {}
     all_tags_dict = {}
     all_languages_dict = {}

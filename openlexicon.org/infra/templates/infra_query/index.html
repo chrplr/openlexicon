@@ -1,0 +1,101 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lexique Infra 1.11</title>
+  <link rel="stylesheet" href="{% static 'infra_query/vendor/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'infra_query/vendor/dataTables.bootstrap5.min.css' %}">
+  <link rel="stylesheet" href="{% static 'infra_query/infra.css' %}">
+</head>
+<body>
+<div class="container-fluid py-3" id="app" data-query-url="{% url 'infra_query:query' %}">
+  {% csrf_token %}
+  <h2 class="mb-3"><a href="http://chrplr.github.io/openlexicon/" class="text-decoration-none">Lexique Infra 1.11</a></h2>
+
+  <div class="row g-4">
+    <!-- ------------------------------------------------------------ sidebar -->
+    <aside class="col-lg-3 col-xl-3" id="sidebarPanel">
+      <div class="p-3 bg-light border rounded">
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-helper">Hide Quick How-To</button>
+
+        <div class="alert alert-info mt-3" id="helper_box">
+          <p class="mb-1">Quick how-to:</p>
+          <ul class="mb-0 ps-3">
+            <li>Paste a custom list of words and/or pseudowords in the <b>Items to search</b> section.</li>
+            <li>Click on the <b>Go!</b> button to generate the table.</li>
+            <li>Download the result by clicking on the button below the table.</li>
+          </ul>
+        </div>
+
+        <label for="items" class="form-label fw-bold mt-2">Items to search</label>
+        <textarea id="items" class="form-control" rows="10" spellcheck="false"></textarea>
+
+        <div id="columns-block" class="mt-3 d-none">
+          <h6 class="fw-bold">Choose columns to display</h6>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary w-100 d-flex justify-content-between align-items-center"
+                    type="button" id="columns-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">
+              <span id="columns-label" class="text-truncate"></span>
+              <span class="caret-icon">&#9662;</span>
+            </button>
+            <div class="dropdown-menu w-100 p-2" aria-labelledby="columns-toggle">
+              <input type="search" id="columns-filter" class="form-control form-control-sm mb-2"
+                     placeholder="Type to filter">
+              <div class="d-flex gap-2 mb-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="columns-all">Select all</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="columns-none">Clear</button>
+              </div>
+              <div id="columns-list" class="columns-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <h6 class="fw-bold mb-1">Options</h6>
+          <div class="form-check d-flex align-items-center gap-2">
+            <input class="form-check-input" type="checkbox" value="neighbors" id="opt-neighbors">
+            <label class="form-check-label" for="opt-neighbors">Ortho Neighbors</label>
+            <button type="button" class="btn btn-info btn-sm py-0 px-2" id="opt-neighbors-help"
+                    data-bs-toggle="popover" data-bs-trigger="click" data-bs-html="true"
+                    data-bs-placement="right"
+                    data-bs-content="The <b>Ortho Neighbors</b> option computes the Hamming distance (the number of non-overlapping characters) between words of the same length. The computation is done between each item and the Lexique 3 database. For each source, we display the number of neighbors with distance 1. <b>Please note that selecting this option can increase computation time.</b>">?</button>
+          </div>
+        </div>
+
+        <div class="text-center mt-3">
+          <button type="button" class="btn btn-primary" id="go" disabled><b>Go!</b></button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ------------------------------------------------------------ main -->
+    <main class="col-lg-9 col-xl-9" id="mainPanel">
+      <div id="message" class="d-none"></div>
+      <div id="result" class="d-none">
+        <div class="table-responsive-wrapper">
+          <table id="infra" class="table table-striped table-sm table-hover nowrap w-100"></table>
+        </div>
+        <div class="mt-3 d-flex flex-wrap gap-2" id="downloads">
+          <button type="button" class="btn btn-success" id="dl-xlsx">Download infra query (Excel)</button>
+          <button type="button" class="btn btn-outline-success" id="dl-tsv">Download infra query (TSV)</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="busy" class="busy d-none" aria-live="polite">
+  <div class="spinner-border text-primary" role="status"></div>
+  <div class="mt-2">Building table&hellip;</div>
+</div>
+
+<script src="{% static 'infra_query/vendor/jquery.min.js' %}"></script>
+<script src="{% static 'infra_query/vendor/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'infra_query/vendor/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'infra_query/vendor/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'infra_query/vendor/xlsx.full.min.js' %}"></script>
+<script src="{% static 'infra_query/infra.js' %}"></script>
+</body>
+</html>

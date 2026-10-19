@@ -94,7 +94,8 @@ text_file_keys = {
     "auteurs": "authors",
     "favori": "favorite",
     "ref": "biblio",
-    "nb words": "nbWords"
+    "nb words": "nbWords",
+    "visible": "visible"
 }
 
 def reloadGunicorn():

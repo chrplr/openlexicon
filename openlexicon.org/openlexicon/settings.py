@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'openlexiconApp.templatetags',
     'openlexiconApp.apps.OpenlexiconappConfig',
     'unipseudo.apps.UnipseudoConfig',
+    'infra.apps.InfraQueryConfig',
     'django_ckeditor_5',
 ]
 
@@ -276,6 +277,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'openlexicon', 'static'),
     os.path.join(BASE_DIR, 'unipseudo', 'static'),
+    os.path.join(BASE_DIR, 'infra', 'static'),
 ]
 
 CONTACT_MAIL = "contact@lexique.org"

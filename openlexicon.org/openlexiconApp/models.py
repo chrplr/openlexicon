@@ -108,6 +108,7 @@ class Database(models.Model):
     nbRows = models.IntegerField(default=0)
     nbWords = models.IntegerField(blank=True, null=True)
     favorite = models.BooleanField(default=False)
+    visible = models.BooleanField(default=True) # If true, visible in openlexicon
     tags = models.ManyToManyField(
         Tag,
         related_name="databases"
