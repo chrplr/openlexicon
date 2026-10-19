@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.cache import cache
-from django.db import connections
+from django.db import connections, transaction
 from django.http import JsonResponse
 from django.shortcuts import render
 from .datatable import ServerSideDatatableView
@@ -10,6 +10,7 @@ from .models import DatabaseObject, Database, DatabaseColumn, ColType, Tag, Lang
 from .utils import *
 import math
 import os
+import numpy as np
 import pandas as pd
 from django.db import connection
 
@@ -49,10 +50,15 @@ def home(request):
         all_languages_dict[col.database.language][col.database].append(col)
         if col.database.favorite:
             all_favorites_dict["Favorites"][col.database].append(col)
+
+    all_languages = sortdict(all_languages_dict, sorted(all_languages_dict))
+    primary_languages = [x for x in all_languages.keys() if x in [Lang.FR, Lang.EN, Lang.DE]]
     return render(request, 'openlexiconServer.html', {
         'table_name': settings.SITE_NAME,
         'all_columns': all_columns_dict,
         'all_languages': sortdict(all_languages_dict, sorted(all_languages_dict)),
+        'primary_languages': primary_languages,
+        'secondary_languages': [x for x in all_languages_dict.keys() if x not in primary_languages],
         'all_tags': sortdict(all_tags_dict, sorted(all_tags_dict, key=lambda x : x.name)),
         'all_favorites': sortdict(all_favorites_dict, sorted(all_favorites_dict)),
         'default_lang': default_lang
@@ -117,46 +123,56 @@ def import_data(request):
                 data_df = load_tsv_file(request.FILES['tsv_file'])
                 word_col_idx = int(request.POST.get("word_col"))
 
-                # Database columns
-                if len(data_df) > 0:
-                    col_dict = get_column_info(data_df, db, database_info, col_info, word_col_idx)
-                objs = []
+                # Re-importing a TSV with the same name overwrites the existing database (columns and words),
+                # all in one transaction: nothing is lost if the import fails.
+                with transaction.atomic():
+                    # Database columns
+                    col_dict = {}
+                    if len(data_df) > 0:
+                        # Overwrite: drop the old columns first, otherwise get_column_info tries to re-create
+                        # columns whose code differs from the file header (e.g. "NewsCDPc." -> "NewsCDPc_")
+                        # and hits the unique (database, code) constraint.
+                        DatabaseColumn.objects.filter(database=db).delete()
+                        col_dict = get_column_info(data_df, db, database_info, col_info, word_col_idx)
 
-                ################################
-                #### Create DatabaseObjects ####
-                ################################
+                    ################################
+                    #### Create DatabaseObjects ####
+                    ################################
 
-                for index, row in data_df.iterrows():
-                    jsonDict = {}
-                    dbObj = DatabaseObject()
-                    for col_count, col_name in enumerate(data_df.columns.values):
-                        dbattr = DatabaseColumn.cleanColName(col_name)
-                        itemAttr = row[col_name]
-                        if isinstance(itemAttr, str):
-                            itemAttr = itemAttr.strip() # remove unwanted space at the start and end of string
-                        if pd.isnull(itemAttr):
-                            itemAttr = None
-                        if col_count == word_col_idx:
-                            dbattr = "ortho"
-                        else:
-                            col = col_dict[col_name]
-                            if itemAttr is not None and col.type in [ColType.INT, ColType.FLOAT]:
-                                if math.isinf(itemAttr):
-                                    itemAttr = None
-                                else:
-                                    if col.min == None or itemAttr < col.min:
-                                        col.min = itemAttr
-                                    if col.max == None or itemAttr > col.max:
-                                        col.max = itemAttr
-                        if col_count != word_col_idx:
-                            jsonDict[dbattr] = itemAttr
-                        else:
-                            setattr(dbObj, dbattr, itemAttr)
-                    objs.append(dbObj)
-                    dbObj.jsonData = jsonDict
-                    dbObj.database = db
-                DatabaseObject.objects.bulk_create(objs, ignore_conflicts=True) # bulk to avoid multiple save requests. Ignore conflicts to ignore duplicates.
-                DatabaseColumn.objects.bulk_update(col_dict.values(), fields=["min", "max"])
+                    word_col = data_df.columns[word_col_idx]
+
+                    # 1. Vectorised cleaning (replaces cell-by-cell strip / isnull / isinf)
+                    # (.str.strip() would turn every non-string value of a mixed column into NaN,
+                    # so only real strings are stripped, as the old cell-by-cell loop did)
+                    for c in data_df.select_dtypes(include=["object", "string"]).columns:
+                        data_df[c] = data_df[c].map(lambda v: v.strip() if isinstance(v, str) else v) # remove unwanted space at the start and end of string
+                    num_cols = [c for c in data_df.columns
+                                if c != word_col and c in col_dict and col_dict[c].type in (ColType.INT, ColType.FLOAT)]
+                    data_df[num_cols] = data_df[num_cols].replace([np.inf, -np.inf], np.nan)
+
+                    # 2. min / max of each numeric column
+                    for c in num_cols:
+                        if data_df[c].notna().any():
+                            col_dict[c].min = data_df[c].min()
+                            col_dict[c].max = data_df[c].max()
+
+                    # 3. jsonData : one conversion to dicts (NaN -> None)
+                    clean_names = {c: DatabaseColumn.cleanColName(c) for c in data_df.columns if c != word_col}
+                    values = data_df.drop(columns=word_col).rename(columns=clean_names)
+                    values = values.astype(object).where(values.notna(), None)
+                    objs = [
+                        DatabaseObject(database=db, ortho=ortho, jsonData=json_data)
+                        for ortho, json_data in zip(data_df[word_col], values.to_dict("records"))
+                        if not pd.isnull(ortho)
+                    ]
+                    nb_skipped = len(data_df) - len(objs)
+                    if nb_skipped:
+                        messages.warning(request, f"{nb_skipped} ligne(s) sans mot ignorée(s).")
+
+                    DatabaseObject.objects.filter(database=db).delete()
+                    # batch_size avoids one gigantic INSERT. Ignore conflicts to ignore duplicates within the file.
+                    DatabaseObject.objects.bulk_create(objs, ignore_conflicts=True, batch_size=5000)
+                    DatabaseColumn.objects.bulk_update(col_dict.values(), fields=["min", "max"])
                 # Update database number of rows
                 db.nbRows = DatabaseObject.objects.filter(database=db).count()
                 db.save()

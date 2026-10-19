@@ -1,0 +1,143 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniPseudo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="{% static 'unipseudo/unipseudo.css' %}">
+</head>
+<body>
+{% csrf_token %}
+<div id="up-spinner" class="up-spinner" hidden></div>
+
+<div class="container-fluid py-3">
+  <h1 class="h2 mb-3"><a href="http://www.lexique.org/?page_id=582" class="text-decoration-none">UniPseudo</a></h1>
+
+  <div class="row g-4">
+    <!-- ------------------------------------------------------------ sidebar -->
+    <aside class="col-12 col-md-5 col-xl-3">
+      <div class="up-sidebar p-3">
+
+        <div class="mb-3">
+          <label class="form-label fw-bold" for="up-length">Pseudowords length</label>
+          <select id="up-length" class="form-select">
+            {% for n in lengths %}<option value="{{ n }}"{% if n == default_length %} selected{% endif %}>{{ n }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold" for="up-algorithm">Algorithm
+            <button type="button" class="up-help" data-help="The <b>Algorithm</b> option is set automatically, depending on the <b>Pseudowords length</b> option. The generation of pseudowords of length &gt;= 6 is based on the random selection of an initial trigram (the <b>trigram</b> algorithm). Then, compatible trigrams are selected until the generation of the pseudoword is complete. For shorter pseudowords (length &lt;= 5), we obtain better performance when replacing trigrams with bigrams (the <b>bigram</b> algorithm). If you want to try both algorithms with different pseudoword lengths, you can change the <b>Algorithm</b> option.">?</button>
+          </label>
+          <select id="up-algorithm" class="form-select"></select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold" for="up-language">Choose a language
+            <button type="button" class="up-help" data-help="Choose one of the available languages. Choosing a language allows to use the <b>Word Import Tool</b> (see the Word Import Tool button tooltip for more details). If you don't want to use the <b>Word Import Tool</b> choose the first option, &quot;Other&quot;.">?</button>
+          </label>
+          <select id="up-language" class="form-select">
+            {% for lang in primary_languages %}<option value="{{ lang }}"{% if lang == default_language %} selected{% endif %}>{{ lang }}</option>{% endfor %}
+            <optgroup label="Other languages">
+              {% for lang in secondary_languages %}<option value="{{ lang }}"{% if lang == default_language %} selected{% endif %}>{{ lang }}</option>{% endfor %}
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <button type="button" class="btn btn-outline-secondary" id="up-toggle-import"><b>Show Word Import Tool</b></button>
+          <button type="button" class="up-help" data-help="Click the <b>Show Word Import Tool</b> button to show import options.<br>Click the <b>Use words from database</b> button to generate a list from an OpenLexicon database (see the tooltip next to the button for more details on the database used).<br>If the database has a grammatical class column, you can restrict the type of pseudowords that will be generated to be similar to words of this grammatical class.<br>For now, if you want to generate optimal pseudowords for other criteria, you may paste a custom list which controls parameters of interest (e.g., if you want to generate pseudowords that look alike verbs, paste only verbs in the <b>Words to use</b> section).">?</button>
+        </div>
+
+        <div id="up-import-box" class="up-box mb-3" hidden>
+          <div id="up-gram-group" class="mb-3" hidden>
+            <label class="form-label" for="up-gram">Select grammatical class</label>
+            <select id="up-gram" class="form-select"></select>
+          </div>
+          <button type="button" class="btn btn-primary" id="up-use-db" disabled><b>Use words from database</b></button>
+          <button type="button" class="up-help" id="up-db-help" hidden data-help="">?</button>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold" for="up-words">Words to use
+            <button type="button" class="up-help" data-help="Paste a custom list with words of the desired pseudowords length. Alternatively, you can click the <b>Show Word Import Tool</b> button, and generate words from an <b>OpenLexicon</b> database (see above).">?</button>
+          </label>
+          <div class="form-text mt-0 mb-1">Please separate your words with a line break.</div>
+          <textarea id="up-words" class="form-control" rows="10" spellcheck="false"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <button type="button" class="btn btn-outline-secondary" id="up-toggle-filters"><b>Show Constraints</b></button>
+          <button type="button" class="up-help" data-help="Options below are constraints that the pseudowords generated will respect. For each language, we add by default the constraints that seem appropriate, but feel free to tweak them. If you want to suggest other constraints to add, please let us know on <a href='https://github.com/chrplr/openlexicon' target='_blank'>Github</a>.">?</button>
+        </div>
+        <div id="up-filter-box" class="mb-3" hidden>
+          {% for f in filters %}
+          <div class="mb-2">
+            <label class="form-label small mb-1" for="up-{{ f.name }}">{{ f.label }}
+              <button type="button" class="up-help" data-help="{{ f.tooltip }}">?</button>
+            </label>
+            <select id="up-{{ f.name }}" class="form-select" data-filter="{{ f.name }}">
+              <option value="">No constraint</option>
+              {% for o in f.options %}<option value="{{ o }}">{{ o }}</option>{% endfor %}
+            </select>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold" for="up-n">Number of pseudowords
+            <button type="button" class="up-help" data-help="The more pseudowords you want, the more words you need to provide in the <b>Words to use</b> section. A minimum of 100 words for 20 pseudowords is a good basis, unfortunately there is no fixed minimal number of words. You may need to proceed with trial-and-error or use the <b>Word Import Tool</b> for easier pseudowords generation.">?</button>
+          </label>
+          <div class="form-text mt-0 mb-1">Please enter a number between {{ min_pseudowords }} and {{ max_pseudowords }}.</div>
+          <input type="number" id="up-n" class="form-control" value="{{ default_pseudowords }}" min="{{ min_pseudowords }}" max="{{ max_pseudowords }}">
+        </div>
+
+        <div class="text-center"><button type="button" class="btn btn-primary px-4" id="up-go"><b>Go!</b></button></div>
+        <div id="up-info" class="form-text text-center mt-3"></div>
+      </div>
+    </aside>
+
+    <!-- ------------------------------------------------------------ results -->
+    <main class="col-12 col-md-7 col-xl-9">
+      <div id="up-error" class="alert alert-danger" hidden></div>
+      <div id="up-warning" class="alert alert-warning" hidden></div>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-simple" type="button"><b>Pseudowords</b></button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-detail" type="button"><b>Pseudowords with details</b></button></li>
+      </ul>
+      <div class="tab-content pt-3">
+        <div class="tab-pane fade show active" id="tab-simple">
+          <table id="up-table-simple" class="display up-table" style="width:100%"></table>
+          <div class="up-downloads" id="up-dl-simple" hidden>
+            <button type="button" class="btn btn-outline-primary btn-sm" data-dl="xlsx" data-detail="0">Download (Excel)</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" data-dl="tsv" data-detail="0">Download (TSV)</button>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="tab-detail">
+          <p class="up-legend">
+            This table contains the pseudowords (first column) and all words used to generate them.<br>
+            For each word, parts used to compose the final pseudoword are <span class="up-red">red-colored</span>
+            while the letters used at each step as a basis to find next bigram or trigram are
+            <span class="up-orange">orange-colored</span>.
+          </p>
+          <div class="up-scroll"><table id="up-table-detail" class="display up-table" style="width:100%"></table></div>
+          <div class="up-downloads" id="up-dl-detail" hidden>
+            <button type="button" class="btn btn-outline-primary btn-sm" data-dl="xlsx" data-detail="1">Download (Excel)</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" data-dl="tsv" data-detail="1">Download (TSV)</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+{{ config|json_script:"unipseudo-config" }}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="{% static 'unipseudo/unipseudo.js' %}"></script>
+</body>
+</html>

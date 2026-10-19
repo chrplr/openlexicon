@@ -31,9 +31,14 @@
             <hr>
             <div class="section_title">Choose a language</div>
             <select id="language_select" class="nav-menu-text language list-group-item list-group-item-action" aria-label="Language selection">
-                {% for category, category_dict in all_languages.items %}
-                    <option  value="{{category}}">{{category}}</option>
+                {% for language in primary_languages %}
+                    <option value="{{language}}">{{language}}</option>
                 {% endfor %}
+                <optgroup label="Other">
+                    {% for language in secondary_languages %}
+                        <option value="{{language}}">{{language}}</option>
+                    {% endfor %}
+                </optgroup>
             </select>
 
             <!-- Word search -->

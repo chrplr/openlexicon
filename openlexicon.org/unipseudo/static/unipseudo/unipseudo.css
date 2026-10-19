@@ -1,0 +1,31 @@
+body { background: #fff; }
+.up-sidebar { background: #f5f5f5; border: 1px solid #e3e3e3; border-radius: .5rem; }
+.up-box { background: #e0e0e0; border-radius: 1rem; padding: 1.5em 1em; }
+.up-red { color: red; font-weight: bold; }
+.up-orange { color: orange; font-weight: bold; }
+.up-grey { color: grey; }
+.up-legend { font-size: 12px; margin: .5em 0 1.5em; }
+.up-table td { min-width: 120px; text-align: center; }
+.up-table thead th { font-weight: bold; text-align: center; }
+.up-table thead tr.filters th { padding: 4px 6px; }
+.up-scroll { overflow-x: auto; }
+.up-downloads { margin-top: 1rem; }
+.up-downloads .btn + .btn { margin-left: .25rem; }
+
+.up-help {
+  width: 1.4rem; height: 1.4rem; padding: 0; margin-left: .25rem;
+  border: 0; border-radius: 50%; background: #0dcaf0; color: #000;
+  font-size: .75rem; font-weight: bold; line-height: 1.4rem; text-align: center;
+  vertical-align: middle;
+}
+.up-help:hover { background: #31d2f2; }
+
+.popover { max-width: 380px; font-size: 14px; }
+.popover-body { text-align: justify; }
+
+.up-spinner {
+  position: fixed; right: 10px; bottom: 10px; width: 50px; height: 50px; z-index: 2000;
+  border: 5px solid #112446; border-top-color: transparent; border-radius: 50%;
+  animation: up-spin 1s linear infinite;
+}
+@keyframes up-spin { to { transform: rotate(360deg); } }
