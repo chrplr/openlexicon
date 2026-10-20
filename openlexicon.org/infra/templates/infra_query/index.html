@@ -1,15 +1,13 @@
-{% load static %}<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lexique Infra 1.11</title>
+{% extends 'base.html' %}
+{% load static %}
+  {% block title %}Lexique Infra 1.11{% endblock %}
+{% block extracss %}
   <link rel="stylesheet" href="{% static 'infra_query/vendor/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'infra_query/vendor/dataTables.bootstrap5.min.css' %}">
   <link rel="stylesheet" href="{% static 'infra_query/infra.css' %}">
-</head>
-<body>
-<div class="container-fluid py-3" id="app" data-query-url="{% url 'infra_query:query' %}">
+{% endblock %}
+{% block content %}
+<div class="container-fluid py-3" id="app" data-query-url="{% url 'infra_query:query' %}" style="text-align:left">
   {% csrf_token %}
   <h2 class="mb-3"><a href="http://chrplr.github.io/openlexicon/" class="text-decoration-none">Lexique Infra 1.11</a></h2>
 
@@ -90,12 +88,12 @@
   <div class="spinner-border text-primary" role="status"></div>
   <div class="mt-2">Building table&hellip;</div>
 </div>
-
+{% endblock %}
+{% block extrajavascript %}
 <script src="{% static 'infra_query/vendor/jquery.min.js' %}"></script>
 <script src="{% static 'infra_query/vendor/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'infra_query/vendor/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'infra_query/vendor/dataTables.bootstrap5.min.js' %}"></script>
 <script src="{% static 'infra_query/vendor/xlsx.full.min.js' %}"></script>
 <script src="{% static 'infra_query/infra.js' %}"></script>
-</body>
-</html>
+{% endblock %}
