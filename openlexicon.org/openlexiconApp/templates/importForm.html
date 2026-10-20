@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Import Data{% endblock %}
 
@@ -175,7 +176,10 @@ html, body {
                         <input class="form-control" type="file" name="text_file"><br><br>
                         <label for="word_col">Column index for Word</label><br>
                         <input type="text" name="word_col" value="0" required><br>
-                        <button type="submit" class="btn btn-primary" style="margin-top:1em">Import</button>
+			<div style="display:flex;justify-content:space-between">
+                            <button type="submit" class="btn btn-primary" style="margin-top:1em">Import</button>
+			    <a href="{% static 'files/description_file.txt' %}" class="btn btn-secondary" style="margin-top:1em" download>Download Description File example</a>
+			</div>
                     </form>
                 </div>
             </div>

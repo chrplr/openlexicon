@@ -1,0 +1,50 @@
+Nom	Lexique4
+Tags	Frequency (Objective), Prevalence, Morphology, Phonology
+Description	Lexique 4 provides frequency measures from a 316M-word subtitle corpus, contextual diversity, phonological representations, lemmas, morphological structure, prevalence, and lexical decision data for 190,000 French word forms.
+Auteurs	New, B., Pallier, C., Schalchli, G., Bourgin, J., Gimenes, M.
+Site web	http://www.lexique.org
+Langue	French
+Favori	True
+Nb Words	189864
+Ref	New, B., Pallier, C., Schalchli, G., Bourgin, J., & Gimenes, M. Lexique 4: a major upgrade of the Lexique French Lexical Database.
+Champs Oblig	Mot, Phono, Lemme, CGram, FreqOrtho, CDOrtho, IsLem, NbLettres, PUOrtho, PUPhon, SyllNb, CGramOrtho
+Visible	1
+Champs
+Mot	Orthographic form of the word
+Phono	Phonological transcription (Lexique coding system)
+Phono_IPA	Phonological transcription in International Phonetic Alphabet
+Lemme	Lemma or base form of the word
+CGram	Main grammatical category (noun, verb, adjective, etc.)
+CGramOrtho	All grammatical categories associated with the orthographic form
+Genre	Grammatical gender (m = masculine, f = feminine, e = epicene)
+Nombre	Grammatical number (s = singular, p = plural, i = invariant)
+InfoVER	Verb inflection information (tense, mood, person)
+FreqMot	Frequency of the word form per million words (subtitle corpus)
+FreqOrtho	Summed frequency per million of all POS sharing the same orthographic form
+FreqLemme	Summed frequency per million of all forms sharing the same lemma
+CDOrtho	Contextual diversity of the orthographic form (proportion of documents in which it appears)
+IsLem	Indicates whether the form is a lemma (1 = yes, 0 = no)
+NbLettres	Number of letters in the word
+NbPhons	Number of phonemes
+CVOrtho	Orthographic consonant/vowel structure (C/V)
+CVPhono	Phonological consonant/vowel structure (C/V/Y)
+OLD20	Mean orthographic Levenshtein distance to the 20 nearest neighbors
+PLD20	Mean phonological Levenshtein distance to the 20 nearest neighbors
+VoisOrtho	Number of orthographic neighbors (Coltheart’s N)
+VoisPhono	Number of phonological neighbors
+NbHomog	Number of homographs
+NbHomoph	Number of homophones
+SyllPhono	Phonological syllable segmentation
+SyllNb	Number of syllables
+SyllCV	Syllabic phonological structure
+PUOrtho	Orthographic uniqueness point
+PUPhon	Phonological uniqueness point
+MorphoBase	Base morpheme of the lemma
+MorphoStruct	Morphological structure (prefix-root-suffix counts, e.g., 1-1-1)
+MorphoDecomp	Morpheme decomposition with boundary markers
+Preval	Word prevalence (percentage of participants knowing the word)
+PrevalNb	Number of participants used to compute prevalence
+RT_FLP	Mean lexical decision reaction time (French Lexicon Project)
+zRT_FLP	Standardized lexical decision reaction time
+Err_FLP	Error rate in lexical decision task
+
